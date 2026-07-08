@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Shortcuts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .shortcuts-hero {
+      text-align: center;
+      padding: 35px 20px;
+      border-radius: 28px;
+      color: white;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .shortcuts-hero h1 {
+      font-size: 1.5rem;
+      margin: 8px 0;
+    }
+    .shortcuts-hero p {
+      opacity: 0.85;
+      font-size: 0.7rem;
+    }
+    
+    .shortcut-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .shortcut-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .shortcut-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .shortcut-icon {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .shortcut-title {
+      font-weight: 700;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+    .shortcut-desc {
+      font-size: 0.6rem;
+      color: var(--text-light);
+    }
+    
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin: 16px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      border-left: 3px solid var(--primary);
+      padding-left: 12px;
+    }
+    
+    .quick-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .quick-btn {
+      flex: 1;
+      min-width: calc(50% - 10px);
+      padding: 14px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quick-btn i {
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .quick-btn span {
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+    .quick-btn:hover {
+      border-color: var(--primary);
+      background: rgba(15,59,72,0.05);
+      transform: translateY(-2px);
+    }
+    
+    .keyboard-shortcuts {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .shortcut-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .shortcut-row:last-child {
+      border-bottom: none;
+    }
+    .shortcut-keys {
+      display: flex;
+      gap: 6px;
+    }
+    .key {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-family: monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .shortcut-action {
+      font-size: 0.7rem;
+      color: var(--text-light);
+    }
+    
+    @media (min-width: 600px) {
+      .shortcut-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .quick-actions {
+        flex-wrap: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-bolt"></i><span>SHORTCUTS</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html">
+          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="shortcuts.html" class="nav-item active"><i class="fas fa-bolt"></i> Shortcuts</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="shortcuts-hero">
+        <i class="fas fa-bolt" style="font-size:40px;opacity:0.5;"></i>
+        <h1>Quick Shortcuts</h1>
+        <p>Fast access to your most used features</p>
+      </div>
+      
+      <!-- Quick Actions -->
+      <div class="section-title">
+        <i class="fas fa-rocket"></i> Quick Actions
+      </div>
+      <div class="quick-actions">
+        <div class="quick-btn" onclick="location.href='add-grade.html'">
+          <i class="fas fa-plus-circle"></i>
+          <span>Add Grade</span>
+        </div>
+        <div class="quick-btn" onclick="location.href='dashboard.html'">
+          <i class="fas fa-chart-line"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="quick-btn" onclick="location.href='statistics.html'">
+          <i class="fas fa-chart-pie"></i>
+          <span>Statistics</span>
+        </div>
+        <div class="quick-btn" onclick="location.href='achievements.html'">
+          <i class="fas fa-medal"></i>
+          <span>Achievements</span>
+        </div>
+      </div>
+      
+      <!-- Main Pages Shortcuts -->
+      <div class="section-title">
+        <i class="fas fa-star"></i> Main Pages
+      </div>
+      <div class="shortcut-grid" id="mainShortcuts"></div>
+      
+      <!-- Study Tools Shortcuts -->
+      <div class="section-title">
+        <i class="fas fa-graduation-cap"></i> Study Tools
+      </div>
+      <div class="shortcut-grid" id="studyShortcuts"></div>
+      
+      <!-- Data Management Shortcuts -->
+      <div class="section-title">
+        <i class="fas fa-database"></i> Data Management
+      </div>
+      <div class="shortcut-grid" id="dataShortcuts"></div>
+      
+      <!-- Keyboard Shortcuts -->
+      <div class="section-title">
+        <i class="fas fa-keyboard"></i> Keyboard Shortcuts
+      </div>
+      <div class="keyboard-shortcuts">
+        <div class="shortcut-row">
+          <div class="shortcut-keys"><span class="key">Ctrl</span> <span class="key">K</span></div>
+          <div class="shortcut-action">Open Command Palette</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-keys"><span class="key">Ctrl</span> <span class="key">S</span></div>
+          <div class="shortcut-action">Save Grades</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-keys"><span class="key">Ctrl</span> <span class="key">F</span></div>
+          <div class="shortcut-action">Search (coming soon)</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-keys"><span class="key">Esc</span></div>
+          <div class="shortcut-action">Close modal / Cancel</div>
+        </div>
+        <div class="shortcut-row">
+          <div class="shortcut-keys"><span class="key">Enter</span></div>
+          <div class="shortcut-action">Submit form / Confirm</div>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // SHORTCUTS DATA
+    // ============================================
+    
+    var MAIN_PAGES = [
+      { name: "Dashboard", icon: "fa-chalkboard-user", url: "dashboard.html", desc: "Main overview" },
+      { name: "Subjects", icon: "fa-layer-group", url: "subjects.html", desc: "Manage subjects" },
+      { name: "Add Grade", icon: "fa-pen-fancy", url: "add-grade.html", desc: "Enter grades" },
+      { name: "Statistics", icon: "fa-chart-pie", url: "statistics.html", desc: "View analytics" },
+      { name: "Achievements", icon: "fa-medal", url: "achievements.html", desc: "Badges & streaks" },
+      { name: "Profile", icon: "fa-user", url: "profile.html", desc: "Your account" },
+      { name: "Settings", icon: "fa-sliders-h", url: "settings.html", desc: "App settings" },
+      { name: "History", icon: "fa-history", url: "history.html", desc: "Activity log" }
+    ];
+  // ============================================
+// STUDY TOOLS
+// ============================================
+
+var STUDY_TOOLS = [
+  { name: "Flashcards", icon: "fa-clone", url: "flashcards.html", desc: "Study cards" },
+  { name: "Goals", icon: "fa-bullseye", url: "goals.html", desc: "Set targets" },
+  { name: "Timetable", icon: "fa-calendar-alt", url: "timetable.html", desc: "Class schedule" },
+  { name: "Notebook", icon: "fa-book", url: "notebook.html", desc: "Write notes" }
+];
+    
+    var DATA_TOOLS = [
+      { name: "Export", icon: "fa-file-export", url: "export.html", desc: "Export data" },
+      { name: "Backup", icon: "fa-database", url: "backup.html", desc: "Manage backups" },
+      { name: "Transfer", icon: "fa-exchange-alt", url: "transfer.html", desc: "Transfer data" },
+      { name: "Notifications", icon: "fa-bell", url: "notifications.html", desc: "View alerts" }
+    ];
+    
+    function renderShortcutGrid(containerId, items) {
+      var container = document.getElementById(containerId);
+      if (!container) return;
+      
+      var html = '';
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        html += '<div class="shortcut-card" onclick="location.href=\'' + item.url + '\'">' +
+          '<div class="shortcut-icon"><i class="fas ' + item.icon + '"></i></div>' +
+          '<div class="shortcut-title">' + item.name + '</div>' +
+          '<div class="shortcut-desc">' + item.desc + '</div>' +
+        '</div>';
+      }
+      container.innerHTML = html;
+    }
+    
+    function initShortcuts() {
+      renderShortcutGrid('mainShortcuts', MAIN_PAGES);
+      renderShortcutGrid('studyShortcuts', STUDY_TOOLS);
+      renderShortcutGrid('dataShortcuts', DATA_TOOLS);
+      updateHeaderAvatar();
+      initMobileMenu();
+      initThemeSelector();
+      applyGlobalFont();
+    }
+    
+    function updateHeaderAvatar() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          var headerAvatar = document.getElementById('headerAvatar');
+          if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          } else {
+            var defaultAvatar = user.gender === 'girl' ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+            headerAvatar.innerHTML = '<img src="' + defaultAvatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function applyGlobalFont() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    initShortcuts();
+  </script>
+</body>
+</html>

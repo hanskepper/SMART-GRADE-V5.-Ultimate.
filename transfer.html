@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Transfer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <meta name="theme-color" content="#0f3b48">
+  
+  <!-- CONFIGURATION -->
+  <script src="congfig.js"></script>
+  
+  <style>
+    /* ============================================
+       STYLES PRINCIPAUX
+    ============================================ */
+    
+    .transfer-code-box {
+      background: linear-gradient(135deg, rgba(15,59,72,0.08), rgba(0,255,255,0.05));
+      border: 2px dashed var(--primary);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 16px;
+    }
+    
+    .transfer-code {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--primary);
+      font-family: 'Courier Prime', monospace;
+      background: rgba(0,0,0,0.03);
+      padding: 16px;
+      border-radius: 16px;
+      margin: 12px 0;
+      word-break: break-all;
+    }
+    
+    .expiry-timer {
+      font-size: 0.7rem;
+      color: #e74c3c;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    
+    .code-input-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .code-input {
+      flex: 2;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      text-align: center;
+      letter-spacing: 2px;
+      font-family: 'Courier Prime', monospace;
+      font-weight: 700;
+      text-transform: uppercase;
+      min-width: 150px;
+    }
+    
+    .code-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .transfer-status {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      text-align: center;
+    }
+    
+    .status-success { background: rgba(46,204,113,0.15); color: #27ae60; }
+    .status-error { background: rgba(231,76,60,0.15); color: #e74c3c; }
+    .status-warning { background: rgba(243,156,18,0.15); color: #f39c12; }
+    .status-info { background: rgba(52,152,219,0.15); color: #3498db; }
+    
+    .tab-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 60px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    
+    .method-tab {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .method-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 40px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    
+    .method-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    
+    .hidden { display: none; }
+    
+    .scanner-area {
+      margin-top: 16px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid var(--primary);
+      background: #000;
+      position: relative;
+    }
+    
+    .scanner-area video {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+    }
+    
+    .btn-camera, .btn-cloud, .btn-local {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 60px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+    
+    .btn-camera:hover, .btn-cloud:hover, .btn-local:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(15,59,72,0.3);
+    }
+    
+    .btn-camera:active, .btn-cloud:active, .btn-local:active {
+      transform: scale(0.95);
+    }
+    
+    .btn-stop-camera {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 60px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 8px;
+    }
+    
+    .btn-secondary {
+      background: rgba(0,0,0,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.7rem;
+      transition: all 0.2s;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(0,0,0,0.08);
+    }
+    
+    /* ============================================
+       QR CODE MODERNE
+    ============================================ */
+    
+    .qr-modern-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(15,59,72,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(15,59,72,0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    
+    .qr-modern-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(15,59,72,0.03), transparent 60%);
+      pointer-events: none;
+    }
+    
+    .qr-modern-container .qr-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+    }
+    
+    .qr-modern-container .qr-header i {
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .qr-modern-container .qr-code-wrapper {
+      background: white;
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border: 2px solid rgba(15,59,72,0.06);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .qr-modern-container .qr-code-wrapper:hover {
+      transform: scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 8px 30px rgba(15,59,72,0.15);
+    }
+    
+    .qr-modern-container .qr-code-wrapper canvas {
+      display: block;
+      width: 200px;
+      height: 200px;
+      border-radius: 8px;
+    }
+    
+    .qr-modern-container .qr-code-wrapper .qr-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(15,59,72,0.9);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .qr-modern-container .qr-code-wrapper:hover .qr-overlay {
+      opacity: 1;
+    }
+    
+    .qr-modern-container .qr-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .qr-modern-container .qr-actions button {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 40px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+    
+    .qr-modern-container .qr-actions .btn-download {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 4px 12px rgba(15,59,72,0.2);
+    }
+    
+    .qr-modern-container .qr-actions .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(15,59,72,0.3);
+    }
+    
+    .qr-modern-container .qr-actions .btn-copy {
+      background: rgba(0,0,0,0.04);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    
+    .qr-modern-container .qr-actions .btn-copy:hover {
+      background: rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+    
+    .qr-modern-container .qr-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.55rem;
+      color: var(--text-light);
+    }
+    
+    .qr-modern-container .qr-footer .code-display {
+      font-family: 'Courier Prime', monospace;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      background: rgba(15,59,72,0.04);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    
+    .qr-modern-container .qr-footer .expiry-display {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #e74c3c;
+    }
+    
+    .qr-modern-container .qr-footer .expiry-display i {
+      font-size: 0.65rem;
+    }
+    
+    /* Mode nuit */
+    body.night-mode .qr-modern-container {
+      background: linear-gradient(145deg, rgba(20,30,40,0.95), rgba(15,20,30,0.9));
+      border-color: rgba(255,255,255,0.06);
+    }
+    
+    body.night-mode .qr-modern-container .qr-code-wrapper {
+      background: #1a1a2e;
+      border-color: rgba(255,255,255,0.06);
+    }
+    
+    body.night-mode .qr-modern-container .qr-code-wrapper canvas {
+      filter: brightness(0.95);
+    }
+    
+    body.night-mode .qr-modern-container .qr-actions .btn-copy {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.08);
+    }
+    
+    body.night-mode .qr-modern-container .qr-actions .btn-copy:hover {
+      background: rgba(255,255,255,0.12);
+    }
+    
+    body.night-mode .qr-modern-container .qr-footer .code-display {
+      background: rgba(255,255,255,0.06);
+    }
+    
+    /* Animation d'apparition */
+    .qr-modern-container {
+      animation: qrFadeIn 0.5s ease;
+    }
+    
+    @keyframes qrFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    /* Responsive */
+    @media (max-width: 550px) {
+      .qr-modern-container {
+        padding: 16px;
+        border-radius: 20px;
+      }
+      
+      .qr-modern-container .qr-code-wrapper canvas {
+        width: 160px;
+        height: 160px;
+      }
+      
+      .qr-modern-container .qr-actions {
+        flex-direction: column;
+      }
+      
+      .qr-modern-container .qr-footer {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+      }
+      
+      .transfer-code {
+        font-size: 1rem;
+        letter-spacing: 1px;
+      }
+      
+      .code-input-group {
+        flex-direction: column;
+      }
+      
+      .method-tab {
+        flex-direction: column;
+      }
+      
+      .code-input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-exchange-alt"></i><span>TRANSFER</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+       
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="transfer.html" class="nav-item active"><i class="fas fa-exchange-alt"></i> Transfer</a>
+        <a href="backup.html" class="nav-item"><i class="fas fa-database"></i> Backup</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
+        <i class="fas fa-exchange-alt" style="font-size:40px;opacity:0.5;"></i>
+        <h2 style="color:white;margin:8px 0;">Data Transfer</h2>
+        <p style="opacity:0.8;font-size:0.7rem;">Transfer your data between devices</p>
+      </div>
+      
+      <div class="tab-bar">
+        <div class="tab-btn active" data-tab="export" onclick="switchTab('export')"><i class="fas fa-upload"></i> Export</div>
+        <div class="tab-btn" data-tab="import" onclick="switchTab('import')"><i class="fas fa-download"></i> Import</div>
+      </div>
+      
+      <!-- EXPORT TAB -->
+      <div id="exportTab">
+        <div class="glass-card">
+          <div class="method-tab">
+            <div class="method-btn active" data-method="local" onclick="switchExportMethod('local')">
+              <i class="fas fa-server"></i> Local Transfer
+            </div>
+            <div class="method-btn" data-method="cloud" onclick="switchExportMethod('cloud')">
+              <i class="fas fa-cloud-upload-alt"></i> Cloud Transfer
+            </div>
+            <div class="method-btn" data-method="qr" onclick="switchExportMethod('qr')">
+              <i class="fas fa-qrcode"></i> QR Code
+            </div>
+          </div>
+          
+          <!-- METHODE LOCALE -->
+          <div id="exportLocalMethod">
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+              <i class="fas fa-server"></i> <strong>Local Transfer</strong><br>
+              Generate a local transfer code. Valid for 10 minutes.
+            </p>
+            <button id="generateLocalBtn" class="btn-local">
+              <i class="fas fa-code"></i> Generate Local Code
+            </button>
+            <div id="localDisplayArea" style="display:none;">
+              <div class="transfer-code-box">
+                <i class="fas fa-key" style="font-size:1.2rem;color:var(--primary);"></i>
+                <p>Your local transfer code is:</p>
+                <div class="transfer-code" id="localTransferCode">XXXXXXXX</div>
+                <div class="expiry-timer">Expires in <span id="localCountdown">10:00</span></div>
+                <button id="copyLocalCodeBtn" class="btn-secondary" style="margin-top:12px;width:auto;padding:8px 20px;">
+                  <i class="fas fa-copy"></i> Copy Code
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- METHODE CLOUD (GitHub Gist) -->
+          <div id="exportCloudMethod" class="hidden">
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+              <i class="fas fa-cloud-upload-alt"></i> <strong>Cloud Transfer (GitHub Gist)</strong><br>
+              Upload data to GitHub. Valid for 10 minutes.
+            </p>
+            <button id="generateCloudBtn" class="btn-cloud">
+              <i class="fas fa-cloud-upload-alt"></i> Generate Cloud Code
+            </button>
+            <div id="cloudDisplayArea" style="display:none;">
+              <div class="transfer-code-box">
+                <i class="fas fa-cloud" style="font-size:1.2rem;color:#2ecc71;"></i>
+                <p>Your cloud transfer code is:</p>
+                <div class="transfer-code" id="cloudTransferCode">XXXXXXXX</div>
+                <div class="expiry-timer">Expires in <span id="cloudCountdown">10:00</span></div>
+                <button id="copyCloudCodeBtn" class="btn-secondary" style="margin-top:12px;width:auto;padding:8px 20px;">
+                  <i class="fas fa-copy"></i> Copy Code
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- METHODE QR CODE -->
+          <div id="exportQRMethod" class="hidden">
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+              <i class="fas fa-qrcode"></i> <strong>QR Code Transfer</strong><br>
+              Generate a QR code linked to cloud data.
+            </p>
+            <button id="generateQRBtn" class="btn-camera"><i class="fas fa-qrcode"></i> Generate QR Code</button>
+            <div id="qrDisplayArea" style="display:none;">
+              <div id="qrCodeContainer"></div>
+            </div>
+          </div>
+          
+          <div id="exportStatus" class="transfer-status" style="display:none;"></div>
+        </div>
+      </div>
+      
+      <!-- IMPORT TAB -->
+      <div id="importTab" class="hidden">
+        <div class="glass-card">
+          <div class="method-tab">
+            <div class="method-btn active" data-method="local" onclick="switchImportMethod('local')">
+              <i class="fas fa-server"></i> Local Transfer
+            </div>
+            <div class="method-btn" data-method="cloud" onclick="switchImportMethod('cloud')">
+              <i class="fas fa-cloud-download-alt"></i> Cloud Transfer
+            </div>
+            <div class="method-btn" data-method="qr" onclick="switchImportMethod('qr')">
+              <i class="fas fa-camera"></i> Scan QR Code
+            </div>
+          </div>
+          
+          <!-- IMPORT LOCAL -->
+          <div id="importLocalMethod">
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+              <i class="fas fa-server"></i> Enter local transfer code:
+            </p>
+            <div class="code-input-group">
+              <input type="text" id="importLocalInput" class="code-input" maxlength="8" placeholder="XXXXXXXX" autocomplete="off">
+              <button id="importLocalBtn" class="btn-local" style="width:auto;padding:12px 24px;">
+                <i class="fas fa-download"></i> Import
+              </button>
+            </div>
+          </div>
+          
+          <!-- IMPORT CLOUD -->
+          <div id="importCloudMethod" class="hidden">
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+              <i class="fas fa-cloud-download-alt"></i> Enter cloud transfer code:
+            </p>
+            <div class="code-input-group">
+              <input type="text" id="importCloudInput" class="code-input" maxlength="8" placeholder="XXXXXXXX" autocomplete="off">
+              <button id="importCloudBtn" class="btn-cloud" style="width:auto;padding:12px 24px;">
+                <i class="fas fa-cloud-download-alt"></i> Import
+              </button>
+            </div>
+          </div>
+          
+          <!-- IMPORT QR CODE -->
+          <div id="importQRMethod" class="hidden">
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+              <i class="fas fa-camera"></i> Scan QR code:
+            </p>
+            <button id="startScannerBtn" class="btn-camera">
+              <i class="fas fa-camera"></i> Start Camera
+            </button>
+            <div id="scannerContainer" class="scanner-area" style="display:none;"></div>
+            <button id="stopScannerBtn" class="btn-stop-camera" style="display:none;">
+              <i class="fas fa-stop"></i> Stop Camera
+            </button>
+          </div>
+          
+          <div id="importStatus" class="transfer-status" style="display:none;"></div>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/transfer-manager.js"></script>
+  <script src="js/confirm-dialog.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // VARIABLES GLOBALES
+    // ============================================
+    
+    var currentUser = null;
+    var currentLocalCode = null;
+    var currentCloudCode = null;
+    var localTimer = null;
+    var cloudTimer = null;
+    var qrTimer = null;
+    var qrScanner = null;
+    
+    // ============================================
+    // FONCTIONS UTILITAIRES
+    // ============================================
+    
+    function generateCode() {
+      var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      var code = '';
+      for (var i = 0; i < 6; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return code;
+    }
+    
+    function startCountdown(elementId, duration, onExpire) {
+      var remaining = duration;
+      var element = document.getElementById(elementId);
+      
+      var interval = setInterval(function() {
+        var mins = Math.floor(remaining / 60);
+        var secs = remaining % 60;
+        element.innerHTML = mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0');
+        
+        if (remaining <= 0) {
+          clearInterval(interval);
+          if (onExpire) onExpire();
+        }
+        remaining--;
+      }, 1000);
+      
+      return interval;
+    }
+    
+    function showToast(message) {
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+      container.appendChild(toast);
+      setTimeout(function() { toast.remove(); }, 3000);
+    }
+    
+    // ============================================
+    // LOCAL TRANSFER
+    // ============================================
+    
+    function generateLocalTransfer() {
+      var exportData = exportCompleteUserData(currentUser.id);
+      if (!exportData) {
+        showToast('Failed to export data');
+        return;
+      }
+      
+      var code = generateCode();
+      currentLocalCode = code;
+      
+      var transferData = {
+        code: code,
+        userId: currentUser.id,
+        userName: currentUser.name,
+        data: exportData,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + 10 * 60 * 1000
+      };
+      
+      var transfers = JSON.parse(localStorage.getItem('smartgrade_local_transfers') || '{}');
+      transfers[code] = transferData;
+      localStorage.setItem('smartgrade_local_transfers', JSON.stringify(transfers));
+      
+      document.getElementById('localTransferCode').innerHTML = code;
+      document.getElementById('localDisplayArea').style.display = 'block';
+      
+      if (localTimer) clearInterval(localTimer);
+      localTimer = startCountdown('localCountdown', 600, function() {
+        document.getElementById('localDisplayArea').style.display = 'none';
+        var all = JSON.parse(localStorage.getItem('smartgrade_local_transfers') || '{}');
+        delete all[code];
+        localStorage.setItem('smartgrade_local_transfers', JSON.stringify(all));
+        showToast('Local code expired');
+      });
+      
+      showToast('Local code generated: ' + code);
+    }
+    
+    function importLocalTransfer() {
+      var inputCode = document.getElementById('importLocalInput').value.trim().toUpperCase();
+      var statusDiv = document.getElementById('importStatus');
+      
+      if (!inputCode || inputCode.length !== 6) {
+        statusDiv.style.display = 'block';
+        statusDiv.className = 'transfer-status status-error';
+        statusDiv.innerHTML = 'Enter a valid 6-character code';
+        return;
+      }
+      
+      var transfers = JSON.parse(localStorage.getItem('smartgrade_local_transfers') || '{}');
+      var transfer = transfers[inputCode];
+      
+      if (!transfer) {
+        statusDiv.style.display = 'block';
+        statusDiv.className = 'transfer-status status-error';
+        statusDiv.innerHTML = 'Invalid code';
+        return;
+      }
+      
+      if (transfer.expiresAt < Date.now()) {
+        statusDiv.style.display = 'block';
+        statusDiv.className = 'transfer-status status-error';
+        statusDiv.innerHTML = 'Code expired';
+        delete transfers[inputCode];
+        localStorage.setItem('smartgrade_local_transfers', JSON.stringify(transfers));
+        return;
+      }
+      
+      showConfirmDialog({
+        title: 'Import Data',
+        message: 'Overwrite current data?',
+        detail: 'From: ' + transfer.userName,
+        confirmText: 'Import',
+        onConfirm: function() {
+          var result = importCompleteUserData(currentUser.id, transfer.data);
+          if (result.success) {
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'transfer-status status-success';
+            statusDiv.innerHTML = 'Import successful! Reloading...';
+            setTimeout(function() { location.reload(); }, 1500);
+          } else {
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'transfer-status status-error';
+            statusDiv.innerHTML = result.message;
+          }
+        }
+      });
+    }
+    
+    // ============================================
+    // CLOUD TRANSFER (avec TransferManager)
+    // ============================================
+    
+    async function generateCloudTransfer() {
+      var exportData = exportCompleteUserData(currentUser.id);
+      if (!exportData) {
+        showToast('Failed to export data');
+        return;
+      }
+      
+      var code = await TransferManager.generateCode(currentUser.id, currentUser.name, exportData);
+      
+      if (code) {
+        currentCloudCode = code;
+        document.getElementById('cloudTransferCode').innerHTML = code;
+        document.getElementById('cloudDisplayArea').style.display = 'block';
+        
+        if (cloudTimer) clearInterval(cloudTimer);
+        cloudTimer = startCountdown('cloudCountdown', 600, function() {
+          document.getElementById('cloudDisplayArea').style.display = 'none';
+          showToast('Cloud code expired');
+        });
+        
+        showToast('Cloud code generated: ' + code);
+      } else {
+        showToast('Failed to generate cloud code');
+      }
+    }
+    
+    async function importCloudTransfer() {
+      var inputCode = document.getElementById('importCloudInput').value.trim().toUpperCase();
+      var statusDiv = document.getElementById('importStatus');
+      
+      if (!inputCode || inputCode.length !== 6) {
+        statusDiv.style.display = 'block';
+        statusDiv.className = 'transfer-status status-error';
+        statusDiv.innerHTML = 'Enter a valid 6-character code';
+        return;
+      }
+      
+      var transfer = await TransferManager.getTransfer(inputCode);
+      
+      if (!transfer) {
+        statusDiv.style.display = 'block';
+        statusDiv.className = 'transfer-status status-error';
+        statusDiv.innerHTML = 'Invalid or expired code';
+        return;
+      }
+      
+      showConfirmDialog({
+        title: 'Import Data',
+        message: 'Overwrite current data?',
+        detail: 'From: ' + transfer.userName + '\nSize: ' + Math.round(transfer.data.length/1024) + ' KB',
+        confirmText: 'Import',
+        onConfirm: function() {
+          var result = importCompleteUserData(currentUser.id, transfer.data);
+          if (result.success) {
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'transfer-status status-success';
+            statusDiv.innerHTML = 'Import successful! Reloading...';
+            setTimeout(function() { location.reload(); }, 1500);
+          } else {
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'transfer-status status-error';
+            statusDiv.innerHTML = result.message;
+          }
+        }
+      });
+    }
+    
+    // ============================================
+    // QR CODE MODERNISÉ
+    // ============================================
+    
+    async function generateQRTransfer() {
+      var exportData = exportCompleteUserData(currentUser.id);
+      if (!exportData) {
+        showToast('Failed to export data');
+        return;
+      }
+
+      var code = await TransferManager.generateCode(currentUser.id, currentUser.name, exportData);
+
+      if (code) {
+        currentLocalCode = code;
+
+        var qrContainer = document.getElementById('qrCodeContainer');
+        qrContainer.innerHTML = '';
+
+        // ✅ Conteneur modernisé
+        var modernWrapper = document.createElement('div');
+        modernWrapper.className = 'qr-modern-container';
+        
+        // En-tête
+        var header = document.createElement('div');
+        header.className = 'qr-header';
+        header.innerHTML = '<i class="fas fa-qrcode"></i> Scan to transfer';
+        modernWrapper.appendChild(header);
+
+        // Wrapper QR + overlay
+        var codeWrapper = document.createElement('div');
+        codeWrapper.className = 'qr-code-wrapper';
+        codeWrapper.style.position = 'relative';
+        
+        // Conteneur du QR
+        var qrInner = document.createElement('div');
+        qrInner.id = 'qrInner';
+        codeWrapper.appendChild(qrInner);
+
+        // Overlay (apparaît au survol)
+        var overlay = document.createElement('div');
+        overlay.className = 'qr-overlay';
+        overlay.innerHTML = '🔍 SCAN ME';
+        codeWrapper.appendChild(overlay);
+        
+        modernWrapper.appendChild(codeWrapper);
+
+        // Actions (boutons)
+        var actions = document.createElement('div');
+        actions.className = 'qr-actions';
+        actions.innerHTML = `
+          <button class="btn-download" onclick="downloadQRCode()">
+            <i class="fas fa-download"></i> Save
+          </button>
+          <button class="btn-copy" onclick="copyQRCode()">
+            <i class="fas fa-copy"></i> Copy Code
+          </button>
+        `;
+        modernWrapper.appendChild(actions);
+
+        // Footer avec code et expiration
+        var footer = document.createElement('div');
+        footer.className = 'qr-footer';
+        footer.innerHTML = `
+          <span class="code-display">${code}</span>
+          <span class="expiry-display">
+            <i class="fas fa-clock"></i>
+            <span id="qrCountdownModern">10:00</span>
+          </span>
+        `;
+        modernWrapper.appendChild(footer);
+
+        qrContainer.appendChild(modernWrapper);
+
+        // Générer le QR code dans qrInner
+        var qrData = window.location.origin + window.location.pathname + '?code=' + code;
+
+        new QRCode(document.getElementById('qrInner'), {
+          text: qrData,
+          width: 220,
+          height: 220,
+          colorDark: '#0f3b48',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
+        });
+
+        document.getElementById('qrDisplayArea').style.display = 'block';
+
+        if (qrTimer) clearInterval(qrTimer);
+
+        // Timer avec mise à jour du footer
+        var remaining = 600;
+        qrTimer = setInterval(function() {
+          remaining--;
+          var mins = Math.floor(remaining / 60);
+          var secs = remaining % 60;
+          var countdownEl = document.querySelector('.expiry-display span');
+          if (countdownEl) {
+            countdownEl.innerHTML = mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0');
+          }
+          
+          if (remaining <= 0) {
+            clearInterval(qrTimer);
+            document.getElementById('qrDisplayArea').style.display = 'none';
+            showToast('QR code expired');
+          }
+        }, 1000);
+
+        showToast('QR Code generated');
+
+      } else {
+        showToast('Failed to generate QR code');
+      }
+    }
+    
+    // ============================================
+    // QR CODE ACTIONS
+    // ============================================
+    
+    function copyQRCode() {
+      if (currentLocalCode) {
+        navigator.clipboard.writeText(currentLocalCode).then(function() {
+          showToast('Code copied!');
+        }).catch(function() {
+          prompt('Copy this code:', currentLocalCode);
+        });
+      }
+    }
+    
+    function downloadQRCode() {
+      var canvas = document.querySelector('#qrInner canvas');
+      if (canvas) {
+        var tempCanvas = document.createElement('canvas');
+        var size = 600;
+        tempCanvas.width = size;
+        tempCanvas.height = size;
+        var ctx = tempCanvas.getContext('2d');
+        
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, size, size);
+        
+        var padding = 40;
+        ctx.drawImage(canvas, padding, padding, size - padding * 2, size - padding * 2);
+        
+        ctx.fillStyle = '#0f3b48';
+        ctx.font = '16px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('SMART GRADE', size / 2, size - 15);
+        
+        var link = document.createElement('a');
+        link.download = 'qrcode_smartgrade.png';
+        link.href = tempCanvas.toDataURL('image/png');
+        link.click();
+        showToast('QR Code saved');
+      } else {
+        showToast('No QR code to save');
+      }
+    }
+    
+    // ============================================
+    // QR SCANNER
+    // ============================================
+    
+    function startQRScanner() {
+      var container = document.getElementById('scannerContainer');
+      var startBtn = document.getElementById('startScannerBtn');
+      var stopBtn = document.getElementById('stopScannerBtn');
+      var statusDiv = document.getElementById('importStatus');
+      
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        statusDiv.style.display = 'block';
+        statusDiv.className = 'transfer-status status-error';
+        statusDiv.innerHTML = 'Camera not supported';
+        return;
+      }
+      
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'transfer-status status-info';
+      statusDiv.innerHTML = 'Requesting camera...';
+      
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(function(stream) {
+          stream.getTracks().forEach(function(track) { track.stop(); });
+          container.style.display = 'block';
+          startBtn.style.display = 'none';
+          stopBtn.style.display = 'block';
+          statusDiv.style.display = 'none';
+          
+          qrScanner = new Html5Qrcode("scannerContainer");
+          qrScanner.start(
+            { facingMode: "environment" },
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            async function(decodedText) {
+              stopQRScanner();
+              
+              var scannedCode = '';
+              if (decodedText.includes('?code=')) {
+                scannedCode = decodedText.split('?code=')[1].substring(0, 6).toUpperCase();
+              } else if (decodedText.length === 6) {
+                scannedCode = decodedText.trim().toUpperCase();
+              }
+              
+              if (scannedCode && scannedCode.length === 6) {
+                var transfer = await TransferManager.getTransfer(scannedCode);
+                
+                if (!transfer) {
+                  statusDiv.style.display = 'block';
+                  statusDiv.className = 'transfer-status status-error';
+                  statusDiv.innerHTML = 'Invalid or expired QR code';
+                  return;
+                }
+                
+                showConfirmDialog({
+                  title: 'Import Data',
+                  message: 'Overwrite current data?',
+                  detail: 'From: ' + transfer.userName,
+                  confirmText: 'Import',
+                  onConfirm: function() {
+                    var result = importCompleteUserData(currentUser.id, transfer.data);
+                    if (result.success) {
+                      statusDiv.style.display = 'block';
+                      statusDiv.className = 'transfer-status status-success';
+                      statusDiv.innerHTML = 'Import successful! Reloading...';
+                      setTimeout(function() { location.reload(); }, 1500);
+                    } else {
+                      statusDiv.style.display = 'block';
+                      statusDiv.className = 'transfer-status status-error';
+                      statusDiv.innerHTML = result.message;
+                    }
+                  }
+                });
+              } else {
+                statusDiv.style.display = 'block';
+                statusDiv.className = 'transfer-status status-error';
+                statusDiv.innerHTML = 'Invalid QR code';
+              }
+            },
+            function() {}
+          );
+        })
+        .catch(function() {
+          statusDiv.style.display = 'block';
+          statusDiv.className = 'transfer-status status-error';
+          statusDiv.innerHTML = 'Camera permission denied';
+        });
+    }
+    
+    function stopQRScanner() {
+      if (qrScanner && qrScanner.isScanning) {
+        qrScanner.stop().then(function() {
+          document.getElementById('scannerContainer').style.display = 'none';
+          document.getElementById('startScannerBtn').style.display = 'block';
+          document.getElementById('stopScannerBtn').style.display = 'none';
+          qrScanner = null;
+        });
+      } else {
+        document.getElementById('scannerContainer').style.display = 'none';
+        document.getElementById('startScannerBtn').style.display = 'block';
+        document.getElementById('stopScannerBtn').style.display = 'none';
+      }
+    }
+    
+    // ============================================
+    // COPY FUNCTIONS
+    // ============================================
+    
+    function copyLocalCode() {
+      if (currentLocalCode) {
+        navigator.clipboard.writeText(currentLocalCode).then(function() {
+          showToast('Code copied!');
+        }).catch(function() {
+          prompt('Copy this code:', currentLocalCode);
+        });
+      }
+    }
+    
+    function copyCloudCode() {
+      if (currentCloudCode) {
+        navigator.clipboard.writeText(currentCloudCode).then(function() {
+          showToast('Code copied!');
+        }).catch(function() {
+          prompt('Copy this code:', currentCloudCode);
+        });
+      }
+    }
+    
+    function cleanExpired() {
+      var local = JSON.parse(localStorage.getItem('smartgrade_local_transfers') || '{}');
+      var now = Date.now();
+      var changed = false;
+      
+      for (var k in local) {
+        if (local[k].expiresAt < now) {
+          delete local[k];
+          changed = true;
+        }
+      }
+      if (changed) localStorage.setItem('smartgrade_local_transfers', JSON.stringify(local));
+    }
+    
+    // ============================================
+    // SWITCH TABS
+    // ============================================
+    
+    function switchTab(tab) {
+      var exportTab = document.getElementById('exportTab');
+      var importTab = document.getElementById('importTab');
+      var tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      if (tab === 'export') {
+        exportTab.classList.remove('hidden');
+        importTab.classList.add('hidden');
+        document.querySelector('.tab-btn[data-tab="export"]').classList.add('active');
+      } else {
+        exportTab.classList.add('hidden');
+        importTab.classList.remove('hidden');
+        document.querySelector('.tab-btn[data-tab="import"]').classList.add('active');
+        document.getElementById('importLocalInput').value = '';
+        document.getElementById('importCloudInput').value = '';
+        document.getElementById('importStatus').style.display = 'none';
+        stopQRScanner();
+      }
+    }
+    
+    function switchExportMethod(method) {
+      var local = document.getElementById('exportLocalMethod');
+      var cloud = document.getElementById('exportCloudMethod');
+      var qr = document.getElementById('exportQRMethod');
+      var btns = document.querySelectorAll('#exportTab .method-btn');
+      btns.forEach(function(b) { b.classList.remove('active'); });
+      
+      if (method === 'local') {
+        local.classList.remove('hidden');
+        cloud.classList.add('hidden');
+        qr.classList.add('hidden');
+        document.querySelector('#exportTab .method-btn[data-method="local"]').classList.add('active');
+      } else if (method === 'cloud') {
+        local.classList.add('hidden');
+        cloud.classList.remove('hidden');
+        qr.classList.add('hidden');
+        document.querySelector('#exportTab .method-btn[data-method="cloud"]').classList.add('active');
+      } else if (method === 'qr') {
+        local.classList.add('hidden');
+        cloud.classList.add('hidden');
+        qr.classList.remove('hidden');
+        document.querySelector('#exportTab .method-btn[data-method="qr"]').classList.add('active');
+      }
+    }
+    
+    function switchImportMethod(method) {
+      var local = document.getElementById('importLocalMethod');
+      var cloud = document.getElementById('importCloudMethod');
+      var qr = document.getElementById('importQRMethod');
+      var btns = document.querySelectorAll('#importTab .method-btn');
+      btns.forEach(function(b) { b.classList.remove('active'); });
+      
+      if (method === 'local') {
+        local.classList.remove('hidden');
+        cloud.classList.add('hidden');
+        qr.classList.add('hidden');
+        document.querySelector('#importTab .method-btn[data-method="local"]').classList.add('active');
+        stopQRScanner();
+      } else if (method === 'cloud') {
+        local.classList.add('hidden');
+        cloud.classList.remove('hidden');
+        qr.classList.add('hidden');
+        document.querySelector('#importTab .method-btn[data-method="cloud"]').classList.add('active');
+        stopQRScanner();
+      } else if (method === 'qr') {
+        local.classList.add('hidden');
+        cloud.classList.add('hidden');
+        qr.classList.remove('hidden');
+        document.querySelector('#importTab .method-btn[data-method="qr"]').classList.add('active');
+      }
+    }
+    
+    // ============================================
+    // INITIALISATION
+    // ============================================
+    
+    function init() {
+      currentUser = getCurrentStudent();
+      if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      initHeaderProfile();
+      cleanExpired();
+      
+      // Nettoyer les codes expirés au démarrage
+      TransferManager.cleanExpired();
+      
+      // Nettoyer automatiquement toutes les 30 secondes
+      setInterval(function() {
+        TransferManager.cleanExpired();
+      }, 30 * 1000);
+      
+      var urlParams = new URLSearchParams(window.location.search);
+      var codeParam = urlParams.get('code');
+      if (codeParam && codeParam.length === 6) {
+        setTimeout(function() {
+          document.getElementById('importLocalInput').value = codeParam;
+          switchTab('import');
+          switchImportMethod('local');
+          showToast('QR code detected: ' + codeParam);
+        }, 1000);
+      }
+    }
+    
+    // ============================================
+    // EVENTS
+    // ============================================
+    
+    document.getElementById('generateLocalBtn').onclick = generateLocalTransfer;
+    document.getElementById('importLocalBtn').onclick = importLocalTransfer;
+    document.getElementById('generateCloudBtn').onclick = generateCloudTransfer;
+    document.getElementById('importCloudBtn').onclick = importCloudTransfer;
+    document.getElementById('generateQRBtn').onclick = generateQRTransfer;
+    document.getElementById('copyLocalCodeBtn').onclick = copyLocalCode;
+    document.getElementById('copyCloudCodeBtn').onclick = copyCloudCode;
+    document.getElementById('startScannerBtn').onclick = startQRScanner;
+    document.getElementById('stopScannerBtn').onclick = stopQRScanner;
+    
+    // ============================================
+    // EXPORTER LES FONCTIONS GLOBALES
+    // ============================================
+    
+    window.switchTab = switchTab;
+    window.switchExportMethod = switchExportMethod;
+    window.switchImportMethod = switchImportMethod;
+    window.generateLocalTransfer = generateLocalTransfer;
+    window.importLocalTransfer = importLocalTransfer;
+    window.generateCloudTransfer = generateCloudTransfer;
+    window.importCloudTransfer = importCloudTransfer;
+    window.generateQRTransfer = generateQRTransfer;
+    window.startQRScanner = startQRScanner;
+    window.stopQRScanner = stopQRScanner;
+    window.copyLocalCode = copyLocalCode;
+    window.copyCloudCode = copyCloudCode;
+    window.copyQRCode = copyQRCode;
+    window.downloadQRCode = downloadQRCode;
+    
+    // ============================================
+    // DÉMARRER
+    // ============================================
+    
+    init();
+    if (typeof initMobileMenu === 'function') initMobileMenu();
+    if (typeof initThemeSelector === 'function') initThemeSelector();
+  </script>
+</body>
+</html>

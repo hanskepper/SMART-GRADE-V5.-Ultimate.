@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Backup Manager - SMART GRADE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .backup-card { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); }
+    .info-card { background: rgba(52,152,219,0.08); border-left: 4px solid #3498db; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 0.7rem; }
+    .btn-group { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+    .btn-group .btn { flex: 1; text-align: center; min-width: 120px; }
+    .filter-group { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+    .filter-btn { padding: 8px 16px; border-radius: 40px; text-align: center; cursor: pointer; font-size: 0.7rem; background: rgba(0,0,0,0.04); border: 1px solid var(--border); }
+    .filter-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+    .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 16px; }
+    .day-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 10px 6px; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .day-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+    .day-name { font-size: 0.65rem; font-weight: 600; margin-bottom: 4px; }
+    .day-count { font-size: 0.5rem; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 20px; }
+    .hours-list { max-height: 350px; overflow-y: auto; }
+    .hour-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 8px; cursor: pointer; }
+    .hour-item:hover { transform: translateX(4px); border-color: var(--primary); }
+    .hour-time { font-family: monospace; font-size: 0.8rem; font-weight: 700; color: var(--primary); }
+    .restore-btn { background: var(--primary); color: white; border: none; padding: 6px 14px; border-radius: 25px; font-size: 0.65rem; cursor: pointer; }
+    .back-button { background: none; border: none; color: var(--primary); cursor: pointer; margin-bottom: 12px; }
+    .empty-state { text-align: center; padding: 40px; }
+    .section-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--primary); }
+    .last-backup-info { margin-top: 16px; font-size: 0.7rem; padding: 8px; background: rgba(0,0,0,0.02); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    @media (max-width: 600px) { .days-grid { grid-template-columns: repeat(4, 1fr); } .btn-group { flex-direction: column; } .hour-item { flex-direction: column; gap: 10px; text-align: center; } }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-database"></i><span>BACKUP</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="backup.html" class="nav-item active"><i class="fas fa-database"></i> Backup</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
+        <i class="fas fa-shield-alt" style="font-size:40px;opacity:0.5;"></i>
+        <h2 style="color:white;margin:8px 0;">Backup Manager</h2>
+        <p style="opacity:0.8;font-size:0.7rem;">Save and restore your data</p>
+      </div>
+      
+      <div class="info-card">
+        <i class="fas fa-info-circle"></i> 
+        <strong>How backups work:</strong> Your data is saved in your browser. Create manual backups regularly.
+      </div>
+      
+      <div class="backup-card">
+        <div class="section-title"><i class="fas fa-actions"></i> Backup Actions</div>
+        <div class="btn-group">
+          <button id="manualBackupBtn" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Create Backup</button>
+          <button id="exportJsonBtn" class="btn btn-secondary"><i class="fas fa-download"></i> Export JSON</button>
+          <button id="importJsonBtn" class="btn btn-secondary"><i class="fas fa-upload"></i> Import JSON</button>
+          <button id="refreshHistoryBtn" class="btn btn-secondary"><i class="fas fa-sync-alt"></i> Refresh</button>
+        </div>
+        <input type="file" id="jsonImportFile" accept=".json" style="display:none;">
+        <div class="last-backup-info">
+          <span><i class="fas fa-history"></i> Last backup: <strong id="lastBackupTime">Never</strong></span>
+        </div>
+      </div>
+      
+      <div class="backup-card">
+        <div class="section-title"><i class="fas fa-history"></i> Backup History</div>
+        
+        <div class="filter-group">
+          <div class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</div>
+          <div class="filter-btn" data-filter="manual" onclick="setFilter('manual')"><i class="fas fa-user"></i> Manual</div>
+        </div>
+        
+        <div id="daysView">
+          <div id="daysGrid" class="days-grid">
+            <div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-database"></i><p>No backups yet</p><p style="font-size:0.6rem;">Click "Create Backup" to save your data</p></div>
+          </div>
+        </div>
+        
+        <div id="hoursView" style="display:none;">
+          <button id="backToDaysBtn" class="back-button"><i class="fas fa-arrow-left"></i> Back to days</button>
+          <div id="hoursList" class="hours-list"></div>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/confirm-dialog.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // BACKUP SYSTEM - VERSION STABLE
+    // ============================================
+    
+    var currentUser = null;
+    var allBackups = [];
+    var currentFilter = 'all';
+    var selectedDay = null;
+    
+    // Récupérer l'utilisateur connecté
+    function getCurrentLoggedUser() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) return JSON.parse(stored);
+      } catch(e) {}
+      return null;
+    }
+    
+    // Exporter TOUTES les données de l'utilisateur
+    function exportUserCompleteData() {
+      if (!currentUser) return null;
+      
+      try {
+        var students = JSON.parse(localStorage.getItem('smartgrade_students') || '[]');
+        var student = students.find(function(s) { return s.id === currentUser.id; });
+        
+        // Récupérer les coefficients
+        var coeffs = {};
+        try {
+          coeffs = JSON.parse(localStorage.getItem('smartgrade_coeffs_' + currentUser.id) || '{}');
+        } catch(e) {}
+        
+        // Construire l'objet complet
+        var completeData = {
+          version: '5.0',
+          exportDate: new Date().toISOString(),
+          exportType: 'complete',
+          student: student,
+          grades: JSON.parse(localStorage.getItem('smartgrade_grades_' + currentUser.id) || '[]'),
+          subjects: {
+            term1: JSON.parse(localStorage.getItem('smartgrade_selected_' + currentUser.id + '_term1') || '[]'),
+            term2: JSON.parse(localStorage.getItem('smartgrade_selected_' + currentUser.id + '_term2') || '[]'),
+            term3: JSON.parse(localStorage.getItem('smartgrade_selected_' + currentUser.id + '_term3') || '[]')
+          },
+          coeffs: coeffs,
+          achievements: JSON.parse(localStorage.getItem('smartgrade_achievements_' + currentUser.id) || '[]'),
+          goal: parseFloat(localStorage.getItem('smartgrade_goal_' + currentUser.id) || 12),
+          streak: JSON.parse(localStorage.getItem('smartgrade_streak_' + currentUser.id) || '{"days":0,"lastLogin":null}'),
+          profile: JSON.parse(localStorage.getItem('smartgrade_profile_' + currentUser.id) || '{}'),
+          flashcards: JSON.parse(localStorage.getItem('smartgrade_flashcards_' + currentUser.id) || '[]'),
+          history: JSON.parse(localStorage.getItem('smartgrade_history_' + currentUser.id) || '[]'),
+          compensations: JSON.parse(localStorage.getItem('smartgrade_compensations_' + currentUser.id) || '{}'),
+          goalsDetail: JSON.parse(localStorage.getItem('smartgrade_goals_detail_' + currentUser.id) || '{}')
+        };
+        
+        return JSON.stringify(completeData, null, 2);
+      } catch(e) {
+        console.error('Export error:', e);
+        return null;
+      }
+    }
+    
+    // Importer TOUTES les données
+    function importUserCompleteData(jsonData) {
+      if (!currentUser) return { success: false, message: 'No user logged in' };
+      
+      try {
+        var data = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
+        
+        if (!data.version) {
+          return { success: false, message: 'Invalid backup file format' };
+        }
+        
+        // Restaurer toutes les données
+        if (data.grades) localStorage.setItem('smartgrade_grades_' + currentUser.id, JSON.stringify(data.grades));
+        if (data.subjects) {
+          if (data.subjects.term1) localStorage.setItem('smartgrade_selected_' + currentUser.id + '_term1', JSON.stringify(data.subjects.term1));
+          if (data.subjects.term2) localStorage.setItem('smartgrade_selected_' + currentUser.id + '_term2', JSON.stringify(data.subjects.term2));
+          if (data.subjects.term3) localStorage.setItem('smartgrade_selected_' + currentUser.id + '_term3', JSON.stringify(data.subjects.term3));
+        }
+        if (data.coeffs) localStorage.setItem('smartgrade_coeffs_' + currentUser.id, JSON.stringify(data.coeffs));
+        if (data.achievements) localStorage.setItem('smartgrade_achievements_' + currentUser.id, JSON.stringify(data.achievements));
+        if (data.goal !== undefined) localStorage.setItem('smartgrade_goal_' + currentUser.id, data.goal);
+        if (data.streak) localStorage.setItem('smartgrade_streak_' + currentUser.id, JSON.stringify(data.streak));
+        if (data.profile) localStorage.setItem('smartgrade_profile_' + currentUser.id, JSON.stringify(data.profile));
+        if (data.flashcards) localStorage.setItem('smartgrade_flashcards_' + currentUser.id, JSON.stringify(data.flashcards));
+        if (data.history) localStorage.setItem('smartgrade_history_' + currentUser.id, JSON.stringify(data.history));
+        if (data.compensations) localStorage.setItem('smartgrade_compensations_' + currentUser.id, JSON.stringify(data.compensations));
+        if (data.goalsDetail) localStorage.setItem('smartgrade_goals_detail_' + currentUser.id, JSON.stringify(data.goalsDetail));
+        
+        // Ajouter un historique d'import
+        var history = JSON.parse(localStorage.getItem('smartgrade_history_' + currentUser.id) || '[]');
+        history.unshift({ action: 'Complete data imported via backup', date: new Date().toISOString() });
+        if (history.length > 50) history = history.slice(0, 50);
+        localStorage.setItem('smartgrade_history_' + currentUser.id, JSON.stringify(history));
+        
+        return { success: true, message: 'Data imported successfully' };
+      } catch(e) {
+        return { success: false, message: 'Invalid data: ' + e.message };
+      }
+    }
+    
+    // Créer un backup
+    function createBackup() {
+      if (!currentUser) return false;
+      
+      var now = new Date();
+      var data = exportUserCompleteData();
+      if (!data) {
+        showToast('Failed to export data');
+        return false;
+      }
+      
+      var backup = {
+        id: Date.now(),
+        type: 'manual',
+        date: now.toISOString(),
+        time: now.toLocaleTimeString(),
+        day: now.toLocaleDateString(),
+        data: data,
+        size: data.length
+      };
+      
+      var backups = JSON.parse(localStorage.getItem('smartgrade_backup_list_' + currentUser.id) || '[]');
+      backups.unshift(backup);
+      if (backups.length > 50) backups = backups.slice(0, 50);
+      localStorage.setItem('smartgrade_backup_list_' + currentUser.id, JSON.stringify(backups));
+      
+      updateLastBackupDisplay();
+      showToast('Backup created at ' + backup.time + ' (' + Math.round(backup.size/1024) + ' KB)');
+      loadBackupHistory();
+      return true;
+    }
+    
+    // Restaurer un backup
+    function restoreBackup(backupId) {
+      var backup = allBackups.find(function(b) { return b.id == backupId; });
+      if (!backup) { showToast('Backup not found'); return; }
+      
+      showConfirmDialog({
+        title: 'Restore Backup',
+        message: 'Restore backup from ' + backup.day + ' at ' + backup.time + '?',
+        detail: 'Size: ' + Math.round(backup.size/1024) + ' KB\nThis will overwrite your current data.',
+        icon: 'fa-undo-alt',
+        confirmText: 'Restore',
+        onConfirm: function() {
+          var result = importUserCompleteData(backup.data);
+          if (result.success) {
+            showToast('Backup restored! Reloading...');
+            setTimeout(function() { location.reload(); }, 1500);
+          } else {
+            showToast('Restore failed: ' + result.message);
+          }
+        }
+      });
+    }
+    
+    // Exporter JSON (télécharger fichier)
+    function exportJSON() {
+      var data = exportUserCompleteData();
+      if (!data) { showToast('No data to export'); return; }
+      
+      var blob = new Blob([data], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'SMART_GRADE_Backup_' + new Date().toISOString().slice(0,19).replace(/:/g, '-') + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('JSON exported (' + Math.round(data.length/1024) + ' KB)');
+    }
+    
+    // Importer JSON (depuis fichier)
+    function importJSON(file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          var data = JSON.parse(e.target.result);
+          showConfirmDialog({
+            title: 'Import Backup',
+            message: 'Import backup from ' + (data.exportDate ? new Date(data.exportDate).toLocaleString() : 'file') + '?',
+            detail: 'Size: ' + Math.round(e.target.result.length/1024) + ' KB\nThis will overwrite your current data.',
+            icon: 'fa-upload',
+            confirmText: 'Import',
+            onConfirm: function() {
+              var result = importUserCompleteData(e.target.result);
+              if (result.success) {
+                showToast('Import successful! Reloading...');
+                setTimeout(function() { location.reload(); }, 1500);
+              } else {
+                showToast(result.message);
+              }
+            }
+          });
+        } catch(e) { showToast('Invalid JSON file'); }
+      };
+      reader.readAsText(file);
+    }
+    
+    function updateLastBackupDisplay() {
+      var backups = JSON.parse(localStorage.getItem('smartgrade_backup_list_' + currentUser.id) || '[]');
+      var span = document.getElementById('lastBackupTime');
+      if (span) span.innerHTML = backups.length > 0 ? backups[0].day + ' at ' + backups[0].time : 'Never';
+    }
+    
+    function loadBackupHistory() {
+      allBackups = JSON.parse(localStorage.getItem('smartgrade_backup_list_' + currentUser.id) || '[]');
+      updateLastBackupDisplay();
+      
+      var filtered = currentFilter === 'all' ? allBackups : allBackups.filter(function(b) { return b.type === currentFilter; });
+      
+      var grouped = {};
+      filtered.forEach(function(b) { if (!grouped[b.day]) grouped[b.day] = []; grouped[b.day].push(b); });
+      
+      var days = Object.keys(grouped).sort().reverse();
+      var daysGrid = document.getElementById('daysGrid');
+      
+      if (days.length === 0) {
+        daysGrid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-database"></i><p>No backups yet</p><p style="font-size:0.6rem;">Click "Create Backup" to save your data</p></div>';
+        return;
+      }
+      
+      var daysHtml = '';
+      days.forEach(function(day) {
+        var backupsOfDay = grouped[day];
+        daysHtml += '<div class="day-card" onclick="selectDay(\'' + day + '\')">' +
+          '<div class="day-name">' + day + '</div>' +
+          '<div class="day-count">' + backupsOfDay.length + ' backup(s)</div>' +
+        '</div>';
+      });
+      daysGrid.innerHTML = daysHtml;
+    }
+    
+    function selectDay(day) {
+      selectedDay = day;
+      var filtered = currentFilter === 'all' ? allBackups : allBackups.filter(function(b) { return b.type === currentFilter; });
+      var backupsOfDay = filtered.filter(function(b) { return b.day === day; });
+      backupsOfDay.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+      
+      var hoursHtml = '';
+      backupsOfDay.forEach(function(b) {
+        hoursHtml += '<div class="hour-item" onclick="restoreBackup(' + b.id + ')">' +
+          '<div class="hour-time"><i class="far fa-clock"></i> ' + b.time + '</div>' +
+          '<button class="restore-btn">Restore</button>' +
+        '</div>';
+      });
+      
+      document.getElementById('hoursList').innerHTML = hoursHtml;
+      document.getElementById('daysView').style.display = 'none';
+      document.getElementById('hoursView').style.display = 'block';
+    }
+    
+    function backToDays() { 
+      selectedDay = null; 
+      document.getElementById('daysView').style.display = 'block'; 
+      document.getElementById('hoursView').style.display = 'none'; 
+      loadBackupHistory(); 
+    }
+    
+    function setFilter(type) {
+      currentFilter = type;
+      document.querySelectorAll('.filter-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+        if (btn.dataset.filter === type) btn.classList.add('active');
+      });
+      if (selectedDay) selectDay(selectedDay);
+      else loadBackupHistory();
+    }
+    
+    // Initialiser l'avatar
+    function updateHeaderAvatar() {
+      try {
+        var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + currentUser.id) || '{}');
+        var headerAvatar = document.getElementById('headerAvatar');
+        if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+          headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+        }
+      } catch(e) {}
+    }
+    
+    function init() {
+      currentUser = getCurrentLoggedUser();
+      if (!currentUser || !currentUser.id) { 
+        window.location.href = 'login.html'; 
+        return; 
+      }
+      
+      updateLastBackupDisplay();
+      loadBackupHistory();
+      updateHeaderAvatar();
+      
+      document.getElementById('manualBackupBtn').onclick = function() { createBackup(); };
+      document.getElementById('refreshHistoryBtn').onclick = function() { loadBackupHistory(); };
+      document.getElementById('backToDaysBtn').onclick = backToDays;
+      document.getElementById('exportJsonBtn').onclick = function() { exportJSON(); };
+      document.getElementById('importJsonBtn').onclick = function() { document.getElementById('jsonImportFile').click(); };
+      document.getElementById('jsonImportFile').onchange = function(e) { if (e.target.files[0]) importJSON(e.target.files[0]); e.target.value = ''; };
+      
+      console.log('[Backup] Ready for user:', currentUser.name);
+    }
+    
+    window.selectDay = selectDay;
+    window.restoreBackup = restoreBackup;
+    window.setFilter = setFilter;
+    window.backToDays = backToDays;
+    
+    init();
+    if (typeof initMobileMenu === 'function') initMobileMenu();
+    if (typeof initThemeSelector === 'function') initThemeSelector();
+    setTimeout(function() { if (typeof applyGlobalFont === 'function') applyGlobalFont(); }, 100);
+  </script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Export</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    /* ============================================
+       STYLES - ANCIEN STYLE CONSERVÉ
+    ============================================ */
+    .export-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .export-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      border-color: var(--primary);
+    }
+    .export-icon-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .ec-json { background: rgba(52,152,219,0.12); color: #3498db; }
+    .ec-csv { background: rgba(46,204,113,0.12); color: #27ae60; }
+    .ec-html { background: rgba(155,89,182,0.12); color: #9b59b6; }
+    .ec-pdf { background: rgba(231,76,60,0.12); color: #e74c3c; }
+    .export-info strong { font-size: 0.8rem; display: block; }
+    .export-info small { font-size: 0.6rem; color: var(--text-light); }
+    
+    /* ============================================
+       MODAL - ANCIEN STYLE
+    ============================================ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 400;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 20px;
+      width: 85%;
+      max-width: 360px;
+      text-align: center;
+      animation: modalIn 0.3s ease;
+      border: 1px solid var(--border);
+    }
+    @keyframes modalIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    
+    .term-opt {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      cursor: pointer;
+      border: 2px solid var(--border);
+      margin-bottom: 8px;
+    }
+    .term-opt:hover { border-color: var(--primary); }
+    .term-opt.selected { border-color: var(--primary); background: rgba(15,59,72,0.05); }
+    .term-opt .to-icon { width: 38px; height: 38px; border-radius: 12px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; }
+    .term-opt .to-info { flex: 1; text-align: left; }
+    .term-opt .to-title { font-weight: 600; font-size: 0.8rem; }
+    .term-opt .to-desc { font-size: 0.55rem; color: var(--text-light); }
+    
+    .action-buttons { display: flex; gap: 10px; margin-top: 16px; }
+    .action-buttons button { flex: 1; padding: 12px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: none; }
+    .btn-view { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+    .btn-download { background: rgba(0,0,0,0.05); color: var(--text); border: 1px solid var(--border); }
+    .btn-pdf-download { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; width: 100%; }
+    .btn-csv-download { background: linear-gradient(135deg, #27ae60, #1e8449); color: white; }
+    .cancel-btn { width: 100%; padding: 12px; border-radius: 30px; border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; font-size: 0.75rem; margin-top: 8px; }
+    
+    .pdf-loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: white; padding: 24px 36px; border-radius: 16px; z-index: 999; display: none; text-align: center; }
+    
+    /* ============================================
+       BULLETIN STYLES
+    ============================================ */
+    .bulletin-container {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .bulletin-header {
+      background: linear-gradient(135deg, #0f3b48, #00b4d8);
+      color: white;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .bulletin-header h1 { font-size: 24px; margin: 0; letter-spacing: 2px; }
+    .bulletin-header .school { font-size: 14px; margin-top: 4px; opacity: 0.9; }
+    .bulletin-header .subtitle { font-size: 12px; margin-top: 8px; opacity: 0.8; }
+    .bulletin-student {
+      background: #f5f5f5;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #ddd;
+    }
+    .student-info { font-size: 13px; }
+    .student-info strong { color: #0f3b48; }
+    .bulletin-table { width: 100%; border-collapse: collapse; }
+    .bulletin-table th {
+      background: #0f3b48;
+      color: white;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .bulletin-table td {
+      padding: 10px 8px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      font-size: 12px;
+    }
+    .bulletin-table td.subject-name { text-align: left; font-weight: 500; }
+    .bulletin-table .total-row td {
+      background: #f0f0f0;
+      font-weight: bold;
+      border-top: 2px solid #0f3b48;
+    }
+    .grade-letter {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 11px;
+    }
+    .grade-Aplus { background: #2ecc71; color: white; }
+    .grade-A { background: #27ae60; color: white; }
+    .grade-Bplus { background: #3498db; color: white; }
+    .grade-B { background: #2980b9; color: white; }
+    .grade-C { background: #f39c12; color: white; }
+    .grade-D { background: #e67e22; color: white; }
+    .grade-F { background: #e74c3c; color: white; }
+    .bulletin-result {
+      background: linear-gradient(135deg, #0f3b48, #00b4d8);
+      color: white;
+      padding: 16px;
+      text-align: center;
+      margin: 16px;
+      border-radius: 12px;
+    }
+    .result-average { font-size: 32px; font-weight: bold; }
+    .result-status { font-size: 14px; margin-top: 4px; opacity: 0.9; }
+    .bulletin-signatures {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      border-top: 1px solid #ddd;
+      margin-top: 16px;
+    }
+    .signature { text-align: center; font-size: 11px; }
+    .signature-line { width: 120px; border-top: 1px solid #333; margin-top: 20px; padding-top: 6px; }
+    .bulletin-footer {
+      text-align: center;
+      padding: 12px;
+      font-size: 10px;
+      color: #999;
+      border-top: 1px solid #eee;
+    }
+    
+    @media (max-width: 600px) {
+      .bulletin-table th, .bulletin-table td { padding: 6px 4px; font-size: 10px; }
+      .student-info { font-size: 10px; }
+      .result-average { font-size: 24px; }
+      .signature-line { width: 80px; }
+    }
+    
+    @media (max-width: 480px) {
+      .action-buttons { flex-direction: column; }
+      .action-buttons button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-file-export"></i><span>EXPORT</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html">
+          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <!-- BOTTOM SHEET THEME -->
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <!-- SIDEBAR MENU -->
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="export.html" class="nav-item active"><i class="fas fa-file-export"></i> Export</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <!-- EN-TÊTE -->
+      <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
+        <i class="fas fa-file-export" style="font-size:40px;opacity:0.5;"></i>
+        <h2 style="color:white;margin:6px 0;">Export Center</h2>
+        <p style="opacity:0.8;font-size:0.65rem;">Download your data</p>
+      </div>
+      
+      <!-- JSON Backup -->
+      <div class="export-card" onclick="exportJSON()">
+        <div class="export-icon-circle ec-json"><i class="fas fa-database"></i></div>
+        <div class="export-info"><strong>JSON Backup</strong><small>Complete data backup</small></div>
+        <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
+      </div>
+      
+      <!-- CSV Bulletin -->
+      <div class="export-card" onclick="chooseTerm('csv')">
+        <div class="export-icon-circle ec-csv"><i class="fas fa-file-csv"></i></div>
+        <div class="export-info"><strong>CSV Bulletin</strong><small>Spreadsheet format with grades</small></div>
+        <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
+      </div>
+      
+      <!-- HTML Bulletin -->
+      <div class="export-card" onclick="chooseTerm('html')">
+        <div class="export-icon-circle ec-html"><i class="fas fa-globe"></i></div>
+        <div class="export-info"><strong>HTML Bulletin</strong><small>View or Download</small></div>
+        <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
+      </div>
+      
+      <!-- PDF Bulletin -->
+      <div class="export-card" onclick="chooseTerm('pdf')">
+        <div class="export-icon-circle ec-pdf"><i class="fas fa-file-pdf"></i></div>
+        <div class="export-info"><strong>PDF Bulletin (A4)</strong><small>Download PDF file</small></div>
+        <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
+      </div>
+      
+      <!-- ==========================================
+           NOUVEAU : IMPORT JSON BACKUP
+           AJOUTÉ SANS MODIFIER L'ANCIEN STYLE
+      ========================================== -->
+      <div class="export-card" onclick="document.getElementById('importFile').click()" style="cursor:pointer;">
+        <div class="export-icon-circle" style="background:rgba(46,204,113,0.12);color:#27ae60;"><i class="fas fa-upload"></i></div>
+        <div class="export-info"><strong>Import JSON Backup</strong><small>Restore your data from a backup file</small></div>
+        <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
+      </div>
+      <input type="file" id="importFile" accept=".json" style="display:none;" onchange="handleImport(event)">
+      
+    </main>
+  </div>
+  
+  <!-- MODAL - CHOISIR LA PÉRIODE (ANCIEN STYLE) -->
+  <div class="modal-overlay" id="termOverlay">
+    <div class="modal-box">
+      <h3><i class="fas fa-calendar-alt"></i> Choose Period</h3>
+      <p style="font-size:0.65rem;color:var(--text-light);">Select period</p>
+      
+      <div class="term-opt selected" data-term="yearly" onclick="selectTerm(this)">
+        <div class="to-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="to-info"><div class="to-title">Yearly</div><div class="to-desc">All sequences</div></div>
+      </div>
+      <div class="term-opt" data-term="1" onclick="selectTerm(this)">
+        <div class="to-icon"><i class="fas fa-1"></i></div>
+        <div class="to-info"><div class="to-title">Term 1</div><div class="to-desc">Seq 1+2</div></div>
+      </div>
+      <div class="term-opt" data-term="2" onclick="selectTerm(this)">
+        <div class="to-icon"><i class="fas fa-2"></i></div>
+        <div class="to-info"><div class="to-title">Term 2</div><div class="to-desc">Seq 3+4</div></div>
+      </div>
+      <div class="term-opt" data-term="3" onclick="selectTerm(this)">
+        <div class="to-icon"><i class="fas fa-3"></i></div>
+        <div class="to-info"><div class="to-title">Term 3</div><div class="to-desc">Seq 5+6</div></div>
+      </div>
+      
+      <div id="htmlActionButtons" style="display:none;">
+        <div class="action-buttons">
+          <button class="btn-view" onclick="viewHTML()"><i class="fas fa-eye"></i> View</button>
+          <button class="btn-download" onclick="downloadHTML()"><i class="fas fa-download"></i> Download HTML</button>
+        </div>
+      </div>
+      <div id="pdfActionButtons" style="display:none;">
+        <div class="action-buttons">
+          <button class="btn-pdf-download" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        </div>
+      </div>
+      <div id="csvActionButtons" style="display:none;">
+        <div class="action-buttons">
+          <button class="btn-csv-download" onclick="downloadCSV()"><i class="fas fa-file-csv"></i> Download CSV</button>
+        </div>
+      </div>
+      
+      <button class="cancel-btn" onclick="closeTermModal()">Cancel</button>
+    </div>
+  </div>
+  
+  <div class="pdf-loading" id="pdfLoading">
+    <i class="fas fa-spinner fa-spin"></i><br>
+    Generating PDF...<br>
+    <span style="font-size:0.7rem;">Please wait</span>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <!-- SCRIPTS -->
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/confirm-dialog.js"></script>
+  <script src="js/export.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - License</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .legal-hero {
+      text-align: center;
+      padding: 50px 20px;
+      border-radius: 32px;
+      color: white;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      position: relative;
+      overflow: hidden;
+    }
+    .legal-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index: 0;
+    }
+    @keyframes stripeMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 0; }
+    }
+    .legal-hero > * { position: relative; z-index: 1; }
+    .legal-hero h1 { font-size: 2rem; margin: 12px 0; letter-spacing: -0.5px; }
+    .legal-hero p { opacity: 0.9; font-size: 0.85rem; }
+    .legal-hero .version-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      margin-top: 16px;
+    }
+    
+    .legal-content {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .license-box {
+      background: rgba(0,0,0,0.03);
+      border-radius: 16px;
+      padding: 24px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.7rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .legal-section {
+      margin-bottom: 32px;
+    }
+    .legal-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .legal-section h3 i {
+      font-size: 1.2rem;
+      width: 32px;
+      color: var(--secondary);
+    }
+    .legal-section p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .legal-section ul {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+    .legal-section li {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .legal-section .highlight {
+      background: rgba(var(--primary-rgb), 0.08);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border-left: 3px solid var(--primary);
+      margin: 16px 0;
+    }
+    .legal-date {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-light);
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .toc {
+      background: rgba(0,0,0,0.02);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      border: 1px solid var(--border);
+    }
+    .toc h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .toc a {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toc a:hover {
+      color: var(--primary);
+    }
+    @media (max-width: 550px) {
+      .legal-hero h1 { font-size: 1.5rem; }
+      .legal-content { padding: 20px; }
+      .legal-section h3 { font-size: 0.95rem; }
+      .legal-section p, .legal-section li { font-size: 0.75rem; }
+      .toc-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-balance-scale"></i><span>LICENSE</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="license.html" class="nav-item active"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="legal-hero">
+        <i class="fas fa-balance-scale" style="font-size:55px;opacity:0.5;"></i>
+        <h1>MIT License</h1>
+        <p>Open Source Software License for SMART GRADE</p>
+        <div class="version-badge">
+          <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
+        </div>
+      </div>
+      
+      <div class="legal-content">
+        <div class="toc">
+          <h4><i class="fas fa-list"></i> Table of Contents</h4>
+          <div class="toc-grid">
+            <a href="#license-text"><i class="fas fa-chevron-right"></i> MIT License Text</a>
+            <a href="#what-it-means"><i class="fas fa-chevron-right"></i> What This Means For You</a>
+            <a href="#permissions"><i class="fas fa-chevron-right"></i> Permissions</a>
+            <a href="#limitations"><i class="fas fa-chevron-right"></i> Limitations</a>
+            <a href="#conditions"><i class="fas fa-chevron-right"></i> Conditions</a>
+            <a href="#disclaimer"><i class="fas fa-chevron-right"></i> Disclaimer of Warranty</a>
+            <a href="#liability"><i class="fas fa-chevron-right"></i> Limitation of Liability</a>
+            <a href="#third-party"><i class="fas fa-chevron-right"></i> Third-Party Libraries</a>
+            <a href="#open-source"><i class="fas fa-chevron-right"></i> Open Source Contributions</a>
+            <a href="#contact"><i class="fas fa-chevron-right"></i> Contact Information</a>
+          </div>
+        </div>
+        
+        <!-- MIT LICENSE TEXT -->
+        <div id="license-text" class="legal-section">
+          <h3><i class="fas fa-file-code"></i> MIT License Text</h3>
+          <div class="license-box">
+MIT License
+
+Copyright (c) 2026-2027 HANS KEPPER
+
+SIN GBHS FOUMBAN - Form 5B Science
+Academic Year 2026-2027
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+          </div>
+        </div>
+        
+        <!-- WHAT THIS MEANS FOR YOU -->
+        <div id="what-it-means" class="legal-section">
+          <h3><i class="fas fa-info-circle"></i> What This Means For You</h3>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> <strong>Use:</strong> You can use SMART GRADE for any purpose, personal or educational</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Study:</strong> You can study how the application works and learn from the code</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Modify:</strong> You can adapt and modify the code to suit your needs</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Share:</strong> You can distribute copies of the application to others</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Sublicense:</strong> You can distribute modified versions under the same license</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Commercial Use:</strong> You can use the software for commercial purposes (with attribution)</li>
+          </ul>
+          <div class="highlight">
+            <i class="fas fa-check-circle" style="color:#2ecc71;"></i> <strong>Attribution required:</strong> You must include the original copyright notice and license text in all copies or substantial portions of the Software.
+          </div>
+        </div>
+        
+        <!-- PERMISSIONS -->
+        <div id="permissions" class="legal-section">
+          <h3><i class="fas fa-check-circle"></i> Permissions</h3>
+          <ul>
+            <li><i class="fas fa-check"></i> <strong>Commercial Use:</strong> The software can be used commercially</li>
+            <li><i class="fas fa-check"></i> <strong>Modification:</strong> The software can be modified</li>
+            <li><i class="fas fa-check"></i> <strong>Distribution:</strong> The software can be distributed</li>
+            <li><i class="fas fa-check"></i> <strong>Private Use:</strong> The software can be used privately</li>
+            <li><i class="fas fa-check"></i> <strong>Sublicensing:</strong> Modified versions can be sublicensed under the same terms</li>
+            <li><i class="fas fa-check"></i> <strong>Patent Grant:</strong> Contributors grant patent rights for contributions</li>
+          </ul>
+        </div>
+        
+        <!-- LIMITATIONS -->
+        <div id="limitations" class="legal-section">
+          <h3><i class="fas fa-exclamation-triangle"></i> Limitations</h3>
+          <ul>
+            <li><i class="fas fa-ban"></i> <strong>No Warranty:</strong> The software is provided "AS IS" without any warranty of any kind</li>
+            <li><i class="fas fa-ban"></i> <strong>No Liability:</strong> The authors are not liable for any damages arising from use</li>
+            <li><i class="fas fa-ban"></i> <strong>No Trademark Rights:</strong> The license does not grant trademark rights</li>
+            <li><i class="fas fa-ban"></i> <strong>No Support Obligation:</strong> The authors are not obligated to provide support</li>
+          </ul>
+        </div>
+        
+        <!-- CONDITIONS -->
+        <div id="conditions" class="legal-section">
+          <h3><i class="fas fa-clipboard-list"></i> Conditions</h3>
+          <ul>
+            <li><i class="fas fa-copyright"></i> <strong>Copyright Notice:</strong> Must be retained in all copies</li>
+            <li><i class="fas fa-file-signature"></i> <strong>License Text:</strong> Must be included in all copies or substantial portions</li>
+            <li><i class="fas fa-user-check"></i> <strong>Attribution:</strong> Original authors must be credited</li>
+          </ul>
+        </div>
+        
+        <!-- DISCLAIMER OF WARRANTY -->
+        <div id="disclaimer" class="legal-section">
+          <h3><i class="fas fa-scale-balanced"></i> Disclaimer of Warranty</h3>
+          <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH YOU.</p>
+          <p>Grade calculations are for informational purposes only. The official grades from SIN GBHS FOUMBAN take precedence over any calculations in this software.</p>
+        </div>
+        
+        <!-- LIMITATION OF LIABILITY -->
+        <div id="liability" class="legal-section">
+          <h3><i class="fas fa-shield"></i> Limitation of Liability</h3>
+          <p>IN NO EVENT SHALL THE DEVELOPER (HANS KEPPER) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+          <p>This includes, but is not limited to:</p>
+          <ul>
+            <li>Loss of data or grades</li>
+            <li>Academic consequences resulting from use</li>
+            <li>Errors or inaccuracies in calculations</li>
+            <li>Unauthorized access to your account</li>
+            <li>Third-party services (GitHub, JSONBin.io, etc.)</li>
+          </ul>
+        </div>
+        
+        <!-- THIRD-PARTY LIBRARIES -->
+        <div id="third-party" class="legal-section">
+          <h3><i class="fas fa-code"></i> Third-Party Libraries</h3>
+          <p>SMART GRADE uses the following open source libraries and resources. Each library is distributed under its own license:</p>
+          <ul>
+            <li><i class="fas fa-chart-line"></i> <strong>Chart.js</strong> - MIT License - Interactive charts and graphs</li>
+            <li><i class="fas fa-qrcode"></i> <strong>QRCode.js</strong> - MIT License - QR code generation</li>
+            <li><i class="fas fa-camera"></i> <strong>html5-qrcode</strong> - Apache License 2.0 - QR code scanning</li>
+            <li><i class="fab fa-font-awesome"></i> <strong>Font Awesome</strong> - CC BY 4.0 / SIL OFL 1.1 - Icons</li>
+            <li><i class="fab fa-google"></i> <strong>Google Fonts</strong> - Open Font License - Web fonts</li>
+            <li><i class="fas fa-file-pdf"></i> <strong>html2pdf.js</strong> - MIT License - PDF generation</li>
+          </ul>
+        </div>
+        
+        <!-- OPEN SOURCE CONTRIBUTIONS -->
+        <div id="open-source" class="legal-section">
+          <h3><i class="fab fa-github"></i> Open Source Contributions</h3>
+          <p>SMART GRADE is an open source project. You can contribute by:</p>
+          <ul>
+            <li><i class="fab fa-github"></i> Reporting bugs on GitHub</li>
+            <li><i class="fas fa-code-branch"></i> Submitting pull requests with improvements</li>
+            <li><i class="fas fa-lightbulb"></i> Suggesting new features</li>
+            <li><i class="fas fa-language"></i> Helping with documentation</li>
+            <li><i class="fas fa-globe"></i> Translating the application</li>
+          </ul>
+          <div class="highlight" style="background: rgba(52,152,219,0.1); border-left-color: #3498db; margin-top: 16px;">
+            <i class="fab fa-github"></i> <strong>Repository:</strong> <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate." target="_blank" style="color:var(--primary);">https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate.</a>
+          </div>
+        </div>
+        
+        <!-- CONTACT INFORMATION (same style as terms.html) -->
+        <div id="contact" class="legal-section">
+          <h3><i class="fas fa-envelope"></i> Contact Information</h3>
+          <p>If you have any questions about this license or the software, please contact the developer:</p>
+          <ul>
+            <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
+            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
+            <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
+            <li><i class="fab fa-github"></i> <strong>GitHub:</strong> hanskepper</li>
+            <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
+            <li><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Foumban, West Region, Cameroon</li>
+          </ul>
+        </div>
+        
+        <div class="legal-date">
+          <i class="fas fa-calendar-alt"></i> License effective: July 08, 2026<br>
+          <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
+          <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>
+          <i class="fas fa-copyright"></i> 2026-2027 HANS KEPPER. Open Source Software<br>
+          <i class="fab fa-osi"></i> OSI Approved - MIT License
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    function updateHeaderAvatar() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          var headerAvatar = document.getElementById('headerAvatar');
+          if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function applyGlobalFont() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    updateHeaderAvatar();
+    initMobileMenu();
+    initThemeSelector();
+    applyGlobalFont();
+    
+    var fontObserver = new MutationObserver(function() { applyGlobalFont(); });
+    fontObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  </script>
+</body>
+</html>

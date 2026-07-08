@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Notebook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    /* ============================================
+       NOTEBOOK - STYLES UNIQUEMENT VISUELS
+       (LA POLICE VIENT DES FICHIERS CSS GLOBAUX)
+       ============================================ */
+    
+    .notebook-header {
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 28px;
+      color: white;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .notebook-header h1 { font-size: 1.4rem; margin: 6px 0; }
+    .notebook-header p { opacity: 0.85; font-size: 0.7rem; }
+    
+    .note-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .stat-card-note {
+      text-align: center;
+      padding: 10px 6px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+    .stat-number {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-label {
+      font-size: 0.5rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+    
+    .filter-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .filter-chip {
+      padding: 5px 12px;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text);
+    }
+    .filter-chip.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    
+    .note-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 450px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .note-list::-webkit-scrollbar { width: 3px; }
+    .note-list::-webkit-scrollbar-track { background: var(--border); border-radius: 3px; }
+    .note-list::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+    
+    .note-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .note-card:hover { transform: translateX(3px); border-color: var(--primary); }
+    .note-card.pinned { border-left: 3px solid #f39c12; }
+    .note-card.important { border-left: 3px solid #e74c3c; }
+    
+    .note-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .note-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex: 1;
+    }
+    .note-actions {
+      display: flex;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+    .note-action-btn {
+      background: none;
+      border: none;
+      padding: 3px 6px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 0.65rem;
+      color: var(--text-light);
+      transition: all 0.2s;
+    }
+    .note-action-btn:hover { background: rgba(0,0,0,0.05); }
+    .note-action-btn.danger:hover { background: rgba(231,76,60,0.1); color: #e74c3c; }
+    
+    .note-content {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .note-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 0.5rem;
+      color: var(--text-light);
+      flex-wrap: wrap;
+    }
+    .note-meta span { display: flex; align-items: center; gap: 3px; }
+    .note-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .note-tag {
+      background: rgba(15,59,72,0.08);
+      padding: 1px 8px;
+      border-radius: 20px;
+      font-size: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .empty-state-note {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .empty-state-note i {
+      font-size: 50px;
+      opacity: 0.15;
+      margin-bottom: 12px;
+      display: block;
+    }
+    
+    /* MODALE */
+    .modal-note {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-note.active { display: flex; }
+    .modal-content-note {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 20px;
+      width: 90%;
+      max-width: 450px;
+      max-height: 85%;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      animation: fadeInUp 0.3s ease;
+    }
+    .modal-content-note h3 {
+      color: var(--primary);
+      margin-bottom: 14px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .modal-content-note input,
+    .modal-content-note textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.8rem;
+      box-sizing: border-box;
+    }
+    .modal-content-note textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .modal-content-note input:focus,
+    .modal-content-note textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    /* SÉLECTEUR PERSONNALISÉ */
+    .custom-select-wrapper {
+      position: relative;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    .custom-select-trigger {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+    .custom-select-trigger:hover,
+    .custom-select-trigger.open {
+      border-color: var(--primary);
+    }
+    .custom-select-trigger i {
+      color: var(--text-light);
+      transition: transform 0.2s;
+    }
+    .custom-select-trigger.open i {
+      transform: rotate(180deg);
+    }
+    
+    .custom-select-options {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--card-bg);
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      max-height: 160px;
+      overflow-y: auto;
+      z-index: 10;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .custom-select-options.show {
+      display: block;
+    }
+    .custom-select-options::-webkit-scrollbar { width: 3px; }
+    .custom-select-options::-webkit-scrollbar-track { background: var(--border); border-radius: 3px; }
+    .custom-select-options::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+    
+    .custom-select-option {
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: var(--text);
+      transition: all 0.15s;
+      border-bottom: 1px solid var(--border);
+    }
+    .custom-select-option:last-child { border-bottom: none; }
+    .custom-select-option:hover { background: rgba(15,59,72,0.06); }
+    .custom-select-option.selected {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+    
+    /* COULEURS */
+    .color-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+      padding: 2px 0;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .color-dot {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.2s;
+      max-width: 48px;
+      margin: 0 auto;
+    }
+    .color-dot:hover {
+      transform: scale(1.08);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+    .color-dot.selected {
+      border-color: var(--text);
+      box-shadow: 0 0 0 2px var(--card-bg), 0 0 0 4px var(--text);
+    }
+    
+    .note-options-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .note-options-row label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .note-options-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      margin: 0;
+    }
+    
+    .modal-buttons-note {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .modal-buttons-note button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      font-size: 0.8rem;
+    }
+    .modal-buttons-note .btn-cancel {
+      background: rgba(0,0,0,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .modal-buttons-note .btn-save {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+    
+    @media (max-width: 550px) {
+      .note-stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .filter-bar { justify-content: center; }
+      .color-options { max-width: 200px; gap: 6px; }
+      .color-dot { max-width: 38px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-book"></i><span>NOTEBOOK</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div id="headerAvatar" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="notebook.html" class="nav-item active"><i class="fas fa-book"></i> Notebook</a>
+        <a href="flashcards.html" class="nav-item"><i class="fas fa-clone"></i> Flashcards</a>
+        <a href="goals.html" class="nav-item"><i class="fas fa-bullseye"></i> Goals</a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="notebook-header">
+        <i class="fas fa-book" style="font-size:35px;opacity:0.5;"></i>
+        <h1>My Notebook</h1>
+        <p>Write down your ideas, notes, and reminders</p>
+      </div>
+      
+      <!-- STATISTIQUES -->
+      <div class="note-stats">
+        <div class="stat-card-note"><div class="stat-number" id="totalNotes">0</div><div class="stat-label">Total</div></div>
+        <div class="stat-card-note"><div class="stat-number" id="pinnedNotes">0</div><div class="stat-label">Pinned</div></div>
+        <div class="stat-card-note"><div class="stat-number" id="importantNotes">0</div><div class="stat-label">Important</div></div>
+        <div class="stat-card-note"><div class="stat-number" id="subjectsWithNotes">0</div><div class="stat-label">Subjects</div></div>
+      </div>
+      
+      <!-- FILTRES -->
+      <div class="filter-bar">
+        <div class="filter-chip active" data-filter="all" onclick="setNoteFilter('all')">All</div>
+        <div class="filter-chip" data-filter="pinned" onclick="setNoteFilter('pinned')"><i class="fas fa-thumbtack"></i> Pinned</div>
+        <div class="filter-chip" data-filter="important" onclick="setNoteFilter('important')"><i class="fas fa-star"></i> Important</div>
+        <div class="filter-chip" data-filter="subject" onclick="setNoteFilter('subject')"><i class="fas fa-book"></i> By Subject</div>
+      </div>
+      
+      <!-- BOUTON AJOUTER -->
+      <div style="margin-bottom:14px;">
+        <button class="btn btn-primary" onclick="openNoteModal()">
+          <i class="fas fa-plus"></i> Add New Note
+        </button>
+      </div>
+      
+      <!-- LISTE DES NOTES -->
+      <div id="notesList" class="note-list"></div>
+      
+    </main>
+  </div>
+  
+  <!-- MODALE NOTE -->
+  <div class="modal-note" id="noteModal">
+    <div class="modal-content-note">
+      <h3 id="noteModalTitle"><i class="fas fa-plus"></i> Add New Note</h3>
+      
+      <input type="text" id="noteTitle" placeholder="Note title...">
+      
+      <!-- SÉLECTEUR PERSONNALISÉ -->
+      <div class="custom-select-wrapper">
+        <div class="custom-select-trigger" onclick="toggleCustomSelect()">
+          <span id="selectedSubjectText">General</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="custom-select-options" id="customSelectOptions"></div>
+      </div>
+      
+      <textarea id="noteContent" placeholder="Write your note here..."></textarea>
+      
+      <div class="note-options-row">
+        <label><input type="checkbox" id="notePinned"> 📌 Pinned</label>
+        <label><input type="checkbox" id="noteImportant"> ⭐ Important</label>
+      </div>
+      
+      <!-- COULEURS -->
+      <div class="color-options" id="colorOptions"></div>
+      
+      <input type="hidden" id="editNoteId">
+      
+      <div class="modal-buttons-note">
+        <button class="btn-cancel" onclick="closeNoteModal()">Cancel</button>
+        <button class="btn-save" onclick="saveNote()">Save</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/confirm-dialog.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // NOTEBOOK - LOGIQUE COMPLÈTE
+    // ============================================
+    
+    var currentUser = null;
+    var currentFilter = 'all';
+    var editingNoteId = null;
+    var customSelectOpen = false;
+    
+    var NOTE_COLORS = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#00bcd4'];
+    
+    var SUBJECT_LIST = [
+      'General', 'COMPUTER SCIENCES', 'MATHEMATICS', 'CHEMISTRY',
+      'PHYSICS', 'BIOLOGY', 'ENGLISH LANGUAGE', 'FRENCH',
+      'GEOGRAPHY', 'ECONOMICS', 'HUMAN BIOLOGY', 'GEOLOGY',
+      'ADDITIONAL MATHEMATICS', 'CITIZENSHIP', 'FOOD AND NUTRITION'
+    ];
+    
+    // ============================================
+    // FONCTIONS PRINCIPALES
+    // ============================================
+    
+    function getNotes() {
+      if (!currentUser || !currentUser.id) return [];
+      try {
+        return JSON.parse(localStorage.getItem('smartgrade_notes_' + currentUser.id) || '[]');
+      } catch(e) { return []; }
+    }
+    
+    function saveNotes(notes) {
+      if (!currentUser || !currentUser.id) return;
+      localStorage.setItem('smartgrade_notes_' + currentUser.id, JSON.stringify(notes));
+    }
+    
+    function loadNotes() {
+      currentUser = getCurrentStudent();
+      if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      var notes = getNotes();
+      notes.sort(function(a, b) {
+        return new Date(b.updatedAt || b.createdAt) - new Date(a.updatedAt || a.createdAt);
+      });
+      
+      displayNotes(notes);
+      updateStats(notes);
+      updateHeaderProfile();
+      initCustomSelect();
+      initColorOptions();
+    }
+    
+    // ============================================
+    // SÉLECTEUR PERSONNALISÉ
+    // ============================================
+    
+    function initCustomSelect() {
+      var container = document.getElementById('customSelectOptions');
+      var html = '';
+      for (var i = 0; i < SUBJECT_LIST.length; i++) {
+        var selected = i === 0 ? 'selected' : '';
+        html += '<div class="custom-select-option ' + selected + '" data-value="' + SUBJECT_LIST[i] + '" onclick="selectSubject(\'' + SUBJECT_LIST[i] + '\')">' + SUBJECT_LIST[i] + '</div>';
+      }
+      container.innerHTML = html;
+    }
+    
+    function toggleCustomSelect() {
+      var options = document.getElementById('customSelectOptions');
+      var trigger = document.querySelector('.custom-select-trigger');
+      customSelectOpen = !customSelectOpen;
+      if (customSelectOpen) {
+        options.classList.add('show');
+        trigger.classList.add('open');
+      } else {
+        options.classList.remove('show');
+        trigger.classList.remove('open');
+      }
+    }
+    
+    function selectSubject(subject) {
+      document.getElementById('selectedSubjectText').innerHTML = subject;
+      document.querySelectorAll('.custom-select-option').forEach(function(opt) {
+        opt.classList.remove('selected');
+        if (opt.dataset.value === subject) opt.classList.add('selected');
+      });
+      customSelectOpen = false;
+      document.getElementById('customSelectOptions').classList.remove('show');
+      document.querySelector('.custom-select-trigger').classList.remove('open');
+    }
+    
+    function getSelectedSubject() {
+      return document.getElementById('selectedSubjectText').innerHTML;
+    }
+    
+    // Fermer le sélecteur en cliquant ailleurs
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.custom-select-wrapper')) {
+        document.getElementById('customSelectOptions').classList.remove('show');
+        document.querySelector('.custom-select-trigger').classList.remove('open');
+        customSelectOpen = false;
+      }
+    });
+    
+    // ============================================
+    // COULEURS
+    // ============================================
+    
+    function initColorOptions() {
+      var container = document.getElementById('colorOptions');
+      var html = '';
+      for (var i = 0; i < NOTE_COLORS.length; i++) {
+        var color = NOTE_COLORS[i];
+        var selected = i === 0 ? 'selected' : '';
+        html += '<div class="color-dot ' + selected + '" data-color="' + color + '" style="background:' + color + ';" onclick="selectColor(\'' + color + '\')"></div>';
+      }
+      container.innerHTML = html;
+    }
+    
+    function selectColor(color) {
+      document.querySelectorAll('.color-dot').forEach(function(dot) {
+        dot.classList.remove('selected');
+        if (dot.dataset.color === color) dot.classList.add('selected');
+      });
+    }
+    
+    function getSelectedColor() {
+      var selected = document.querySelector('.color-dot.selected');
+      return selected ? selected.dataset.color : '#3498db';
+    }
+    
+    function resetColorSelection() {
+      document.querySelectorAll('.color-dot').forEach(function(dot, index) {
+        dot.classList.remove('selected');
+        if (index === 0) dot.classList.add('selected');
+      });
+    }
+    
+    // ============================================
+    // AFFICHER LES NOTES
+    // ============================================
+    
+    function displayNotes(notes) {
+      var container = document.getElementById('notesList');
+      
+      var filtered = notes;
+      if (currentFilter === 'pinned') {
+        filtered = notes.filter(function(n) { return n.pinned; });
+      } else if (currentFilter === 'important') {
+        filtered = notes.filter(function(n) { return n.important; });
+      } else if (currentFilter === 'subject') {
+        var groups = {};
+        for (var i = 0; i < notes.length; i++) {
+          var subject = notes[i].subject || 'General';
+          if (!groups[subject]) groups[subject] = [];
+          groups[subject].push(notes[i]);
+        }
+        var groupedHtml = '';
+        for (var subject in groups) {
+          groupedHtml += '<div style="margin-bottom:14px;">';
+          groupedHtml += '<div style="font-weight:700;font-size:0.7rem;color:var(--primary);margin-bottom:6px;border-bottom:1px solid var(--border);padding-bottom:3px;">' + subject + '</div>';
+          for (var j = 0; j < groups[subject].length; j++) {
+            groupedHtml += renderNoteCard(groups[subject][j]);
+          }
+          groupedHtml += '</div>';
+        }
+        container.innerHTML = groupedHtml;
+        return;
+      }
+      
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state-note">
+            <i class="fas fa-book"></i>
+            <p>No notes found</p>
+            <p style="font-size:0.6rem;">Click "Add New Note" to get started</p>
+          </div>
+        `;
+        return;
+      }
+      
+      var html = '';
+      for (var i = 0; i < filtered.length; i++) {
+        html += renderNoteCard(filtered[i]);
+      }
+      container.innerHTML = html;
+    }
+    
+    function renderNoteCard(note) {
+      var color = note.color || '#3498db';
+      var date = new Date(note.updatedAt || note.createdAt);
+      var dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString().slice(0,5);
+      
+      var pinnedClass = note.pinned ? 'pinned' : '';
+      var importantClass = note.important ? 'important' : '';
+      
+      var content = note.content || '';
+      var truncated = content.length > 100 ? content.substring(0, 100) + '...' : content;
+      
+      return `
+        <div class="note-card ${pinnedClass} ${importantClass}" style="border-left-color: ${color};">
+          <div class="note-header">
+            <div class="note-title">${escapeHtml(note.title || 'Untitled')}</div>
+            <div class="note-actions">
+              <button class="note-action-btn" onclick="event.stopPropagation(); togglePinNote('${note.id}')" title="Pin">
+                <i class="fas fa-thumbtack" style="color:${note.pinned ? '#f39c12' : 'var(--text-light)'};"></i>
+              </button>
+              <button class="note-action-btn" onclick="event.stopPropagation(); toggleImportantNote('${note.id}')" title="Important">
+                <i class="fas fa-star" style="color:${note.important ? '#e74c3c' : 'var(--text-light)'};"></i>
+              </button>
+              <button class="note-action-btn" onclick="event.stopPropagation(); openEditNote('${note.id}')" title="Edit">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="note-action-btn danger" onclick="event.stopPropagation(); deleteNote('${note.id}')" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+          <div class="note-content">${escapeHtml(truncated)}</div>
+          <div class="note-meta">
+            <span><i class="fas fa-tag"></i> ${escapeHtml(note.subject || 'General')}</span>
+            <span><i class="fas fa-clock"></i> ${dateStr}</span>
+          </div>
+          ${note.tags && note.tags.length > 0 ? `
+            <div class="note-tags">
+              ${note.tags.map(function(t) { return '<span class="note-tag">#' + escapeHtml(t) + '</span>'; }).join('')}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+    
+    // ============================================
+    // STATISTIQUES
+    // ============================================
+    
+    function updateStats(notes) {
+      var total = notes.length;
+      var pinned = 0;
+      var important = 0;
+      var subjects = {};
+      
+      for (var i = 0; i < notes.length; i++) {
+        if (notes[i].pinned) pinned++;
+        if (notes[i].important) important++;
+        var subject = notes[i].subject || 'General';
+        if (!subjects[subject]) subjects[subject] = true;
+      }
+      
+      document.getElementById('totalNotes').innerHTML = total;
+      document.getElementById('pinnedNotes').innerHTML = pinned;
+      document.getElementById('importantNotes').innerHTML = important;
+      document.getElementById('subjectsWithNotes').innerHTML = Object.keys(subjects).length;
+    }
+    
+    // ============================================
+    // FILTRE
+    // ============================================
+    
+    function setNoteFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-chip').forEach(function(chip) {
+        chip.classList.remove('active');
+        if (chip.dataset.filter === filter) chip.classList.add('active');
+      });
+      var notes = getNotes();
+      displayNotes(notes);
+    }
+    
+    // ============================================
+    // CRÉER / MODIFIER UNE NOTE
+    // ============================================
+    
+    function openNoteModal() {
+      editingNoteId = null;
+      document.getElementById('noteModalTitle').innerHTML = '<i class="fas fa-plus"></i> Add New Note';
+      document.getElementById('noteTitle').value = '';
+      document.getElementById('noteContent').value = '';
+      document.getElementById('selectedSubjectText').innerHTML = 'General';
+      document.querySelectorAll('.custom-select-option').forEach(function(opt) {
+        opt.classList.remove('selected');
+        if (opt.dataset.value === 'General') opt.classList.add('selected');
+      });
+      document.getElementById('notePinned').checked = false;
+      document.getElementById('noteImportant').checked = false;
+      document.getElementById('editNoteId').value = '';
+      resetColorSelection();
+      document.getElementById('noteModal').classList.add('active');
+      document.getElementById('noteTitle').focus();
+    }
+    
+    function openEditNote(noteId) {
+      var notes = getNotes();
+      var note = null;
+      for (var i = 0; i < notes.length; i++) {
+        if (notes[i].id === noteId) {
+          note = notes[i];
+          break;
+        }
+      }
+      if (!note) return;
+      
+      editingNoteId = noteId;
+      document.getElementById('noteModalTitle').innerHTML = '<i class="fas fa-edit"></i> Edit Note';
+      document.getElementById('noteTitle').value = note.title || '';
+      document.getElementById('noteContent').value = note.content || '';
+      document.getElementById('selectedSubjectText').innerHTML = note.subject || 'General';
+      document.querySelectorAll('.custom-select-option').forEach(function(opt) {
+        opt.classList.remove('selected');
+        if (opt.dataset.value === (note.subject || 'General')) opt.classList.add('selected');
+      });
+      document.getElementById('notePinned').checked = note.pinned || false;
+      document.getElementById('noteImportant').checked = note.important || false;
+      document.getElementById('editNoteId').value = noteId;
+      selectColor(note.color || '#3498db');
+      document.getElementById('noteModal').classList.add('active');
+      document.getElementById('noteTitle').focus();
+    }
+    
+    function closeNoteModal() {
+      document.getElementById('noteModal').classList.remove('active');
+    }
+    
+    function saveNote() {
+      var title = document.getElementById('noteTitle').value.trim();
+      var content = document.getElementById('noteContent').value.trim();
+      var subject = getSelectedSubject();
+      var pinned = document.getElementById('notePinned').checked;
+      var important = document.getElementById('noteImportant').checked;
+      var editId = document.getElementById('editNoteId').value;
+      var color = getSelectedColor();
+      
+      if (!title && !content) {
+        showToast('Please enter a title or content');
+        return;
+      }
+      
+      var notes = getNotes();
+      var now = new Date().toISOString();
+      
+      if (editId) {
+        for (var i = 0; i < notes.length; i++) {
+          if (notes[i].id === editId) {
+            notes[i].title = title || 'Untitled';
+            notes[i].content = content;
+            notes[i].subject = subject;
+            notes[i].pinned = pinned;
+            notes[i].important = important;
+            notes[i].color = color;
+            notes[i].tags = extractTags(content);
+            notes[i].updatedAt = now;
+            break;
+          }
+        }
+        showToast('Note updated');
+      } else {
+        notes.unshift({
+          id: Date.now().toString(),
+          title: title || 'Untitled',
+          content: content,
+          subject: subject,
+          pinned: pinned,
+          important: important,
+          color: color,
+          tags: extractTags(content),
+          createdAt: now,
+          updatedAt: now
+        });
+        showToast('Note added');
+      }
+      
+      saveNotes(notes);
+      closeNoteModal();
+      var allNotes = getNotes();
+      displayNotes(allNotes);
+      updateStats(allNotes);
+    }
+    
+    // ============================================
+    // EXTRAIRE LES TAGS
+    // ============================================
+    
+    function extractTags(content) {
+      if (!content) return [];
+      var matches = content.match(/#\w+/g);
+      if (!matches) return [];
+      return matches.map(function(t) { return t.substring(1); });
+    }
+    
+    // ============================================
+    // ACTIONS SUR LES NOTES
+    // ============================================
+    
+    function togglePinNote(noteId) {
+      var notes = getNotes();
+      for (var i = 0; i < notes.length; i++) {
+        if (notes[i].id === noteId) {
+          notes[i].pinned = !notes[i].pinned;
+          break;
+        }
+      }
+      saveNotes(notes);
+      var allNotes = getNotes();
+      displayNotes(allNotes);
+      updateStats(allNotes);
+    }
+    
+    function toggleImportantNote(noteId) {
+      var notes = getNotes();
+      for (var i = 0; i < notes.length; i++) {
+        if (notes[i].id === noteId) {
+          notes[i].important = !notes[i].important;
+          break;
+        }
+      }
+      saveNotes(notes);
+      var allNotes = getNotes();
+      displayNotes(allNotes);
+      updateStats(allNotes);
+    }
+    
+    function deleteNote(noteId) {
+      showConfirmDialog({
+        title: 'Delete Note',
+        message: 'Are you sure you want to delete this note?',
+        detail: 'This action cannot be undone.',
+        icon: 'fa-trash-alt',
+        iconColor: '#e74c3c',
+        confirmText: 'Delete',
+        onConfirm: function() {
+          var notes = getNotes();
+          notes = notes.filter(function(n) { return n.id !== noteId; });
+          saveNotes(notes);
+          var allNotes = getNotes();
+          displayNotes(allNotes);
+          updateStats(allNotes);
+          showToast('Note deleted');
+        }
+      });
+    }
+    
+    // ============================================
+    // UTILITAIRES
+    // ============================================
+    
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+    
+    function updateHeaderProfile() {
+      try {
+        var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + currentUser.id) || '{}');
+        var headerAvatar = document.getElementById('headerAvatar');
+        if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+          headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+        }
+      } catch(e) {}
+    }
+    
+    function showToast(message) {
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+      container.appendChild(toast);
+      setTimeout(function() { if (toast.parentNode) toast.remove(); }, 3000);
+    }
+    
+    // ============================================
+    // EXPOSER LES FONCTIONS GLOBALES
+    // ============================================
+    
+    window.setNoteFilter = setNoteFilter;
+    window.openNoteModal = openNoteModal;
+    window.openEditNote = openEditNote;
+    window.closeNoteModal = closeNoteModal;
+    window.saveNote = saveNote;
+    window.togglePinNote = togglePinNote;
+    window.toggleImportantNote = toggleImportantNote;
+    window.deleteNote = deleteNote;
+    window.selectColor = selectColor;
+    window.toggleCustomSelect = toggleCustomSelect;
+    window.selectSubject = selectSubject;
+    
+    // ============================================
+    // INITIALISATION
+    // ============================================
+    
+    loadNotes();
+    initMobileMenu();
+    initThemeSelector();
+    
+    // Fermer la modale en cliquant en dehors
+    document.getElementById('noteModal').addEventListener('click', function(e) {
+      if (e.target === this) closeNoteModal();
+    });
+    
+    // Ctrl+Enter pour sauvegarder
+    document.getElementById('noteContent').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && e.ctrlKey) {
+        e.preventDefault();
+        saveNote();
+      }
+    });
+    
+    // La police est gérée par app.js (comme les autres pages)
+    // Pas de fonction supplémentaire de police ici
+  </script>
+</body>
+</html>

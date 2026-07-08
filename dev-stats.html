@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DEV - Advanced Stats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .dev-hero {
+      text-align: center;
+      padding: 35px 20px;
+      border-radius: 28px;
+      color: white;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .dev-hero h1 { font-size: 1.6rem; margin: 8px 0; }
+    .dev-hero p { opacity: 0.85; font-size: 0.75rem; }
+    
+    .dev-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 20px 10px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      margin-top: 6px;
+      color: var(--text-light);
+      letter-spacing: 1px;
+    }
+    
+    .chart-container {
+      position: relative;
+      height: 400px;
+      margin-top: 20px;
+      width: 100%;
+    }
+    
+    .student-selector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .student-selector select {
+      flex: 2;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.85rem;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+    }
+    .btn-calc {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-calc:active { transform: scale(0.97); }
+    
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.6s linear infinite;
+      margin-right: 8px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Menu développeur */
+    .dev-sidebar {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid var(--primary);
+    }
+    .dev-sidebar-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .dev-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dev-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .dev-nav-link i {
+      width: 24px;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    .dev-nav-link:hover {
+      background: rgba(0,0,0,0.03);
+      border-color: var(--border);
+    }
+    .dev-nav-link.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    .dev-nav-link.active i {
+      color: white;
+    }
+    .dev-nav-link.logout-link {
+      margin-top: 8px;
+      border-top: 1px solid var(--border);
+      border-radius: 0;
+      color: #e74c3c;
+    }
+    .dev-nav-link.logout-link i {
+      color: #e74c3c;
+    }
+    
+    @media (max-width: 550px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .student-selector { flex-direction: column; }
+      .student-selector select, .btn-calc { width: 100%; }
+      .chart-container { height: 350px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-chart-pie"></i><span>DEV TOOLS</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        
+        <div class="dev-sidebar" id="devSidebar" style="display:none;">
+          <div class="dev-sidebar-title"><i class="fas fa-code"></i> Developer Tools</div>
+          <div class="dev-nav-links">
+            <a href="dev-calculator.html" class="dev-nav-link" id="devCalculatorLink"><i class="fas fa-calculator"></i> Calculator</a>
+            <a href="dev-database.html" class="dev-nav-link" id="devDatabaseLink"><i class="fas fa-database"></i> Database</a>
+            <a href="dev-stats.html" class="dev-nav-link active" id="devStatsLink"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
+            <a href="dev-logs.html" class="dev-nav-link" id="devLogsLink"><i class="fas fa-history"></i> System Logs</a>
+            <a href="dev-backup.html" class="dev-nav-link" id="devBackupLink"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
+            <a href="dev-config.html" class="nav-item" id="devConfigLink"><i class="fas fa-cog"></i> System Config</a>
+          </div>
+        </div>
+        
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="dev-hero">
+        <i class="fas fa-chart-pie" style="font-size:45px;opacity:0.5;"></i>
+        <h1>Advanced Statistics</h1>
+        <p>Detailed performance analysis - Developer Tool</p>
+      </div>
+      
+      <div class="dev-card">
+        <div class="section-title"><i class="fas fa-user"></i> Select Student</div>
+        <div class="student-selector">
+          <select id="statsStudentId"></select>
+          <button class="btn-calc" onclick="loadStudentStats()">
+            <i class="fas fa-chart-line"></i> Load Statistics
+          </button>
+        </div>
+        
+        <div class="stats-grid" id="statsSummary">
+          <div class="stat-card">
+            <div class="stat-value" id="statTerm1">--</div>
+            <div class="stat-label">Term 1</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statTerm2">--</div>
+            <div class="stat-label">Term 2</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statTerm3">--</div>
+            <div class="stat-label">Term 3</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statYearly">--</div>
+            <div class="stat-label">Yearly</div>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <canvas id="subjectChart"></canvas>
+        </div>
+        <p style="font-size:0.6rem; color:var(--text-light); text-align:center; margin-top:12px;">
+          <i class="fas fa-chart-simple"></i> Yearly average per subject (0-20 scale)
+        </p>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    var subjectChart = null;
+    var isLoading = false;
+    
+    var DEFAULT_SUBJECTS = [
+      {id:1,name:"COMPUTER SCIENCES"},{id:2,name:"MATHEMATICS"},{id:3,name:"CHEMISTRY"},
+      {id:4,name:"HUMAN BIOLOGY"},{id:5,name:"GEOLOGY"},{id:6,name:"PHYSICS"},
+      {id:7,name:"ADDITIONAL MATHEMATICS"},{id:8,name:"BIOLOGY"},{id:9,name:"ECONOMICS"},
+      {id:10,name:"ENGLISH LANGUAGE"},{id:11,name:"GEOGRAPHY"},{id:12,name:"CITIZENSHIP"},
+      {id:13,name:"FRENCH"},{id:14,name:"FOOD AND NUTRITION"}
+    ];
+    
+    // Vérifier l'accès développeur
+    function checkDevAccess() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          if (user.name === 'HANS KEPPER' && user.class === 'B2' && user.number === 9) {
+            document.getElementById('devSidebar').style.display = 'block';
+          } else {
+            window.location.href = 'dashboard.html';
+          }
+        } else {
+          window.location.href = 'login.html';
+        }
+      } catch(e) {
+        window.location.href = 'login.html';
+      }
+    }
+    
+    // ============================================
+    // CALCUL DE MOYENNE CORRIGÉ
+    // ============================================
+    function calculateStudentTermAverageCorrect(studentId, term) {
+      var grades = getStudentGrades(studentId);
+      var coeffs = getSubjectCoefficients(studentId);
+      var selected = getStudentSelectedSubjects(studentId, term);
+      
+      if (!selected || selected.length === 0) return 0;
+      
+      var totalWeighted = 0;
+      var totalCoeff = 0;
+      var seq1 = (term - 1) * 2 + 1;
+      var seq2 = seq1 + 1;
+      
+      for (var i = 0; i < selected.length; i++) {
+        var subjectId = selected[i];
+        var coeff = coeffs[subjectId] || 5;
+        
+        var seq1Grades = grades.filter(function(g) { return g.subjectId === subjectId && g.sequenceId === seq1; });
+        var seq2Grades = grades.filter(function(g) { return g.subjectId === subjectId && g.sequenceId === seq2; });
+        
+        var avg1 = 0;
+        if (seq1Grades.length > 0) {
+          var sum1 = 0;
+          for (var j = 0; j < seq1Grades.length; j++) sum1 += seq1Grades[j].value;
+          avg1 = sum1 / seq1Grades.length;
+        }
+        
+        var avg2 = 0;
+        if (seq2Grades.length > 0) {
+          var sum2 = 0;
+          for (var j = 0; j < seq2Grades.length; j++) sum2 += seq2Grades[j].value;
+          avg2 = sum2 / seq2Grades.length;
+        }
+        
+        var subjectAvg = (avg1 + avg2) / 2;
+        totalWeighted += subjectAvg * coeff;
+        totalCoeff += coeff;
+      }
+      
+      return totalCoeff > 0 ? parseFloat((totalWeighted / totalCoeff).toFixed(2)) : 0;
+    }
+    
+    function calculateSubjectTermAverage(subjectId, term, grades) {
+      var seq1 = (term - 1) * 2 + 1;
+      var seq2 = seq1 + 1;
+      var seq1Grades = grades.filter(function(g) { return g.subjectId === subjectId && g.sequenceId === seq1; });
+      var seq2Grades = grades.filter(function(g) { return g.subjectId === subjectId && g.sequenceId === seq2; });
+      
+      var avg1 = 0;
+      if (seq1Grades.length > 0) {
+        var sum1 = 0;
+        for (var j = 0; j < seq1Grades.length; j++) sum1 += seq1Grades[j].value;
+        avg1 = sum1 / seq1Grades.length;
+      }
+      
+      var avg2 = 0;
+      if (seq2Grades.length > 0) {
+        var sum2 = 0;
+        for (var j = 0; j < seq2Grades.length; j++) sum2 += seq2Grades[j].value;
+        avg2 = sum2 / seq2Grades.length;
+      }
+      
+      return parseFloat(((avg1 + avg2) / 2).toFixed(2));
+    }
+    
+    function populateStudentSelect() {
+      var students = getAllStudents();
+      var select = document.getElementById('statsStudentId');
+      var html = '<option value="">-- Select a student --</option>';
+      for (var i = 0; i < students.length; i++) {
+        html += '<option value="' + students[i].id + '">' + students[i].name + ' (ID: ' + students[i].id + ') - ' + students[i].class + ' #' + students[i].number + '</option>';
+      }
+      select.innerHTML = html;
+      
+      if (students.length > 0 && students[0]) {
+        select.value = students[0].id;
+        setTimeout(function() { loadStudentStats(); }, 500);
+      }
+    }
+    
+    function getChartColors() {
+      var isDark = document.body.classList.contains('night-mode');
+      if (isDark) {
+        return {
+          gridColor: 'rgba(255,255,255,0.1)',
+          textColor: '#e0e0e0',
+          barColors: [
+            'rgba(52,152,219,0.8)', 'rgba(46,204,113,0.8)', 'rgba(155,89,182,0.8)',
+            'rgba(241,196,15,0.8)', 'rgba(231,76,60,0.8)', 'rgba(26,188,156,0.8)',
+            'rgba(52,73,94,0.8)', 'rgba(230,126,34,0.8)', 'rgba(149,165,166,0.8)',
+            'rgba(22,160,133,0.8)', 'rgba(189,195,199,0.8)', 'rgba(127,140,141,0.8)',
+            'rgba(41,128,185,0.8)', 'rgba(39,174,96,0.8)'
+          ]
+        };
+      } else {
+        return {
+          gridColor: 'rgba(0,0,0,0.08)',
+          textColor: '#1a2a3a',
+          barColors: [
+            'rgba(52,152,219,0.8)', 'rgba(46,204,113,0.8)', 'rgba(155,89,182,0.8)',
+            'rgba(241,196,15,0.8)', 'rgba(231,76,60,0.8)', 'rgba(26,188,156,0.8)',
+            'rgba(52,73,94,0.8)', 'rgba(230,126,34,0.8)', 'rgba(149,165,166,0.8)',
+            'rgba(22,160,133,0.8)', 'rgba(189,195,199,0.8)', 'rgba(127,140,141,0.8)',
+            'rgba(41,128,185,0.8)', 'rgba(39,174,96,0.8)'
+          ]
+        };
+      }
+    }
+    
+    function loadStudentStats() {
+      if (isLoading) return;
+      
+      var select = document.getElementById('statsStudentId');
+      var studentId = parseInt(select.value);
+      
+      if (isNaN(studentId)) {
+        showToast('Please select a student');
+        return;
+      }
+      
+      var students = getAllStudents();
+      var student = students.find(function(s) { return s.id === studentId; });
+      if (!student) {
+        showToast('Student not found');
+        return;
+      }
+      
+      isLoading = true;
+      var btn = document.querySelector('.btn-calc');
+      var originalHtml = btn.innerHTML;
+      btn.innerHTML = '<span class="loading-spinner"></span> Loading...';
+      btn.disabled = true;
+      
+      setTimeout(function() {
+        try {
+          var t1 = calculateStudentTermAverageCorrect(studentId, 1);
+          var t2 = calculateStudentTermAverageCorrect(studentId, 2);
+          var t3 = calculateStudentTermAverageCorrect(studentId, 3);
+          var yearly = parseFloat(((t1 + t2 + t3) / 3).toFixed(2));
+          
+          document.getElementById('statTerm1').innerHTML = t1.toFixed(2);
+          document.getElementById('statTerm2').innerHTML = t2.toFixed(2);
+          document.getElementById('statTerm3').innerHTML = t3.toFixed(2);
+          document.getElementById('statYearly').innerHTML = yearly.toFixed(2);
+          
+          var grades = getStudentGrades(studentId);
+          var subjectNames = [];
+          var subjectAverages = [];
+          var colors = getChartColors();
+          
+          for (var i = 0; i < DEFAULT_SUBJECTS.length; i++) {
+            var subj = DEFAULT_SUBJECTS[i];
+            var t1s = calculateSubjectTermAverage(subj.id, 1, grades);
+            var t2s = calculateSubjectTermAverage(subj.id, 2, grades);
+            var t3s = calculateSubjectTermAverage(subj.id, 3, grades);
+            var yearlyAvg = parseFloat(((t1s + t2s + t3s) / 3).toFixed(2));
+            
+            if (t1s > 0 || t2s > 0 || t3s > 0) {
+              subjectNames.push(subj.name);
+              subjectAverages.push(yearlyAvg);
+            }
+          }
+          
+          var ctx = document.getElementById('subjectChart').getContext('2d');
+          
+          if (subjectChart) {
+            subjectChart.destroy();
+            subjectChart = null;
+          }
+          
+          if (subjectNames.length === 0) {
+            ctx.fillStyle = colors.textColor;
+            ctx.font = '14px Inter, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('No grade data available for this student', ctx.canvas.width/2, ctx.canvas.height/2);
+          } else {
+            subjectChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: subjectNames,
+                datasets: [{
+                  label: 'Yearly Average /20',
+                  data: subjectAverages,
+                  backgroundColor: colors.barColors.slice(0, subjectNames.length),
+                  borderRadius: 8,
+                  borderSkipped: false,
+                  barPercentage: 0.7,
+                  categoryPercentage: 0.8
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                      color: colors.textColor,
+                      font: { size: 11 }
+                    }
+                  },
+                  tooltip: {
+                    callbacks: {
+                      label: function(context) {
+                        return context.raw.toFixed(2) + ' / 20';
+                      }
+                    },
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    titleColor: '#fff',
+                    bodyColor: '#ddd'
+                  }
+                },
+                scales: {
+                  y: {
+                    min: 0,
+                    max: 20,
+                    ticks: {
+                      stepSize: 5,
+                      color: colors.textColor,
+                      callback: function(val) { return val + '/20'; },
+                      font: { size: 10 }
+                    },
+                    grid: {
+                      color: colors.gridColor,
+                      drawBorder: true
+                    },
+                    title: {
+                      display: true,
+                      text: 'Grade',
+                      color: colors.textColor,
+                      font: { size: 11, weight: 'bold' }
+                    }
+                  },
+                  x: {
+                    ticks: {
+                      color: colors.textColor,
+                      maxRotation: 45,
+                      minRotation: 45,
+                      font: { size: 9 }
+                    },
+                    grid: {
+                      display: false
+                    },
+                    title: {
+                      display: true,
+                      text: 'Subjects',
+                      color: colors.textColor,
+                      font: { size: 11, weight: 'bold' }
+                    }
+                  }
+                },
+                animation: {
+                  duration: 800,
+                  easing: 'easeOutQuart'
+                }
+              }
+            });
+          }
+          
+          showToast('Statistics loaded for ' + student.name);
+          
+        } catch(e) {
+          console.error('Chart error:', e);
+          showToast('Error loading chart: ' + e.message);
+        } finally {
+          btn.innerHTML = originalHtml;
+          btn.disabled = false;
+          isLoading = false;
+        }
+      }, 100);
+    }
+    
+    function updateHeaderAvatar() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          var headerAvatar = document.getElementById('headerAvatar');
+          if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function applyDevFont() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    checkDevAccess();
+    populateStudentSelect();
+    updateHeaderAvatar();
+    initMobileMenu();
+    initThemeSelector();
+    applyDevFont();
+    
+    var themeObserver = new MutationObserver(function() {
+      applyDevFont();
+      if (subjectChart) loadStudentStats();
+    });
+    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  </script>
+</body>
+</html>

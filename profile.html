@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .avatar-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 16px;
+    }
+    .avatar-preview-large {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid var(--primary);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .avatar-preview-large:hover { transform: scale(1.02); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+    .avatar-preview-large img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .avatar-preview-large i { font-size: 55px; color: white; }
+    .btn-add-avatar {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: 3px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .btn-add-avatar:hover { transform: scale(1.05); }
+    .btn-add-avatar:active { transform: scale(0.95); }
+    .btn-add-avatar i { font-size: 18px; color: white; }
+    .upload-hint { text-align: center; font-size: 0.65rem; color: var(--text-light); margin-top: 8px; }
+    .btn-remove-avatar {
+      background: rgba(231,76,60,0.15);
+      border: 1px solid rgba(231,76,60,0.3);
+      color: #e74c3c;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 12px;
+      display: inline-block;
+    }
+    .btn-remove-avatar:hover { background: rgba(231,76,60,0.25); }
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(0,0,0,0.03);
+      border-radius: 30px;
+      font-size: 0.7rem;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .badge-item:hover { transform: translateX(4px); border-color: var(--primary); }
+    .badge-item i { width: 24px; color: #f39c12; font-size: 0.9rem; }
+    .badge-item .badge-name { flex: 1; font-weight: 500; }
+    .badge-item .badge-date { font-size: 0.55rem; color: var(--text-light); }
+    .badge-item.locked { opacity: 0.5; filter: grayscale(0.3); }
+    .badge-item.locked i { color: #95a5a6; }
+    .badges-section h3 { margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .badges-section .badge-count { background: var(--primary); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.8rem;
+      min-height: 80px;
+      resize: vertical;
+      max-width: 100%;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .btn-primary:active { transform: scale(0.97); }
+    
+    .suggested-bios-section {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .suggested-bios-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 4px;
+    }
+    .suggested-bio-item {
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.7rem;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text);
+      text-align: left;
+      font-family: inherit;
+    }
+    .suggested-bio-item:hover {
+      border-color: var(--primary);
+      background: rgba(15,59,72,0.05);
+      transform: translateX(3px);
+    }
+    .suggested-bio-item:active { transform: scale(0.98); }
+    .suggested-bios-grid::-webkit-scrollbar { width: 3px; }
+    .suggested-bios-grid::-webkit-scrollbar-track { background: var(--border); border-radius: 3px; }
+    .suggested-bios-grid::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 600px) { .badges-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-user"></i><span>PROFILE</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="glass-card text-center">
+        <div class="avatar-container">
+          <div class="avatar-preview-large" id="avatarPreview">
+            <div class="avatar-placeholder"><i class="fas fa-user-graduate"></i></div>
+          </div>
+          <div class="btn-add-avatar" onclick="triggerFileUpload()"><i class="fas fa-camera"></i></div>
+        </div>
+        <div class="upload-hint"><i class="fas fa-info-circle"></i> Tap camera to add photo | Tap photo to zoom | Max 5MB</div>
+        <input type="file" id="avatarFileInput" accept="image/jpeg,image/png,image/jpg" style="display:none;">
+        <h2 id="profileName" style="word-break:break-word; margin-top:12px; font-family:inherit;">--</h2>
+        <p style="color:var(--text-light);font-size:0.75rem; font-family:inherit;" id="profileInfo"></p>
+        <button class="btn-remove-avatar" onclick="removeAvatar()" style="display:none;" id="removeAvatarBtn"><i class="fas fa-trash"></i> Remove Photo</button>
+      </div>
+      
+      <div class="glass-card">
+        <h3><i class="fas fa-edit"></i> Bio</h3>
+        <textarea id="profileBio" placeholder="Write something about yourself..."></textarea>
+        <button class="btn-primary" onclick="saveProfileData()"><i class="fas fa-save"></i> Save Profile</button>
+        
+        <div class="suggested-bios-section">
+          <h3><i class="fas fa-lightbulb"></i> Suggested Bios</h3>
+          <p style="font-size:0.65rem; color:var(--text-light); margin-bottom:12px;">Click on any bio to use it</p>
+          <div class="suggested-bios-grid" id="suggestedBiosGrid"></div>
+        </div>
+      </div>
+      
+      <div class="glass-card badges-section">
+        <h3><i class="fas fa-medal"></i> Your Badges <span class="badge-count" id="badgeCount">0</span></h3>
+        <div id="profileBadges" class="badges-grid"></div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/confirm-dialog.js"></script>
+  
+  <script>
+    // ============================================
+    // APPLICATION DES POLICES GLOBALES
+    // ============================================
+    function applyGlobalFontToProfile() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      var fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+      document.body.style.fontFamily = fontFamily;
+      var allElements = document.querySelectorAll('body, body *');
+      for (var i = 0; i < allElements.length; i++) {
+        if (allElements[i].style) {
+          allElements[i].style.fontFamily = fontFamily;
+        }
+      }
+    }
+    
+    var currentUser = null;
+    var currentAvatarBase64 = '';
+    var isSaving = false;
+    
+    // ============================================
+    // AVATAR PAR DÉFAUT (PNG pour affichage rapide)
+    // ============================================
+    function getDefaultAvatarPNG() {
+      if (currentUser && currentUser.gender === 'girl') {
+        return './icons/avatar-girl.png';
+      }
+      return './icons/avatar-boy.png';
+    }
+    
+    var SUGGESTED_BIOS = [
+      "Student at SIN GBHS Foumban, Form 5B Science. Passionate about technology and innovation.",
+      "Aspiring software engineer. Love coding, reading, and playing football.",
+      "Future doctor. Interested in biology and helping others. Hard work pays off!",
+      "Mathematics enthusiast. I believe every problem has a solution.",
+      "Physics lover. Curious about how the universe works. Keep learning!",
+      "Chemistry geek. Experiments are the best way to understand science.",
+      "Computer Science is my passion. Building the future with code.",
+      "Economics student. Understanding how the world works financially.",
+      "Language lover. English and French are my favorites.",
+      "Geography explorer. The world is full of amazing places to discover.",
+      "Citizenship advocate. Believer in justice and equality for all.",
+      "Food and Nutrition specialist. Healthy eating, healthy living.",
+      "Geology rockstar. Earth sciences are fascinating!",
+      "Biology and Life Sciences. Nature is the best teacher.",
+      "Never stop learning, because life never stops teaching.",
+      "Dream big, work hard, stay focused, and surround yourself with good people."
+    ];
+    
+    var BADGES_LIST = [
+      { id: 1, name: 'First Grade', icon: 'fa-pen' },
+      { id: 2, name: 'Perfect Score', icon: 'fa-star' },
+      { id: 3, name: 'High Average', icon: 'fa-arrow-up' },
+      { id: 4, name: 'Bookworm', icon: 'fa-book-open' },
+      { id: 5, name: 'Dedication', icon: 'fa-fire' },
+      { id: 6, name: 'Scholar', icon: 'fa-graduation-cap' },
+      { id: 7, name: 'Rising Star', icon: 'fa-rocket' },
+      { id: 8, name: 'Unstoppable', icon: 'fa-bolt' },
+      { id: 9, name: 'Subject Completion', icon: 'fa-check-double' },
+      { id: 10, name: 'Active Semester', icon: 'fa-calendar-check' },
+      { id: 11, name: 'Discipline Mastery', icon: 'fa-crown' },
+      { id: 12, name: 'Study Progress', icon: 'fa-chart-bar' },
+      { id: 13, name: 'Full Achievement', icon: 'fa-trophy' },
+      { id: 14, name: 'Excellent Result', icon: 'fa-medal' },
+      { id: 25, name: 'Comeback King', icon: 'fa-arrow-trend-up' },
+      { id: 34, name: 'Theme Collector', icon: 'fa-palette' },
+      { id: 36, name: 'Photo Uploader', icon: 'fa-camera' },
+      { id: 38, name: 'Welcome Aboard', icon: 'fa-door-open' },
+      { id: 50, name: 'Font Collector', icon: 'fa-font' },
+      { id: 57, name: 'Timetable Viewer', icon: 'fa-calendar-alt' },
+      { id: 58, name: 'Flashcard Beginner', icon: 'fa-clone' },
+      { id: 59, name: 'Flashcard Master', icon: 'fa-layer-group' }
+    ];
+    
+    function formatFullDate(dateString) {
+      if (!dateString) {
+        var now = new Date();
+        return now.getDate() + ' ' + getMonthName(now.getMonth()) + ' ' + now.getFullYear();
+      }
+      try {
+        var date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+          var now = new Date();
+          return now.getDate() + ' ' + getMonthName(now.getMonth()) + ' ' + now.getFullYear();
+        }
+        var day = date.getDate();
+        var month = getMonthName(date.getMonth());
+        var year = date.getFullYear();
+        return day + ' ' + month + ' ' + year;
+      } catch(e) {
+        var now = new Date();
+        return now.getDate() + ' ' + getMonthName(now.getMonth()) + ' ' + now.getFullYear();
+      }
+    }
+    
+    function getMonthName(monthIndex) {
+      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      return months[monthIndex];
+    }
+    
+    function loadProfile() {
+      try {
+        // S'assurer que currentUser a un genre
+        if (!currentUser.gender) {
+          var students = getAllStudents();
+          var studentData = students.find(function(s) { return s.id === currentUser.id; });
+          if (studentData && studentData.gender) {
+            currentUser.gender = studentData.gender;
+          } else {
+            currentUser.gender = 'boy';
+          }
+          setCurrentStudent(currentUser);
+        }
+        
+        var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + currentUser.id) || '{"avatarBase64":"","bio":""}');
+        
+        document.getElementById('profileName').textContent = currentUser.name;
+        
+        var memberDate = formatFullDate(currentUser.createdAt);
+        document.getElementById('profileInfo').innerHTML = '<strong>' + currentUser.class + ' - #' + currentUser.number + '</strong><br>Member since ' + memberDate;
+        
+        document.getElementById('profileBio').value = profile.bio || '';
+        
+        // AFFICHAGE DE L'AVATAR
+        if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
+          currentAvatarBase64 = profile.avatarBase64;
+          document.getElementById('avatarPreview').innerHTML = '<img src="' + currentAvatarBase64 + '" alt="Avatar" style="width:100%;height:100%;object-fit:cover;">';
+          document.getElementById('removeAvatarBtn').style.display = 'inline-block';
+        } else {
+          currentAvatarBase64 = '';
+          // Utiliser l'image PNG pour l'affichage (plus rapide)
+          var defaultAvatarPNG = getDefaultAvatarPNG();
+          document.getElementById('avatarPreview').innerHTML = '<img src="' + defaultAvatarPNG + '" alt="Default Avatar" style="width:100%;height:100%;object-fit:cover;">';
+          document.getElementById('removeAvatarBtn').style.display = 'none';
+        }
+        
+        initAvatarClick();
+        
+        if (typeof updateHeaderAvatar === 'function') {
+          updateHeaderAvatar();
+        }
+        
+        applyGlobalFontToProfile();
+        
+      } catch(e) {
+        console.error('Load profile error:', e);
+      }
+    }
+    
+    function loadBadges() {
+      try {
+        var achievements = JSON.parse(localStorage.getItem('smartgrade_achievements_' + currentUser.id) || '[]');
+        var unlockedMap = {};
+        for (var i = 0; i < achievements.length; i++) {
+          if (achievements[i].unlocked) {
+            unlockedMap[achievements[i].id] = achievements[i];
+          }
+        }
+        
+        var unlockedCount = 0;
+        var badgesHtml = '';
+        for (var i = 0; i < BADGES_LIST.length; i++) {
+          var badge = BADGES_LIST[i];
+          var isUnlocked = unlockedMap[badge.id];
+          var unlockDate = isUnlocked ? isUnlocked.unlockDate : null;
+          if (isUnlocked) unlockedCount++;
+          
+          badgesHtml += '<div class="badge-item ' + (isUnlocked ? '' : 'locked') + '">' +
+            '<i class="fas ' + badge.icon + '"></i>' +
+            '<span class="badge-name">' + badge.name + '</span>' +
+            (isUnlocked ? 
+              '<span class="badge-date"><i class="fas fa-check-circle" style="color:#2ecc71;"></i> ' + (unlockDate || 'Unlocked') + '</span>' : 
+              '<span class="badge-date"><i class="fas fa-lock" style="color:#95a5a6;"></i> Locked</span>') +
+          '</div>';
+        }
+        
+        document.getElementById('profileBadges').innerHTML = badgesHtml;
+        document.getElementById('badgeCount').innerHTML = unlockedCount + ' / ' + BADGES_LIST.length;
+      } catch(e) {
+        console.log('Badges error:', e);
+      }
+    }
+    
+    function saveProfileData() {
+      if (isSaving) return;
+      isSaving = true;
+      
+      try {
+        var profile = {
+          avatarBase64: currentAvatarBase64,
+          bio: document.getElementById('profileBio').value,
+          favorites: []
+        };
+        
+        localStorage.setItem('smartgrade_profile_' + currentUser.id, JSON.stringify(profile));
+        
+        if (typeof updateHeaderAvatar === 'function') {
+          updateHeaderAvatar();
+        }
+        
+        if (typeof checkPhotoBadge === 'function') {
+          checkPhotoBadge(currentUser.id);
+        }
+        if (typeof checkAndUnlockAllNewBadges === 'function') {
+          checkAndUnlockAllNewBadges(currentUser.id);
+        }
+        
+        showToast('Profile saved successfully!');
+        
+        checkAndUnlockPhotoBadge();
+        
+        setTimeout(function() { isSaving = false; }, 500);
+        
+      } catch(e) {
+        console.error('Save error:', e);
+        showToast('Error saving profile');
+        isSaving = false;
+      }
+    }
+    
+    function checkAndUnlockPhotoBadge() {
+      try {
+        var achievements = JSON.parse(localStorage.getItem('smartgrade_achievements_' + currentUser.id) || '[]');
+        var existing = null;
+        for (var i = 0; i < achievements.length; i++) {
+          if (achievements[i].id === 36) {
+            existing = achievements[i];
+            break;
+          }
+        }
+        
+        if (currentAvatarBase64 && currentAvatarBase64 !== '') {
+          if (!existing || !existing.unlocked) {
+            if (existing) {
+              existing.unlocked = true;
+              existing.unlockDate = new Date().toLocaleDateString();
+            } else {
+              achievements.push({
+                id: 36,
+                name: 'Photo Uploader',
+                desc: 'Add a profile photo',
+                unlocked: true,
+                unlockDate: new Date().toLocaleDateString()
+              });
+            }
+            localStorage.setItem('smartgrade_achievements_' + currentUser.id, JSON.stringify(achievements));
+            loadBadges();
+            showToast('Photo Uploader badge unlocked!');
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function resizeImage(file, maxWidth, maxHeight, callback) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var width = img.width;
+          var height = img.height;
+          
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round(height * (maxWidth / width));
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round(width * (maxHeight / height));
+              height = maxHeight;
+            }
+          }
+          
+          var canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          var outputFormat = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+          var quality = outputFormat === 'image/jpeg' ? 0.8 : 1;
+          var base64 = canvas.toDataURL(outputFormat, quality);
+          callback(base64);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+    
+    function triggerFileUpload() {
+      document.getElementById('avatarFileInput').click();
+    }
+    
+    function handleImageUpload(event) {
+      var file = event.target.files[0];
+      if (!file) return;
+      if (!file.type.match('image.*')) {
+        showToast('Please select an image file');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        showToast('Image too large (max 5MB)');
+        return;
+      }
+      
+      showToast('Processing image...');
+      
+      resizeImage(file, 500, 500, function(base64) {
+        currentAvatarBase64 = base64;
+        document.getElementById('avatarPreview').innerHTML = '<img src="' + base64 + '" alt="Avatar" style="width:100%;height:100%;object-fit:cover;">';
+        document.getElementById('removeAvatarBtn').style.display = 'inline-block';
+        saveProfileData();
+        initAvatarClick();
+        if (typeof updateHeaderAvatar === 'function') updateHeaderAvatar();
+        showToast('Photo added successfully!');
+      });
+      event.target.value = '';
+    }
+    
+    function showConfirmDialog(options) {
+      var existingModal = document.querySelector('.custom-confirm-modal');
+      if (existingModal) existingModal.remove();
+      
+      var modal = document.createElement('div');
+      modal.className = 'custom-confirm-modal';
+      modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:2000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(5px);';
+      
+      modal.innerHTML = `
+        <div style="background:var(--card-bg);border-radius:24px;padding:24px;max-width:320px;width:85%;text-align:center;animation:fadeInUp 0.3s ease;">
+          <i class="fas fa-exclamation-triangle" style="font-size:48px;color:#e74c3c;margin-bottom:16px;"></i>
+          <h3 style="margin-bottom:8px;">${options.title}</h3>
+          <p style="font-size:0.75rem;color:var(--text-light);margin-bottom:16px;">${options.message}</p>
+          <div style="display:flex;gap:12px;">
+            <button class="confirm-cancel-btn" style="flex:1;padding:12px;border-radius:30px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;">${options.cancelText || 'Cancel'}</button>
+            <button class="confirm-ok-btn" style="flex:1;padding:12px;border-radius:30px;background:#e74c3c;color:white;border:none;cursor:pointer;">${options.confirmText || 'Remove'}</button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      modal.querySelector('.confirm-cancel-btn').onclick = function() {
+        modal.remove();
+        if (options.onCancel) options.onCancel();
+      };
+      
+      modal.querySelector('.confirm-ok-btn').onclick = function() {
+        modal.remove();
+        if (options.onConfirm) options.onConfirm();
+      };
+      
+      modal.onclick = function(e) {
+        if (e.target === modal) {
+          modal.remove();
+          if (options.onCancel) options.onCancel();
+        }
+      };
+    }
+    
+    function removeAvatar() {
+      showConfirmDialog({
+        title: 'Remove Photo',
+        message: 'Are you sure you want to remove your profile photo?',
+        cancelText: 'Cancel',
+        confirmText: 'Remove',
+        onConfirm: function() {
+          currentAvatarBase64 = '';
+          var defaultAvatarPNG = getDefaultAvatarPNG();
+          document.getElementById('avatarPreview').innerHTML = '<img src="' + defaultAvatarPNG + '" alt="Default Avatar" style="width:100%;height:100%;object-fit:cover;">';
+          document.getElementById('removeAvatarBtn').style.display = 'none';
+          saveProfileData();
+          initAvatarClick();
+          if (typeof updateHeaderAvatar === 'function') updateHeaderAvatar();
+          showToast('Photo removed');
+        }
+      });
+    }
+    
+    function openAvatarZoom() {
+      var img = document.getElementById('avatarPreview').querySelector('img');
+      if (img && img.src && img.src.length > 100) {
+        var modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:10000;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(10px);';
+        modal.innerHTML = '<div style="position:absolute;top:20px;right:20px;width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:30px;color:white;">&times;</div><img src="' + img.src + '" style="max-width:90%;max-height:90%;object-fit:contain;border-radius:20px;box-shadow:0 0 50px rgba(255,255,255,0.2);">';
+        modal.onclick = function(e) {
+          if (e.target === modal || e.target.parentElement === modal) {
+            modal.remove();
+          }
+        };
+        document.body.appendChild(modal);
+      } else {
+        showToast('No photo to zoom');
+      }
+    }
+    
+    function initAvatarClick() {
+      var avatarPreview = document.getElementById('avatarPreview');
+      if (avatarPreview) {
+        avatarPreview.style.cursor = 'pointer';
+        avatarPreview.onclick = function(e) {
+          e.stopPropagation();
+          openAvatarZoom();
+        };
+      }
+    }
+    
+    function displaySuggestedBios() {
+      var container = document.getElementById('suggestedBiosGrid');
+      if (!container) return;
+      var html = '';
+      for (var i = 0; i < SUGGESTED_BIOS.length; i++) {
+        var bio = SUGGESTED_BIOS[i];
+        var safeBio = bio.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        html += '<div class="suggested-bio-item" onclick="useSuggestedBio(this)">' + safeBio + '</div>';
+      }
+      container.innerHTML = html;
+    }
+    
+    window.useSuggestedBio = function(element) {
+      var bioText = element.textContent || element.innerText;
+      document.getElementById('profileBio').value = bioText;
+      showToast('Bio selected! Click Save Profile to apply.');
+    };
+    
+    function showToast(message) {
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+      container.appendChild(toast);
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(function() { if (toast.parentNode) toast.remove(); }, 300);
+      }, 3000);
+    }
+    
+    function init() {
+      var stored = localStorage.getItem('smartgrade_current');
+      if (!stored) {
+        window.location.href = 'login.html';
+        return;
+      }
+      currentUser = JSON.parse(stored);
+      
+      loadProfile();
+      loadBadges();
+      displaySuggestedBios();
+      
+      if (typeof initMobileMenu === 'function') initMobileMenu();
+      if (typeof initThemeSelector === 'function') initThemeSelector();
+      
+      var observer = new MutationObserver(function() {
+        applyGlobalFontToProfile();
+      });
+      observer.observe(document.body, { attributes: true, attributeFilter: ['class', 'style'] });
+      
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'smartgrade_font_family') {
+          applyGlobalFontToProfile();
+        }
+      });
+    }
+    
+    document.getElementById('avatarFileInput').addEventListener('change', handleImageUpload);
+    
+    window.triggerFileUpload = triggerFileUpload;
+    window.removeAvatar = removeAvatar;
+    window.saveProfileData = saveProfileData;
+    window.useSuggestedBio = window.useSuggestedBio;
+    
+    init();
+  </script>
+</body>
+</html>

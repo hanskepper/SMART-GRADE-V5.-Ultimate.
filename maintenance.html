@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Maintenance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  
+  <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.14/dist/dotlottie-wc.js" type="module"></script>
+  
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      margin: 0;
+      transition: background 0.3s ease;
+    }
+    
+    .maintenance-card {
+      background: var(--card-bg);
+      border-radius: 32px;
+      padding: 40px 28px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid var(--border);
+      animation: fadeInUp 0.6s ease;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .maintenance-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 255, 255, 0.03) 10px, rgba(0, 255, 255, 0.03) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index: 0;
+    }
+    
+    @keyframes stripeMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 0; }
+    }
+    
+    .maintenance-card > * {
+      position: relative;
+      z-index: 1;
+    }
+    
+    dotlottie-wc {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 16px;
+      display: block;
+    }
+    
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .subtitle {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    
+    .message {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    
+    .status-bar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 16px;
+    }
+    
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      color: var(--text-light);
+    }
+    
+    .status-item i {
+      color: var(--primary);
+    }
+    
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #f39c12;
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    
+    .footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.6rem;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .footer i {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  
+  <div class="maintenance-card">
+    
+    <div id="lottieContainer"></div>
+    
+    <h1>Under Maintenance</h1>
+    
+    <div class="subtitle">We'll be back soon</div>
+    
+    <div class="message">
+      SMART GRADE is currently being updated.<br>
+      We're working hard to improve your experience.
+    </div>
+    
+    <div class="status-bar">
+      <div class="status-item">
+        <span class="status-dot"></span>
+        <span>In progress</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-code"></i>
+        <span>Updating</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-database"></i>
+        <span>Backup</span>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <i class="fas fa-check-circle"></i>
+      <span>Your data is safe</span>
+    </div>
+    
+  </div>
+
+  <script>
+    // ============================================
+    // 2 ANIMATIONS LOTTIE POUR MAINTENANCE
+    // ============================================
+    
+    var LOTTIE_ANIMATIONS = [
+      'https://lottie.host/28bc944e-41d8-41c1-9369-607664a75755/AZIpc2nJGU.lottie',
+      'https://lottie.host/9d724b49-0483-4521-a0a7-6f332ba03ae7/qgYZXkWnKE.lottie'
+    ];
+    
+    // ============================================
+    // 20 THÈMES (comme splash.html)
+    // ============================================
+    
+    var THEMES_LIST = [
+      'default', 'crimson', 'forest', 'ocean', 'royal',
+      'sunset', 'rose', 'turquoise', 'amber', 'graphite',
+      'lavender', 'cherry', 'midnight', 'mint', 'coral',
+      'indigo', 'chocolate', 'electric', 'steel', 'lime'
+    ];
+    
+    var lastTheme = null;
+    var lastAnimation = null;
+    
+    // ============================================
+    // SÉLECTION ALEATOIRE SANS RÉPÉTITION
+    // ============================================
+    
+    function getRandomItemWithoutRepeat(list, lastItem) {
+      var available = list.filter(function(item) {
+        return item !== lastItem;
+      });
+      
+      if (available.length === 0) {
+        available = list;
+      }
+      
+      var randomIndex = Math.floor(Math.random() * available.length);
+      return available[randomIndex];
+    }
+    
+    // ============================================
+    // APPLIQUER THÈME ALÉATOIRE
+    // ============================================
+    
+    function applyRandomTheme() {
+      var selectedTheme = getRandomItemWithoutRepeat(THEMES_LIST, lastTheme);
+      
+      document.body.className = document.body.className.replace(/theme-\w+/g, '').trim();
+      document.body.classList.add('theme-' + selectedTheme);
+      
+      lastTheme = selectedTheme;
+      localStorage.setItem('smartgrade_last_maintenance_theme', selectedTheme);
+    }
+    
+    // ============================================
+    // APPLIQUER ANIMATION ALÉATOIRE
+    // ============================================
+    
+    function applyRandomAnimation() {
+      var selectedAnimation = getRandomItemWithoutRepeat(LOTTIE_ANIMATIONS, lastAnimation);
+      
+      var container = document.getElementById('lottieContainer');
+      container.innerHTML = '';
+      
+      var lottieElement = document.createElement('dotlottie-wc');
+      lottieElement.setAttribute('src', selectedAnimation);
+      lottieElement.setAttribute('autoplay', '');
+      lottieElement.setAttribute('loop', '');
+      lottieElement.style.width = '180px';
+      lottieElement.style.height = '180px';
+      lottieElement.style.margin = '0 auto';
+      lottieElement.style.display = 'block';
+      
+      container.appendChild(lottieElement);
+      
+      lastAnimation = selectedAnimation;
+      localStorage.setItem('smartgrade_last_maintenance_animation', selectedAnimation);
+    }
+    
+    // ============================================
+    // CHARGEMENT
+    // ============================================
+    
+    var savedTheme = localStorage.getItem('smartgrade_last_maintenance_theme');
+    var savedAnimation = localStorage.getItem('smartgrade_last_maintenance_animation');
+    
+    if (savedTheme && THEMES_LIST.indexOf(savedTheme) !== -1) {
+      lastTheme = savedTheme;
+    }
+    
+    if (savedAnimation && LOTTIE_ANIMATIONS.indexOf(savedAnimation) !== -1) {
+      lastAnimation = savedAnimation;
+    }
+    
+    applyRandomTheme();
+    applyRandomAnimation();
+    
+    // Désactiver le Service Worker pendant la maintenance
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        registrations.forEach(function(reg) {
+          reg.unregister();
+          console.log('[Maintenance] Service Worker unregistered');
+        });
+      });
+    }
+    
+    if (typeof initParticles === 'function') initParticles();
+    if (typeof applyGlobalFont === 'function') applyGlobalFont();
+  </script>
+</body>
+</html>

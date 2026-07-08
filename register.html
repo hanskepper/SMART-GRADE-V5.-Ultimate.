@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .form-group { margin-bottom: 12px; }
+    .form-group label { font-size: 0.7rem; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; color: var(--text-light); font-weight: 500; }
+    .form-group label i { width: 18px; color: var(--primary); font-size: 0.7rem; }
+    .form-group input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 2px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 0.85rem; transition: all 0.2s; box-sizing: border-box; }
+    .form-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15,59,72,0.1); }
+    
+    .flex-row { display: flex; gap: 10px; }
+    .btn-class { flex: 1; padding: 10px; border-radius: 10px; border: 2px solid var(--border); background: transparent; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center; color: var(--text); font-size: 0.8rem; }
+    .btn-class.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: transparent; }
+    
+    .gender-group { display: flex; gap: 10px; }
+    .gender-card { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 10px; border-radius: 10px; border: 2px solid var(--border); background: var(--card-bg); cursor: pointer; transition: all 0.2s; color: var(--text); font-size: 0.8rem; }
+    .gender-card:hover { border-color: var(--primary); }
+    .gender-card.selected { background: linear-gradient(135deg, var(--primary), var(--secondary)); border-color: transparent; color: white; }
+    .gender-card.selected .gender-name { color: white; }
+    .gender-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+    .gender-name { font-size: 0.75rem; font-weight: 600; }
+    
+    .number-hint { font-size: 0.5rem; color: var(--text-light); margin-top: 2px; display: block; }
+    
+    .error-msg { background: rgba(231,76,60,0.1); color: #e74c3c; padding: 8px 12px; border-radius: 8px; margin-bottom: 10px; display: none; font-size: 0.7rem; border-left: 3px solid #e74c3c; }
+    .success-msg { background: rgba(46,204,113,0.1); color: #27ae60; padding: 8px 12px; border-radius: 8px; margin-bottom: 10px; display: none; font-size: 0.7rem; border-left: 3px solid #27ae60; }
+    
+    .btn { padding: 12px 20px; border-radius: 40px; border: none; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.85rem; width: 100%; transition: all 0.2s ease; }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+    .btn-primary:active { transform: scale(0.96); }
+    
+    .register-link { text-align: center; margin-top: 12px; font-size: 0.7rem; }
+    .register-link a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    
+    .pin-row { display: flex; gap: 10px; }
+    .pin-row .form-group { flex: 1; }
+    
+    /* ============================================
+       PIN INPUT WITH EYE TOGGLE
+    ============================================ */
+    .pin-input-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    .pin-input-wrapper input {
+      width: 100%;
+      padding: 10px 40px 10px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      box-sizing: border-box;
+    }
+    .pin-input-wrapper input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(15,59,72,0.1);
+    }
+    .pin-toggle-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+    .pin-toggle-btn:hover {
+      color: var(--primary);
+    }
+    
+    .fp-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 14px;
+      margin-bottom: 12px;
+    }
+    .fp-row.active { border-color: var(--primary); }
+    .fp-row .fp-icon { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; flex-shrink: 0; }
+    .fp-row .fp-info { flex: 1; }
+    .fp-row .fp-info .fp-title { font-size: 0.7rem; font-weight: 600; color: var(--text); margin: 0; }
+    .fp-row .fp-info .fp-desc { font-size: 0.5rem; color: var(--text-light); margin: 1px 0 0 0; }
+    .fp-row .fp-info .fp-status { font-size: 0.45rem; color: var(--text-light); margin-top: 1px; }
+    .fp-row .fp-info .fp-status.success { color: #27ae60; }
+    .fp-row .fp-info .fp-status.error { color: #e74c3c; }
+    .fp-row .fp-btn { padding: 5px 14px; border-radius: 30px; border: none; font-weight: 600; font-size: 0.6rem; cursor: pointer; transition: all 0.2s; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; white-space: nowrap; }
+    .fp-row .fp-btn:active { transform: scale(0.95); }
+    .fp-row .fp-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .fp-row .fp-btn.success { background: #27ae60; }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-user-plus"></i><span>REGISTER</span></div>
+      <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <!-- ============================================
+         MENU COMPLET (5 liens)
+    ============================================ -->
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header">
+        <h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3>
+        <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="login.html" class="nav-item"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="register.html" class="nav-item active"><i class="fas fa-user-plus"></i> Register</a>
+        <a href="guide.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="glass-card text-center" style="padding:12px 16px;">
+        <i class="fas fa-user-graduate" style="font-size:35px;color:var(--primary);"></i>
+        <h2 style="margin:2px 0;font-size:1.2rem;">Create Account</h2>
+        <p style="font-size:0.55rem;color:var(--text-light);">SIN GBHS FOUMBAN - Form 5B Science</p>
+      </div>
+      
+      <div class="glass-card" style="padding:12px 14px;">
+        
+        <div class="error-msg" id="errorMsg"></div>
+        <div class="success-msg" id="successMsg"></div>
+        
+        <!-- 1. NAME -->
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Full Name</label>
+          <input type="text" id="userName" placeholder="Your full name">
+        </div>
+        
+        <!-- 2. CLASS -->
+        <div class="form-group">
+          <label><i class="fas fa-school"></i> Class</label>
+          <div class="flex-row">
+            <button type="button" id="classB1" class="btn-class active">B1</button>
+            <button type="button" id="classB2" class="btn-class">B2</button>
+          </div>
+          <input type="hidden" id="userClass" value="B1">
+        </div>
+        
+        <!-- 3. AVATAR -->
+        <div class="form-group">
+          <label><i class="fas fa-venus-mars"></i> Avatar</label>
+          <div class="gender-group">
+            <div class="gender-card selected" data-gender="boy" onclick="selectGender('boy')">
+              <img src="./icons/avatar-boy.png" class="gender-avatar" alt="Boy">
+              <span class="gender-name">Boy</span>
+            </div>
+            <div class="gender-card" data-gender="girl" onclick="selectGender('girl')">
+              <img src="./icons/avatar-girl.png" class="gender-avatar" alt="Girl">
+              <span class="gender-name">Girl</span>
+            </div>
+          </div>
+          <input type="hidden" id="userGender" value="boy">
+        </div>
+        
+        <!-- 4. NUMBER -->
+        <div class="form-group">
+          <label><i class="fas fa-hashtag"></i> Number</label>
+          <input type="number" id="userNumber" placeholder="1 to 70" min="1" max="70">
+          <small class="number-hint"><i class="fas fa-info-circle"></i> Unique number between 1 and 70</small>
+        </div>
+        
+        <!-- 5. PIN + CONFIRM avec bouton Afficher -->
+        <div class="pin-row">
+          <div class="form-group">
+            <label><i class="fas fa-lock"></i> PIN</label>
+            <div class="pin-input-wrapper">
+              <input type="password" id="userPin" maxlength="4" placeholder="****" inputmode="numeric">
+              <button type="button" class="pin-toggle-btn" onclick="togglePin('userPin', this)" title="Show PIN">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-check-circle"></i> Confirm</label>
+            <div class="pin-input-wrapper">
+              <input type="password" id="confirmPin" maxlength="4" placeholder="****" inputmode="numeric">
+              <button type="button" class="pin-toggle-btn" onclick="togglePin('confirmPin', this)" title="Show PIN">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 6. FINGERPRINT -->
+        <div class="fp-row" id="fpRow">
+          <div class="fp-icon"><i class="fas fa-fingerprint"></i></div>
+          <div class="fp-info">
+            <div class="fp-title">Fingerprint</div>
+            <div class="fp-desc" id="fpDesc">Optional for faster login</div>
+            <div class="fp-status" id="fpStatus"></div>
+          </div>
+          <button class="fp-btn" id="fpBtn" onclick="handleFingerprint()">
+            <i class="fas fa-fingerprint"></i> <span id="fpBtnText">Add</span>
+          </button>
+          <input type="hidden" id="fpRegistered" value="false">
+        </div>
+        
+        <!-- Create Account -->
+        <button class="btn btn-primary" onclick="handleRegister()">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+        
+        <div class="register-link">
+          Already have an account? <a href="login.html">Login</a>
+        </div>
+        
+      </div>
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    var selectedClass = 'B1';
+    var fpRegistered = false;
+    var fpData = null;
+    
+    // ============================================
+    // TOGGLE PIN VISIBILITY
+    // ============================================
+    function togglePin(inputId, btn) {
+      var input = document.getElementById(inputId);
+      var icon = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+      } else {
+        input.type = 'password';
+        icon.className = 'fas fa-eye';
+      }
+    }
+    
+    // ============================================
+    // GENDER
+    // ============================================
+    function selectGender(gender) {
+      document.querySelectorAll('.gender-card').forEach(function(c) { c.classList.remove('selected'); });
+      document.querySelector('.gender-card[data-gender="' + gender + '"]').classList.add('selected');
+      document.getElementById('userGender').value = gender;
+    }
+    
+    // ============================================
+    // CLASS
+    // ============================================
+    document.getElementById('classB1').onclick = function() {
+      selectedClass = 'B1';
+      document.getElementById('classB1').classList.add('active');
+      document.getElementById('classB2').classList.remove('active');
+      document.getElementById('userClass').value = 'B1';
+    };
+    document.getElementById('classB2').onclick = function() {
+      selectedClass = 'B2';
+      document.getElementById('classB2').classList.add('active');
+      document.getElementById('classB1').classList.remove('active');
+      document.getElementById('userClass').value = 'B2';
+    };
+    
+    // ============================================
+    // MESSAGES
+    // ============================================
+    function showError(msg) {
+      var d = document.getElementById('errorMsg');
+      d.innerHTML = '<i class="fas fa-circle-exclamation"></i> ' + msg;
+      d.style.display = 'block';
+      setTimeout(function() { d.style.display = 'none'; }, 4000);
+    }
+    function showSuccess(msg) {
+      var d = document.getElementById('successMsg');
+      d.innerHTML = '<i class="fas fa-check-circle"></i> ' + msg;
+      d.style.display = 'block';
+      setTimeout(function() { d.style.display = 'none'; }, 3000);
+    }
+    
+    // ============================================
+    // FINGERPRINT
+    // ============================================
+    
+    function isWebAuthnSupported() {
+      return window.PublicKeyCredential !== undefined;
+    }
+    
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    }
+    
+    async function isBiometricAvailable() {
+      if (!isWebAuthnSupported()) return false;
+      if (isIOS()) return false;
+      try {
+        return await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+      } catch(e) { return false; }
+    }
+    
+    function uint8ArrayToBase64(bytes) {
+      var binary = '';
+      for (var i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+      return btoa(binary);
+    }
+    
+    async function handleFingerprint() {
+      var btn = document.getElementById('fpBtn');
+      var status = document.getElementById('fpStatus');
+      var desc = document.getElementById('fpDesc');
+      var btnText = document.getElementById('fpBtnText');
+      var row = document.getElementById('fpRow');
+      
+      if (fpRegistered) {
+        status.className = 'fp-status success';
+        status.innerHTML = 'Already registered';
+        return;
+      }
+      
+      var name = document.getElementById('userName').value.trim();
+      if (!name) {
+        status.className = 'fp-status error';
+        status.innerHTML = 'Enter your name first';
+        return;
+      }
+      
+      if (!isWebAuthnSupported()) {
+        status.className = 'fp-status error';
+        status.innerHTML = 'Browser not supported';
+        return;
+      }
+      
+      if (isIOS()) {
+        status.className = 'fp-status error';
+        status.innerHTML = 'Not supported on iOS';
+        return;
+      }
+      
+      var available = await isBiometricAvailable();
+      if (!available) {
+        status.className = 'fp-status error';
+        status.innerHTML = 'No fingerprint sensor';
+        return;
+      }
+      
+      status.className = 'fp-status';
+      status.innerHTML = 'Place your finger on the sensor...';
+      btn.disabled = true;
+      btnText.innerHTML = 'Scanning...';
+      row.classList.add('active');
+      
+      try {
+        var challenge = new Uint8Array(32);
+        crypto.getRandomValues(challenge);
+        
+        var userId = new Uint8Array(16);
+        crypto.getRandomValues(userId);
+        
+        var createOptions = {
+          publicKey: {
+            challenge: challenge,
+            rp: { id: window.location.hostname || 'localhost', name: 'SMART GRADE' },
+            user: {
+              id: userId,
+              name: name.toLowerCase().replace(/\s/g, ''),
+              displayName: name
+            },
+            pubKeyCredParams: [
+              { type: 'public-key', alg: -7 },
+              { type: 'public-key', alg: -257 }
+            ],
+            authenticatorSelection: {
+              authenticatorAttachment: 'platform',
+              userVerification: 'required',
+              requireResidentKey: true
+            },
+            timeout: 60000,
+            attestation: 'none'
+          }
+        };
+        
+        var credential = await navigator.credentials.create(createOptions);
+        var credentialId = uint8ArrayToBase64(new Uint8Array(credential.rawId));
+        
+        fpData = { credentialId: credentialId, name: name };
+        fpRegistered = true;
+        document.getElementById('fpRegistered').value = 'true';
+        
+        desc.innerHTML = 'Registered';
+        btn.className = 'fp-btn success';
+        btnText.innerHTML = '✓ Added';
+        btn.disabled = true;
+        status.className = 'fp-status success';
+        status.innerHTML = 'Registered successfully';
+        row.classList.remove('active');
+        
+        showToast('Fingerprint registered');
+        
+      } catch(err) {
+        console.error(err);
+        var msg = 'Failed to register';
+        if (err.name === 'NotAllowedError') msg = 'You cancelled';
+        if (err.name === 'InvalidStateError') msg = 'Already registered';
+        
+        status.className = 'fp-status error';
+        status.innerHTML = msg;
+        btn.disabled = false;
+        btnText.innerHTML = 'Add';
+        row.classList.remove('active');
+      }
+    }
+    
+    // ============================================
+    // REGISTER
+    // ============================================
+    
+    function handleRegister() {
+      var name = document.getElementById('userName').value.trim();
+      var number = parseInt(document.getElementById('userNumber').value);
+      var pin = document.getElementById('userPin').value;
+      var confirmPin = document.getElementById('confirmPin').value;
+      var className = selectedClass;
+      var gender = document.getElementById('userGender').value;
+      
+      if (!name) { showError('Please enter your full name'); return; }
+      if (isNaN(number) || number < 1) { showError('Number must be at least 1'); return; }
+      if (number > 70) { showError('Number cannot exceed 70'); return; }
+      
+      var usedNumbers = getUsedNumbersInClass(className);
+      if (usedNumbers.indexOf(number) !== -1) { showError('Number ' + number + ' is already taken'); return; }
+      
+      if (!pin || pin.length !== 4) { showError('PIN must be exactly 4 digits'); return; }
+      if (!/^\d+$/.test(pin)) { showError('PIN must contain only numbers'); return; }
+      if (pin !== confirmPin) { showError('PINs do not match'); return; }
+      
+      var result = createStudentAccount(name, number, className, pin, gender);
+      
+      if (result.success) {
+        var student = result.student;
+        
+        if (fpRegistered && fpData) {
+          try {
+            var students = getAllStudents();
+            var index = students.findIndex(function(s) { return s.id === student.id; });
+            if (index !== -1) {
+              students[index].hasFingerprint = true;
+              students[index].fingerprintHash = fpData.credentialId;
+              saveAllStudents(students);
+            }
+          } catch(e) {}
+        }
+        
+        showSuccess('Account created!');
+        setTimeout(function() { window.location.href = 'login.html'; }, 1500);
+      } else {
+        showError(result.message);
+      }
+    }
+    
+    // ============================================
+    // INIT
+    // ============================================
+    
+    function init() {
+      initMobileMenu();
+      initThemeSelector();
+      
+      setTimeout(function() {
+        if (typeof applyGlobalFont === 'function') {
+          applyGlobalFont();
+        }
+        if (typeof initFontFamily === 'function') {
+          initFontFamily();
+        }
+      }, 100);
+      
+      if (!isWebAuthnSupported() || isIOS()) {
+        document.getElementById('fpBtn').disabled = true;
+        document.getElementById('fpBtnText').innerHTML = 'N/A';
+        document.getElementById('fpDesc').innerHTML = 'Fingerprint not supported';
+      } else {
+        isBiometricAvailable().then(function(available) {
+          if (!available) {
+            document.getElementById('fpBtn').disabled = true;
+            document.getElementById('fpBtnText').innerHTML = 'N/A';
+            document.getElementById('fpDesc').innerHTML = 'No sensor detected';
+          }
+        });
+      }
+    }
+    
+    init();
+  </script>
+</body>
+</html>

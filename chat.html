@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .chat-container { max-width: 100%; margin: 0 auto; }
+    
+    .user-code-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .user-code-card .code {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--primary);
+      font-family: monospace;
+      background: rgba(0,0,0,0.03);
+      padding: 8px 16px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    .copy-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 4px 8px;
+    }
+    .online-status {
+      font-size: 0.55rem;
+      color: #2ecc71;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .online-status .dot {
+      width: 6px;
+      height: 6px;
+      background: #2ecc71;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    
+    .search-friend {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .search-friend input {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .search-friend input:focus { outline: none; border-color: var(--primary); }
+    .search-friend button {
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    
+    .conversations-list {
+      max-height: 280px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+    }
+    .conversations-list::-webkit-scrollbar { width: 3px; }
+    .conversations-list::-webkit-scrollbar-track { background: var(--border); border-radius: 3px; }
+    .conversations-list::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+    
+    .conv-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .conv-item:hover { border-color: var(--primary); transform: translateX(4px); }
+    .conv-item .conv-name { font-weight: 600; font-size: 0.85rem; }
+    .conv-item .conv-code { font-size: 0.6rem; color: var(--text-light); font-family: monospace; }
+    .conv-item .conv-last { font-size: 0.55rem; color: var(--text-light); max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .conv-item .conv-badge { background: var(--primary); color: white; font-size: 0.5rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+    .conv-item .conv-online { font-size: 0.45rem; color: #2ecc71; }
+    
+    .chat-window {
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      max-height: 480px;
+    }
+    .chat-window.active { display: flex; }
+    
+    .chat-header {
+      padding: 12px 16px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .chat-header .chat-partner { font-weight: 700; font-size: 0.9rem; }
+    .chat-header .chat-code { font-size: 0.6rem; opacity: 0.8; font-family: monospace; }
+    .chat-header .close-chat { background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem; }
+    
+    .chat-messages {
+      padding: 12px 16px;
+      max-height: 280px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .chat-messages::-webkit-scrollbar { width: 3px; }
+    .chat-messages::-webkit-scrollbar-track { background: var(--border); border-radius: 3px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+    
+    .msg {
+      max-width: 80%;
+      padding: 8px 14px;
+      border-radius: 14px;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .msg.sent {
+      align-self: flex-end;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+    .msg.received {
+      align-self: flex-start;
+      background: rgba(0,0,0,0.05);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+    }
+    .msg .msg-time { font-size: 0.45rem; opacity: 0.6; margin-top: 4px; display: block; }
+    .msg .msg-status { font-size: 0.4rem; margin-left: 4px; }
+    
+    .chat-input {
+      display: flex;
+      gap: 10px;
+      padding: 10px 14px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 30px;
+      border: 2px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-family: inherit;
+    }
+    .chat-input input:focus { outline: none; border-color: var(--primary); }
+    .chat-input button {
+      padding: 10px 20px;
+      border-radius: 30px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    
+    .empty-state { text-align: center; padding: 30px 20px; color: var(--text-light); }
+    .empty-state i { font-size: 40px; opacity: 0.15; margin-bottom: 10px; display: block; }
+    .empty-state p { font-size: 0.7rem; }
+    
+    .sync-status {
+      text-align: center;
+      font-size: 0.5rem;
+      color: var(--text-light);
+      padding: 4px;
+      margin-top: 4px;
+    }
+    .sync-status .synced { color: #2ecc71; }
+    .sync-status .syncing { color: #f39c12; animation: pulse 1s infinite; }
+    .sync-status .error { color: #e74c3c; }
+    
+    @media (max-width: 550px) {
+      .msg { max-width: 90%; }
+      .search-friend { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-comment-dots"></i><span>CHAT</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html">
+          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="chat.html" class="nav-item active"><i class="fas fa-comment-dots"></i> Chat</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content" style="padding:12px 16px;overflow-y:auto;height:100%;">
+      
+      <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:16px;">
+        <i class="fas fa-comment-dots" style="font-size:30px;"></i>
+        <h2 style="color:white;margin:4px 0;font-size:1.2rem;">Chat</h2>
+        <p style="opacity:0.8;font-size:0.65rem;">Connect with classmates using your unique code</p>
+      </div>
+      
+      <div class="chat-container">
+        
+        <!-- VOTRE CODE -->
+        <div class="user-code-card">
+          <div style="font-size:0.6rem;color:var(--text-light);">Your unique code</div>
+          <div class="code" id="userCode">--</div>
+          <button class="copy-btn" onclick="copyCode()"><i class="fas fa-copy"></i> Copy code</button>
+          <div class="online-status">
+            <span class="dot"></span> <span id="onlineStatusText">Online</span>
+          </div>
+        </div>
+        
+        <!-- RECHERCHER UN AMI -->
+        <div class="search-friend">
+          <input type="text" id="friendCode" placeholder="Enter friend's code..." maxlength="10" style="text-transform:uppercase;">
+          <button onclick="addConversation()"><i class="fas fa-user-plus"></i> Add</button>
+        </div>
+        
+        <!-- CONVERSATIONS -->
+        <h3 style="font-size:0.8rem;margin-bottom:8px;"><i class="fas fa-users"></i> Conversations</h3>
+        <div id="conversationsList" class="conversations-list"></div>
+        
+        <!-- SYNC STATUS -->
+        <div class="sync-status" id="syncStatus">
+          <span class="synced">● Connected</span>
+        </div>
+        
+        <!-- FENÊTRE DE CHAT -->
+        <div class="chat-window" id="chatWindow">
+          <div class="chat-header">
+            <div>
+              <div class="chat-partner" id="chatPartner">--</div>
+              <div class="chat-code" id="chatCode">--</div>
+            </div>
+            <button class="close-chat" onclick="closeChat()"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="chat-messages" id="chatMessages"></div>
+          <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+        
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // CONFIGURATION JSONBIN.IO
+    // ============================================
+    
+    // 🔑 Clés API JSONBin.io
+    var JSONBIN_MASTER_KEY = '$2a$10$gv5tZW7ASloMFGARc0p9fOETciPU3XGhtdGGpYT5NRCIggF49LQFK';
+    var JSONBIN_ACCESS_KEY = '$2a$10$YzJCCf.o.bXBYOvke0E/gultfoV91I9I0crKK3KDGKP3xFcQlMQCi';
+    var JSONBIN_URL = 'https://api.jsonbin.io/v3/b';
+    var JSONBIN_BIN_ID = null;
+    
+    // ============================================
+    // CHAT SYSTEM
+    // ============================================
+    
+    var currentUser = null;
+    var currentChatCode = null;
+    var conversations = [];
+    var messages = {};
+    var syncInterval = null;
+    var isSyncing = false;
+    var binId = null;
+    
+    // ============================================
+    // AVATAR
+    // ============================================
+    
+    function loadHeaderAvatar() {
+      var current = JSON.parse(localStorage.getItem('smartgrade_current') || 'null');
+      if (!current) return;
+      var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + current.id) || '{}');
+      var headerAvatar = document.getElementById('headerAvatar');
+      if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
+        headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+      } else {
+        var gender = current.gender || 'boy';
+        var defaultAvatar = gender === 'girl' ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+        headerAvatar.innerHTML = '<img src="' + defaultAvatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+      }
+    }
+    
+    // ============================================
+    // GÉNÉRER LE CODE UNIQUE
+    // ============================================
+    
+    function generateUniqueCode() {
+      var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      var code = '';
+      for (var i = 0; i < 4; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return code;
+    }
+    
+    function getUserChatCode() {
+      var stored = localStorage.getItem('smartgrade_chat_code_' + currentUser.id);
+      if (stored) return stored;
+      var newCode = generateUniqueCode();
+      localStorage.setItem('smartgrade_chat_code_' + currentUser.id, newCode);
+      return newCode;
+    }
+    
+    // ============================================
+    // SYNC AVEC JSONBIN.IO
+    // ============================================
+    
+    function getChatData() {
+      try {
+        var stored = localStorage.getItem('smartgrade_chat_data');
+        return stored ? JSON.parse(stored) : { users: {}, messages: {}, binId: null };
+      } catch(e) { return { users: {}, messages: {}, binId: null }; }
+    }
+    
+    function saveChatData(data) {
+      localStorage.setItem('smartgrade_chat_data', JSON.stringify(data));
+    }
+    
+    async function getOrCreateBin() {
+      var localData = getChatData();
+      
+      if (localData.binId) {
+        binId = localData.binId;
+        return binId;
+      }
+      
+      try {
+        var response = await fetch(JSONBIN_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': JSONBIN_MASTER_KEY,
+            'X-Bin-Private': 'false'
+          },
+          body: JSON.stringify({ users: {}, messages: {} })
+        });
+        
+        if (!response.ok) throw new Error('Failed to create bin');
+        
+        var result = await response.json();
+        binId = result.metadata.id;
+        
+        localData.binId = binId;
+        saveChatData(localData);
+        
+        return binId;
+      } catch(error) {
+        console.error('Create bin error:', error);
+        return null;
+      }
+    }
+    
+    async function syncWithCloud() {
+      if (isSyncing) return;
+      isSyncing = true;
+      
+      var statusEl = document.getElementById('syncStatus');
+      statusEl.innerHTML = '<span class="syncing">⟳ Syncing...</span>';
+      
+      try {
+        if (!binId) {
+          binId = await getOrCreateBin();
+          if (!binId) throw new Error('Could not create bin');
+        }
+        
+        var response = await fetch(JSONBIN_URL + '/' + binId + '/latest', {
+          headers: {
+            'X-Master-Key': JSONBIN_MASTER_KEY,
+            'X-Access-Key': JSONBIN_ACCESS_KEY
+          }
+        });
+        
+        if (!response.ok) throw new Error('Failed to fetch cloud data');
+        
+        var result = await response.json();
+        var remoteData = result.record || { users: {}, messages: {} };
+        
+        var localData = getChatData();
+        
+        if (remoteData.users) {
+          for (var code in remoteData.users) {
+            localData.users[code] = remoteData.users[code];
+          }
+        }
+        
+        if (remoteData.messages) {
+          for (var convId in remoteData.messages) {
+            if (!localData.messages[convId]) localData.messages[convId] = [];
+            var remoteMsgs = remoteData.messages[convId];
+            var localMsgs = localData.messages[convId];
+            
+            for (var i = 0; i < remoteMsgs.length; i++) {
+              var exists = localMsgs.some(function(m) {
+                return m.id === remoteMsgs[i].id || (m.text === remoteMsgs[i].text && m.time === remoteMsgs[i].time);
+              });
+              if (!exists) {
+                localMsgs.push(remoteMsgs[i]);
+              }
+            }
+            
+            localMsgs.sort(function(a, b) {
+              return new Date(a.time) - new Date(b.time);
+            });
+          }
+        }
+        
+        var myCode = getUserChatCode();
+        localData.users[myCode] = {
+          name: currentUser.name,
+          code: myCode,
+          lastSeen: new Date().toISOString()
+        };
+        
+        localData.binId = binId;
+        saveChatData(localData);
+        
+        await uploadToCloud(localData);
+        
+        statusEl.innerHTML = '<span class="synced">● Online</span>';
+        loadConversations();
+        
+        if (currentChatCode) {
+          var msgs = getMessagesForConv(currentChatCode);
+          renderMessages(msgs);
+        }
+        
+      } catch(error) {
+        console.error('Sync error:', error);
+        statusEl.innerHTML = '<span class="error">● Offline mode</span>';
+      }
+      
+      isSyncing = false;
+    }
+    
+    async function uploadToCloud(data) {
+      if (!binId) {
+        binId = await getOrCreateBin();
+        if (!binId) throw new Error('Could not create bin');
+      }
+      
+      var response = await fetch(JSONBIN_URL + '/' + binId, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': JSONBIN_MASTER_KEY,
+          'X-Access-Key': JSONBIN_ACCESS_KEY
+        },
+        body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) throw new Error('Failed to upload');
+    }
+    
+    // ============================================
+    // CONVERSATIONS
+    // ============================================
+    
+    function getConversations() {
+      var data = getChatData();
+      var convs = [];
+      var myCode = getUserChatCode();
+      
+      for (var code in data.users) {
+        if (code !== myCode) {
+          var user = data.users[code];
+          var lastMsg = getLastMessage(code);
+          convs.push({
+            code: code,
+            name: user.name || 'User ' + code,
+            lastMessage: lastMsg ? lastMsg.text : '',
+            lastTime: lastMsg ? lastMsg.time : user.lastSeen || new Date().toISOString(),
+            unread: 0,
+            online: isUserOnline(user)
+          });
+        }
+      }
+      
+      return convs;
+    }
+    
+    function getLastMessage(code) {
+      var data = getChatData();
+      var msgs = data.messages[code] || [];
+      return msgs.length > 0 ? msgs[msgs.length - 1] : null;
+    }
+    
+    function isUserOnline(user) {
+      if (!user.lastSeen) return false;
+      var last = new Date(user.lastSeen);
+      var now = new Date();
+      var diff = (now - last) / 1000 / 60;
+      return diff < 5;
+    }
+    
+    function getMessagesForConv(code) {
+      var data = getChatData();
+      return data.messages[code] || [];
+    }
+    
+    function addConversation() {
+      var code = document.getElementById('friendCode').value.trim().toUpperCase();
+      if (!code) { showToast('Enter a code'); return; }
+      if (code === getUserChatCode()) { showToast("That's your own code!"); return; }
+      
+      var data = getChatData();
+      if (!data.users[code]) {
+        data.users[code] = {
+          name: 'User ' + code,
+          code: code,
+          lastSeen: new Date().toISOString()
+        };
+        saveChatData(data);
+        syncWithCloud();
+      }
+      
+      document.getElementById('friendCode').value = '';
+      loadConversations();
+      showToast('Friend added!');
+    }
+    
+    function loadConversations() {
+      var container = document.getElementById('conversationsList');
+      var convs = getConversations();
+      
+      if (convs.length === 0) {
+        container.innerHTML = '<div class="empty-state"><i class="fas fa-users"></i><p>No conversations yet.<br>Enter a friend\'s code above.</p></div>';
+        return;
+      }
+      
+      convs.sort(function(a, b) {
+        return new Date(b.lastTime) - new Date(a.lastTime);
+      });
+      
+      var html = '';
+      for (var i = 0; i < convs.length; i++) {
+        var c = convs[i];
+        var unreadBadge = c.unread > 0 ? '<span class="conv-badge">' + c.unread + '</span>' : '';
+        var onlineBadge = c.online ? '<span class="conv-online">● online</span>' : '';
+        var lastMsg = c.lastMessage || 'No messages';
+        html += '<div class="conv-item" onclick="openChat(\'' + c.code + '\')">';
+        html += '<div>';
+        html += '<div class="conv-name">' + c.name + ' ' + onlineBadge + '</div>';
+        html += '<div class="conv-code">' + c.code + '</div>';
+        html += '<div class="conv-last">' + lastMsg.substring(0, 30) + '</div>';
+        html += '</div>';
+        html += unreadBadge;
+        html += '</div>';
+      }
+      container.innerHTML = html;
+    }
+    
+    // ============================================
+    // CHAT
+    // ============================================
+    
+    function openChat(code) {
+      currentChatCode = code;
+      
+      var data = getChatData();
+      var user = data.users[code];
+      var name = user ? user.name : 'User ' + code;
+      
+      document.getElementById('chatWindow').classList.add('active');
+      document.getElementById('chatPartner').innerHTML = name;
+      document.getElementById('chatCode').innerHTML = code;
+      
+      var msgs = getMessagesForConv(code);
+      renderMessages(msgs);
+      
+      document.getElementById('chatInput').focus();
+      loadConversations();
+    }
+    
+    function closeChat() {
+      document.getElementById('chatWindow').classList.remove('active');
+      currentChatCode = null;
+    }
+    
+    function renderMessages(msgs) {
+      var container = document.getElementById('chatMessages');
+      if (msgs.length === 0) {
+        container.innerHTML = '<div class="empty-state" style="padding:20px;"><i class="fas fa-comment"></i><p style="font-size:0.6rem;">No messages yet</p></div>';
+        return;
+      }
+      
+      var html = '';
+      var myCode = getUserChatCode();
+      for (var i = 0; i < msgs.length; i++) {
+        var m = msgs[i];
+        var isSent = m.sender === myCode;
+        var time = new Date(m.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        var status = isSent ? '✓' : '';
+        html += '<div class="msg ' + (isSent ? 'sent' : 'received') + '">';
+        html += m.text;
+        html += '<span class="msg-time">' + time + ' <span class="msg-status">' + status + '</span></span>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+      container.scrollTop = container.scrollHeight;
+    }
+    
+    function sendMessage() {
+      if (!currentChatCode) { showToast('Open a conversation first'); return; }
+      var input = document.getElementById('chatInput');
+      var text = input.value.trim();
+      if (!text) return;
+      
+      var myCode = getUserChatCode();
+      var data = getChatData();
+      
+      var msg = {
+        id: Date.now().toString() + '_' + Math.random().toString(36).substr(2, 4),
+        sender: myCode,
+        text: text,
+        time: new Date().toISOString()
+      };
+      
+      if (!data.messages[currentChatCode]) data.messages[currentChatCode] = [];
+      data.messages[currentChatCode].push(msg);
+      
+      var user = data.users[currentChatCode];
+      if (user) user.lastSeen = new Date().toISOString();
+      
+      saveChatData(data);
+      syncWithCloud();
+      
+      var msgs = getMessagesForConv(currentChatCode);
+      renderMessages(msgs);
+      input.value = '';
+      loadConversations();
+    }
+    
+    // ============================================
+    // COPIER LE CODE
+    // ============================================
+    
+    function copyCode() {
+      var code = document.getElementById('userCode').innerHTML;
+      navigator.clipboard.writeText(code).then(function() {
+        showToast('Code copied!');
+      }).catch(function() {
+        prompt('Copy this code:', code);
+      });
+    }
+    
+    // ============================================
+    // INIT
+    // ============================================
+    
+    function initChat() {
+      currentUser = getCurrentStudent();
+      if (!currentUser) { location = 'login.html'; return; }
+      
+      loadHeaderAvatar();
+      
+      var code = getUserChatCode();
+      document.getElementById('userCode').innerHTML = code;
+      
+      loadConversations();
+      initMobileMenu();
+      initThemeSelector();
+      
+      syncInterval = setInterval(function() {
+        if (navigator.onLine) {
+          syncWithCloud();
+        }
+      }, 5000);
+      
+      setTimeout(function() {
+        if (navigator.onLine) {
+          syncWithCloud();
+        }
+      }, 1000);
+      
+      window.addEventListener('online', function() {
+        syncWithCloud();
+      });
+    }
+    
+    function showToast(message) {
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+      container.appendChild(toast);
+      setTimeout(function() { if (toast.parentNode) toast.remove(); }, 3000);
+    }
+    
+    initChat();
+  </script>
+</body>
+</html>

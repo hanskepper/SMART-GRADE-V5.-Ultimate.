@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Goals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .goals-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      text-align: center;
+      color: white;
+    }
+    .goals-header h2 {
+      font-size: 1.3rem;
+      margin: 0 0 8px 0;
+    }
+    .goals-header p {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+    
+    .stats-goals {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-goal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-goal-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-goal-label {
+      font-size: 0.6rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    
+    .term-selector {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 6px;
+      border: 1px solid var(--border);
+    }
+    .term-option {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+      color: var(--text-light);
+    }
+    .term-option.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+    
+    .goals-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 520px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .goals-list::-webkit-scrollbar {
+      width: 3px;
+    }
+    .goals-list::-webkit-scrollbar-track {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .goals-list::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .goal-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      transition: all 0.2s;
+    }
+    .goal-item:hover {
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+    .goal-item.achieved {
+      border-left: 4px solid #2ecc71;
+    }
+    .goal-item.not-achieved {
+      border-left: 4px solid #e74c3c;
+    }
+    
+    .goal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .goal-subject {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .goal-subject-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: white;
+    }
+    .goal-subject-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .goal-coeff {
+      font-size: 0.6rem;
+      color: var(--text-light);
+      background: rgba(0,0,0,0.03);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    
+    .goal-values {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .goal-current {
+      text-align: center;
+      flex: 1;
+    }
+    .goal-current-label {
+      font-size: 0.55rem;
+      color: var(--text-light);
+    }
+    .goal-current-value {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .goal-target {
+      text-align: center;
+      flex: 2;
+    }
+    .goal-target-label {
+      font-size: 0.55rem;
+      color: var(--text-light);
+    }
+    .goal-target-slider {
+      width: 100%;
+      margin: 8px 0;
+      height: 4px;
+      -webkit-appearance: none;
+      background: var(--border);
+      border-radius: 2px;
+    }
+    .goal-target-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--primary);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .goal-target-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .goal-difference {
+      text-align: center;
+      flex: 1;
+      min-width: 70px;
+    }
+    .goal-diff-positive {
+      color: #2ecc71;
+      font-weight: 700;
+    }
+    .goal-diff-negative {
+      color: #e74c3c;
+      font-weight: 700;
+    }
+    .goal-diff-neutral {
+      color: var(--text-light);
+    }
+    
+    .goal-progress {
+      margin: 12px 0;
+    }
+    .progress-bar-bg {
+      background: rgba(0,0,0,0.08);
+      border-radius: 20px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 20px;
+      transition: width 0.5s ease;
+    }
+    .progress-bar-fill.achieved {
+      background: linear-gradient(90deg, #2ecc71, #27ae60);
+    }
+    .progress-bar-fill.not-achieved {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    
+    .goal-status {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      font-weight: 600;
+    }
+    .status-achieved {
+      background: rgba(46,204,113,0.15);
+      color: #2ecc71;
+    }
+    .status-not-achieved {
+      background: rgba(231,76,60,0.15);
+      color: #e74c3c;
+    }
+    
+    .empty-goals {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-light);
+    }
+    .empty-goals i {
+      font-size: 50px;
+      opacity: 0.2;
+      margin-bottom: 16px;
+      display: block;
+    }
+    
+    @media (max-width: 550px) {
+      .stats-goals {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .goal-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .goal-values {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .goal-difference {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-bullseye"></i><span>GOALS</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="goals.html" class="nav-item active"><i class="fas fa-bullseye"></i> Goals</a>
+        <a href="flashcards.html" class="nav-item"><i class="fas fa-clone"></i> Flashcards</a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="goals-header">
+        <i class="fas fa-bullseye" style="font-size:35px;opacity:0.5;"></i>
+        <h2>Academic Goals</h2>
+        <p>Set and track your targets for each subject</p>
+      </div>
+      
+      <div class="stats-goals">
+        <div class="stat-goal-card">
+          <div class="stat-goal-value" id="totalGoals">0</div>
+          <div class="stat-goal-label">Goals Set</div>
+        </div>
+        <div class="stat-goal-card">
+          <div class="stat-goal-value" id="achievedGoals">0</div>
+          <div class="stat-goal-label">Achieved</div>
+        </div>
+        <div class="stat-goal-card">
+          <div class="stat-goal-value" id="successRate">0%</div>
+          <div class="stat-goal-label">Success Rate</div>
+        </div>
+        <div class="stat-goal-card">
+          <div class="stat-goal-value" id="avgTarget">0.0</div>
+          <div class="stat-goal-label">Avg Target</div>
+        </div>
+      </div>
+      
+      <div class="glass-card">
+        <div class="term-selector" id="termSelector">
+          <div class="term-option" data-term="1">Term 1</div>
+          <div class="term-option" data-term="2">Term 2</div>
+          <div class="term-option" data-term="3">Term 3</div>
+        </div>
+        
+        <div id="goalsContainer" class="goals-list"></div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    var currentUser = null;
+    var currentTerm = 1;
+    var goalsData = {};
+    var saveTimeout = null;
+    
+    var COLORS = ['#3498db', '#e74c3c', '#9b59b6', '#2ecc71', '#e67e22', '#00bcd4', '#f39c12', '#1abc9c', '#27ae60', '#2980b9', '#c0392b', '#8e44ad', '#16a085', '#d35400'];
+    
+    var DEFAULT_SUBJECTS = [
+      { id: 1, name: "COMPUTER SCIENCES", icon: "fa-laptop-code" },
+      { id: 2, name: "MATHEMATICS", icon: "fa-square-root-variable" },
+      { id: 3, name: "CHEMISTRY", icon: "fa-flask" },
+      { id: 4, name: "HUMAN BIOLOGY", icon: "fa-dna" },
+      { id: 5, name: "GEOLOGY", icon: "fa-mountain" },
+      { id: 6, name: "PHYSICS", icon: "fa-atom" },
+      { id: 7, name: "ADDITIONAL MATHEMATICS", icon: "fa-calculator" },
+      { id: 8, name: "BIOLOGY", icon: "fa-leaf" },
+      { id: 9, name: "ECONOMICS", icon: "fa-chart-line" },
+      { id: 10, name: "ENGLISH LANGUAGE", icon: "fa-language" },
+      { id: 11, name: "GEOGRAPHY", icon: "fa-earth-africa" },
+      { id: 12, name: "CITIZENSHIP", icon: "fa-landmark" },
+      { id: 13, name: "FRENCH", icon: "fa-flag" },
+      { id: 14, name: "FOOD AND NUTRITION", icon: "fa-apple-whole" }
+    ];
+    
+    // UTILISER LA MÊME FONCTION QUE LE DASHBOARD
+    function calculateSubjectTermAverageForGoals(subjectId, term, grades) {
+      var seq = getSequencesForTerm(term);
+      var tg = grades.filter(function(g) { return g.subjectId === subjectId && (g.sequenceId === seq[0] || g.sequenceId === seq[1]); });
+      if (tg.length === 0) return 0;
+      var sum = 0;
+      for (var i = 0; i < tg.length; i++) sum += tg[i].value;
+      return Math.round((sum / tg.length) * 100) / 100;
+    }
+    
+    function getSubjectCurrentAverage(subjectId, term) {
+      var grades = getStudentGrades(currentUser.id);
+      return calculateSubjectTermAverageForGoals(subjectId, term, grades);
+    }
+    
+    function renderGoals() {
+      var selectedSubjects = getStudentSelectedSubjects(currentUser.id, currentTerm);
+      var container = document.getElementById('goalsContainer');
+      
+      if (!selectedSubjects || selectedSubjects.length === 0) {
+        container.innerHTML = '<div class="empty-goals"><i class="fas fa-bullseye"></i><p>No subjects selected for Term ' + currentTerm + '</p><p style="font-size:0.6rem;">Go to Settings to select subjects</p><a href="settings.html" class="btn btn-primary" style="display:inline-block;width:auto;margin-top:12px;padding:8px 20px;"><i class="fas fa-sliders-h"></i> Settings</a></div>';
+        return;
+      }
+      
+      var html = '';
+      var coeffs = getSubjectCoefficients(currentUser.id);
+      var totalTarget = 0;
+      var targetCount = 0;
+      
+      for (var i = 0; i < selectedSubjects.length; i++) {
+        var subjectId = selectedSubjects[i];
+        var subject = DEFAULT_SUBJECTS.find(function(s) { return s.id === subjectId; });
+        if (!subject) continue;
+        
+        var currentAvg = getSubjectCurrentAverage(subjectId, currentTerm);
+        var target = goalsData[currentTerm] && goalsData[currentTerm][subjectId] !== undefined ? goalsData[currentTerm][subjectId] : 12;
+        if (target < 0) target = 12;
+        if (target > 20) target = 20;
+        
+        var achieved = currentAvg > 0 && currentAvg >= target;
+        var diff = target - currentAvg;
+        var diffText = diff > 0 ? '+' + diff.toFixed(1) : diff.toFixed(1);
+        var diffClass = diff <= 0 ? 'goal-diff-positive' : 'goal-diff-negative';
+        var progress = target > 0 ? Math.min(100, Math.round((currentAvg / target) * 100)) : 0;
+        var colorIndex = (subjectId - 1) % COLORS.length;
+        var iconColor = COLORS[colorIndex];
+        
+        totalTarget += target;
+        targetCount++;
+        
+        html += '<div class="goal-item ' + (achieved && currentAvg > 0 ? 'achieved' : 'not-achieved') + '">' +
+          '<div class="goal-header">' +
+            '<div class="goal-subject">' +
+              '<div class="goal-subject-icon" style="background:' + iconColor + ';"><i class="fas ' + subject.icon + '"></i></div>' +
+              '<div class="goal-subject-name">' + subject.name + '</div>' +
+              '<span class="goal-coeff">Coeff: ' + (coeffs[subjectId] || 5) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="goal-values">' +
+            '<div class="goal-current">' +
+              '<div class="goal-current-label">CURRENT</div>' +
+              '<div class="goal-current-value">' + (currentAvg > 0 ? currentAvg.toFixed(2) : '—') + '</div>' +
+            '</div>' +
+            '<div class="goal-target">' +
+              '<div class="goal-target-label">TARGET</div>' +
+              '<input type="range" class="goal-target-slider" data-subject="' + subjectId + '" min="0" max="20" step="0.5" value="' + target + '">' +
+              '<div class="goal-target-value" id="target-value-' + subjectId + '">' + target.toFixed(1) + '</div>' +
+            '</div>' +
+            '<div class="goal-difference">' +
+              '<div class="goal-target-label">GAP</div>' +
+              '<div class="' + diffClass + '">' + (diff <= 0 ? '✓' : '▲') + ' ' + Math.abs(diff).toFixed(1) + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="goal-progress">' +
+            '<div class="progress-bar-bg">' +
+              '<div class="progress-bar-fill ' + (achieved && currentAvg > 0 ? 'achieved' : 'not-achieved') + '" style="width: ' + progress + '%;"></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="goal-status">' +
+            (achieved && currentAvg > 0 ? 
+              '<span class="status-badge status-achieved"><i class="fas fa-check-circle"></i> Achieved</span>' : 
+              '<span class="status-badge status-not-achieved"><i class="fas fa-bullseye"></i> In Progress</span>') +
+          '</div>' +
+        '</div>';
+      }
+      
+      container.innerHTML = html;
+      
+      var avgTarget = targetCount > 0 ? (totalTarget / targetCount).toFixed(1) : '0.0';
+      document.getElementById('avgTarget').innerHTML = avgTarget;
+      
+      document.querySelectorAll('.goal-target-slider').forEach(function(slider) {
+        var subjectId = parseInt(slider.dataset.subject);
+        var displaySpan = document.getElementById('target-value-' + subjectId);
+        
+        slider.addEventListener('input', function() {
+          var val = parseFloat(this.value);
+          if (displaySpan) displaySpan.innerHTML = val.toFixed(1);
+          saveGoalTarget(subjectId, val);
+        });
+      });
+    }
+    
+    function saveGoalTarget(subjectId, target) {
+      if (!goalsData[currentTerm]) {
+        goalsData[currentTerm] = {};
+      }
+      goalsData[currentTerm][subjectId] = target;
+      
+      if (saveTimeout) clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(function() {
+        localStorage.setItem('smartgrade_goals_detail_' + currentUser.id, JSON.stringify(goalsData));
+        showToast('Goals saved');
+        updateStats();
+      }, 500);
+    }
+    
+    function updateStats() {
+      var selectedSubjects = getStudentSelectedSubjects(currentUser.id, currentTerm);
+      var total = selectedSubjects.length;
+      var achieved = 0;
+      var totalTarget = 0;
+      
+      for (var i = 0; i < selectedSubjects.length; i++) {
+        var subjectId = selectedSubjects[i];
+        var currentAvg = getSubjectCurrentAverage(subjectId, currentTerm);
+        var target = goalsData[currentTerm] && goalsData[currentTerm][subjectId] !== undefined ? goalsData[currentTerm][subjectId] : 12;
+        totalTarget += target;
+        if (currentAvg > 0 && currentAvg >= target) {
+          achieved++;
+        }
+      }
+      
+      var successRate = total > 0 ? Math.round((achieved / total) * 100) : 0;
+      var avgTarget = total > 0 ? (totalTarget / total).toFixed(1) : '0.0';
+      
+      document.getElementById('totalGoals').innerHTML = total;
+      document.getElementById('achievedGoals').innerHTML = achieved;
+      document.getElementById('successRate').innerHTML = successRate + '%';
+      document.getElementById('avgTarget').innerHTML = avgTarget;
+    }
+    
+    function loadGoals() {
+      currentUser = getCurrentStudent();
+      if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      var saved = localStorage.getItem('smartgrade_goals_detail_' + currentUser.id);
+      if (saved) {
+        try {
+          goalsData = JSON.parse(saved);
+        } catch(e) {
+          goalsData = {};
+        }
+      } else {
+        goalsData = {};
+      }
+      
+      if (!goalsData[currentTerm]) {
+        goalsData[currentTerm] = {};
+      }
+      
+      renderGoals();
+      updateStats();
+      updateHeaderProfile();
+    }
+    
+    function updateHeaderProfile() {
+      var headerAvatar = document.getElementById('headerAvatar');
+      if (!headerAvatar) return;
+      try {
+        var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + currentUser.id) || '{}');
+        if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+          headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+        }
+      } catch(e) {}
+    }
+    
+    function showToast(message) {
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<i class="fas fa-save"></i> ' + message;
+      container.appendChild(toast);
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        setTimeout(function() { if (toast.parentNode) toast.remove(); }, 2000);
+      }, 2000);
+    }
+    
+    document.querySelectorAll('.term-option').forEach(function(opt, index) {
+      opt.addEventListener('click', function() {
+        document.querySelectorAll('.term-option').forEach(function(o) { o.classList.remove('active'); });
+        opt.classList.add('active');
+        currentTerm = index + 1;
+        loadGoals();
+      });
+    });
+    
+    document.querySelector('.term-option[data-term="1"]').classList.add('active');
+    
+    loadGoals();
+    initMobileMenu();
+    initThemeSelector();
+    
+    setInterval(function() {
+      if (currentUser) {
+        renderGoals();
+        updateStats();
+      }
+    }, 5000);
+  </script>
+</body>
+</html>

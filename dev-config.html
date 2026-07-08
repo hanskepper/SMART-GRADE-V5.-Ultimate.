@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DEV - System Config</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .dev-hero {
+      text-align: center;
+      padding: 35px 20px;
+      border-radius: 28px;
+      color: white;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .dev-hero h1 { font-size: 1.6rem; margin: 8px 0; }
+    .dev-hero p { opacity: 0.85; font-size: 0.75rem; }
+    
+    .dev-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .config-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .config-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+    .config-input {
+      width: 90px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      text-align: center;
+      font-size: 0.7rem;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-action {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-action.secondary {
+      background: rgba(0,0,0,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-action.danger {
+      background: rgba(231,76,60,0.1);
+      color: #e74c3c;
+      border: 1px solid rgba(231,76,60,0.3);
+    }
+    .btn-action:active { transform: scale(0.97); }
+    
+    .remend-box {
+      background: rgba(0,0,0,0.03);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 0.6rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+    }
+    
+    /* Modal CSS personnalisé */
+    .config-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .config-modal.show {
+      display: flex;
+    }
+    .config-modal-content {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 24px;
+      max-width: 340px;
+      width: 85%;
+      text-align: center;
+      animation: fadeInUp 0.3s ease;
+      border: 1px solid var(--border);
+    }
+    .config-modal-content i {
+      font-size: 48px;
+      color: #f39c12;
+      margin-bottom: 16px;
+    }
+    .config-modal-content h3 {
+      margin-bottom: 8px;
+    }
+    .config-modal-content p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    .config-modal-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    .config-modal-buttons button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .config-modal-buttons .btn-cancel {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .config-modal-buttons .btn-confirm {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+    .config-modal-buttons .btn-danger {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+    }
+    .config-modal-buttons button:active {
+      transform: scale(0.97);
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Menu développeur */
+    .dev-sidebar {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid var(--primary);
+    }
+    .dev-sidebar-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+    }
+    .dev-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dev-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .dev-nav-link i {
+      width: 24px;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    .dev-nav-link:hover {
+      background: rgba(0,0,0,0.03);
+      border-color: var(--border);
+    }
+    .dev-nav-link.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    .dev-nav-link.active i { color: white; }
+    
+    @media (max-width: 550px) {
+      .config-grid { grid-template-columns: 1fr; }
+      .btn-group { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-cog"></i><span>DEV TOOLS</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        
+        <div class="dev-sidebar" id="devSidebar" style="display:none;">
+          <div class="dev-sidebar-title"><i class="fas fa-code"></i> Developer Tools</div>
+          <div class="dev-nav-links">
+            <a href="dev-calculator.html" class="dev-nav-link"><i class="fas fa-calculator"></i> Calculator</a>
+            <a href="dev-database.html" class="dev-nav-link"><i class="fas fa-database"></i> Database</a>
+            <a href="dev-stats.html" class="dev-nav-link"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
+            <a href="dev-logs.html" class="dev-nav-link"><i class="fas fa-history"></i> System Logs</a>
+            <a href="dev-backup.html" class="dev-nav-link"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
+            <a href="dev-config.html" class="dev-nav-link active"><i class="fas fa-cog"></i> System Config</a>
+          </div>
+        </div>
+        
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="dev-hero">
+        <i class="fas fa-cog" style="font-size:45px;opacity:0.5;"></i>
+        <h1>System Configuration</h1>
+        <p>View and modify application settings</p>
+      </div>
+      
+      <!-- CONFIGURATION -->
+      <div class="dev-card">
+        <div class="section-title"><i class="fas fa-sliders-h"></i> System Limits</div>
+        <div class="config-grid" id="limitsConfig"></div>
+      </div>
+      
+      <!-- ACTIONS -->
+      <div class="dev-card">
+        <div class="section-title"><i class="fas fa-tools"></i> Actions</div>
+        <div class="btn-group">
+          <button class="btn-action" onclick="saveConfig()"><i class="fas fa-save"></i> Save Settings</button>
+          <button class="btn-action secondary" onclick="exportConfig()"><i class="fas fa-download"></i> Export Config</button>
+          <input type="file" id="importConfigFile" accept=".json" style="display:none;" onchange="importConfig(event)">
+          <button class="btn-action secondary" onclick="document.getElementById('importConfigFile').click()"><i class="fas fa-upload"></i> Import Config</button>
+          <button class="btn-action danger" onclick="showResetModal()"><i class="fas fa-undo-alt"></i> Reset to Default</button>
+        </div>
+      </div>
+      
+      <!-- FICHIER REMEND -->
+      <div class="dev-card">
+        <div class="section-title"><i class="fas fa-file-alt"></i> REMEND Configuration</div>
+        <div class="remend-box" id="remendContent"></div>
+        <div class="btn-group" style="margin-top:12px;">
+          <button class="btn-action secondary" onclick="copyRemend()"><i class="fas fa-copy"></i> Copy REMEND</button>
+          <button class="btn-action secondary" onclick="downloadRemend()"><i class="fas fa-download"></i> Download REMEND</button>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <!-- MODAL CSS personnalisé -->
+  <div id="resetModal" class="config-modal">
+    <div class="config-modal-content">
+      <i class="fas fa-exclamation-triangle"></i>
+      <h3>Reset Configuration</h3>
+      <p>Reset all configuration to default values?</p>
+      <div class="config-modal-buttons">
+        <button class="btn-cancel" onclick="closeResetModal()">Cancel</button>
+        <button class="btn-danger" onclick="confirmReset()">Reset</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // Configuration
+    var systemConfig = {
+      maxBackups: 50,
+      maxGradesPerSubject: 100,
+      maxFlashcardsPerSubject: 100,
+      maxHistoryItems: 200,
+      maxFavorites: 6,
+      transferCodeExpiryMinutes: 10,
+      autoSaveIntervalSeconds: 30,
+      maxStorageMB: 5,
+      maxAvatarSizeMB: 5,
+      maxGrade: 20,
+      minGrade: 0,
+      passingGrade: 10,
+      defaultCoefficient: 5,
+      minSubjectsPerTerm: 10,
+      maxSubjectsPerTerm: 14
+    };
+    
+    // Modal functions
+    function showResetModal() {
+      document.getElementById('resetModal').classList.add('show');
+    }
+    
+    function closeResetModal() {
+      document.getElementById('resetModal').classList.remove('show');
+    }
+    
+    function confirmReset() {
+      closeResetModal();
+      resetConfig();
+    }
+    
+    // Charger la config sauvegardée
+    function loadConfig() {
+      var saved = localStorage.getItem('smartgrade_system_config');
+      if (saved) {
+        try {
+          var parsed = JSON.parse(saved);
+          for (var key in parsed) {
+            if (systemConfig.hasOwnProperty(key)) {
+              systemConfig[key] = parsed[key];
+            }
+          }
+        } catch(e) {}
+      }
+      displayConfig();
+    }
+    
+    // Afficher la configuration
+    function displayConfig() {
+      var container = document.getElementById('limitsConfig');
+      var html = '';
+      
+      html += '<div class="config-item"><span class="config-label">Max Backups:</span><input type="number" id="cfg_maxBackups" class="config-input" value="' + systemConfig.maxBackups + '" min="10" max="200"></div>';
+      html += '<div class="config-item"><span class="config-label">Max Grades/Subject:</span><input type="number" id="cfg_maxGradesPerSubject" class="config-input" value="' + systemConfig.maxGradesPerSubject + '" min="10" max="500"></div>';
+      html += '<div class="config-item"><span class="config-label">Max Flashcards/Subject:</span><input type="number" id="cfg_maxFlashcardsPerSubject" class="config-input" value="' + systemConfig.maxFlashcardsPerSubject + '" min="10" max="500"></div>';
+      html += '<div class="config-item"><span class="config-label">Max History Items:</span><input type="number" id="cfg_maxHistoryItems" class="config-input" value="' + systemConfig.maxHistoryItems + '" min="50" max="500"></div>';
+      html += '<div class="config-item"><span class="config-label">Max Favorites:</span><input type="number" id="cfg_maxFavorites" class="config-input" value="' + systemConfig.maxFavorites + '" min="3" max="20"></div>';
+      html += '<div class="config-item"><span class="config-label">Transfer Code Expiry (min):</span><input type="number" id="cfg_transferCodeExpiryMinutes" class="config-input" value="' + systemConfig.transferCodeExpiryMinutes + '" min="5" max="60"></div>';
+      html += '<div class="config-item"><span class="config-label">Auto Save Interval (sec):</span><input type="number" id="cfg_autoSaveIntervalSeconds" class="config-input" value="' + systemConfig.autoSaveIntervalSeconds + '" min="10" max="120"></div>';
+      html += '<div class="config-item"><span class="config-label">Max Storage (MB):</span><input type="number" id="cfg_maxStorageMB" class="config-input" value="' + systemConfig.maxStorageMB + '" min="2" max="20"></div>';
+      html += '<div class="config-item"><span class="config-label">Max Avatar Size (MB):</span><input type="number" id="cfg_maxAvatarSizeMB" class="config-input" value="' + systemConfig.maxAvatarSizeMB + '" min="1" max="10"></div>';
+      html += '<div class="config-item"><span class="config-label">Max Grade:</span><input type="number" id="cfg_maxGrade" class="config-input" value="' + systemConfig.maxGrade + '" min="10" max="20"></div>';
+      html += '<div class="config-item"><span class="config-label">Min Grade:</span><input type="number" id="cfg_minGrade" class="config-input" value="' + systemConfig.minGrade + '" min="0" max="10"></div>';
+      html += '<div class="config-item"><span class="config-label">Passing Grade:</span><input type="number" id="cfg_passingGrade" class="config-input" value="' + systemConfig.passingGrade + '" min="0" max="20"></div>';
+      html += '<div class="config-item"><span class="config-label">Default Coefficient:</span><input type="number" id="cfg_defaultCoefficient" class="config-input" value="' + systemConfig.defaultCoefficient + '" min="1" max="10"></div>';
+      html += '<div class="config-item"><span class="config-label">Min Subjects/Term:</span><input type="number" id="cfg_minSubjectsPerTerm" class="config-input" value="' + systemConfig.minSubjectsPerTerm + '" min="5" max="14"></div>';
+      html += '<div class="config-item"><span class="config-label">Max Subjects/Term:</span><input type="number" id="cfg_maxSubjectsPerTerm" class="config-input" value="' + systemConfig.maxSubjectsPerTerm + '" min="10" max="14"></div>';
+      
+      container.innerHTML = html;
+    }
+    
+    // Sauvegarder la configuration
+    function saveConfig() {
+      systemConfig.maxBackups = parseInt(document.getElementById('cfg_maxBackups').value);
+      systemConfig.maxGradesPerSubject = parseInt(document.getElementById('cfg_maxGradesPerSubject').value);
+      systemConfig.maxFlashcardsPerSubject = parseInt(document.getElementById('cfg_maxFlashcardsPerSubject').value);
+      systemConfig.maxHistoryItems = parseInt(document.getElementById('cfg_maxHistoryItems').value);
+      systemConfig.maxFavorites = parseInt(document.getElementById('cfg_maxFavorites').value);
+      systemConfig.transferCodeExpiryMinutes = parseInt(document.getElementById('cfg_transferCodeExpiryMinutes').value);
+      systemConfig.autoSaveIntervalSeconds = parseInt(document.getElementById('cfg_autoSaveIntervalSeconds').value);
+      systemConfig.maxStorageMB = parseInt(document.getElementById('cfg_maxStorageMB').value);
+      systemConfig.maxAvatarSizeMB = parseInt(document.getElementById('cfg_maxAvatarSizeMB').value);
+      systemConfig.maxGrade = parseInt(document.getElementById('cfg_maxGrade').value);
+      systemConfig.minGrade = parseInt(document.getElementById('cfg_minGrade').value);
+      systemConfig.passingGrade = parseInt(document.getElementById('cfg_passingGrade').value);
+      systemConfig.defaultCoefficient = parseInt(document.getElementById('cfg_defaultCoefficient').value);
+      systemConfig.minSubjectsPerTerm = parseInt(document.getElementById('cfg_minSubjectsPerTerm').value);
+      systemConfig.maxSubjectsPerTerm = parseInt(document.getElementById('cfg_maxSubjectsPerTerm').value);
+      
+      localStorage.setItem('smartgrade_system_config', JSON.stringify(systemConfig));
+      showToast('Configuration saved!');
+    }
+    
+    // Exporter
+    function exportConfig() {
+      var jsonStr = JSON.stringify(systemConfig, null, 2);
+      var blob = new Blob([jsonStr], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'smartgrade_config.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Config exported!');
+    }
+    
+    // Importer
+    function importConfig(event) {
+      var file = event.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          var imported = JSON.parse(e.target.result);
+          for (var key in imported) {
+            if (systemConfig.hasOwnProperty(key)) {
+              systemConfig[key] = imported[key];
+            }
+          }
+          displayConfig();
+          localStorage.setItem('smartgrade_system_config', JSON.stringify(systemConfig));
+          showToast('Config imported!');
+        } catch(err) {
+          showToast('Invalid config file');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+    
+    // Réinitialiser (appelé par le modal)
+    function resetConfig() {
+      systemConfig = {
+        maxBackups: 50,
+        maxGradesPerSubject: 100,
+        maxFlashcardsPerSubject: 100,
+        maxHistoryItems: 200,
+        maxFavorites: 6,
+        transferCodeExpiryMinutes: 10,
+        autoSaveIntervalSeconds: 30,
+        maxStorageMB: 5,
+        maxAvatarSizeMB: 5,
+        maxGrade: 20,
+        minGrade: 0,
+        passingGrade: 10,
+        defaultCoefficient: 5,
+        minSubjectsPerTerm: 10,
+        maxSubjectsPerTerm: 14
+      };
+      displayConfig();
+      localStorage.setItem('smartgrade_system_config', JSON.stringify(systemConfig));
+      showToast('Config reset to default!');
+    }
+    
+    // Contenu REMEND
+    var REMEND_CONTENT = `================================================================================
+                    SMART GRADE v5.0 "Ultimate" - REMEND
+================================================================================
+
+[PROJECT]
+Name: SMART GRADE
+Version: 5.0
+Codename: Ultimate
+School: SIN GBHS FOUMBAN
+Class: Form 5B Science
+Year: 2026-2027
+
+[DEVELOPER]
+Name: HANS KEEPER
+Email: hanskepper52@gmail.com
+Phone: +237698640885
+Country: Cameroon
+
+[FEATURES]
+- 14 Subjects with customizable coefficients
+- 6 Sequences / 3 Terms per year
+- 23 Achievement badges
+- 20 Color Themes
+- 12 Font Families
+- Night mode (auto 20h-6h)
+- Fingerprint login
+- PWA - Offline ready
+- Flashcards system
+- Goals and targets
+- QR Code transfer
+- JSON backup/restore
+
+[SYSTEM LIMITS]
+Max Backups: 50
+Max Grades/Subject: 100
+Max Flashcards/Subject: 100
+Max History Items: 200
+Max Favorites: 6
+Transfer Code Expiry: 10 minutes
+Auto Save Interval: 30 seconds
+
+[GRADING]
+Max Grade: 20
+Min Grade: 0
+Passing Grade: 10
+Default Coefficient: 5
+
+[SUBJECTS]
+Total: 14
+Min per Term: 10
+Max per Term: 14
+
+[THEMES] (20)
+default, crimson, forest, ocean, royal, sunset, rose, 
+turquoise, amber, graphite, lavender, cherry, midnight, 
+mint, coral, indigo, chocolate, electric, steel, lime
+
+[FONTS] (12)
+inter, roboto, cinzel, quicksand, courier-prime, fredoka,
+pacifico, bangers, lobster, permanent-marker, comfortaa, righteous
+
+[DEVELOPER PAGES]
+- dev-calculator.html (Calculator)
+- dev-database.html (Database)
+- dev-stats.html (Advanced Stats)
+- dev-logs.html (System Logs)
+- dev-backup.html (Cloud Backup)
+- dev-config.html (System Config)
+
+================================================================================
+                    END OF CONFIGURATION
+================================================================================`;
+    
+    function displayRemend() {
+      document.getElementById('remendContent').innerHTML = REMEND_CONTENT;
+    }
+    
+    function copyRemend() {
+      navigator.clipboard.writeText(REMEND_CONTENT).then(function() {
+        showToast('REMEND copied!');
+      }).catch(function() {
+        prompt('Copy REMEND:', REMEND_CONTENT);
+      });
+    }
+    
+    function downloadRemend() {
+      var blob = new Blob([REMEND_CONTENT], { type: 'text/plain' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'REMEND.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('REMEND downloaded!');
+    }
+    
+    // Vérifier accès développeur
+    function checkDevAccess() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          if (user.name === 'HANS KEPPER' && user.class === 'B2' && user.number === 9) {
+            document.getElementById('devSidebar').style.display = 'block';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function updateHeaderAvatar() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          var headerAvatar = document.getElementById('headerAvatar');
+          if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function applyFont() {
+      var saved = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var map = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace'
+      };
+      document.body.style.fontFamily = map[saved] || 'Inter, sans-serif';
+    }
+    
+    checkDevAccess();
+    loadConfig();
+    displayRemend();
+    updateHeaderAvatar();
+    initMobileMenu();
+    initThemeSelector();
+    applyFont();
+  </script>
+</body>
+</html>

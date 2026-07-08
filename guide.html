@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    @keyframes pulseGlow{
+      0%{box-shadow:0 0 0 0 rgba(255,255,255,0.4);transform:scale(1)}
+      50%{box-shadow:0 0 0 20px rgba(255,255,255,0);transform:scale(1.05)}
+      100%{box-shadow:0 0 0 0 rgba(255,255,255,0);transform:scale(1)}
+    }
+    @keyframes fadeInUp{
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    @keyframes stripeMove{
+      0%{background-position:0 0}
+      100%{background-position:40px 0}
+    }
+    @keyframes pulseMic{
+      0%,100%{transform:scale(1);opacity:0.7}
+      50%{transform:scale(1.2);opacity:1}
+    }
+    
+    .guide-hero{
+      text-align:center;
+      padding:36px 20px;
+      border-radius:28px;
+      position:relative;
+      overflow:hidden;
+      margin-bottom:20px;
+    }
+    .guide-hero::before{
+      content:'';
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px);
+      animation:stripeMove 3s linear infinite;
+      z-index:0;
+    }
+    .guide-hero>*{position:relative;z-index:1;}
+    
+    .hero-icon-circle{
+      width:100px;
+      height:100px;
+      background:rgba(255,255,255,0.2);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 20px;
+      animation:pulseGlow 2s infinite;
+    }
+    .hero-icon-circle i{font-size:40px;color:white;}
+    
+    .tutorial-card{
+      background:var(--card-bg);
+      border-radius:20px;
+      padding:0;
+      margin-bottom:12px;
+      border:1px solid var(--border);
+      cursor:pointer;
+      transition:all 0.3s ease;
+      overflow:hidden;
+    }
+    .tutorial-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 30px rgba(0,0,0,0.1);
+      border-color:var(--primary);
+    }
+    .tutorial-card:active{transform:scale(0.97);}
+    .tutorial-card-inner{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:16px;
+    }
+    .tutorial-icon{
+      width:50px;
+      height:50px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:1.2rem;
+      flex-shrink:0;
+    }
+    .tutorial-info{flex:1;}
+    .tutorial-title{font-weight:700;font-size:0.9rem;margin-bottom:4px;}
+    .tutorial-desc{font-size:0.65rem;color:var(--text-light);}
+    .tutorial-steps{font-size:0.55rem;color:var(--primary);margin-top:4px;}
+    .tutorial-play{
+      width:40px;
+      height:40px;
+      background:rgba(0,0,0,0.04);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+    .tutorial-play i{color:var(--primary);font-size:0.8rem;}
+    
+    .video-modal{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.95);
+      z-index:1000;
+      display:none;
+      align-items:center;
+      justify-content:center;
+    }
+    .video-modal.active{display:flex;}
+    .video-modal-content{
+      width:90%;
+      max-width:500px;
+      background:var(--card-bg);
+      border-radius:28px;
+      overflow:hidden;
+      animation:fadeInUp 0.4s ease;
+    }
+    .video-modal-header{
+      padding:18px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .video-modal-header h3{
+      color:white;
+      font-size:1rem;
+      margin:0;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .video-modal-close{
+      background:none;
+      border:none;
+      color:white;
+      font-size:24px;
+      cursor:pointer;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all 0.2s;
+    }
+    .video-modal-close:active{
+      transform:scale(0.9);
+      background:rgba(255,255,255,0.2);
+    }
+    .video-screen{
+      background:#0a0a15;
+      min-height:400px;
+      position:relative;
+      overflow:hidden;
+    }
+    .video-content{
+      text-align:center;
+      padding:20px;
+      position:relative;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:350px;
+    }
+    .video-icon-anim{
+      width:80px;
+      height:80px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 15px;
+      animation:pulseMic 1.5s infinite;
+    }
+    .video-icon-anim i{font-size:38px;color:white;}
+    .video-step-title{
+      color:white;
+      margin-bottom:8px;
+      font-size:0.9rem;
+    }
+    .lyrics-box{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:16px;
+      margin-top:10px;
+      text-align:center;
+      max-height:250px;
+      overflow-y:auto;
+      width:100%;
+    }
+    .lyrics-line{
+      color:rgba(255,255,255,0.5);
+      font-size:0.7rem;
+      padding:6px 10px;
+      border-radius:10px;
+      transition:all 0.3s ease;
+      margin:3px 0;
+      line-height:1.5;
+      text-align:left;
+    }
+    .lyrics-line.active{
+      color:white;
+      background:rgba(255,255,255,0.15);
+      font-weight:600;
+      transform:scale(1.02);
+    }
+    .video-tip-box{
+      background:rgba(255,255,255,0.1);
+      border-radius:12px;
+      padding:10px 15px;
+      margin-top:10px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .video-tip-box i{color:#f39c12;}
+    .video-tip-box span{color:rgba(255,255,255,0.8);font-size:0.65rem;}
+    
+    .video-controls{
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      padding:12px;
+      background:rgba(0,0,0,0.3);
+    }
+    .video-controls button{
+      background:none;
+      border:none;
+      color:white;
+      font-size:18px;
+      cursor:pointer;
+      padding:8px;
+      border-radius:50%;
+      width:44px;
+      height:44px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all 0.2s;
+    }
+    .video-controls button:active{transform:scale(0.9);}
+    .video-controls .play-btn{
+      background:var(--primary);
+      width:50px;
+      height:50px;
+    }
+    .video-progress{
+      height:3px;
+      background:rgba(255,255,255,0.2);
+    }
+    .video-progress-fill{
+      width:0%;
+      height:100%;
+      background:linear-gradient(90deg,var(--primary),var(--secondary));
+      transition:width 0.1s linear;
+    }
+    
+    /* ============================================
+       AUDIO STATUS - CORRIGÉ POUR TOUS LES THÈMES
+    ============================================ */
+    .audio-status {
+      text-align: center;
+      font-size: 0.55rem;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.06);
+      border-radius: 8px;
+      margin: 4px 8px;
+      color: var(--text) !important;
+      font-weight: 500;
+      border: 1px solid var(--border);
+    }
+
+    /* Mode clair - forcé */
+    body:not(.night-mode) .audio-status {
+      background: #f0f2f5 !important;
+      color: #1a2a3a !important;
+      border-color: #d0d5da !important;
+    }
+
+    /* Mode nuit */
+    body.night-mode .audio-status {
+      background: rgba(255, 255, 255, 0.06) !important;
+      color: #e0e0e0 !important;
+      border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Statut "Ready" - visible dans tous les thèmes */
+    .audio-status .ready {
+      color: var(--primary) !important;
+      font-weight: 600;
+    }
+
+    /* Statut "Playing" */
+    .audio-status .playing {
+      color: #2ecc71 !important;
+      font-weight: 600;
+      animation: pulseText 1s ease-in-out infinite;
+    }
+
+    /* Statut "Paused" */
+    .audio-status .paused {
+      color: #f39c12 !important;
+      font-weight: 600;
+    }
+
+    /* Statut "Error" */
+    .audio-status .error {
+      color: #e74c3c !important;
+      font-weight: 600;
+    }
+
+    /* Statut "Completed" */
+    .audio-status .completed {
+      color: #2ecc71 !important;
+      font-weight: 600;
+    }
+
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* VIDEO MODAL - STATUS BAR */
+    .video-modal .audio-status {
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 0;
+      padding: 6px 12px;
+      margin: 0;
+      font-size: 0.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    body:not(.night-mode) .video-modal .audio-status {
+      background: #e8eaed !important;
+      color: #1a2a3a !important;
+      border-top-color: #d0d5da !important;
+    }
+
+    body.night-mode .video-modal .audio-status {
+      background: rgba(255, 255, 255, 0.05);
+      border-top-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .quick-tips-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .quick-tip{
+      background:rgba(0,0,0,0.02);
+      border-radius:16px;
+      padding:14px;
+      text-align:center;
+      border:1px solid var(--border);
+    }
+    .quick-tip i{
+      font-size:1.5rem;
+      margin-bottom:8px;
+      display:block;
+      color:var(--primary);
+    }
+    .quick-tip span{
+      font-size:0.6rem;
+      display:block;
+    }
+    @media(min-width:600px){
+      .quick-tips-grid{grid-template-columns:repeat(4,1fr);}
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <!-- HEADER PUBLIC -->
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-question-circle"></i><span>GUIDE</span></div>
+      <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet">
+          <div class="font-sheet" data-font="small">A<sup>-</sup></div>
+          <div class="font-sheet" data-font="medium">A</div>
+          <div class="font-sheet" data-font="large">A<sup>+</sup></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- SIDEBAR PUBLIC -->
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+        <a href="login.html" class="nav-item"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="register.html" class="nav-item"><i class="fas fa-user-plus"></i> Register</a>
+        <a href="guide.html" class="nav-item active"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="guide-hero" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
+        <div class="hero-icon-circle"><i class="fas fa-headphones"></i></div>
+        <h2 style="color:white;margin-bottom:8px;">Interactive Audio Guide</h2>
+        <p style="opacity:0.8;font-size:0.85rem;">Listen to each chapter with synchronized text</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);padding:8px 16px;border-radius:30px;margin-top:12px;font-size:0.7rem;">
+          <i class="fas fa-clock"></i> 15 chapters <i class="fas fa-volume-up" style="margin-left:8px;"></i> Text-to-Speech
+        </div>
+      </div>
+      
+      <div class="glass-card">
+        <h3><i class="fas fa-list-ol"></i> Tutorial Chapters</h3>
+        <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">Click any chapter to listen</p>
+        <div id="stepsList"></div>
+      </div>
+      
+      <div class="glass-card">
+        <h3><i class="fas fa-lightbulb"></i> Quick Tips</h3>
+        <div class="quick-tips-grid">
+          <div class="quick-tip"><i class="fas fa-key"></i><span>Your PIN is your password - keep it safe!</span></div>
+          <div class="quick-tip"><i class="fas fa-layer-group"></i><span>Select different subjects per term in Settings</span></div>
+          <div class="quick-tip"><i class="fas fa-save"></i><span>Grades save automatically when you click Save</span></div>
+          <div class="quick-tip"><i class="fas fa-palette"></i><span>20 themes available in top right corner</span></div>
+          <div class="quick-tip"><i class="fas fa-font"></i><span>12 fonts available in Theme selector</span></div>
+          <div class="quick-tip"><i class="fas fa-qrcode"></i><span>Use QR Code to transfer data between devices</span></div>
+          <div class="quick-tip"><i class="fas fa-fingerprint"></i><span>Enable fingerprint for faster login</span></div>
+          <div class="quick-tip"><i class="fas fa-image"></i><span>Add profile photo from your gallery</span></div>
+          <div class="quick-tip"><i class="fas fa-robot"></i><span>Use AI Assistant for homework help</span></div>
+          <div class="quick-tip"><i class="fas fa-search"></i><span>Multi-Search searches 15 sources at once</span></div>
+          <div class="quick-tip"><i class="fas fa-comment-dots"></i><span>Chat with classmates using unique codes</span></div>
+          <div class="quick-tip"><i class="fas fa-tasks"></i><span>Homework Manager shows all assignments</span></div>
+          <div class="quick-tip"><i class="fas fa-book"></i><span>Notebook lets you write notes with colors</span></div>
+          <div class="quick-tip"><i class="fas fa-save"></i><span>Auto-Save saves your grades every 30 seconds</span></div>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <!-- MODAL AUDIO -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-content">
+      <div class="video-modal-header">
+        <h3 id="modalTitle"></h3>
+        <button class="video-modal-close" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="video-screen">
+        <div class="video-content">
+          <div class="video-icon-anim"><i id="videoIcon" class="fas fa-play"></i></div>
+          <h3 class="video-step-title" id="stepTitle">Loading...</h3>
+          <div class="lyrics-box" id="lyricsBox"></div>
+          <div class="video-tip-box"><i class="fas fa-lightbulb"></i> <span id="videoTip">Select a chapter to start</span></div>
+        </div>
+      </div>
+      <div class="audio-status" id="audioStatus">
+        <i class="fas fa-circle" style="color:var(--primary);font-size:0.4rem;"></i>
+        <span class="ready">Ready</span>
+      </div>
+      <div class="video-controls">
+        <button onclick="prevChapter()"><i class="fas fa-backward-step"></i></button>
+        <button class="play-btn" id="playPauseBtn" onclick="togglePlayPause()"><i class="fas fa-play"></i></button>
+        <button onclick="nextChapter()"><i class="fas fa-forward-step"></i></button>
+      </div>
+      <div class="video-progress"><div class="video-progress-fill" id="videoProgressFill"></div></div>
+    </div>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/confirm-dialog.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // 15 CHAPITRES - VERSION 5.0 ULTIMATE
+    // TOUTES LES FONCTIONNALITÉS EXISTANTES
+    // ============================================
+    
+    var TUTORIALS = [
+      {
+        id: 1,
+        icon: 'fa-user-plus',
+        title: '1. Create an Account',
+        desc: 'Step by step guide to register',
+        tip: 'Write down your PIN somewhere safe.',
+        text: "Welcome to SMART GRADE 5.0 Ultimate, the complete grade management system for SIN GBHS FOUMBAN Form 5B Science. From the Home page, tap the menu button in the top left corner, then select Register. First, enter your full name exactly as it appears on your school records. Next, select your class. You can choose between B1 and B2. Then, enter your unique student number between 1 and 70. Now, create a secure 4-digit PIN. This is like your password. You will also see an option to enable fingerprint login. Confirm your PIN by typing it again. Click the Create Account button. Congratulations! Your account is now created and you can login."
+      },
+      {
+        id: 2,
+        icon: 'fa-sign-in-alt',
+        title: '2. Login Methods',
+        desc: 'PIN or Fingerprint access',
+        tip: 'Fingerprint lets you skip the PIN!',
+        text: "There are two ways to access your SMART GRADE account: using your PIN or your fingerprint. For the PIN method, go to the Login page. Select your name from the list and enter your 4-digit PIN. For the fingerprint method, first register your fingerprint in Settings. Then on the Login page, tap the fingerprint icon. Place your finger on the sensor and you will be automatically logged in. Fingerprint works on Android devices with Chrome or Edge browsers. If you have multiple accounts, you can switch easily from the login page."
+      },
+      {
+        id: 3,
+        icon: 'fa-sliders-h',
+        title: '3. Subjects and Coefficients',
+        desc: 'Choose subjects for each term',
+        tip: 'Each term can have different subjects!',
+        text: "Go to the Settings page. You will see a section called Subjects by Term with three tabs: Term 1, Term 2, and Term 3. Select or deselect subjects by tapping on cards. You must select between 10 and 14 subjects per term. For each selected subject, you can adjust its coefficient from 1 to 10. The coefficient represents how important the subject is for your final average. Most subjects have a coefficient of 5. Click Save Subjects when done. The compensation system helps maintain your average if you remove a subject."
+      },
+      {
+        id: 4,
+        icon: 'fa-pen-fancy',
+        title: '4. Add Your Grades',
+        desc: 'Enter grades for all sequences',
+        tip: 'Only selected subjects appear in the table.',
+        text: "Go to the Add Grade page. You will see three term tabs. Each term has two sequences. For each subject, enter your grades in the input fields. Grades must be between 0 and 20. You can use decimals like 14.5. As you enter grades, the Term Average updates automatically. When done, click Save All Grades. The app also auto-saves your grades every 30 seconds, so you never lose your work."
+      },
+      {
+        id: 5,
+        icon: 'fa-chalkboard-user',
+        title: '5. Dashboard Overview',
+        desc: 'Your main hub for grades',
+        tip: 'Click any Term Card to see detailed report.',
+        text: "The Dashboard is your main hub. You will see a motivation card with an inspirational quote that changes every time you visit. The Stats Grid shows your overall average, total grades, subjects count, and badges. The Goal Card lets you set a target average using a slider. The Term Averages section shows your average for each term. The Progress Chart is a line graph showing your average evolution over the year. Click on any term card to see detailed subject reports."
+      },
+      {
+        id: 6,
+        icon: 'fa-chart-line',
+        title: '6. Reports and Statistics',
+        desc: 'Detailed reports for each term',
+        tip: 'Use Statistics page to analyze performance.',
+        text: "Go to Term 1, Term 2, or Term 3 to see detailed tables per term with all subjects and their averages. The Yearly page summarizes your entire school year with overall averages. The Statistics page shows your best subject, worst subject, and total grades. The Performance by Subject chart compares all your subject averages. The Grade Distribution chart shows how your grades are spread. You can also zoom in on the charts using the zoom plugin. Export your reports as CSV, HTML, or PDF from the Export page."
+      },
+      {
+        id: 7,
+        icon: 'fa-medal',
+        title: '7. Achievements and Streaks',
+        desc: 'Unlock badges',
+        tip: 'Open the app every day!',
+        text: "Go to the Achievements page. There are two sections: Streak Badges and Achievement Badges. Streak badges reward daily usage with infinite cycles. Every 30 days, a new cycle begins with new badge names like Starter, Rising, Advanced, Master. Achievement badges include First Grade, Perfect Score, High Average, Scholar, Bookworm, Dedication, and more. There are 23 badges in total. Keep adding grades, uploading photos, and using the app daily to unlock all badges. The Photo Uploader badge unlocks when you add a profile photo."
+      },
+      {
+        id: 8,
+        icon: 'fa-exchange-alt',
+        title: '8. Data Transfer',
+        desc: 'Transfer data between devices',
+        tip: 'Use QR code for quick transfer!',
+        text: "Go to the Transfer page. You will see three methods: Local Transfer, Cloud Transfer, and QR Code. Local Transfer generates a 6-character code valid for 10 minutes. Cloud Transfer uses GitHub Gist to store your data temporarily. QR Code generates a scannable code with your data. On the second device, go to the Import tab, enter the code, or scan the QR code using the camera. The data will be imported immediately. All transfer codes expire after 10 minutes for security."
+      },
+      {
+        id: 9,
+        icon: 'fa-palette',
+        title: '9. Themes, Fonts and Night Mode',
+        desc: 'Customize appearance',
+        tip: 'Try different combinations!',
+        text: "Tap the Theme button in the top right corner. A bottom sheet will show 20 color themes. Tap any theme to apply it instantly. Night mode activates automatically between 8 PM and 6 AM. You can also manually switch between dark and light mode. To change the font, scroll down in the Theme sheet to the Font Family section. You can choose between 12 different fonts including Inter, Roboto, Cinzel, Quicksand, and more. All changes are saved automatically. Try different combinations to find your favorite style."
+      },
+      {
+        id: 10,
+        icon: 'fa-user-circle',
+        title: '10. Profile, Photo and Bio',
+        desc: 'Add your personal photo',
+        tip: 'Tap the plus button to add a photo',
+        text: "Go to Profile from the menu. You will see a circular avatar area with a plus button. Tap the plus button to add a photo from your gallery. The system automatically resizes your photo to 500x500 pixels. You can zoom in on your photo by tapping on it. Below the avatar area, there is a bio section. Write something about yourself and click Save Profile. Adding a photo unlocks the Photo Uploader badge. You can also remove your photo at any time. Your profile photo appears in the header and on the welcome page."
+      },
+      {
+        id: 11,
+        icon: 'fa-robot',
+        title: '11. AI Assistant',
+        desc: 'Homework help with AI',
+        tip: 'Ask about any subject!',
+        text: "Go to the AI Assistant page. You can choose between three AI models: Groq (ultra fast), Devstral (medium), and Codestral (code-focused). The AI can help you with homework, explain concepts, solve math problems, generate code in any language, and create diagrams. You can use LaTeX for math equations, markdown for formatting, and Mermaid for diagrams. All conversations are saved locally. You can create new conversations, delete old ones, and export conversations as JSON files. The AI knows the SMART GRADE system and can help you understand your grades."
+      },
+      {
+        id: 12,
+        icon: 'fa-search',
+        title: '12. Multi-Search Engine',
+        desc: 'Search 15 sources at once',
+        tip: 'Use it to find information fast!',
+        text: "Go to the Search page. Enter a search term and the app will search 15 sources simultaneously. The sources are: DuckDuckGo for general search, Wikipedia for encyclopedia articles, Wiktionary for definitions, OpenLibrary for books, WikiMedia for images, Wikidata for knowledge, Google Books for books, Internet Archive for archived content, Jisho for Japanese dictionary, TheAudioDB for music, OMDb for movies, NewsAPI for news, YouTube for videos, Reddit for discussions, and GitHub for code repositories. Each source shows up to 8 results. You can filter results by source. Smart suggestions are generated based on your search results."
+      },
+      {
+        id: 13,
+        icon: 'fa-comment-dots',
+        title: '13. P2P Chat System',
+        desc: 'Chat with classmates',
+        tip: 'Share your unique code with friends!',
+        text: "Go to the Chat page. Each user has a unique 4-character code displayed at the top. To chat with a friend, enter their code in the search field and click Add. Conversations are saved locally and synced via JSONBin.io. The chat updates every 5 seconds automatically. Your online status is shown to others with a green dot. All messages are stored in the cloud and synced across devices. You can see your friends' online status in the conversations list. The chat works in real-time and is perfect for group study sessions."
+      },
+      {
+        id: 14,
+        icon: 'fa-tasks',
+        title: '14. Homework Manager',
+        desc: 'Track all assignments',
+        tip: 'Teachers can add homework via admin panel.',
+        text: "Go to the Homework page. All assignments are displayed with their subject, due date, and description. Teachers can add homework through the Admin Homework page. Homework can include file attachments like images, videos, PDFs, Word documents, and text files. The admin page requires a password for security. All homework data is stored and synced via GitHub Gist. You can filter homework by subject. Homework is organized by newest first. Each assignment shows the number of attached files."
+      },
+      {
+        id: 15,
+        icon: 'fa-book',
+        title: '15. Notebook, Backup and Sync',
+        desc: 'Write notes and backup data',
+        tip: 'Use colors and pins to organize your notes!',
+        text: "The Notebook page lets you write personal notes with colors, pins, and subject tags. Each note can be pinned to the top or marked as important. You can choose from 8 colors for each note. Notes are saved locally in your browser. Cloud Sync automatically backs up your data to JSONBin.io every hour. Auto-Save saves your grades every 30 seconds. You can also manually export and import JSON backups from the Export page. The Backup page lets you create manual backups and restore previous backups. Your data is always safe."
+      }
+    ];
+    
+    // ============================================
+    // TTS OPTIMISÉ AVEC SYNCHRONISATION
+    // ============================================
+    
+    var currentIndex = 0;
+    var isPlaying = false;
+    var progressInterval = null;
+    var currentUtterance = null;
+    var ttsSupported = true;
+    var voicesLoaded = false;
+    
+    function checkTTSSupport() {
+      if (!('speechSynthesis' in window)) {
+        ttsSupported = false;
+        showToast('Audio guide not supported on this device');
+        return false;
+      }
+      
+      if (speechSynthesis.getVoices().length === 0) {
+        speechSynthesis.addEventListener('voiceschanged', function() {
+          voicesLoaded = true;
+        });
+      } else {
+        voicesLoaded = true;
+      }
+      
+      return true;
+    }
+    
+    checkTTSSupport();
+    
+    function stopPlayback() {
+      if (progressInterval) {
+        clearInterval(progressInterval);
+        progressInterval = null;
+      }
+      try { 
+        speechSynthesis.cancel(); 
+      } catch(e) {}
+      isPlaying = false;
+      currentUtterance = null;
+      
+      var playBtn = document.getElementById('playPauseBtn');
+      if (playBtn) playBtn.innerHTML = '<i class="fas fa-play"></i>';
+      document.getElementById('audioStatus').innerHTML = 
+        '<i class="fas fa-circle" style="color:var(--primary);font-size:0.4rem;"></i> <span class="ready">Ready</span>';
+    }
+    
+    function splitIntoSentences(text) {
+      return text.split(/(?<=[.!?])\s+/);
+    }
+    
+    function updateActiveLine(index) {
+      var lines = document.querySelectorAll('.lyrics-line');
+      for (var i = 0; i < lines.length; i++) {
+        lines[i].classList.remove('active');
+      }
+      if (lines[index]) {
+        lines[index].classList.add('active');
+        lines[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+    
+    function speakCurrentChapter() {
+      if (!ttsSupported) {
+        showToast('Audio not available on this device');
+        return;
+      }
+      
+      stopPlayback();
+      
+      var t = TUTORIALS[currentIndex];
+      if (!t) return;
+      
+      var text = t.text;
+      var sentences = splitIntoSentences(text);
+      var totalChars = text.length;
+      var startTime = null;
+      var lastCharIndex = 0;
+      
+      currentUtterance = new SpeechSynthesisUtterance(text);
+      currentUtterance.lang = 'en-US';
+      currentUtterance.rate = 0.9;
+      currentUtterance.pitch = 1.0;
+      
+      if (voicesLoaded || speechSynthesis.getVoices().length > 0) {
+        var voices = speechSynthesis.getVoices();
+        for (var i = 0; i < voices.length; i++) {
+          if (voices[i].lang === 'en-US' && voices[i].name.indexOf('Google') !== -1) {
+            currentUtterance.voice = voices[i];
+            break;
+          }
+        }
+      }
+      
+      currentUtterance.onstart = function() {
+        startTime = Date.now();
+        isPlaying = true;
+        
+        progressInterval = setInterval(function() {
+          if (!isPlaying || !startTime) return;
+          
+          var elapsed = (Date.now() - startTime) / 1000;
+          var estimatedDuration = totalChars / 15;
+          var progress = Math.min(100, (elapsed / estimatedDuration) * 100);
+          document.getElementById('videoProgressFill').style.width = progress + '%';
+          
+          var charIndex = Math.min(totalChars - 1, Math.floor((elapsed / estimatedDuration) * totalChars));
+          if (charIndex !== lastCharIndex) {
+            lastCharIndex = charIndex;
+            var charCount = 0;
+            for (var i = 0; i < sentences.length; i++) {
+              charCount += sentences[i].length;
+              if (charIndex < charCount) {
+                updateActiveLine(i);
+                break;
+              }
+            }
+          }
+        }, 50);
+        
+        document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-pause"></i>';
+        document.getElementById('audioStatus').innerHTML = 
+          '<i class="fas fa-circle" style="color:#2ecc71;font-size:0.4rem;"></i> <span class="playing">Playing...</span>';
+      };
+      
+      currentUtterance.onend = function() {
+        if (progressInterval) clearInterval(progressInterval);
+        isPlaying = false;
+        currentUtterance = null;
+        document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
+        document.getElementById('videoProgressFill').style.width = '100%';
+        document.getElementById('audioStatus').innerHTML = 
+          '<i class="fas fa-check-circle" style="color:#2ecc71;font-size:0.4rem;"></i> <span class="completed">Completed</span>';
+        
+        setTimeout(function() {
+          if (!isPlaying) {
+            document.getElementById('videoProgressFill').style.width = '0%';
+          }
+        }, 2000);
+      };
+      
+      currentUtterance.onerror = function(event) {
+        console.error('Speech error:', event);
+        if (progressInterval) clearInterval(progressInterval);
+        isPlaying = false;
+        currentUtterance = null;
+        document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
+        document.getElementById('audioStatus').innerHTML = 
+          '<i class="fas fa-exclamation-circle" style="color:#e74c3c;font-size:0.4rem;"></i> <span class="error">Error - Try again</span>';
+        showToast('Audio error, please try again');
+      };
+      
+      speechSynthesis.speak(currentUtterance);
+    }
+    
+    function togglePlayPause() {
+      if (isPlaying) {
+        speechSynthesis.cancel();
+        if (progressInterval) clearInterval(progressInterval);
+        isPlaying = false;
+        currentUtterance = null;
+        document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
+        document.getElementById('audioStatus').innerHTML = 
+          '<i class="fas fa-circle" style="color:#f39c12;font-size:0.4rem;"></i> <span class="paused">Paused</span>';
+      } else {
+        speakCurrentChapter();
+      }
+    }
+    
+    function openModal(index) {
+      currentIndex = index;
+      updateModalContent();
+      document.getElementById('videoModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      stopPlayback();
+      document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
+      document.getElementById('videoProgressFill').style.width = '0%';
+      document.getElementById('audioStatus').innerHTML = 
+        '<i class="fas fa-circle" style="color:var(--primary);font-size:0.4rem;"></i> <span class="ready">Ready</span>';
+    }
+    
+    function prevChapter() {
+      stopPlayback();
+      currentIndex--;
+      if (currentIndex < 0) currentIndex = TUTORIALS.length - 1;
+      updateModalContent();
+      document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
+      document.getElementById('videoProgressFill').style.width = '0%';
+      document.getElementById('audioStatus').innerHTML = 
+        '<i class="fas fa-circle" style="color:var(--primary);font-size:0.4rem;"></i> <span class="ready">Ready</span>';
+    }
+    
+    function nextChapter() {
+      stopPlayback();
+      currentIndex++;
+      if (currentIndex >= TUTORIALS.length) currentIndex = 0;
+      updateModalContent();
+      document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
+      document.getElementById('videoProgressFill').style.width = '0%';
+      document.getElementById('audioStatus').innerHTML = 
+        '<i class="fas fa-circle" style="color:var(--primary);font-size:0.4rem;"></i> <span class="ready">Ready</span>';
+    }
+    
+    function closeModal() {
+      stopPlayback();
+      document.getElementById('videoModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    function updateModalContent() {
+      var t = TUTORIALS[currentIndex];
+      document.getElementById('modalTitle').innerHTML = '<i class="fas ' + t.icon + '"></i> ' + t.title;
+      document.getElementById('stepTitle').textContent = t.title;
+      document.getElementById('videoIcon').className = 'fas ' + t.icon;
+      document.getElementById('videoTip').textContent = t.tip;
+      
+      var sentences = splitIntoSentences(t.text);
+      var lyricsHTML = '';
+      for (var i = 0; i < sentences.length; i++) {
+        if (sentences[i].length > 0) {
+          lyricsHTML += '<div class="lyrics-line">' + sentences[i] + '</div>';
+        }
+      }
+      document.getElementById('lyricsBox').innerHTML = lyricsHTML;
+    }
+    
+    function renderSteps() {
+      var container = document.getElementById('stepsList');
+      container.innerHTML = TUTORIALS.map(function(t, i) {
+        return '<div class="tutorial-card" onclick="openModal(' + i + ')">' +
+          '<div class="tutorial-card-inner">' +
+            '<div class="tutorial-icon"><i class="fas ' + t.icon + '"></i></div>' +
+            '<div class="tutorial-info">' +
+              '<div class="tutorial-title">' + t.title + '</div>' +
+              '<div class="tutorial-desc">' + t.desc + '</div>' +
+              '<div class="tutorial-steps"><i class="fas fa-headphones"></i> Listen</div>' +
+            '</div>' +
+            '<div class="tutorial-play"><i class="fas fa-play"></i></div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+    
+    function showToast(message) {
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+      container.appendChild(toast);
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        setTimeout(function() { if (toast.parentNode) toast.remove(); }, 300);
+      }, 3000);
+    }
+    
+    // Initialisation
+    renderSteps();
+    initMobileMenu();
+    initThemeSelector();
+    initParticles();
+    if (typeof initFontFamily === 'function') initFontFamily();
+  </script>
+</body>
+</html>

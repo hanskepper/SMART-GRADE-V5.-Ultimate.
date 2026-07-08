@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .login-container{display:flex;align-items:center;justify-content:center;min-height:80vh;padding:16px;}
+    .login-card{width:100%;max-width:400px;text-align:center;}
+    
+    .fingerprint-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));border:none;padding:0;width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0 auto 12px;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(15,59,72,0.3);}
+    .fingerprint-btn i{font-size:32px;color:white;}
+    .fingerprint-btn:active{transform:scale(0.9);}
+    .fingerprint-btn:disabled{opacity:0.5;}
+    .fingerprint-btn.scanning{animation:pulseFinger 1s infinite;}
+    @keyframes pulseFinger{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(15,59,72,0.4)}50%{transform:scale(1.08);box-shadow:0 0 0 20px rgba(15,59,72,0)}}
+    .fingerprint-status{font-size:0.65rem;color:var(--text-light);margin-bottom:4px;min-height:20px;}
+    
+    .divider-text{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--text-light);font-size:0.75rem;}
+    .divider-text::before,.divider-text::after{content:'';flex:1;height:1px;background:var(--border);}
+    
+    .error-msg{background:#fdeded;color:#e74c3c;padding:12px;border-radius:12px;margin-bottom:15px;display:none;font-size:0.8rem;text-align:center;border-left:4px solid #e74c3c;}
+    .success-msg{background:#d5f5e3;color:#27ae60;padding:12px;border-radius:12px;margin-bottom:15px;display:none;font-size:0.8rem;text-align:center;border-left:4px solid #27ae60;}
+    
+    .student-selector-label{display:block;text-align:left;margin-bottom:6px;font-weight:500;color:var(--text-light);font-size:0.75rem;}
+    .student-selector-label i{width:20px;color:var(--primary);}
+    .students-count-badge{display:inline-block;background:rgba(0,0,0,0.03);padding:4px 10px;border-radius:20px;font-size:0.6rem;color:var(--text-light);margin-bottom:8px;}
+    
+    /* ============================================
+       LISTE DES COMPTES - SCROLLABLE
+       ============================================ */
+    .student-list-scroll{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      margin-bottom:16px;
+      max-height:180px;  /* ← Limite la hauteur */
+      overflow-y:auto;   /* ← Ajoute le défilement */
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,0.015);
+    }
+    
+    .student-list-scroll::-webkit-scrollbar {
+      width: 3px;
+    }
+    .student-list-scroll::-webkit-scrollbar-track {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .student-list-scroll::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .student-item-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      cursor:pointer;
+      transition:all 0.15s ease;
+      text-align:left;
+      border-left:4px solid transparent;
+      border-bottom:1px solid rgba(0,0,0,0.03);
+    }
+    .student-item-row:last-child{border-bottom:none;}
+    .student-item-row:hover{background:rgba(0,0,0,0.02);}
+    .student-item-row.selected{background:rgba(15,59,72,0.05);border-left-color:var(--primary);}
+    .student-item-row .sa-avatar{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      overflow:hidden;
+    }
+    .student-item-row .sa-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:50%;
+    }
+    .student-item-row .sa-avatar i{
+      font-size:1.2rem;
+      color:white;
+    }
+    .student-item-row .sa-info{flex:1;min-width:0;}
+    .student-item-row .sa-name{font-weight:600;font-size:0.75rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .student-item-row .sa-class{font-size:0.55rem;color:var(--text-light);}
+    .student-item-row .sa-fp{font-size:0.5rem;color:#27ae60;margin-left:4px;}
+    .student-item-row .sa-check{
+      width:20px;height:20px;border-radius:50%;border:2px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      font-size:0.5rem;flex-shrink:0;transition:all 0.2s;color:transparent;
+    }
+    .student-item-row.selected .sa-check{background:var(--primary);border-color:var(--primary);color:white;}
+    
+    .show-more-btn{
+      text-align:center;padding:6px;font-size:0.55rem;color:var(--primary);
+      cursor:pointer;border-top:1px solid var(--border);background:rgba(0,0,0,0.01);
+    }
+    .show-more-btn:hover{background:rgba(0,0,0,0.03);}
+    
+    .pin-group{margin-bottom:16px;text-align:left;}
+    .pin-group label{display:block;margin-bottom:6px;font-weight:500;color:var(--text-light);font-size:0.75rem;}
+    .pin-group label i{width:20px;color:var(--primary);}
+    .pin-input-wrapper{position:relative;}
+    .pin-input-wrapper input{
+      width:100%;padding:14px 50px 14px 16px;border-radius:14px;border:2px solid var(--border);
+      background:var(--card-bg);color:var(--text);font-size:1.3rem;text-align:center;
+      letter-spacing:10px;font-weight:700;transition:all 0.3s ease;box-sizing:border-box;
+      -webkit-text-security:disc;
+    }
+    .pin-input-wrapper input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(15,59,72,0.1);}
+    .pin-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-light);cursor:pointer;font-size:1.1rem;padding:4px;}
+    .pin-toggle:hover{color:var(--primary);}
+    
+    .login-btn{width:100%;padding:14px;border-radius:40px;border:none;font-weight:600;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.3s ease;}
+    .login-btn:active{transform:scale(0.96);}
+    .login-btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;box-shadow:0 6px 20px rgba(15,59,72,0.3);}
+    .login-btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .register-link{margin-top:16px;font-size:0.8rem;}
+    .register-link a{color:var(--primary);text-decoration:none;font-weight:600;}
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header"><button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button><div class="header-logo"><i class="fas fa-sign-in-alt"></i><span>LOGIN</span></div><div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div></div>
+    <div class="sheet-overlay" id="sheetOverlay"></div><div class="bottom-sheet" id="bottomSheet"><div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div><div class="bottom-sheet-content"><div class="theme-grid-rect" id="themeGrid"></div><div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div></div></div>
+    <div class="sidebar-menu" id="sidebarMenu"><div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div><nav class="sidebar-nav"><a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a><a href="login.html" class="nav-item active"><i class="fas fa-sign-in-alt"></i> Login</a><a href="register.html" class="nav-item"><i class="fas fa-user-plus"></i> Register</a><a href="guide.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a><a href="about.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a></nav></div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="login-container">
+      <div class="login-card glass-card">
+        
+        <i class="fas fa-graduation-cap" style="font-size:45px;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;background-clip:text;color:transparent;"></i>
+        <h2 style="background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px;">Welcome Back</h2>
+        
+        <div class="fingerprint-status" id="fpStatus"><i class="fas fa-fingerprint"></i> Tap to login with fingerprint</div>
+        <button class="fingerprint-btn" id="fpBtn" onclick="handleFingerprintLogin()"><i class="fas fa-fingerprint"></i></button>
+        
+        <div class="divider-text">OR USE PIN</div>
+        
+        <div class="error-msg" id="errorMsg"></div>
+        <div class="success-msg" id="successMsg"></div>
+        
+        <div class="student-selector-label"><i class="fas fa-user"></i> Select Account</div>
+        <div class="students-count-badge" id="studentsCount"></div>
+        <div class="student-list-scroll" id="studentList"></div>
+        
+        <div class="pin-group">
+          <label><i class="fas fa-lock"></i> Enter PIN</label>
+          <div class="pin-input-wrapper">
+            <input type="password" id="pinInput" maxlength="4" placeholder="****" inputmode="numeric" autocomplete="off">
+            <button class="pin-toggle" id="pinToggle" onclick="togglePin()" title="Show PIN"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+        
+        <button class="login-btn login-btn-primary" onclick="handlePinLogin()"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+        <div class="register-link">Don't have an account? <a href="register.html">Create one</a></div>
+        
+      </div>
+    </main>
+    
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  <div class="install-prompt" id="installPrompt"><i class="fas fa-mobile-alt"></i><div class="install-prompt-text"><h4>Install</h4></div><button onclick="installApp()">Install</button></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/transfer.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    var selectedUserId=null,pinVisible=false,allStudents=[];
+    
+    function getStudentAvatarHtml(studentId) {
+      var student = getStudentById(studentId);
+      var gender = student ? (student.gender || 'boy') : 'boy';
+      var avatarPath = gender === 'girl' ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+      
+      var profile = getProfile(studentId);
+      if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
+        return '<img src="' + profile.avatarBase64 + '" alt="Avatar">';
+      }
+      return '<img src="' + avatarPath + '" alt="Avatar">';
+    }
+    
+    function buildStudentList(){
+      allStudents=getAllStudents();
+      var count=document.getElementById('studentsCount');
+      var list=document.getElementById('studentList');
+      
+      if(allStudents.length===0){
+        count.innerHTML='';
+        list.innerHTML='<div style="text-align:center;padding:20px;color:var(--text-light);font-size:0.7rem;">No accounts found. <a href="register.html" style="color:var(--primary);">Create one</a></div>';
+        return;
+      }
+      
+      count.innerHTML='<i class="fas fa-users"></i> '+allStudents.length+' account(s) on this device';
+      
+      var recent=JSON.parse(localStorage.getItem('smartgrade_recent_accounts')||'[]');
+      
+      var sorted=[].concat(allStudents);
+      sorted.sort(function(a,b){
+        var aRecent=recent.indexOf(a.id);
+        var bRecent=recent.indexOf(b.id);
+        if(aRecent!==-1&&bRecent===-1)return -1;
+        if(aRecent===-1&&bRecent!==-1)return 1;
+        if(aRecent!==-1&&bRecent!==-1)return aRecent-bRecent;
+        return 0;
+      });
+      
+      function renderList(showAllFlag){
+        var displayStudents=showAllFlag?sorted:sorted.slice(0,3);
+        var html=displayStudents.map(function(x){
+          var avatarHtml = getStudentAvatarHtml(x.id);
+          var fpIcon=x.hasFingerprint?' <span class="sa-fp"><i class="fas fa-fingerprint"></i></span>':'';
+          var isSelected=selectedUserId===x.id;
+          return'<div class="student-item-row'+(isSelected?' selected':'')+'" data-id="'+x.id+'" onclick="selectStudent('+x.id+',this)">'+
+            '<div class="sa-avatar">'+avatarHtml+'</div>'+
+            '<div class="sa-info"><div class="sa-name">'+x.name+fpIcon+'</div><div class="sa-class">'+x.class+' #'+x.number+'</div></div>'+
+            '<div class="sa-check"><i class="fas fa-check"></i></div>'+
+          '</div>';
+        }).join('');
+        
+        if(!showAllFlag&&sorted.length>3){
+          html+='<div class="show-more-btn" onclick="expandList()"><i class="fas fa-chevron-down"></i> Show all ('+sorted.length+' accounts)</div>';
+        }
+        if(showAllFlag&&sorted.length>3){
+          html+='<div class="show-more-btn" onclick="collapseList()"><i class="fas fa-chevron-up"></i> Show less</div>';
+        }
+        
+        list.innerHTML=html;
+      }
+      
+      renderList(false);
+      
+      window.expandList=function(){
+        renderList(true);
+      };
+      
+      window.collapseList=function(){
+        renderList(false);
+      };
+    }
+    
+    function selectStudent(id,element){
+      selectedUserId=id;
+      document.querySelectorAll('.student-item-row').forEach(function(row){row.classList.remove('selected');});
+      element.classList.add('selected');
+      document.getElementById('pinInput').focus();
+      hideMessages();
+      
+      var recent=JSON.parse(localStorage.getItem('smartgrade_recent_accounts')||'[]');
+      recent=recent.filter(function(x){return x!==id;});
+      recent.unshift(id);
+      if(recent.length>5)recent=recent.slice(0,5);
+      localStorage.setItem('smartgrade_recent_accounts',JSON.stringify(recent));
+      
+      var student=allStudents.find(function(s){return s.id===id;});
+      if(student&&student.hasFingerprint){
+        document.getElementById('fpStatus').innerHTML='<i class="fas fa-fingerprint" style="color:#27ae60;"></i> Fingerprint available';
+      } else {
+        document.getElementById('fpStatus').innerHTML='<i class="fas fa-fingerprint"></i> Tap to login with fingerprint';
+      }
+    }
+    
+    function togglePin(){
+      pinVisible=!pinVisible;
+      var input=document.getElementById('pinInput');
+      var toggle=document.getElementById('pinToggle');
+      if(pinVisible){input.type='text';input.style.webkitTextSecurity='none';toggle.innerHTML='<i class="fas fa-eye-slash"></i>';}
+      else{input.type='password';input.style.webkitTextSecurity='disc';toggle.innerHTML='<i class="fas fa-eye"></i>';}
+    }
+    
+    function showError(m){
+      var d=document.getElementById('errorMsg');
+      d.innerHTML='<i class="fas fa-circle-exclamation"></i> '+m;
+      d.style.display='block';
+      document.getElementById('successMsg').style.display='none';
+      setTimeout(function(){
+        d.style.display='none';
+      }, 5000);
+    }
+    
+    function showSuccess(m){
+      var d=document.getElementById('successMsg');
+      d.innerHTML='<i class="fas fa-check-circle"></i> '+m;
+      d.style.display='block';
+      document.getElementById('errorMsg').style.display='none';
+      setTimeout(function(){
+        d.style.display='none';
+      }, 5000);
+    }
+    
+    function hideMessages(){
+      document.getElementById('errorMsg').style.display='none';
+      document.getElementById('successMsg').style.display='none';
+    }
+    
+    function goWelcome(st){
+      setCurrentStudent(st);
+      updateStreakOnVisit(st.id);
+      
+      showToast('Welcome back, ' + st.name + '!');
+      
+      if (typeof unlockWelcomeBadge === 'function') {
+        unlockWelcomeBadge(st.id);
+      } else if (typeof checkWelcomeBadge === 'function') {
+        checkWelcomeBadge(st.id);
+      }
+      
+      if (typeof checkAndUnlockAllNewBadges === 'function') {
+        checkAndUnlockAllNewBadges(st.id);
+      }
+      
+      if (typeof addNotification === 'function') {
+        addNotification('login', 'Login Successful', 'Welcome back, ' + st.name + '!');
+      }
+      
+      if (typeof addHistory === 'function') {
+        addHistory(st.id, 'Login successful');
+      }
+      
+      showSuccess('Welcome ' + st.name + '!');
+      document.getElementById('fpBtn').disabled = true;
+      document.querySelector('.login-btn-primary').disabled = true;
+      setTimeout(function(){
+        window.location.href = 'welcome.html';
+      }, 600);
+    }
+    
+    function handlePinLogin(){hideMessages();var pin=document.getElementById('pinInput').value;if(!selectedUserId){showError('Please select an account first');return;}if(!pin||pin.length!==4||!/^\d+$/.test(pin)){showError('Please enter a valid 4-digit PIN');return;}var r=authenticateWithPin(selectedUserId,pin);if(r.success){goWelcome(r.student);}else{showError(r.message);document.getElementById('pinInput').value='';document.getElementById('pinInput').focus();}}
+    
+    function handleFingerprintLogin(){hideMessages();var students=allStudents.filter(function(s){return s.hasFingerprint&&s.fingerprintHash;});if(students.length===0){showError('No fingerprint accounts.<br><small>Register in Settings or use PIN.</small>');return;}var fpStatus=document.getElementById('fpStatus'),fpBtn=document.getElementById('fpBtn');fpStatus.innerHTML='<i class="fas fa-spinner fa-spin"></i> Place your finger...';fpBtn.classList.add('scanning');fpBtn.disabled=true;loginWithFingerprint(function(r){fpBtn.classList.remove('scanning');fpBtn.disabled=false;if(r.success){fpStatus.innerHTML='<i class="fas fa-check-circle" style="color:#27ae60;"></i> Recognized!';goWelcome(r.student);}else{fpStatus.innerHTML='<i class="fas fa-exclamation-circle" style="color:#e74c3c;"></i> Try PIN';showError(r.message+'<br><small>Use PIN login below</small>');}});}
+    
+    document.getElementById('pinInput').addEventListener('keydown',function(e){if(e.key==='Enter')handlePinLogin();});
+    
+    buildStudentList();
+    initMobileMenu();
+    initThemeSelector();
+  </script>
+</body>
+</html>

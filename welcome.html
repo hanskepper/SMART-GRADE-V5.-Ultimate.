@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    @keyframes floatUp {
+      0% { transform: translateY(60px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.15); }
+      80% { transform: scale(0.95); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes slideRight {
+      0% { transform: translateX(-80px); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideLeft {
+      0% { transform: translateX(80px); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideUp {
+      0% { transform: translateY(50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(0,255,255,0.2); }
+      50% { box-shadow: 0 0 25px rgba(0,255,255,0.5); }
+    }
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-10px); }
+      50% { transform: translateY(0); }
+      70% { transform: translateY(-5px); }
+    }
+    @keyframes ripple {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(4); opacity: 0; }
+    }
+    @keyframes sparkle {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-80px) scale(0); opacity: 0; }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes numberCount {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    @keyframes stripeMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 0; }
+    }
+    
+    .welcome-hero {
+      text-align: center;
+      padding: 35px 24px 30px;
+      border-radius: 28px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .welcome-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index: 0;
+    }
+    .welcome-hero > * { position: relative; z-index: 1; }
+    
+    .welcome-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.5);
+      animation: glowPulse 3s ease infinite, iconBounce 3s ease infinite;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .welcome-avatar .ripple-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.4);
+      animation: ripple 2s ease-out infinite;
+    }
+    .welcome-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .welcome-avatar i {
+      font-size: 48px;
+      color: white;
+    }
+    
+    .welcome-name {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 8px;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    }
+    .welcome-class {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      color: white;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .welcome-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      backdrop-filter: blur(10px);
+    }
+    
+    .stats-grid-welcome {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card-welcome {
+      text-align: center;
+      padding: 20px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .stat-card-welcome:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      border-color: var(--primary);
+    }
+    .stat-card-welcome .stat-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+    .stat-card-welcome .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .stat-card-welcome .stat-text {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 6px;
+      opacity: 0.7;
+    }
+    
+    .quote-card-welcome {
+      text-align: center;
+      padding: 24px 20px;
+      border-radius: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .quote-card-welcome .quote-text {
+      font-style: italic;
+      font-size: 0.9rem;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .quote-card-welcome .quote-author {
+      font-size: 0.7rem;
+      opacity: 0.5;
+      font-weight: 600;
+    }
+    
+    .welcome-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .confetti-piece {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: confettiFall 5s ease-in forwards;
+    }
+    
+    .sparkle-dot {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkle 1.2s ease forwards;
+      z-index: 9999;
+    }
+    
+    @media (min-width: 600px) {
+      .stats-grid-welcome { grid-template-columns: repeat(4, 1fr); }
+      .welcome-buttons { flex-direction: row; }
+      .welcome-name { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-graduation-cap"></i><span>WELCOME</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html">
+          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="welcome.html" class="nav-item active"><i class="fas fa-graduation-cap"></i> Welcome</a>
+        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="welcome-hero" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
+        <div class="welcome-avatar" id="welcomeAvatar">
+          <div class="ripple-ring"></div>
+          <i class="fas fa-user-graduate"></i>
+        </div>
+        <div class="welcome-name" id="welcomeName">Welcome!</div>
+        <div class="welcome-class" id="welcomeInfo"></div>
+        <div class="welcome-badge">
+          <i class="fas fa-star"></i> SMART GRADE v5.0 Ultimate
+        </div>
+      </div>
+      
+      <div class="stats-grid-welcome">
+        <div class="stat-card-welcome" onclick="location='dashboard.html'">
+          <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="stat-number" id="wOverall">0.00</div>
+          <div class="stat-text">Overall Average</div>
+        </div>
+        <div class="stat-card-welcome" onclick="location='add-grade.html'">
+          <div class="stat-icon"><i class="fas fa-pen-fancy"></i></div>
+          <div class="stat-number" id="wGrades">0</div>
+          <div class="stat-text">Total Grades</div>
+        </div>
+        <div class="stat-card-welcome" onclick="location='achievements.html'">
+          <div class="stat-icon"><i class="fas fa-medal"></i></div>
+          <div class="stat-number" id="wBadges">0</div>
+          <div class="stat-text">Badges Earned</div>
+        </div>
+        <div class="stat-card-welcome" onclick="location='achievements.html'">
+          <div class="stat-icon"><i class="fas fa-fire"></i></div>
+          <div class="stat-number" id="wStreak">0</div>
+          <div class="stat-text">Day Streak</div>
+        </div>
+      </div>
+      
+      <div class="quote-card-welcome">
+        <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+        <p class="quote-text" id="wQuote"></p>
+        <p class="quote-author" id="wAuthor"></p>
+      </div>
+      
+      <div class="welcome-buttons">
+        <a href="dashboard.html" class="btn btn-primary"><i class="fas fa-chalkboard-user"></i> Go to Dashboard</a>
+        <a href="notifications.html" class="btn btn-secondary"><i class="fas fa-bell"></i> Notifications</a>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/confirm-dialog.js"></script>
+  
+  <script>
+    // ============================================
+    // LISTE DES CITATIONS (MÊME QUE DASHBOARD)
+    // ============================================
+    var MQ = [
+      {q:"Success is not final, failure is not fatal. It is the courage to continue that counts.", a:"Winston Churchill"},
+      {q:"Education is the passport to the future, for tomorrow belongs to those who prepare for it today.", a:"Malcolm X"},
+      {q:"Believe you can and you're halfway there.", a:"Theodore Roosevelt"},
+      {q:"Strive for progress, not perfection.", a:"Unknown"},
+      {q:"The secret of getting ahead is getting started.", a:"Mark Twain"},
+      {q:"Fall seven times, stand up eight.", a:"Japanese Proverb"},
+      {q:"You don't have to be great to start, but you have to start to be great.", a:"Zig Ziglar"},
+      {q:"Make today so awesome that yesterday gets jealous.", a:"Unknown"},
+      {q:"Consistency is more important than perfection.", a:"Unknown"},
+      {q:"Every day is a new opportunity to improve yourself.", a:"Unknown"},
+      {q:"The future belongs to those who believe in the beauty of their dreams.", a:"Eleanor Roosevelt"},
+      {q:"It does not matter how slowly you go as long as you do not stop.", a:"Confucius"},
+      {q:"The expert in anything was once a beginner.", a:"Helen Hayes"},
+      {q:"The beautiful thing about learning is that no one can take it away from you.", a:"B.B. King"},
+      {q:"Education is not the filling of a pail, but the lighting of a fire.", a:"W.B. Yeats"},
+      {q:"Start where you are. Use what you have. Do what you can.", a:"Arthur Ashe"},
+      {q:"Little by little, one travels far.", a:"J.R.R. Tolkien"},
+      {q:"Small progress is still progress.", a:"Unknown"},
+      {q:"Never give up on a dream.", a:"Unknown"},
+      {q:"You are stronger than you think.", a:"A.A. Milne"},
+      {q:"The only limit to our realization of tomorrow is our doubts of today.", a:"Franklin D. Roosevelt"},
+      {q:"Don't watch the clock; do what it does. Keep going.", a:"Sam Levenson"},
+      {q:"The harder you work for something, the greater you'll feel when you achieve it.", a:"Unknown"},
+      {q:"Dream it. Wish it. Do it.", a:"Unknown"},
+      {q:"Success doesn't come to you, you go to it.", a:"Marva Collins"},
+      {q:"The only way to do great work is to love what you do.", a:"Steve Jobs"},
+      {q:"Your limitation—it's only your imagination.", a:"Unknown"},
+      {q:"Push yourself, because no one else is going to do it for you.", a:"Unknown"},
+      {q:"Great things never come from comfort zones.", a:"Unknown"},
+      {q:"Study while others are sleeping; work while others are loafing.", a:"William A. Ward"}
+    ];
+    
+    var cu = null;
+    var profile = null;
+    
+    // ============================================
+    // FONCTION POUR OBTENIR L'AVATAR (PNG selon genre)
+    // ============================================
+    function getWelcomeAvatar() {
+      if (!cu) return '<i class="fas fa-user-graduate"></i>';
+      
+      // Vérifier si l'utilisateur a une photo personnalisée
+      var profileData = getProfile(cu.id);
+      if (profileData.avatarBase64 && profileData.avatarBase64 !== '' && profileData.avatarBase64.length > 100) {
+        return '<img src="' + profileData.avatarBase64 + '" alt="Avatar">';
+      }
+      
+      // Avatar par défaut selon le genre
+      var gender = cu.gender || 'boy';
+      var avatarPath = gender === 'girl' ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+      return '<img src="' + avatarPath + '" alt="Avatar">';
+    }
+    
+    // Animation des nombres
+    function animateNumber(element, final) {
+      var current = 0;
+      var step = final / 30;
+      var timer = setInterval(function() {
+        current += step;
+        if (current >= final) {
+          element.textContent = final.toFixed(2);
+          clearInterval(timer);
+        } else {
+          element.textContent = current.toFixed(2);
+        }
+      }, 20);
+    }
+    
+    // Confettis
+    function launchConfetti() {
+      var colors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#00bcd4', '#ff6b6b', '#ffd93d'];
+      for (var i = 0; i < 80; i++) {
+        var piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.top = '-20px';
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = Math.random() * 1.5 + 's';
+        piece.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        piece.style.width = (Math.random() * 8 + 4) + 'px';
+        piece.style.height = (Math.random() * 8 + 4) + 'px';
+        document.body.appendChild(piece);
+        setTimeout(function(p) { if(p && p.parentNode) p.parentNode.removeChild(p); }, 7000);
+      }
+    }
+    
+    function initWelcome() {
+      cu = JSON.parse(localStorage.getItem('smartgrade_current') || 'null');
+      if (!cu) { 
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      profile = getProfile(cu.id);
+      
+      // ⭐⭐⭐ AFFICHER L'AVATAR ⭐⭐⭐
+      var avatarContainer = document.getElementById('welcomeAvatar');
+      avatarContainer.innerHTML = '<div class="ripple-ring"></div>' + getWelcomeAvatar();
+      
+      document.getElementById('welcomeName').textContent = 'Welcome, ' + cu.name + '!';
+      document.getElementById('welcomeInfo').innerHTML = '<i class="fas fa-school"></i> ' + cu.class + ' - #' + cu.number;
+      
+      var grades = JSON.parse(localStorage.getItem('smartgrade_grades_' + cu.id) || '[]');
+      var ach = JSON.parse(localStorage.getItem('smartgrade_achievements_' + cu.id) || '[]');
+      var streak = JSON.parse(localStorage.getItem('smartgrade_streak_' + cu.id) || '{"days":0}');
+      
+      var t1 = calculateStudentTermAverage ? calculateStudentTermAverage(cu.id, 1) : 0;
+      var t2 = calculateStudentTermAverage ? calculateStudentTermAverage(cu.id, 2) : 0;
+      var t3 = calculateStudentTermAverage ? calculateStudentTermAverage(cu.id, 3) : 0;
+      var overall = Math.round(((t1 + t2 + t3) / 3) * 100) / 100;
+      
+      // Remplir les valeurs
+      document.getElementById('wOverall').innerHTML = overall.toFixed(2);
+      document.getElementById('wGrades').innerHTML = grades.length;
+      var unlockedCount = 0;
+      for (var i = 0; i < ach.length; i++) if (ach[i].unlocked) unlockedCount++;
+      document.getElementById('wBadges').innerHTML = unlockedCount;
+      document.getElementById('wStreak').innerHTML = streak.days || 0;
+      
+      // Animation des nombres
+      setTimeout(function() {
+        animateNumber(document.getElementById('wOverall'), overall);
+      }, 100);
+      
+      // Citation aléatoire
+      var randomIndex = Math.floor(Math.random() * MQ.length);
+      var q = MQ[randomIndex];
+      document.getElementById('wQuote').innerHTML = '"' + q.q + '"';
+      document.getElementById('wAuthor').innerHTML = '- ' + q.a;
+      
+      // Header avatar
+      var headerAvatar = document.getElementById('headerAvatar');
+      if (profile.avatarBase64 && profile.avatarBase64 !== '') {
+        headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+      } else {
+        var defaultAvatar = (cu.gender === 'girl') ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+        headerAvatar.innerHTML = '<img src="' + defaultAvatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+      }
+      
+      // Effet sparkle au clic sur l'avatar
+      document.getElementById('welcomeAvatar').addEventListener('click', function(e) {
+        var rect = this.getBoundingClientRect();
+        var centerX = rect.left + rect.width / 2;
+        var centerY = rect.top + rect.height / 2;
+        var sparkColors = ['#fff', '#ffd93d', '#ff6b6b', '#00ffff', '#ff69b4'];
+        for (var i = 0; i < 30; i++) {
+          var dot = document.createElement('div');
+          dot.className = 'sparkle-dot';
+          var angle = Math.random() * Math.PI * 2;
+          var radius = Math.random() * 80;
+          dot.style.left = (centerX + Math.cos(angle) * radius - 3) + 'px';
+          dot.style.top = (centerY + Math.sin(angle) * radius - 3) + 'px';
+          dot.style.backgroundColor = sparkColors[Math.floor(Math.random() * sparkColors.length)];
+          dot.style.width = (Math.random() * 6 + 3) + 'px';
+          dot.style.height = dot.style.width;
+          dot.style.animationDuration = (Math.random() * 0.8 + 0.8) + 's';
+          document.body.appendChild(dot);
+          setTimeout(function(d) { if(d && d.parentNode) d.parentNode.removeChild(d); }, 1500);
+        }
+      });
+      
+      // Confettis (démarrage immédiat + durée longue)
+      setTimeout(launchConfetti, 300);
+      
+      // Deuxième vague de confettis après 2 secondes
+      setTimeout(function() {
+        launchConfetti();
+      }, 2000);
+      
+      initThemeSelector();
+      initMobileMenu();
+      
+      // Application des polices
+      if (typeof applyGlobalFont === 'function') {
+        applyGlobalFont();
+      }
+      
+      setTimeout(function() {
+        if (typeof applyGlobalFont === 'function') {
+          applyGlobalFont();
+        }
+        var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+        var fontMap = {
+          'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+          'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+          'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+          'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+          'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+        };
+        document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+      }, 50);
+      
+      requestNotificationPermission();
+      if (typeof checkStreakMilestone === 'function') checkStreakMilestone(cu.id);
+      if (typeof checkAndNotifyAchievements === 'function') checkAndNotifyAchievements(cu.id);
+      
+      localStorage.setItem('smartgrade_last_page', 'welcome.html');
+    }
+    
+    initWelcome();
+  </script>
+</body>
+</html>

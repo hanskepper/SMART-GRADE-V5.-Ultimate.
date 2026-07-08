@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Timetable</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .tt-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:0 16px;}
+    .tt-table{width:100%;min-width:800px;border-collapse:collapse;font-size:0.62rem;background:var(--card-bg);border-radius:16px;overflow:hidden;table-layout:fixed;}
+    .tt-table th,.tt-table td{border:1px solid var(--border);text-align:center;vertical-align:middle;padding:10px 4px;}
+    .tt-table thead th{background:var(--primary);color:white;padding:12px 4px;font-weight:700;font-size:0.55rem;text-transform:uppercase;letter-spacing:1px;}
+    .tt-table thead th.break-col{background:#c0392b;font-size:0.5rem;width:4%;}
+    .tt-table .day-cell{font-weight:800;background:rgba(15,59,72,0.05);color:var(--primary);font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;width:5%;}
+    .tt-table .break-cell{background:rgba(231,76,60,0.1);color:#c0392b;font-weight:700;font-size:0.45rem;writing-mode:vertical-rl;text-orientation:mixed;width:3%;letter-spacing:1px;}
+    .tt-table td{height:44px;font-weight:500;font-size:0.6rem;transition:all 0.2s;}
+    .tt-table td:hover{transform:scale(1.03);box-shadow:0 4px 12px rgba(0,0,0,0.12);z-index:2;position:relative;}
+    .tt-table td i{font-size:0.65rem;display:block;margin-bottom:2px;opacity:0.7;}
+    .tt-bio{background:rgba(46,204,113,0.12);color:#1a6b30;}
+    .tt-phy{background:rgba(52,152,219,0.12);color:#1a4d7a;}
+    .tt-civ{background:rgba(155,89,182,0.12);color:#5b2d7a;}
+    .tt-log{background:rgba(241,196,15,0.12);color:#7a6200;}
+    .tt-amath{background:rgba(192,57,43,0.12);color:#7a1a10;}
+    .tt-fr{background:rgba(41,128,185,0.12);color:#1a3d6b;}
+    .tt-eng{background:rgba(26,188,156,0.12);color:#0a5c4a;}
+    .tt-hbio{background:rgba(46,204,113,0.08);color:#1a6b30;}
+    .tt-geo{background:rgba(243,156,18,0.12);color:#6b4a00;}
+    .tt-pe{background:rgba(231,76,60,0.12);color:#7a1a10;}
+    .tt-math{background:rgba(192,57,43,0.12);color:#7a1a10;}
+    .tt-chm{background:rgba(142,68,173,0.12);color:#4a1a6b;}
+    .tt-cs{background:rgba(52,152,219,0.12);color:#1a4d7a;}
+    .tt-eco{background:rgba(39,174,96,0.12);color:#1a5c30;}
+    .tt-food{background:rgba(230,126,34,0.12);color:#8a4d10;}
+    .legend-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px;}
+    .legend-item{display:flex;align-items:center;gap:6px;font-size:0.55rem;padding:6px 8px;border-radius:8px;background:rgba(0,0,0,0.02);}
+    .legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+    @media(max-width:400px){.legend-grid{grid-template-columns:repeat(3,1fr);}}
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-calendar-alt"></i><span>TIMETABLE</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content"><div class="theme-grid-rect" id="themeGrid"></div><div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div></div>
+    </div>
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="timetable.html" class="nav-item active"><i class="fas fa-calendar-alt"></i> Timetable</a>
+        <a href="flashcards.html" class="nav-item"><i class="fas fa-clone"></i> Flashcards</a>
+        <a href="goals.html" class="nav-item"><i class="fas fa-bullseye"></i> Goals</a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    <main class="main-content">
+      <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
+        <i class="fas fa-calendar-alt" style="font-size:35px;"></i>
+        <h2 style="color:white;margin:8px 0;">Form 5B Science</h2>
+        <p style="opacity:0.8;font-size:0.7rem;">GBHS Foumban • Academic Year 2026-2027</p>
+      </div>
+      <div class="glass-card tt-wrapper">
+        <table class="tt-table">
+          <thead><tr><th>DAY</th><th>7:30-8:25</th><th>8:25-9:20</th><th>9:20-10:15</th><th class="break-col">1st BREAK</th><th>10:35-11:30</th><th>11:30-12:20</th><th class="break-col">2nd BREAK</th><th>12:50-1:45</th><th>1:45-2:35</th><th>2:35-3:30</th></tr></thead>
+          <tbody>
+            <tr><td class="day-cell">MON</td><td class="tt-bio"><i class="fas fa-leaf"></i>Biology</td><td class="tt-phy"><i class="fas fa-atom"></i>Physics</td><td class="tt-civ"><i class="fas fa-landmark"></i>Citizenship</td><td class="break-cell" rowspan="5">FIRST BREAK</td><td class="tt-log"><i class="fas fa-brain"></i>Logic / Geology</td><td class="tt-log"><i class="fas fa-brain"></i>Logic / Geology</td><td class="break-cell" rowspan="5">SECOND BREAK</td><td class="tt-amath"><i class="fas fa-calculator"></i>Additional Mathematics</td><td class="tt-fr"><i class="fas fa-flag"></i>French</td><td class="tt-fr"><i class="fas fa-flag"></i>French</td></tr>
+            <tr><td class="day-cell">TUE</td><td class="tt-civ"><i class="fas fa-landmark"></i>Citizenship</td><td class="tt-civ"><i class="fas fa-landmark"></i>Citizenship</td><td class="tt-pe"><i class="fas fa-person-running"></i>P.E</td><td class="tt-eng"><i class="fas fa-language"></i>English Language</td><td class="tt-hbio"><i class="fas fa-dna"></i>Human Biology / Geology</td><td class="tt-hbio"><i class="fas fa-dna"></i>Human Biology / Geology</td><td class="tt-geo"><i class="fas fa-earth-africa"></i>Geography</td><td class="tt-geo"><i class="fas fa-earth-africa"></i>Geography</td></tr>
+            <tr><td class="day-cell">WED</td><td class="tt-phy"><i class="fas fa-atom"></i>Physics</td><td class="tt-phy"><i class="fas fa-atom"></i>Physics</td><td class="tt-math"><i class="fas fa-square-root-variable"></i>Mathematics</td><td class="tt-bio"><i class="fas fa-leaf"></i>Biology</td><td class="tt-bio"><i class="fas fa-leaf"></i>Biology</td><td class="tt-fr"><i class="fas fa-flag"></i>French</td><td class="tt-chm"><i class="fas fa-flask"></i>Chemistry</td><td class="tt-geo"><i class="fas fa-earth-africa"></i>Geography</td></tr>
+            <tr><td class="day-cell">THU</td><td class="tt-cs"><i class="fas fa-laptop-code"></i>Computer Science</td><td class="tt-cs"><i class="fas fa-laptop-code"></i>Computer Science</td><td class="tt-eco"><i class="fas fa-chart-line"></i>Economics</td><td class="tt-eng"><i class="fas fa-language"></i>English Language</td><td class="tt-eng"><i class="fas fa-language"></i>English Language</td><td class="tt-food"><i class="fas fa-apple-whole"></i>Food and Nutrition</td><td class="tt-eco"><i class="fas fa-chart-line"></i>Economics</td><td class="tt-eco"><i class="fas fa-chart-line"></i>Economics</td></tr>
+            <tr><td class="day-cell">FRI</td><td class="tt-math"><i class="fas fa-square-root-variable"></i>Mathematics</td><td class="tt-math"><i class="fas fa-square-root-variable"></i>Mathematics</td><td class="tt-food"><i class="fas fa-apple-whole"></i>Food and Nutrition</td><td class="empty-cell">—</td><td class="empty-cell">—</td><td class="tt-chm"><i class="fas fa-flask"></i>Chemistry</td><td class="tt-chm"><i class="fas fa-flask"></i>Chemistry</td><td class="tt-food"><i class="fas fa-apple-whole"></i>Food and Nutrition</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="glass-card">
+        <h3><i class="fas fa-list"></i> Subjects</h3>
+        <div class="legend-grid">
+          <div class="legend-item"><div class="legend-dot" style="background:#2ecc71;"></div>Biology</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#3498db;"></div>Physics</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#9b59b6;"></div>Citizenship</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f39c12;"></div>Logic/Geology</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#e74c3c;"></div>Add. Maths</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#2980b9;"></div>French</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#e74c3c;"></div>P.E</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#1abc9c;"></div>English Lang.</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#2ecc71;"></div>Human Biology</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f39c12;"></div>Geography</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#e74c3c;"></div>Mathematics</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#9b59b6;"></div>Chemistry</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#3498db;"></div>Computer Sc.</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#27ae60;"></div>Economics</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#e67e22;"></div>Food & Nut.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    var cu = null;
+    try {
+      cu = JSON.parse(localStorage.getItem('smartgrade_current') || 'null');
+      if (cu) {
+        var p = JSON.parse(localStorage.getItem('smartgrade_profile_' + cu.id) || '{}');
+        document.getElementById('headerAvatar').innerHTML = '<i class="fas ' + (p.avatar || 'fa-graduation-cap') + '"></i>';
+      }
+    } catch(e) {}
+    
+    initMobileMenu();
+    initThemeSelector();
+    
+    (function() {
+      var currentUser = null;
+      try {
+        currentUser = JSON.parse(localStorage.getItem('smartgrade_current') || 'null');
+      } catch(e) {}
+      
+      if (currentUser && currentUser.id) {
+        if (typeof incrementTimetableView === 'function') {
+          incrementTimetableView(currentUser.id);
+        }
+        if (typeof checkAndUnlockAllNewBadges === 'function') {
+          checkAndUnlockAllNewBadges(currentUser.id);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

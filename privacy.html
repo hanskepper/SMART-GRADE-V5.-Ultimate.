@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Privacy Policy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .legal-hero {
+      text-align: center;
+      padding: 50px 20px;
+      border-radius: 32px;
+      color: white;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      position: relative;
+      overflow: hidden;
+    }
+    .legal-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index: 0;
+    }
+    @keyframes stripeMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 0; }
+    }
+    .legal-hero > * { position: relative; z-index: 1; }
+    .legal-hero h1 { font-size: 2rem; margin: 12px 0; letter-spacing: -0.5px; }
+    .legal-hero p { opacity: 0.9; font-size: 0.85rem; }
+    .legal-hero .last-updated {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      margin-top: 16px;
+    }
+    
+    .legal-content {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .legal-section {
+      margin-bottom: 32px;
+      scroll-margin-top: 80px;
+    }
+    .legal-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .legal-section h3 i {
+      font-size: 1.2rem;
+      width: 32px;
+      color: var(--secondary);
+    }
+    .legal-section p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .legal-section ul, .legal-section ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+    .legal-section li {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .legal-section .highlight {
+      background: rgba(var(--primary-rgb), 0.08);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border-left: 3px solid var(--primary);
+      margin: 16px 0;
+    }
+    .legal-date {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-light);
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .toc {
+      background: rgba(0,0,0,0.02);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      border: 1px solid var(--border);
+    }
+    .toc h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .toc a {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toc a:hover {
+      color: var(--primary);
+    }
+    .badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .badge-item {
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--border);
+    }
+    .badge-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: var(--primary);
+      color: white;
+    }
+    .badge-info h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .badge-info p {
+      font-size: 0.6rem;
+      margin: 0;
+    }
+    @media (max-width: 550px) {
+      .legal-hero h1 { font-size: 1.5rem; }
+      .legal-content { padding: 20px; }
+      .legal-section h3 { font-size: 0.95rem; }
+      .legal-section p, .legal-section li { font-size: 0.75rem; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .badge-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-shield-alt"></i><span>PRIVACY</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="privacy.html" class="nav-item active"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        
+        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="legal-hero">
+        <i class="fas fa-shield-alt" style="font-size:55px;opacity:0.5;"></i>
+        <h1>Privacy Policy</h1>
+        <p>SIN GBHS FOUMBAN - Form 5B Science</p>
+        <div class="last-updated">
+          <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
+        </div>
+      </div>
+      
+      <div class="legal-content">
+        <div class="toc">
+          <h4><i class="fas fa-list"></i> Table of Contents</h4>
+          <div class="toc-grid">
+            <a href="#section1"><i class="fas fa-chevron-right"></i> 1. Information We Collect</a>
+            <a href="#section2"><i class="fas fa-chevron-right"></i> 2. How We Use Your Information</a>
+            <a href="#section3"><i class="fas fa-chevron-right"></i> 3. Data Storage Location</a>
+            <a href="#section4"><i class="fas fa-chevron-right"></i> 4. Data Security</a>
+            <a href="#section5"><i class="fas fa-chevron-right"></i> 5. Your Rights</a>
+            <a href="#section6"><i class="fas fa-chevron-right"></i> 6. Data Retention</a>
+            <a href="#section7"><i class="fas fa-chevron-right"></i> 7. Cookies and Local Storage</a>
+            <a href="#section8"><i class="fas fa-chevron-right"></i> 8. Third-Party Services</a>
+            <a href="#section9"><i class="fas fa-chevron-right"></i> 9. Children's Privacy</a>
+            <a href="#section10"><i class="fas fa-chevron-right"></i> 10. Changes to This Policy</a>
+            <a href="#section11"><i class="fas fa-chevron-right"></i> 11. Contact Information</a>
+          </div>
+        </div>
+        
+        <div id="section1" class="legal-section">
+          <h3><i class="fas fa-database"></i> 1. Information We Collect</h3>
+          <p>SMART GRADE collects only the information necessary for the application to function properly. All data is stored locally on your device unless you explicitly use cloud backup features.</p>
+          <p><strong>We collect the following information:</strong></p>
+          <div class="badge-grid">
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-user"></i></div>
+              <div class="badge-info">
+                <h4>Student Information</h4>
+                <p>Name, class, student number, and PIN</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-chart-line"></i></div>
+              <div class="badge-info">
+                <h4>Academic Data</h4>
+                <p>Grades, subjects, coefficients, goals</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-medal"></i></div>
+              <div class="badge-info">
+                <h4>Achievements</h4>
+                <p>Badges, streaks, and progress history</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-fingerprint"></i></div>
+              <div class="badge-info">
+                <h4>Biometric Data</h4>
+                <p>Fingerprint hash (stored locally only)</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-image"></i></div>
+              <div class="badge-info">
+                <h4>Profile Information</h4>
+                <p>Profile photo (Base64 encoded), biography</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-clone"></i></div>
+              <div class="badge-info">
+                <h4>User Content</h4>
+                <p>Flashcards, notes, custom data</p>
+              </div>
+            </div>
+          </div>
+          <div class="highlight">
+            <i class="fas fa-info-circle"></i> <strong>Important:</strong> We do NOT collect email addresses, phone numbers, physical addresses, or any form of contact information unless voluntarily provided by you.
+          </div>
+        </div>
+        
+        <div id="section2" class="legal-section">
+          <h3><i class="fas fa-chart-line"></i> 2. How We Use Your Information</h3>
+          <p>Your information is used exclusively for:</p>
+          <ul>
+            <li><i class="fas fa-calculator"></i> Calculating academic averages and statistics</li>
+            <li><i class="fas fa-trophy"></i> Tracking achievements and streaks</li>
+            <li><i class="fas fa-chart-bar"></i> Generating performance reports and charts</li>
+            <li><i class="fas fa-exchange-alt"></i> Facilitating data transfer between devices</li>
+            <li><i class="fas fa-cloud-upload-alt"></i> Creating backups (local or cloud)</li>
+            <li><i class="fas fa-user-check"></i> Authenticating your identity (PIN and fingerprint)</li>
+          </ul>
+          <p>We do not sell, rent, or share your personal information with third parties for marketing purposes.</p>
+        </div>
+        
+        <div id="section3" class="legal-section">
+          <h3><i class="fas fa-database"></i> 3. Data Storage Location</h3>
+          <p><strong>By default, all your data is stored locally on your device using the browser's localStorage technology.</strong> This means:</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Your data never leaves your device unless you explicitly use cloud features</li>
+            <li><i class="fas fa-check-circle"></i> You have full control over your data</li>
+            <li><i class="fas fa-check-circle"></i> No external servers have access to your information</li>
+          </ul>
+          <p><strong>Optional Cloud Features:</strong></p>
+          <ul>
+            <li><i class="fas fa-cloud-upload-alt"></i> <strong>Cloud Backup:</strong> When you use this feature, your encrypted data is stored on JSONBin.io or GitHub Gist servers.</li>
+            <li><i class="fas fa-exchange-alt"></i> <strong>Data Transfer:</strong> Temporary storage on GitHub Gist (expires after 10 minutes).</li>
+          </ul>
+          <div class="highlight">
+            <i class="fas fa-shield-alt"></i> <strong>Your Control:</strong> You can export, delete, or backup your data at any time from the Settings page.
+          </div>
+        </div>
+        
+        <div id="section4" class="legal-section">
+          <h3><i class="fas fa-lock"></i> 4. Data Security</h3>
+          <p>We implement several security measures to protect your information:</p>
+          <ul>
+            <li><i class="fas fa-fingerprint"></i> <strong>PIN Protection:</strong> Your account is protected by a 4-digit PIN</li>
+            <li><i class="fas fa-fingerprint"></i> <strong>Biometric Authentication:</strong> Optional fingerprint login (stored locally)</li>
+            <li><i class="fas fa-database"></i> <strong>Local Storage:</strong> Data never leaves your device by default</li>
+            <li><i class="fas fa-sync-alt"></i> <strong>Automatic Cleanup:</strong> Expired transfer codes are automatically deleted</li>
+            <li><i class="fas fa-trash-alt"></i> <strong>Account Deletion:</strong> You can permanently delete all your data</li>
+          </ul>
+          <p>However, no method of electronic storage is 100% secure. We recommend:</p>
+          <ul>
+            <li>Keeping your PIN confidential</li>
+            <li>Exporting important backups regularly</li>
+            <li>Using a strong PIN (not sequential numbers like 1234)</li>
+          </ul>
+        </div>
+        
+        <div id="section5" class="legal-section">
+          <h3><i class="fas fa-user-check"></i> 5. Your Rights</h3>
+          <p>As a user of SMART GRADE, you have the following rights regarding your data:</p>
+          <div class="badge-grid">
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-eye"></i></div>
+              <div class="badge-info">
+                <h4>Right to Access</h4>
+                <p>View all your stored data at any time</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-download"></i></div>
+              <div class="badge-info">
+                <h4>Right to Export</h4>
+                <p>Download your data in JSON, CSV, HTML, or PDF format</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-trash-alt"></i></div>
+              <div class="badge-info">
+                <h4>Right to Deletion</h4>
+                <p>Delete your account and all associated data</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-undo-alt"></i></div>
+              <div class="badge-info">
+                <h4>Right to Rectification</h4>
+                <p>Correct any inaccurate information</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-ban"></i></div>
+              <div class="badge-info">
+                <h4>Right to Restrict Processing</h4>
+                <p>Stop using cloud features at any time</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-exchange-alt"></i></div>
+              <div class="badge-info">
+                <h4>Right to Data Portability</h4>
+                <p>Transfer your data to another device</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="section6" class="legal-section">
+          <h3><i class="fas fa-clock"></i> 6. Data Retention</h3>
+          <p>We retain your data for as long as you maintain an account. Specifically:</p>
+          <ul>
+            <li><strong>Active Account:</strong> All data is kept until you delete your account</li>
+            <li><strong>Transfer Codes:</strong> Automatically deleted after 10 minutes</li>
+            <li><strong>Cloud Backups:</strong> Deleted after 24 hours or when you delete them</li>
+            <li><strong>Deleted Account:</strong> All data is permanently removed from your device</li>
+          </ul>
+          <div class="highlight">
+            <i class="fas fa-download"></i> <strong>Recommendation:</strong> Before deleting your account, use the Export feature to save a backup of your data.
+          </div>
+        </div>
+        
+        <div id="section7" class="legal-section">
+          <h3><i class="fas fa-cookie-bite"></i> 7. Cookies and Local Storage</h3>
+          <p>SMART GRADE does not use traditional cookies. Instead, we use the browser's localStorage API to store your data:</p>
+          <ul>
+            <li><strong>What is localStorage?</strong> A web storage mechanism that allows websites to store data locally on your device.</li>
+            <li><strong>Is localStorage a cookie?</strong> No, localStorage is different from cookies and cannot be accessed by third parties.</li>
+            <li><strong>Can I clear it?</strong> Yes, you can clear localStorage through your browser settings or by deleting your account.</li>
+            <li><strong>How long does it stay?</strong> Until you manually delete it or clear your browser data.</li>
+          </ul>
+          <p>No tracking cookies, analytics cookies, or advertising cookies are used in SMART GRADE.</p>
+        </div>
+        
+        <div id="section8" class="legal-section">
+          <h3><i class="fas fa-plug"></i> 8. Third-Party Services</h3>
+          <p>SMART GRADE uses the following third-party services (all optional):</p>
+          <div class="badge-grid">
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#24292e;"><i class="fab fa-github"></i></div>
+              <div class="badge-info">
+                <h4>GitHub Gist</h4>
+                <p>Used for cloud transfer (optional). Your data is stored temporarily (10 minutes).</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#3498db;"><i class="fas fa-chart-line"></i></div>
+              <div class="badge-info">
+                <h4>Chart.js</h4>
+                <p>Used for displaying statistics charts. No data is sent to Chart.js servers.</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-qrcode"></i></div>
+              <div class="badge-info">
+                <h4>QR Code Libraries</h4>
+                <p>Used for generating and scanning QR codes. All processing is local.</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#f1c40f;"><i class="fab fa-google"></i></div>
+              <div class="badge-info">
+                <h4>Google Fonts</h4>
+                <p>Used for displaying custom fonts. May collect IP addresses.</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#9b59b6;"><i class="fab fa-font-awesome"></i></div>
+              <div class="badge-info">
+                <h4>Font Awesome</h4>
+                <p>Used for icons. No personal data is collected.</p>
+              </div>
+            </div>
+          </div>
+          <p>These services are used only when you explicitly activate the corresponding features (cloud transfer, etc.).</p>
+        </div>
+        
+        <div id="section9" class="legal-section">
+          <h3><i class="fas fa-child"></i> 9. Children's Privacy</h3>
+          <p>SMART GRADE is designed for students typically aged 14-18 (Form 5B Science). We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us.</p>
+          <div class="highlight">
+            <i class="fas fa-envelope"></i> <strong>Parental Contact:</strong> If you have concerns about your child's data, please email hanskepper52@gmail.com.
+          </div>
+        </div>
+        
+        <div id="section10" class="legal-section">
+          <h3><i class="fas fa-edit"></i> 10. Changes to This Policy</h3>
+          <p>We may update this Privacy Policy from time to time. When we make changes:</p>
+          <ul>
+            <li>The "Last updated" date at the top of this document will be modified</li>
+            <li>Users will be notified via in-app notification of significant changes</li>
+            <li>Continued use of SMART GRADE after changes constitutes acceptance of the new policy</li>
+          </ul>
+          <p>We encourage you to review this Privacy Policy periodically to stay informed about how we protect your information.</p>
+        </div>
+        
+        <div id="section11" class="legal-section">
+          <h3><i class="fas fa-envelope"></i> 11. Contact Information</h3>
+          <p>If you have any questions about this Privacy Policy or your data, please contact the developer:</p>
+          <ul>
+            <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
+            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
+            <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
+            <li><i class="fab fa-github"></i> <strong>GitHub:</strong> hanskepper</li>
+            <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
+            <li><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Foumban, West Region, Cameroon</li>
+          </ul>
+          <div class="highlight">
+            <i class="fas fa-clock"></i> <strong>Response Time:</strong> We typically respond to privacy-related inquiries within 48 hours.
+          </div>
+        </div>
+        
+        <div class="legal-date">
+          <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026<br>
+          <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
+          <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>
+          <i class="fas fa-copyright"></i> 2026-2027 HANS KEPPER. All rights reserved.<br>
+          <i class="fas fa-check-circle"></i> GDPR Compliant | COPPA Compliant
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    function updateHeaderAvatar() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          var headerAvatar = document.getElementById('headerAvatar');
+          if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function applyGlobalFont() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    updateHeaderAvatar();
+    initMobileMenu();
+    initThemeSelector();
+    applyGlobalFont();
+    
+    var fontObserver = new MutationObserver(function() { applyGlobalFont(); });
+    fontObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  </script>
+</body>
+</html>

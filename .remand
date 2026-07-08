@@ -1,0 +1,257 @@
+# ============================================
+# SMART GRADE v5.0 - REMAND CONFIGURATION
+# Ce fichier contient les règles globales de l'application
+# Accessible uniquement depuis:
+#   1. Settings > Advanced
+#   2. Support > System Info
+#   3. Developer Tools > Config (dev-config.html)
+# ============================================
+
+[GENERAL]
+app_name = "SMART GRADE"
+app_version = "5.0"
+app_codename = "Ultimate"
+build_date = "2026-07-08"
+developer = "HANS KEEPER"
+developer_email = "hanskepper52@gmail.com"
+developer_phone = "+237698640885"
+developer_github = "hanskepper"
+support_email = "hanskepper52@gmail.com"
+support_phone = "+237698640885"
+
+[SCHOOL]
+name = "SIN GBHS FOUMBAN"
+class = "Form 5B Science"
+year = "2026-2027"
+country = "Cameroon"
+city = "Foumban"
+region = "West"
+
+[FEATURES]
+qr_code_transfer = true
+fingerprint_auth = true
+cloud_backup = true
+auto_update = true
+offline_mode = true
+profile_photos = true
+flashcards = true
+goals = true
+timetable = true
+achievements = true
+streaks = true
+themes = true
+fonts = true
+notifications = true
+commands = true
+
+[LIMITS]
+max_backups = 50
+max_grades_per_subject = 100
+max_flashcards_per_subject = 100
+max_history_items = 200
+max_favorites = 6
+transfer_code_expiry_minutes = 10
+auto_save_interval_seconds = 30
+transfer_code_length = 6
+pin_length = 4
+max_storage_mb = 5
+auto_cleanup_days = 90
+
+[GRADING]
+max_grade = 20
+min_grade = 0
+passing_grade = 10
+excellent_grade = 16
+rounding_decimals = 2
+grading_scale = "0-20"
+
+[GRADING_LETTERS]
+A+_min = 18
+A_min = 16
+B+_min = 14
+B_min = 12
+C_min = 10
+D_min = 8
+F_min = 0
+
+[COEFFICIENTS]
+default_coefficient = 5
+min_coefficient = 1
+max_coefficient = 10
+
+[SUBJECTS]
+total = 14
+min_per_term = 10
+max_per_term = 14
+default_subjects = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+
+[SUBJECTS_LIST]
+1 = "COMPUTER SCIENCES"
+1_code = "CS"
+1_icon = "fa-laptop-code"
+2 = "MATHEMATICS"
+2_code = "MATH"
+2_icon = "fa-square-root-variable"
+3 = "CHEMISTRY"
+3_code = "CHM"
+3_icon = "fa-flask"
+4 = "HUMAN BIOLOGY"
+4_code = "HBIO"
+4_icon = "fa-dna"
+5 = "GEOLOGY"
+5_code = "GEL"
+5_icon = "fa-mountain"
+6 = "PHYSICS"
+6_code = "PHY"
+6_icon = "fa-atom"
+7 = "ADDITIONAL MATHEMATICS"
+7_code = "AMATH"
+7_icon = "fa-calculator"
+8 = "BIOLOGY"
+8_code = "BIO"
+8_icon = "fa-leaf"
+9 = "ECONOMICS"
+9_code = "ECO"
+9_icon = "fa-chart-line"
+10 = "ENGLISH LANGUAGE"
+10_code = "ENG"
+10_icon = "fa-language"
+11 = "GEOGRAPHY"
+11_code = "GEO"
+11_icon = "fa-earth-africa"
+12 = "CITIZENSHIP"
+12_code = "CIV"
+12_icon = "fa-landmark"
+13 = "FRENCH"
+13_code = "FR"
+13_icon = "fa-flag"
+14 = "FOOD AND NUTRITION"
+14_code = "FDN"
+14_icon = "fa-apple-whole"
+
+[SEQUENCES]
+term1_sequences = [1,2]
+term2_sequences = [3,4]
+term3_sequences = [5,6]
+
+[TERMS]
+term1_name = "Term 1"
+term1_months = "Sep-Dec"
+term2_name = "Term 2"
+term2_months = "Jan-Mar"
+term3_name = "Term 3"
+term3_months = "Apr-Jun"
+
+[THEMES]
+total = 20
+available = ["default", "crimson", "forest", "ocean", "royal", "sunset", "rose", "turquoise", "amber", "graphite", "lavender", "cherry", "midnight", "mint", "coral", "indigo", "chocolate", "electric", "steel", "lime"]
+night_mode_auto = true
+night_mode_start_hour = 20
+night_mode_end_hour = 6
+
+[THEMES_DETAILS]
+default_color = "#0f3b48"
+crimson_color = "#c0392b"
+forest_color = "#1e8449"
+ocean_color = "#006994"
+royal_color = "#6c3483"
+sunset_color = "#d35400"
+rose_color = "#c44569"
+turquoise_color = "#00897b"
+amber_color = "#b7950b"
+graphite_color = "#455a64"
+lavender_color = "#7b1fa2"
+cherry_color = "#b71c1c"
+midnight_color = "#1a237e"
+mint_color = "#00b894"
+coral_color = "#e74c3c"
+indigo_color = "#283593"
+chocolate_color = "#5d4037"
+electric_color = "#6a1b9a"
+steel_color = "#37474f"
+lime_color = "#558b2f"
+
+[FONTS]
+total = 12
+available = ["inter", "roboto", "cinzel", "quicksand", "courier-prime", "fredoka", "pacifico", "bangers", "lobster", "permanent-marker", "comfortaa", "righteous"]
+
+[ACHIEVEMENTS]
+total = 23
+streak_badges = 4
+achievement_badges = 19
+
+[ACHIEVEMENTS_LIST]
+1 = "First Grade"
+2 = "Perfect Score"
+3 = "High Average"
+4 = "Bookworm"
+5 = "Dedication"
+6 = "Scholar"
+7 = "Rising Star"
+8 = "Unstoppable"
+9 = "Subject Completion"
+10 = "Active Semester"
+11 = "Discipline Mastery"
+12 = "Study Progress"
+13 = "Full Achievement"
+14 = "Excellent Result"
+25 = "Comeback King"
+34 = "Theme Collector"
+36 = "Photo Uploader"
+38 = "Welcome Aboard"
+50 = "Font Collector"
+57 = "Timetable Viewer"
+58 = "Flashcard Beginner"
+59 = "Flashcard Master"
+
+[STREAK_BADGES]
+3 = "Beginner Streak"
+7 = "Regular Streak"
+15 = "Dedicated Streak"
+30 = "Legendary Streak"
+
+[STORAGE]
+type = "localStorage"
+auto_cleanup_days = 90
+max_size_mb = 5
+backup_compression = true
+
+[API]
+github_user = "hanskepper"
+github_repo = "SMART-GRADE-V5.-Ultimate."
+jsonbin_api_key = "$2a$10$gXi1FvyxfLFtIvUrOeYDEufAP0JhFpgz9lmicqKBBxyXgTHZTcAeK"
+
+[PWA]
+cache_name = "smartgrade-v5"
+cache_version = "20260708"
+offline_fallback = "offline.html"
+display_mode = "standalone"
+orientation = "portrait"
+
+[SECURITY]
+pin_attempts_before_lock = 5
+lock_duration_minutes = 15
+session_timeout_minutes = 30
+require_pin_for_backup_restore = true
+
+[NOTIFICATIONS]
+default_duration_seconds = 5
+max_notifications_stored = 200
+sound_enabled = true
+vibration_enabled = true
+
+[DEVELOPER_MODE]
+enabled_for = "HANS KEPPER"
+allowed_class = "B2"
+allowed_number = 9
+pages = ["dev-calculator.html", "dev-database.html", "dev-stats.html", "dev-logs.html", "dev-backup.html"]
+
+[LOGGING]
+log_level = "info"
+max_log_entries = 1000
+auto_export_on_error = true
+
+[MAINTENANCE]
+last_cleanup = "2026-07-08"
+auto_cleanup_enabled = true
+cleanup_frequency_days = 30

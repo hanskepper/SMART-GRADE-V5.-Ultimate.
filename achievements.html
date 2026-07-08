@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Achievements</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .progress-section {
+      text-align: center;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    .big-progress {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .progress-bar {
+      background: rgba(0,0,0,0.08);
+      border-radius: 30px;
+      height: 12px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      height: 100%;
+      border-radius: 30px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .badge-card {
+      display: flex;
+      gap: 14px;
+      padding: 16px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    
+    .badge-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    .badge-card.locked {
+      opacity: 0.6;
+      filter: grayscale(0.3);
+    }
+    
+    .badge-card.unlocked {
+      border-left: 4px solid #2ecc71;
+    }
+    
+    .badge-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      color: white;
+    }
+    
+    .badge-icon.unlocked {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    
+    .badge-icon.locked {
+      background: #95a5a6;
+    }
+    
+    .badge-info {
+      flex: 1;
+    }
+    
+    .badge-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+    
+    .badge-desc {
+      font-size: 0.65rem;
+      color: var(--text-light);
+      margin-bottom: 6px;
+    }
+    
+    .badge-status {
+      font-size: 0.6rem;
+      margin-top: 4px;
+    }
+    
+    .badge-status.unlocked {
+      color: #2ecc71;
+    }
+    
+    .badge-status.locked {
+      color: #95a5a6;
+    }
+    
+    .badge-progress {
+      margin-top: 8px;
+      height: 4px;
+      background: rgba(0,0,0,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .badge-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      width: 0%;
+      border-radius: 4px;
+    }
+    
+    .streak-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+    }
+    
+    .streak-card.locked {
+      opacity: 0.6;
+    }
+    
+    .streak-card.unlocked {
+      border-left: 4px solid #f39c12;
+    }
+    
+    .streak-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    
+    .streak-info {
+      flex: 1;
+    }
+    
+    .streak-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    
+    .streak-desc {
+      font-size: 0.65rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+    
+    .streak-progress {
+      font-size: 0.6rem;
+      font-weight: 600;
+      min-width: 70px;
+      text-align: right;
+    }
+    
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 16px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+    }
+    
+    .streak-history {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .streak-history-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    /* ============================================
+       BADGES - GRILLE ORDONNÉE (CORRIGÉ)
+       ============================================ */
+    .badge-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .badge-item {
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.65rem;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge-item i {
+      color: #f39c12;
+      margin-right: 4px;
+    }
+
+    .streak-history-badges {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      max-height: 180px;
+      overflow-y: auto;
+      padding: 8px 4px;
+    }
+
+    .history-badge {
+      padding: 6px 8px;
+      border-radius: 20px;
+      font-size: 0.55rem;
+      font-weight: 600;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      min-width: 0;
+    }
+
+    @media (max-width: 600px) {
+      .badge-list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .streak-history-badges {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 400px) {
+      .badge-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .streak-history-badges {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 550px) {
+      .badges-grid {
+        grid-template-columns: 1fr;
+      }
+      .streak-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .streak-progress {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-medal"></i><span>ACHIEVEMENTS</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="achievements.html" class="nav-item active"><i class="fas fa-medal"></i> Achievements</a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
+        <i class="fas fa-trophy" style="font-size:40px;opacity:0.5;"></i>
+        <h2 style="color:white;margin:8px 0;">Achievements</h2>
+        <p style="opacity:0.8;font-size:0.7rem;">Unlock badges by using SMART GRADE</p>
+      </div>
+      
+      <div class="progress-section">
+        <i class="fas fa-chart-line" style="font-size:24px;color:var(--primary);"></i>
+        <div class="big-progress" id="progressPercent">0%</div>
+        <div style="font-size:0.7rem;color:var(--text-light);">
+          <span id="unlockedCount">0</span> / <span id="totalCount">0</span> Badges Unlocked
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+        </div>
+        <div style="margin-top:8px;font-size:0.6rem;color:var(--text-light);">
+          <i class="fas fa-fire"></i> Current Streak: <strong id="streakDays">0</strong> days
+        </div>
+      </div>
+      
+      <!-- STREAK BADGES -->
+      <div class="glass-card">
+        <div class="section-title">
+          <i class="fas fa-fire" style="color:#f39c12;"></i> Active Streak Badges
+          <span style="font-size:0.55rem; margin-left:auto;">Next milestones</span>
+        </div>
+        <div id="streakList"></div>
+        
+        <!-- HISTORIQUE DES BADGES DE STREAK DÉBLOQUÉS -->
+        <div class="streak-history" id="streakHistoryContainer" style="display:none;">
+          <div class="streak-history-title">
+            <i class="fas fa-history"></i> Unlocked Streak Badges
+          </div>
+          <div id="streakHistory" class="streak-history-badges"></div>
+        </div>
+      </div>
+      
+      <!-- ACHIEVEMENT BADGES -->
+      <div class="glass-card">
+        <div class="section-title">
+          <i class="fas fa-medal" style="color:var(--primary);"></i> Achievement Badges
+        </div>
+        <div id="achievementsList" class="badges-grid"></div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // STREAK INFINI - SYSTÈME COMPLET
+    // Seuls 4 badges sont visibles à la fois
+    // Après 30 jours, les 4 badges changent
+    // ============================================
+    
+    var currentUser = null;
+    
+    // Noms des badges par cycle (infini)
+    var CYCLE_NAMES = [
+      { 3: "Starter", 7: "Rising", 15: "Advanced", 30: "Master", prefix: "Beginner" },
+      { 3: "Bronze", 7: "Silver", 15: "Gold", 30: "Platinum", prefix: "Elite" },
+      { 3: "Emerald", 7: "Ruby", 15: "Sapphire", 30: "Diamond", prefix: "Royal" },
+      { 3: "Obsidian", 7: "Crystal", 15: "Amethyst", 30: "Pearl", prefix: "Legendary" },
+      { 3: "Phoenix", 7: "Titan", 15: "Cosmic", 30: "Eternal", prefix: "Mythic" },
+      { 3: "Thunder", 7: "Storm", 15: "Hurricane", 30: "Cyclone", prefix: "Elemental" },
+      { 3: "Shadow", 7: "Phantom", 15: "Ghost", 30: "Spectre", prefix: "Dark" },
+      { 3: "Blaze", 7: "Inferno", 15: "Volcano", 30: "Supernova", prefix: "Fire" },
+      { 3: "Frost", 7: "Glacier", 15: "Avalanche", 30: "Ice Age", prefix: "Frozen" },
+      { 3: "Viper", 7: "Cobra", 15: "Python", 30: "Dragon", prefix: "Serpent" },
+      { 3: "Eagle", 7: "Hawk", 15: "Falcon", 30: "Phoenix", prefix: "Sky" },
+      { 3: "Wolf", 7: "Tiger", 15: "Lion", 30: "King", prefix: "Beast" },
+      { 3: "Mystic", 7: "Arcane", 15: "Enchanted", 30: "Divine", prefix: "Magic" },
+      { 3: "Steel", 7: "Iron", 15: "Titanium", 30: "Adamant", prefix: "Metal" },
+      { 3: "Nebula", 7: "Galaxy", 15: "Universe", 30: "Infinity", prefix: "Space" }
+    ];
+    
+    // Générer le nom du badge en fonction du cycle
+    function getStreakBadgeName(cycle, milestone) {
+      var cycleIndex = cycle % CYCLE_NAMES.length;
+      var cycleData = CYCLE_NAMES[cycleIndex];
+      var name = cycleData.prefix + " " + (cycleData[milestone] || "Streak");
+      var colors = [
+        "#2ecc71", "#f39c12", "#e74c3c", "#3498db", "#9b59b6", 
+        "#1abc9c", "#e67e22", "#00bcd4", "#ff6b6b", "#ffd93d",
+        "#6c5ce7", "#a8e6cf", "#ff8b94", "#95e77a", "#d4a5a5"
+      ];
+      var color = colors[cycleIndex % colors.length];
+      return { name: name, color: color };
+    }
+    
+    // Récupérer les 4 badges de streak ACTIFS (les prochains à atteindre)
+    function getActiveStreakBadges(currentDays) {
+      var milestones = [3, 7, 15, 30];
+      var cycleNumber = Math.floor(currentDays / 30);
+      var cycleStart = cycleNumber * 30;
+      
+      var activeBadges = [];
+      for (var i = 0; i < milestones.length; i++) {
+        var target = cycleStart + milestones[i];
+        if (target > currentDays) {
+          var badgeInfo = getStreakBadgeName(cycleNumber, milestones[i]);
+          activeBadges.push({
+            daysRequired: target,
+            name: badgeInfo.name,
+            color: badgeInfo.color,
+            currentDays: currentDays,
+            progress: Math.min(100, Math.round((currentDays / target) * 100))
+          });
+        }
+      }
+      
+      // Si tous les badges du cycle sont dépassés, passer au cycle suivant
+      if (activeBadges.length === 0) {
+        cycleNumber++;
+        cycleStart = cycleNumber * 30;
+        for (var i = 0; i < milestones.length; i++) {
+          var target = cycleStart + milestones[i];
+          var badgeInfo = getStreakBadgeName(cycleNumber, milestones[i]);
+          activeBadges.push({
+            daysRequired: target,
+            name: badgeInfo.name,
+            color: badgeInfo.color,
+            currentDays: currentDays,
+            progress: Math.min(100, Math.round((currentDays / target) * 100))
+          });
+        }
+      }
+      
+      return activeBadges;
+    }
+    
+    // Récupérer les badges déjà débloqués (pour l'historique)
+    function getUnlockedStreakBadges(currentDays) {
+      var milestones = [3, 7, 15, 30];
+      var maxCycle = Math.floor(currentDays / 30);
+      var unlocked = [];
+      
+      for (var cycle = 0; cycle <= maxCycle; cycle++) {
+        var cycleStart = cycle * 30;
+        for (var i = 0; i < milestones.length; i++) {
+          var target = cycleStart + milestones[i];
+          if (currentDays >= target) {
+            var badgeInfo = getStreakBadgeName(cycle, milestones[i]);
+            unlocked.push({
+              days: target,
+              name: badgeInfo.name,
+              color: badgeInfo.color
+            });
+          }
+        }
+      }
+      
+      return unlocked;
+    }
+    
+    // Afficher les 4 badges de streak actifs
+    function displayStreakBadges(streakDays) {
+      var activeBadges = getActiveStreakBadges(streakDays);
+      var container = document.getElementById('streakList');
+      
+      if (activeBadges.length === 0) {
+        container.innerHTML = '<div class="streak-card locked" style="justify-content:center;"><div class="streak-info"><div class="streak-name">Infinite Streak!</div><div class="streak-desc">Keep going to unlock more badges!</div></div></div>';
+        return;
+      }
+      
+      var html = '';
+      for (var i = 0; i < activeBadges.length; i++) {
+        var badge = activeBadges[i];
+        var progress = badge.progress;
+        
+        html += '<div class="streak-card locked">' +
+          '<div class="streak-icon" style="background: ' + badge.color + '; color: white;">' +
+            '<i class="fas fa-infinity"></i>' +
+          '</div>' +
+          '<div class="streak-info">' +
+            '<div class="streak-name">' + badge.name + '</div>' +
+            '<div class="streak-desc">Reach ' + badge.daysRequired + ' days streak</div>' +
+            '<div class="badge-progress"><div class="badge-progress-fill" style="width: ' + progress + '%;"></div></div>' +
+          '</div>' +
+          '<div class="streak-progress">' +
+            badge.currentDays + ' / ' + badge.daysRequired + ' days' +
+          '</div>' +
+        '</div>';
+      }
+      container.innerHTML = html;
+    }
+    
+    // Afficher l'historique des badges débloqués
+    function displayStreakHistory(streakDays) {
+      var unlocked = getUnlockedStreakBadges(streakDays);
+      var container = document.getElementById('streakHistory');
+      var historyContainer = document.getElementById('streakHistoryContainer');
+      
+      if (unlocked.length === 0) {
+        if (historyContainer) historyContainer.style.display = 'none';
+        return;
+      }
+      
+      if (historyContainer) historyContainer.style.display = 'block';
+      
+      var html = '';
+      for (var i = 0; i < unlocked.length; i++) {
+        var badge = unlocked[i];
+        html += '<div class="history-badge" style="background:' + badge.color + ';">' + badge.name + ' (' + badge.days + 'd)</div>';
+      }
+      container.innerHTML = html;
+    }
+    
+    // ============================================
+    // ACHIEVEMENT BADGES (22 badges)
+    // ============================================
+    
+    var ALL_BADGES = [
+      { id: 38, name: 'Welcome Aboard', desc: 'First login after installation', icon: 'fa-door-open', color: '#3498db' },
+      { id: 36, name: 'Photo Uploader', desc: 'Add a profile photo', icon: 'fa-camera', color: '#9b59b6' },
+      { id: 1, name: 'First Grade', desc: 'Add your very first grade', icon: 'fa-pen', color: '#e74c3c' },
+      { id: 2, name: 'Perfect Score', desc: 'Get 20/20 in any subject', icon: 'fa-star', color: '#f1c40f' },
+      { id: 3, name: 'High Average', desc: 'Overall average 12/20 and above', icon: 'fa-arrow-up', color: '#2ecc71' },
+      { id: 4, name: 'Bookworm', desc: 'Record 10+ grades', icon: 'fa-book-open', color: '#e67e22' },
+      { id: 5, name: 'Dedication', desc: 'Record 30+ grades', icon: 'fa-fire', color: '#e74c3c' },
+      { id: 6, name: 'Scholar', desc: 'Unlock 8 achievements', icon: 'fa-graduation-cap', color: '#8e44ad' },
+      { id: 7, name: 'Rising Star', desc: 'Improve by 1+ point in a term', icon: 'fa-rocket', color: '#3498db' },
+      { id: 8, name: 'Unstoppable', desc: 'All 3 terms have grades entered', icon: 'fa-bolt', color: '#f39c12' },
+      { id: 9, name: 'Subject Completion', desc: 'Add grades in all subjects of a term', icon: 'fa-check-double', color: '#27ae60' },
+      { id: 10, name: 'Active Semester', desc: 'Complete a full term', icon: 'fa-calendar-check', color: '#1abc9c' },
+      { id: 11, name: 'Discipline Mastery', desc: 'Average above 15 in one subject', icon: 'fa-crown', color: '#f1c40f' },
+      { id: 12, name: 'Study Progress', desc: 'Record 25+ grades', icon: 'fa-chart-bar', color: '#3498db' },
+      { id: 13, name: 'Full Achievement', desc: 'Unlock ALL achievement badges', icon: 'fa-trophy', color: '#f39c12' },
+      { id: 14, name: 'Excellent Result', desc: 'Get 20/20 in a subject', icon: 'fa-medal', color: '#e74c3c' },
+      { id: 25, name: 'Comeback King', desc: 'Improve by 5+ points in any subject', icon: 'fa-arrow-trend-up', color: '#2ecc71' },
+      { id: 34, name: 'Theme Collector', desc: 'Try 10 different themes', icon: 'fa-palette', color: '#9b59b6' },
+      { id: 50, name: 'Font Collector', desc: 'Try 6 different fonts', icon: 'fa-font', color: '#3498db' },
+      { id: 57, name: 'Timetable Viewer', desc: 'View timetable 10 times', icon: 'fa-calendar-alt', color: '#e67e22' },
+      { id: 58, name: 'Flashcard Beginner', desc: 'Create 5 custom flashcards', icon: 'fa-clone', color: '#1abc9c' },
+      { id: 59, name: 'Flashcard Master', desc: 'Create 10 custom flashcards', icon: 'fa-layer-group', color: '#e74c3c' }
+    ];
+    
+    function getUnlockedBadges() {
+      if (!currentUser) return [];
+      var achievements = JSON.parse(localStorage.getItem('smartgrade_achievements_' + currentUser.id) || '[]');
+      var unlockedIds = [];
+      for (var i = 0; i < achievements.length; i++) {
+        if (achievements[i].unlocked) unlockedIds.push(achievements[i].id);
+      }
+      return unlockedIds;
+    }
+    
+    function isBadgeUnlocked(badgeId) {
+      var unlocked = getUnlockedBadges();
+      for (var i = 0; i < unlocked.length; i++) {
+        if (unlocked[i] === badgeId) return true;
+      }
+      return false;
+    }
+    
+    function getUnlockDate(badgeId) {
+      if (!currentUser) return null;
+      var achievements = JSON.parse(localStorage.getItem('smartgrade_achievements_' + currentUser.id) || '[]');
+      for (var i = 0; i < achievements.length; i++) {
+        if (achievements[i].id === badgeId) {
+          return achievements[i].unlockDate || null;
+        }
+      }
+      return null;
+    }
+    
+    function displayAchievementBadges() {
+      var container = document.getElementById('achievementsList');
+      var unlockedCount = 0;
+      
+      var html = '';
+      for (var i = 0; i < ALL_BADGES.length; i++) {
+        var badge = ALL_BADGES[i];
+        var isUnlocked = isBadgeUnlocked(badge.id);
+        var unlockDate = getUnlockDate(badge.id);
+        if (isUnlocked) unlockedCount++;
+        
+        var statusHtml = '';
+        if (isUnlocked) {
+          statusHtml = '<div class="badge-status unlocked"><i class="fas fa-check-circle"></i> Unlocked: ' + (unlockDate || 'Recently') + '</div>';
+        } else {
+          statusHtml = '<div class="badge-status locked"><i class="fas fa-lock"></i> Locked - Keep using the app!</div>';
+        }
+        
+        html += '<div class="badge-card ' + (isUnlocked ? 'unlocked' : 'locked') + '">' +
+          '<div class="badge-icon ' + (isUnlocked ? 'unlocked' : 'locked') + '" style="background: ' + (isUnlocked ? badge.color : '#95a5a6') + ';">' +
+            '<i class="fas ' + badge.icon + '"></i>' +
+          '</div>' +
+          '<div class="badge-info">' +
+            '<div class="badge-name">' + badge.name + '</div>' +
+            '<div class="badge-desc">' + badge.desc + '</div>' +
+            statusHtml +
+          '</div>' +
+        '</div>';
+      }
+      
+      container.innerHTML = html;
+      
+      var totalBadges = ALL_BADGES.length;
+      document.getElementById('unlockedCount').innerHTML = unlockedCount;
+      document.getElementById('totalCount').innerHTML = totalBadges;
+      var percent = totalBadges > 0 ? Math.round((unlockedCount / totalBadges) * 100) : 0;
+      document.getElementById('progressPercent').innerHTML = percent + '%';
+      document.getElementById('progressFill').style.width = percent + '%';
+    }
+    
+    // FORCER le déblocage du badge Welcome Aboard
+    function forceUnlockWelcomeAboard() {
+      if (!currentUser) return;
+      
+      var achievements = JSON.parse(localStorage.getItem('smartgrade_achievements_' + currentUser.id) || '[]');
+      var alreadyUnlocked = false;
+      
+      for (var i = 0; i < achievements.length; i++) {
+        if (achievements[i].id === 38 && achievements[i].unlocked) {
+          alreadyUnlocked = true;
+          break;
+        }
+      }
+      
+      if (!alreadyUnlocked) {
+        achievements.push({
+          id: 38,
+          name: "Welcome Aboard",
+          desc: "First login after installation",
+          unlocked: true,
+          unlockDate: new Date().toLocaleDateString(),
+          notified: false
+        });
+        localStorage.setItem('smartgrade_achievements_' + currentUser.id, JSON.stringify(achievements));
+      }
+    }
+    
+    // Charger les achievements
+    function loadAchievements() {
+      currentUser = getCurrentStudent();
+      if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      forceUnlockWelcomeAboard();
+      
+      var streak = getStudentStreak(currentUser.id);
+      var streakDays = streak ? streak.days : 0;
+      document.getElementById('streakDays').innerHTML = streakDays;
+      
+      displayStreakBadges(streakDays);
+      displayStreakHistory(streakDays);
+      displayAchievementBadges();
+      updateHeaderProfile();
+      
+      if (typeof checkAndUnlockAllNewBadges === 'function') {
+        setTimeout(function() {
+          checkAndUnlockAllNewBadges(currentUser.id);
+          displayAchievementBadges();
+        }, 500);
+      }
+    }
+    
+    function updateHeaderProfile() {
+      var headerAvatar = document.getElementById('headerAvatar');
+      if (!headerAvatar) return;
+      try {
+        var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + currentUser.id) || '{}');
+        if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+          headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+        } else {
+          headerAvatar.innerHTML = '<i class="fas fa-user-graduate"></i>';
+        }
+      } catch(e) {
+        headerAvatar.innerHTML = '<i class="fas fa-user-graduate"></i>';
+      }
+    }
+    
+    // Rafraîchir périodiquement
+    setInterval(function() {
+      if (currentUser) {
+        var streak = getStudentStreak(currentUser.id);
+        var streakDays = streak ? streak.days : 0;
+        document.getElementById('streakDays').innerHTML = streakDays;
+        displayStreakBadges(streakDays);
+        displayStreakHistory(streakDays);
+      }
+    }, 5000);
+    
+    loadAchievements();
+    initMobileMenu();
+    initThemeSelector();
+  </script>
+</body>
+</html>

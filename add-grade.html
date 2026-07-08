@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Add Grade</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    /* ============================================
+       ADD GRADE - STYLES MODERNES
+       ============================================ */
+    
+    .grade-header-card {
+      text-align:center;
+      padding:20px 16px;
+      border-radius:20px;
+      color:white;
+      margin-bottom:12px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      position:relative;
+      overflow:hidden;
+    }
+    .grade-header-card::before {
+      content:'';
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index:0;
+    }
+    @keyframes stripeMove { 0%{background-position:0 0} 100%{background-position:40px 0} }
+    .grade-header-card > * { position:relative; z-index:1; }
+    
+    .grade-big-number {
+      font-size:2.8rem;
+      font-weight:800;
+    }
+    .grade-label {
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      opacity:0.8;
+    }
+    
+    /* ============================================
+       ONGLETS TRIMESTRES
+       ============================================ */
+    .term-tabs-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 4px;
+      border: 1px solid var(--border);
+    }
+    .term-tab-btn {
+      flex: 1;
+      padding: 10px 0;
+      border-radius: 12px;
+      border: none;
+      background: transparent;
+      color: var(--text-light);
+      font-weight: 600;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .term-tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 2px 8px rgba(15,59,72,0.2);
+    }
+    .term-tab-btn:active { transform: scale(0.95); }
+    
+    /* ============================================
+       STATS - GRILLE
+       ============================================ */
+    .grade-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .grade-stat-card {
+      text-align: center;
+      padding: 12px 8px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+    .grade-stat-value {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .grade-stat-label {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+    
+    /* ============================================
+       TABLEAU MODERNE
+       ============================================ */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -4px;
+      padding: 0 4px;
+    }
+    .grade-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.7rem;
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .grade-table th {
+      background: var(--primary);
+      color: white;
+      padding: 10px 6px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .grade-table td {
+      padding: 8px 6px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .grade-table .subject-name {
+      text-align: left;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .grade-table .subject-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.65rem;
+      flex-shrink: 0;
+    }
+    .grade-table input {
+      width: 70px;
+      padding: 8px 4px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .grade-table input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(15,59,72,0.1);
+    }
+    .grade-table input.invalid {
+      border-color: #e74c3c;
+      background: rgba(231,76,60,0.05);
+    }
+    .grade-table .avg-col {
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+    .grade-table .avg-col.excellent { color: #2ecc71; }
+    .grade-table .avg-col.verygood { color: #3498db; }
+    .grade-table .avg-col.good { color: #f39c12; }
+    .grade-table .avg-col.average { color: #e67e22; }
+    .grade-table .avg-col.needs { color: #e74c3c; }
+    
+    .coeff-col {
+      font-weight: 700;
+      width: 50px;
+      font-size: 0.7rem;
+    }
+    
+    /* ============================================
+       BOUTON SAUVEGARDE
+       ============================================ */
+    .save-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 40px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .save-btn:active { transform: scale(0.96); }
+    
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 600px) {
+      .grade-big-number { font-size: 2.2rem; }
+      .grade-stats-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .grade-stat-value { font-size: 1rem; }
+      .grade-table { font-size: 0.6rem; }
+      .grade-table th { font-size: 0.55rem; padding: 8px 4px; }
+      .grade-table td { padding: 6px 4px; }
+      .grade-table input { width: 55px; padding: 6px 2px; font-size: 0.7rem; }
+      .term-tab-btn { font-size: 0.6rem; padding: 8px 0; }
+    }
+    @media (max-width: 400px) {
+      .grade-stats-grid { grid-template-columns: 1fr 1fr 1fr; gap: 4px; }
+      .grade-stat-card { padding: 8px 4px; }
+      .grade-stat-value { font-size: 0.9rem; }
+      .grade-table input { width: 45px; padding: 4px 2px; font-size: 0.65rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-pen-fancy"></i><span>ADD GRADE</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="add-grade.html" class="nav-item active"><i class="fas fa-pen-fancy"></i> Add Grade</a>
+        <a href="term1.html" class="nav-item"><i class="fas fa-1"></i> Term 1</a>
+        <a href="term2.html" class="nav-item"><i class="fas fa-2"></i> Term 2</a>
+        <a href="term3.html" class="nav-item"><i class="fas fa-3"></i> Term 3</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content" style="display:flex;flex-direction:column;padding:12px 16px;overflow:hidden;height:100%;">
+      
+      <!-- EN-TÊTE -->
+      <div class="grade-header-card">
+        <div class="grade-label">Current Average</div>
+        <div class="grade-big-number" id="termAverage">0.00</div>
+      </div>
+      
+      <!-- STATS -->
+      <div class="grade-stats-grid">
+        <div class="grade-stat-card">
+          <div class="grade-stat-value" id="statSubjects">0</div>
+          <div class="grade-stat-label">Subjects</div>
+        </div>
+        <div class="grade-stat-card">
+          <div class="grade-stat-value" id="statGrades">0</div>
+          <div class="grade-stat-label">Grades</div>
+        </div>
+        <div class="grade-stat-card">
+          <div class="grade-stat-value" id="statPassing">0%</div>
+          <div class="grade-stat-label">Passing</div>
+        </div>
+      </div>
+      
+      <!-- ONGLETS TRIMESTRES -->
+      <div class="term-tabs-row" id="termTabs">
+        <div class="term-tab-btn active" data-term="1"><i class="fas fa-1"></i> Term 1</div>
+        <div class="term-tab-btn" data-term="2"><i class="fas fa-2"></i> Term 2</div>
+        <div class="term-tab-btn" data-term="3"><i class="fas fa-3"></i> Term 3</div>
+      </div>
+      
+      <!-- TABLEAU -->
+      <div class="glass-card" style="flex:1;padding:0;overflow:hidden;display:flex;flex-direction:column;">
+        <div class="table-wrapper" style="flex:1;">
+          <table class="grade-table" id="gradeTable">
+            <thead id="tableHeader"></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- BOUTON SAUVEGARDE -->
+      <button class="save-btn" onclick="saveAllGrades()">
+        <i class="fas fa-save"></i> Save All Grades
+      </button>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // ADD GRADE - LOGIQUE COMPLÈTE
+    // ============================================
+    
+    var currentUser = null;
+    var currentTerm = 1;
+    var subjectColors = ['#3498db','#e74c3c','#9b59b6','#2ecc71','#e67e22','#00bcd4','#f39c12','#1abc9c','#27ae60','#2980b9','#c0392b','#8e44ad','#16a085','#d35400'];
+    
+    var allSubjects = [
+      {id:1,name:"COMPUTER SCIENCES",icon:"fa-laptop-code"},
+      {id:2,name:"MATHEMATICS",icon:"fa-square-root-variable"},
+      {id:3,name:"CHEMISTRY",icon:"fa-flask"},
+      {id:4,name:"HUMAN BIOLOGY",icon:"fa-dna"},
+      {id:5,name:"GEOLOGY",icon:"fa-mountain"},
+      {id:6,name:"PHYSICS",icon:"fa-atom"},
+      {id:7,name:"ADDITIONAL MATHEMATICS",icon:"fa-calculator"},
+      {id:8,name:"BIOLOGY",icon:"fa-leaf"},
+      {id:9,name:"ECONOMICS",icon:"fa-chart-line"},
+      {id:10,name:"ENGLISH LANGUAGE",icon:"fa-language"},
+      {id:11,name:"GEOGRAPHY",icon:"fa-earth-africa"},
+      {id:12,name:"CITIZENSHIP",icon:"fa-landmark"},
+      {id:13,name:"FRENCH",icon:"fa-flag"},
+      {id:14,name:"FOOD AND NUTRITION",icon:"fa-apple-whole"}
+    ];
+    
+    // ============================================
+    // TOAST
+    // ============================================
+    
+    var lastToastMessage = '';
+    var lastToastTime = 0;
+    
+    function showUniqueToast(message) {
+      var now = Date.now();
+      if (message === lastToastMessage && now - lastToastTime < 3000) return;
+      lastToastMessage = message;
+      lastToastTime = now;
+      
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+      container.appendChild(toast);
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        setTimeout(function() { if (toast.parentNode) toast.remove(); }, 300);
+      }, 3000);
+    }
+    
+    function showToast(message) {
+      showUniqueToast(message);
+    }
+    
+    // ============================================
+    // VALIDATION DES NOTES
+    // ============================================
+    
+    function validateAndConvertGrade(value) {
+      if (value === '' || value === null || value === undefined) return '';
+      var strValue = String(value).trim();
+      strValue = strValue.replace(',', '.');
+      var num = parseFloat(strValue);
+      if (isNaN(num)) return '';
+      if (num < 0) return '0';
+      if (num > 20) return '20';
+      return Math.round(num * 100) / 100;
+    }
+    
+    function isValidGrade(value) {
+      if (value === '' || value === null || value === undefined) return false;
+      var num = parseFloat(String(value).replace(',', '.'));
+      return !isNaN(num) && num >= 0 && num <= 20;
+    }
+    
+    function getGradeClass(avg) {
+      if (avg >= 16) return 'excellent';
+      if (avg >= 14) return 'verygood';
+      if (avg >= 12) return 'good';
+      if (avg >= 10) return 'average';
+      if (avg > 0) return 'needs';
+      return '';
+    }
+    
+    // ============================================
+    // CHARGEMENT
+    // ============================================
+    
+    function loadAddGrade() {
+      currentUser = requireAuth();
+      if (!currentUser) return;
+      
+      var subjects = getActiveSubjectsWithCoefficients(currentUser.id, currentTerm);
+      var grades = getStudentGrades(currentUser.id);
+      var seq1 = (currentTerm - 1) * 2 + 1;
+      var seq2 = seq1 + 1;
+      
+      // Stats
+      document.getElementById('statSubjects').innerHTML = subjects.length;
+      var totalGrades = 0;
+      var passingCount = 0;
+      for (var i = 0; i < subjects.length; i++) {
+        var s = subjects[i];
+        var g1 = null, g2 = null;
+        for (var k = 0; k < grades.length; k++) {
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq1) g1 = grades[k];
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq2) g2 = grades[k];
+        }
+        if (g1) { totalGrades++; if (g1.value >= 10) passingCount++; }
+        if (g2) { totalGrades++; if (g2.value >= 10) passingCount++; }
+      }
+      document.getElementById('statGrades').innerHTML = totalGrades;
+      var passingPercent = totalGrades > 0 ? Math.round((passingCount / totalGrades) * 100) : 0;
+      document.getElementById('statPassing').innerHTML = passingPercent + '%';
+      
+      // Header
+      var termAvg = calculateStudentTermAverage(currentUser.id, currentTerm);
+      document.getElementById('termAverage').innerHTML = termAvg.toFixed(2);
+      
+      // Table Header
+      var headerHtml = '<tr><th style="text-align:left;">SUBJECT</th><th>COEFF</th><th>SEQ ' + seq1 + '</th><th>SEQ ' + seq2 + '</th><th>AVERAGE</th></tr>';
+      document.getElementById('tableHeader').innerHTML = headerHtml;
+      
+      // Table Body
+      var bodyHtml = '';
+      for (var i = 0; i < subjects.length; i++) {
+        var s = subjects[i];
+        var g1 = null, g2 = null;
+        for (var k = 0; k < grades.length; k++) {
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq1) g1 = grades[k];
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq2) g2 = grades[k];
+        }
+        var v1 = g1 ? g1.value : '';
+        var v2 = g2 ? g2.value : '';
+        var avg = (v1 !== '' && v2 !== '') ? ((parseFloat(v1) + parseFloat(v2)) / 2).toFixed(2) : '--';
+        var avgClass = avg !== '--' ? getGradeClass(parseFloat(avg)) : '';
+        
+        bodyHtml += '<tr>' +
+          '<td class="subject-name">' +
+            '<div class="subject-icon" style="background:' + (subjectColors[i % subjectColors.length] || '#3498db') + ';">' +
+              '<i class="fas ' + s.icon + '"></i>' +
+            '</div>' +
+            '<span>' + s.name + '</span>' +
+          '</td>' +
+          '<td class="coeff-col">' + s.coefficient + '</td>' +
+          '<td><input type="number" step="any" min="0" max="20" inputmode="decimal" class="grade-input" data-subj="' + s.id + '" data-seq="' + seq1 + '" value="' + (v1 !== '' ? v1 : '') + '" placeholder="0-20"></td>' +
+          '<td><input type="number" step="any" min="0" max="20" inputmode="decimal" class="grade-input" data-subj="' + s.id + '" data-seq="' + seq2 + '" value="' + (v2 !== '' ? v2 : '') + '" placeholder="0-20"></td>' +
+          '<td class="avg-col ' + avgClass + '" id="avg-' + s.id + '">' + avg + '</td>' +
+        '</tr>';
+      }
+      document.getElementById('tableBody').innerHTML = bodyHtml;
+      
+      // Ajouter les événements
+      document.querySelectorAll('.grade-input').forEach(function(input) {
+        input.addEventListener('input', function() {
+          var rawValue = this.value;
+          var converted = validateAndConvertGrade(rawValue);
+          if (converted !== '' && converted != rawValue) this.value = converted;
+          if (isValidGrade(this.value)) this.classList.remove('invalid');
+          else if (this.value !== '') this.classList.add('invalid');
+          else this.classList.remove('invalid');
+          updateAverageForSubject(parseInt(this.dataset.subj));
+          updateStats();
+        });
+        input.addEventListener('blur', function() {
+          if (this.value === '') this.classList.remove('invalid');
+          updateAverageForSubject(parseInt(this.dataset.subj));
+          updateStats();
+        });
+      });
+      
+      initHeaderProfile();
+    }
+    
+    // ============================================
+    // MISE À JOUR
+    // ============================================
+    
+    function updateAverageForSubject(subjectId) {
+      var seq1 = (currentTerm - 1) * 2 + 1;
+      var seq2 = seq1 + 1;
+      var input1 = document.querySelector('.grade-input[data-subj="' + subjectId + '"][data-seq="' + seq1 + '"]');
+      var input2 = document.querySelector('.grade-input[data-subj="' + subjectId + '"][data-seq="' + seq2 + '"]');
+      var avgCell = document.getElementById('avg-' + subjectId);
+      
+      var val1 = input1 && isValidGrade(input1.value) ? parseFloat(String(input1.value).replace(',', '.')) : NaN;
+      var val2 = input2 && isValidGrade(input2.value) ? parseFloat(String(input2.value).replace(',', '.')) : NaN;
+      
+      var avg = '--';
+      var avgClass = '';
+      if (!isNaN(val1) && !isNaN(val2)) {
+        var avgVal = (val1 + val2) / 2;
+        avg = avgVal.toFixed(2);
+        avgClass = getGradeClass(avgVal);
+      } else if (!isNaN(val1)) {
+        avg = val1.toFixed(2);
+        avgClass = getGradeClass(val1);
+      } else if (!isNaN(val2)) {
+        avg = val2.toFixed(2);
+        avgClass = getGradeClass(val2);
+      }
+      if (avgCell) {
+        avgCell.innerHTML = avg;
+        avgCell.className = 'avg-col ' + avgClass;
+      }
+    }
+    
+    function updateStats() {
+      var subjects = getActiveSubjectsWithCoefficients(currentUser.id, currentTerm);
+      var grades = getStudentGrades(currentUser.id);
+      var seq1 = (currentTerm - 1) * 2 + 1;
+      var seq2 = seq1 + 1;
+      
+      var totalGrades = 0;
+      var passingCount = 0;
+      for (var i = 0; i < subjects.length; i++) {
+        var s = subjects[i];
+        var g1 = null, g2 = null;
+        for (var k = 0; k < grades.length; k++) {
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq1) g1 = grades[k];
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq2) g2 = grades[k];
+        }
+        if (g1) { totalGrades++; if (g1.value >= 10) passingCount++; }
+        if (g2) { totalGrades++; if (g2.value >= 10) passingCount++; }
+      }
+      
+      // Ajouter les valeurs des inputs non sauvegardées
+      var inputs = document.querySelectorAll('.grade-input');
+      inputs.forEach(function(input) {
+        if (input.value !== '' && isValidGrade(input.value)) {
+          var val = parseFloat(input.value);
+          totalGrades++;
+          if (val >= 10) passingCount++;
+        }
+      });
+      
+      document.getElementById('statGrades').innerHTML = totalGrades;
+      var passingPercent = totalGrades > 0 ? Math.round((passingCount / totalGrades) * 100) : 0;
+      document.getElementById('statPassing').innerHTML = passingPercent + '%';
+      
+      // Term average
+      var termAvg = calculateStudentTermAverage(currentUser.id, currentTerm);
+      document.getElementById('termAverage').innerHTML = termAvg.toFixed(2);
+    }
+    
+    // ============================================
+    // SAUVEGARDE
+    // ============================================
+    
+    function saveAllGrades() {
+      var grades = getStudentGrades(currentUser.id);
+      var inputs = document.querySelectorAll('.grade-input');
+      var changed = false;
+      var savedCount = 0;
+      
+      inputs.forEach(function(input) {
+        var subjectId = parseInt(input.dataset.subj);
+        var sequenceId = parseInt(input.dataset.seq);
+        var rawValue = input.value;
+        
+        if (rawValue !== '' && rawValue !== null) {
+          var convertedValue = validateAndConvertGrade(rawValue);
+          if (convertedValue !== '') {
+            var value = parseFloat(convertedValue);
+            var roundedValue = Math.round(value * 100) / 100;
+            
+            var existingIndex = -1;
+            for (var i = 0; i < grades.length; i++) {
+              if (grades[i].subjectId === subjectId && grades[i].sequenceId === sequenceId) {
+                existingIndex = i;
+                break;
+              }
+            }
+            
+            if (existingIndex !== -1) {
+              if (grades[existingIndex].value !== roundedValue) {
+                grades[existingIndex].value = roundedValue;
+                changed = true;
+                savedCount++;
+              }
+            } else {
+              var newId = grades.length > 0 ? Math.max.apply(null, grades.map(function(g) { return g.id; })) + 1 : 1;
+              grades.push({
+                id: newId,
+                subjectId: subjectId,
+                sequenceId: sequenceId,
+                value: roundedValue,
+                date: new Date().toISOString().split('T')[0]
+              });
+              changed = true;
+              savedCount++;
+            }
+          }
+        }
+      });
+      
+      if (changed) {
+        saveStudentGrades(currentUser.id, grades);
+        addHistory(currentUser.id, 'Grades updated for Term ' + currentTerm);
+        playActionFeedback();
+        showUniqueToast(savedCount + ' grade(s) saved successfully!');
+        
+        // Vérifier les badges
+        checkAndUnlockAllBadges();
+        
+        // Recharger
+        setTimeout(function() { loadAddGrade(); }, 100);
+      } else {
+        showUniqueToast('No valid grades to save');
+      }
+    }
+    
+    function checkAndUnlockAllBadges() {
+      if (!currentUser || !currentUser.id) return;
+      if (typeof checkAndUnlockAllNewBadges === 'function') {
+        checkAndUnlockAllNewBadges(currentUser.id);
+      }
+      if (typeof checkComebackBadge === 'function') {
+        checkComebackBadge(currentUser.id);
+      }
+      
+      var grades = getStudentGrades(currentUser.id);
+      var totalGrades = grades.length;
+      
+      if (totalGrades >= 1 && typeof unlockBadgeById === 'function') {
+        unlockBadgeById(currentUser.id, 1);
+      }
+      if (totalGrades >= 10 && typeof unlockBadgeById === 'function') {
+        unlockBadgeById(currentUser.id, 4);
+      }
+      if (totalGrades >= 25 && typeof unlockBadgeById === 'function') {
+        unlockBadgeById(currentUser.id, 12);
+      }
+      if (totalGrades >= 30 && typeof unlockBadgeById === 'function') {
+        unlockBadgeById(currentUser.id, 5);
+      }
+      
+      for (var i = 0; i < grades.length; i++) {
+        if (grades[i].value >= 19.95 && typeof unlockBadgeById === 'function') {
+          unlockBadgeById(currentUser.id, 2);
+          unlockBadgeById(currentUser.id, 14);
+          break;
+        }
+      }
+      
+      var yearlyAvg = calculateYearlyAverage(currentUser.id);
+      if (yearlyAvg >= 12 && typeof unlockBadgeById === 'function') {
+        unlockBadgeById(currentUser.id, 3);
+      }
+    }
+    
+    function playActionFeedback() {
+      if (typeof navigator.vibrate === 'function') navigator.vibrate(30);
+    }
+    
+    function initHeaderProfile() {
+      try {
+        var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + currentUser.id) || '{}');
+        var headerAvatar = document.getElementById('headerAvatar');
+        if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
+          headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+        } else {
+          var gender = currentUser.gender || 'boy';
+          var defaultAvatar = gender === 'girl' ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+          headerAvatar.innerHTML = '<img src="' + defaultAvatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+        }
+      } catch(e) {}
+    }
+    
+    function applyFont() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    // ============================================
+    // ONGLETS
+    // ============================================
+    
+    document.querySelectorAll('.term-tab-btn').forEach(function(tab, index) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.term-tab-btn').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        currentTerm = index + 1;
+        loadAddGrade();
+      });
+    });
+    
+    // ============================================
+    // INIT
+    // ============================================
+    
+    loadAddGrade();
+    initMobileMenu();
+    initThemeSelector();
+    applyFont();
+    
+    var fontObserver = new MutationObserver(function() { applyFont(); });
+    fontObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    
+    window.saveAllGrades = saveAllGrades;
+  </script>
+</body>
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DEV - Database Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .dev-hero {
+      text-align: center;
+      padding: 35px 20px;
+      border-radius: 28px;
+      color: white;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .dev-hero h1 { font-size: 1.6rem; margin: 8px 0; }
+    .dev-hero p { opacity: 0.85; font-size: 0.75rem; }
+    
+    .dev-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+    }
+    
+    .student-selector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .student-selector select {
+      flex: 2;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.85rem;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+    }
+    .btn-action {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+    .btn-action.secondary {
+      background: rgba(0,0,0,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-action.danger {
+      background: rgba(231,76,60,0.1);
+      color: #e74c3c;
+      border: 1px solid rgba(231,76,60,0.3);
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .tab-btn {
+      padding: 8px 18px;
+      border-radius: 40px;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      color: var(--text);
+    }
+    .tab-btn i { margin-right: 6px; }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    
+    .tab-content { display: none; animation: fadeIn 0.3s ease; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 16px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      margin-top: 4px;
+      color: var(--text-light);
+    }
+    
+    .info-card {
+      background: rgba(52,152,219,0.08);
+      border-left: 4px solid #3498db;
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.7rem;
+    }
+    .data-table th {
+      background: rgba(0,0,0,0.03);
+      padding: 10px 8px;
+      text-align: left;
+      border-bottom: 2px solid var(--primary);
+      font-weight: 700;
+    }
+    .data-table td {
+      padding: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table tr:hover {
+      background: rgba(0,0,0,0.02);
+    }
+    
+    .json-viewer {
+      background: rgba(0,0,0,0.03);
+      border-radius: 12px;
+      padding: 14px;
+      font-family: monospace;
+      font-size: 0.7rem;
+      max-height: 350px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      border: 1px solid var(--border);
+    }
+    
+    .subject-badge {
+      display: inline-block;
+      background: rgba(15,59,72,0.1);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      margin: 2px;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+    }
+    .empty-state i {
+      font-size: 50px;
+      opacity: 0.2;
+      margin-bottom: 12px;
+      display: block;
+    }
+    
+    /* Menu développeur moderne */
+    .dev-sidebar {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid var(--primary);
+    }
+    .dev-sidebar-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .dev-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dev-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .dev-nav-link i {
+      width: 24px;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    .dev-nav-link:hover {
+      background: rgba(0,0,0,0.03);
+      border-color: var(--border);
+    }
+    .dev-nav-link.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    .dev-nav-link.active i {
+      color: white;
+    }
+    .dev-nav-link.logout-link {
+      margin-top: 8px;
+      border-top: 1px solid var(--border);
+      border-radius: 0;
+      color: #e74c3c;
+    }
+    .dev-nav-link.logout-link i {
+      color: #e74c3c;
+    }
+    
+    @media (max-width: 550px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .student-selector { flex-direction: column; }
+      .student-selector select, .btn-action { width: 100%; }
+      .btn-group { flex-direction: column; }
+      .tabs { justify-content: center; }
+      .data-table th, .data-table td { padding: 6px 4px; font-size: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-database"></i><span>DEV TOOLS</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        
+        <!-- SECTION DÉVELOPPEUR (visible seulement pour HANS KEPPER) -->
+        <div class="dev-sidebar" id="devSidebar" style="display:none;">
+          <div class="dev-sidebar-title"><i class="fas fa-code"></i> Developer Tools</div>
+          <div class="dev-nav-links">
+            <a href="dev-calculator.html" class="dev-nav-link" id="devCalculatorLink"><i class="fas fa-calculator"></i> Calculator</a>
+            <a href="dev-database.html" class="dev-nav-link active" id="devDatabaseLink"><i class="fas fa-database"></i> Database</a>
+            <a href="dev-stats.html" class="dev-nav-link" id="devStatsLink"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
+            <a href="dev-logs.html" class="dev-nav-link" id="devLogsLink"><i class="fas fa-history"></i> System Logs</a>
+            <a href="dev-backup.html" class="dev-nav-link" id="devBackupLink"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
+            <a href="dev-config.html" class="nav-item" id="devConfigLink"><i class="fas fa-cog"></i> System Config</a>
+          </div>
+        </div>
+        
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="dev-hero">
+        <i class="fas fa-database" style="font-size:45px;opacity:0.5;"></i>
+        <h1>Database Manager</h1>
+        <p>View, export, and manage user data - Developer Tool</p>
+      </div>
+      
+      <div class="dev-card">
+        <div class="section-title"><i class="fas fa-user"></i> Select Account</div>
+        <div class="student-selector">
+          <select id="dbStudentSelect"></select>
+          <button class="btn-action" onclick="loadUserData()"><i class="fas fa-sync-alt"></i> Load Data</button>
+        </div>
+        
+        <div class="tabs">
+          <div class="tab-btn active" onclick="switchTab('overview')"><i class="fas fa-chart-simple"></i> Overview</div>
+          <div class="tab-btn" onclick="switchTab('grades')"><i class="fas fa-pen"></i> Grades</div>
+          <div class="tab-btn" onclick="switchTab('subjects')"><i class="fas fa-layer-group"></i> Subjects</div>
+          <div class="tab-btn" onclick="switchTab('achievements')"><i class="fas fa-medal"></i> Badges</div>
+          <div class="tab-btn" onclick="switchTab('raw')"><i class="fas fa-code"></i> Raw JSON</div>
+        </div>
+        
+        <!-- Overview Tab -->
+        <div id="tabOverview" class="tab-content active">
+          <div class="stats-grid" id="userStats">
+            <div class="stat-card"><div class="stat-value" id="statGrades">0</div><div class="stat-label">Grades</div></div>
+            <div class="stat-card"><div class="stat-value" id="statAvg">0.00</div><div class="stat-label">Average</div></div>
+            <div class="stat-card"><div class="stat-value" id="statBadges">0</div><div class="stat-label">Badges</div></div>
+            <div class="stat-card"><div class="stat-value" id="statStreak">0</div><div class="stat-label">Streak</div></div>
+          </div>
+          <div id="overviewInfo" class="info-card">
+            <i class="fas fa-info-circle"></i> Select an account to view data
+          </div>
+        </div>
+        
+        <!-- Grades Tab -->
+        <div id="tabGrades" class="tab-content">
+          <div id="gradesList" class="data-table-container">
+            <div class="empty-state"><i class="fas fa-database"></i><p>Select an account to view grades</p></div>
+          </div>
+        </div>
+        
+        <!-- Subjects Tab -->
+        <div id="tabSubjects" class="tab-content">
+          <div id="subjectsList" class="json-viewer">Select an account to view subjects</div>
+        </div>
+        
+        <!-- Achievements Tab -->
+        <div id="tabAchievements" class="tab-content">
+          <div id="achievementsList" class="data-table-container">
+            <div class="empty-state"><i class="fas fa-medal"></i><p>Select an account to view badges</p></div>
+          </div>
+        </div>
+        
+        <!-- Raw JSON Tab -->
+        <div id="tabRaw" class="tab-content">
+          <div id="rawData" class="json-viewer">Select an account to view raw data</div>
+        </div>
+        
+        <div class="btn-group">
+          <button class="btn-action secondary" onclick="exportUserData()"><i class="fas fa-download"></i> Export JSON</button>
+          <input type="file" id="importUserFile" accept=".json" style="display:none;" onchange="importUserData(event)">
+          <button class="btn-action secondary" onclick="document.getElementById('importUserFile').click()"><i class="fas fa-upload"></i> Import JSON</button>
+          <button class="btn-action danger" onclick="clearUserGrades()"><i class="fas fa-trash-alt"></i> Clear Grades</button>
+          <button class="btn-action danger" onclick="resetUserAchievements()"><i class="fas fa-medal"></i> Reset Badges</button>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    var currentDbStudentId = null;
+    var currentUserData = null;
+    
+    var SUBJECTS = [
+      {id:1,name:"COMPUTER SCIENCES"},{id:2,name:"MATHEMATICS"},{id:3,name:"CHEMISTRY"},
+      {id:4,name:"HUMAN BIOLOGY"},{id:5,name:"GEOLOGY"},{id:6,name:"PHYSICS"},
+      {id:7,name:"ADDITIONAL MATHEMATICS"},{id:8,name:"BIOLOGY"},{id:9,name:"ECONOMICS"},
+      {id:10,name:"ENGLISH LANGUAGE"},{id:11,name:"GEOGRAPHY"},{id:12,name:"CITIZENSHIP"},
+      {id:13,name:"FRENCH"},{id:14,name:"FOOD AND NUTRITION"}
+    ];
+    
+    // Vérifier l'accès développeur
+    function checkDevAccess() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          if (!(user.name === 'HANS KEPPER' && user.class === 'B2' && user.number === 9)) {
+            window.location.href = 'dashboard.html';
+          } else {
+            document.getElementById('devSidebar').style.display = 'block';
+          }
+        } else {
+          window.location.href = 'login.html';
+        }
+      } catch(e) {
+        window.location.href = 'login.html';
+      }
+    }
+    
+    function populateStudentSelect() {
+      var students = getAllStudents();
+      var select = document.getElementById('dbStudentSelect');
+      var html = '<option value="">-- Select Account --</option>';
+      for (var i = 0; i < students.length; i++) {
+        html += '<option value="' + students[i].id + '">' + students[i].name + ' (ID: ' + students[i].id + ') - ' + students[i].class + ' #' + students[i].number + '</option>';
+      }
+      select.innerHTML = html;
+    }
+    
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
+      document.querySelectorAll('.tab-content').forEach(function(content) { content.classList.remove('active'); });
+      
+      if (tab === 'overview') {
+        document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+        document.getElementById('tabOverview').classList.add('active');
+      } else if (tab === 'grades') {
+        document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+        document.getElementById('tabGrades').classList.add('active');
+      } else if (tab === 'subjects') {
+        document.querySelector('.tab-btn:nth-child(3)').classList.add('active');
+        document.getElementById('tabSubjects').classList.add('active');
+      } else if (tab === 'achievements') {
+        document.querySelector('.tab-btn:nth-child(4)').classList.add('active');
+        document.getElementById('tabAchievements').classList.add('active');
+      } else if (tab === 'raw') {
+        document.querySelector('.tab-btn:nth-child(5)').classList.add('active');
+        document.getElementById('tabRaw').classList.add('active');
+      }
+    }
+    
+    // Utiliser la nouvelle fonction exportCompleteUserData de utils.js
+    function exportUserDataLocal(studentId) {
+      if (typeof window.exportCompleteUserData === 'function') {
+        return window.exportCompleteUserData(studentId);
+      }
+      // Fallback
+      try {
+        var students = getAllStudents();
+        var student = students.find(function(s) { return s.id === studentId; });
+        return {
+          student: student,
+          grades: getStudentGrades(studentId),
+          subjects: {
+            term1: getStudentSelectedSubjects(studentId, 1),
+            term2: getStudentSelectedSubjects(studentId, 2),
+            term3: getStudentSelectedSubjects(studentId, 3)
+          },
+          coeffs: getSubjectCoefficients(studentId),
+          achievements: getStudentAchievements(studentId)
+        };
+      } catch(e) { return null; }
+    }
+    
+    function loadUserData() {
+      var select = document.getElementById('dbStudentSelect');
+      var studentId = parseInt(select.value);
+      if (isNaN(studentId)) {
+        showToast('Please select an account');
+        return;
+      }
+      
+      currentDbStudentId = studentId;
+      var students = getAllStudents();
+      var student = students.find(function(s) { return s.id === studentId; });
+      
+      if (!student) return;
+      
+      var grades = getStudentGrades(studentId);
+      var achievements = getStudentAchievements(studentId);
+      var streak = getStudentStreak(studentId);
+      var coeffs = getSubjectCoefficients(studentId);
+      
+      var subjects = {
+        term1: getStudentSelectedSubjects(studentId, 1),
+        term2: getStudentSelectedSubjects(studentId, 2),
+        term3: getStudentSelectedSubjects(studentId, 3)
+      };
+      
+      currentUserData = {
+        student: student,
+        grades: grades,
+        achievements: achievements,
+        streak: streak,
+        coeffs: coeffs,
+        subjects: subjects
+      };
+      
+      // Update stats
+      var totalGrades = grades.length;
+      var totalValue = 0;
+      for (var i = 0; i < grades.length; i++) totalValue += grades[i].value;
+      var avg = totalGrades > 0 ? (totalValue / totalGrades).toFixed(2) : 0;
+      var unlockedBadges = 0;
+      for (var i = 0; i < achievements.length; i++) if (achievements[i].unlocked) unlockedBadges++;
+      
+      document.getElementById('statGrades').innerHTML = totalGrades;
+      document.getElementById('statAvg').innerHTML = avg;
+      document.getElementById('statBadges').innerHTML = unlockedBadges;
+      document.getElementById('statStreak').innerHTML = streak.days || 0;
+      
+      // Overview info
+      var overviewHtml = '<i class="fas fa-user-circle"></i> <strong>' + student.name + '</strong><br>';
+      overviewHtml += '<i class="fas fa-school"></i> Class: ' + student.class + ' - #' + student.number + '<br>';
+      overviewHtml += '<i class="fas fa-id-card"></i> ID: ' + student.id + '<br>';
+      overviewHtml += '<i class="fas fa-calendar"></i> Member since: ' + (student.createdAt ? new Date(student.createdAt).toLocaleDateString() : 'N/A');
+      document.getElementById('overviewInfo').innerHTML = overviewHtml;
+      
+      // Grades tab
+      if (grades.length === 0) {
+        document.getElementById('gradesList').innerHTML = '<div class="empty-state"><i class="fas fa-pen"></i><p>No grades found for this account</p></div>';
+      } else {
+        var gradesHtml = '<table class="data-table"><thead><tr><th>Subject</th><th>Sequence</th><th>Grade</th><th>Date</th></tr></thead><tbody>';
+        for (var i = 0; i < grades.length; i++) {
+          var subj = SUBJECTS.find(function(s) { return s.id === grades[i].subjectId; });
+          var subjName = subj ? subj.name : 'Unknown';
+          gradesHtml += '<tr><td>' + subjName + '</td><td>' + grades[i].sequenceId + '</td><td><strong>' + grades[i].value + '/20</strong></td><td>' + (grades[i].date || 'N/A') + '</td></tr>';
+        }
+        gradesHtml += '</tbody></table>';
+        document.getElementById('gradesList').innerHTML = gradesHtml;
+      }
+      
+      // Subjects tab
+      var subjectsHtml = '<div><strong>📚 Subjects by Term</strong></div><br>';
+      subjectsHtml += '<div><strong>Term 1:</strong> ' + (subjects.term1.length > 0 ? subjects.term1.map(function(id) { var s = SUBJECTS.find(function(sb) { return sb.id === id; }); return '<span class="subject-badge">' + (s ? s.name : id) + '</span>'; }).join('') : 'None') + '</div><br>';
+      subjectsHtml += '<div><strong>Term 2:</strong> ' + (subjects.term2.length > 0 ? subjects.term2.map(function(id) { var s = SUBJECTS.find(function(sb) { return sb.id === id; }); return '<span class="subject-badge">' + (s ? s.name : id) + '</span>'; }).join('') : 'None') + '</div><br>';
+      subjectsHtml += '<div><strong>Term 3:</strong> ' + (subjects.term3.length > 0 ? subjects.term3.map(function(id) { var s = SUBJECTS.find(function(sb) { return sb.id === id; }); return '<span class="subject-badge">' + (s ? s.name : id) + '</span>'; }).join('') : 'None') + '</div><br>';
+      subjectsHtml += '<div><strong>⚖️ Coefficients:</strong></div><div style="margin-top:8px;">';
+      for (var id in coeffs) {
+        var subj = SUBJECTS.find(function(s) { return s.id == id; });
+        subjectsHtml += '<span class="subject-badge">' + (subj ? subj.name : id) + ': ' + coeffs[id] + '</span> ';
+      }
+      subjectsHtml += '</div>';
+      document.getElementById('subjectsList').innerHTML = subjectsHtml;
+      
+      // Achievements tab
+      if (achievements.length === 0) {
+        document.getElementById('achievementsList').innerHTML = '<div class="empty-state"><i class="fas fa-medal"></i><p>No badges found for this account</p></div>';
+      } else {
+        var achievementsHtml = '<table class="data-table"><thead><tr><th>Badge</th><th>Status</th><th>Unlock Date</th></tr></thead><tbody>';
+        for (var i = 0; i < achievements.length; i++) {
+          achievementsHtml += '<tr><td>' + achievements[i].name + '</td><td>' + (achievements[i].unlocked ? '<span style="color:#2ecc71;">✓ Unlocked</span>' : '<span style="color:#95a5a6;">🔒 Locked</span>') + '</td><td>' + (achievements[i].unlockDate || '-') + '</td></tr>';
+        }
+        achievementsHtml += '</tbody></table>';
+        document.getElementById('achievementsList').innerHTML = achievementsHtml;
+      }
+      
+      // Raw JSON - Utiliser la nouvelle fonction
+      var rawJson = exportUserDataLocal(studentId);
+      document.getElementById('rawData').innerHTML = rawJson ? JSON.stringify(JSON.parse(rawJson), null, 2) : JSON.stringify(currentUserData, null, 2);
+    }
+    
+    function exportUserData() {
+      if (!currentDbStudentId) { showToast('Select an account first'); return; }
+      var jsonStr = exportUserDataLocal(currentDbStudentId);
+      if (!jsonStr) { showToast('No data to export'); return; }
+      var blob = new Blob([jsonStr], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'user_data_' + (currentUserData ? currentUserData.student.name.replace(/\s/g, '_') : 'user') + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Data exported');
+    }
+    
+    function importUserData(event) {
+      var file = event.target.files[0];
+      if (!file) return;
+      if (!currentDbStudentId) { showToast('Select an account first'); return; }
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          var data = JSON.parse(e.target.result);
+          showConfirmDialog({
+            title: 'Import Data',
+            message: 'This will overwrite current data for this account. Continue?',
+            icon: 'fa-upload', confirmText: 'Import',
+            onConfirm: function() {
+              // Utiliser la nouvelle fonction importCompleteUserData si disponible
+              if (typeof window.importCompleteUserData === 'function') {
+                var result = window.importCompleteUserData(currentDbStudentId, e.target.result);
+                if (result.success) {
+                  showToast('Data imported');
+                  loadUserData();
+                } else {
+                  showToast(result.message);
+                }
+              } else {
+                // Fallback manuel
+                var studentId = currentDbStudentId;
+                if (data.grades) localStorage.setItem('smartgrade_grades_' + studentId, JSON.stringify(data.grades));
+                if (data.subjects) {
+                  if (data.subjects.term1) localStorage.setItem('smartgrade_selected_' + studentId + '_term1', JSON.stringify(data.subjects.term1));
+                  if (data.subjects.term2) localStorage.setItem('smartgrade_selected_' + studentId + '_term2', JSON.stringify(data.subjects.term2));
+                  if (data.subjects.term3) localStorage.setItem('smartgrade_selected_' + studentId + '_term3', JSON.stringify(data.subjects.term3));
+                }
+                if (data.coeffs) localStorage.setItem('smartgrade_coeffs_' + studentId, JSON.stringify(data.coeffs));
+                if (data.achievements) localStorage.setItem('smartgrade_achievements_' + studentId, JSON.stringify(data.achievements));
+                showToast('Data imported');
+                loadUserData();
+              }
+            }
+          });
+        } catch(err) { showToast('Invalid JSON file'); }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+    
+    function clearUserGrades() {
+      if (!currentDbStudentId) { showToast('Select an account first'); return; }
+      var student = getAllStudents().find(function(s) { return s.id === currentDbStudentId; });
+      showConfirmDialog({
+        title: 'Clear Grades', message: 'Delete ALL grades for ' + (student ? student.name : 'this account') + '?',
+        detail: 'This action cannot be undone.', icon: 'fa-trash-alt', iconColor: '#e74c3c', confirmText: 'Clear',
+        onConfirm: function() {
+          localStorage.setItem('smartgrade_grades_' + currentDbStudentId, '[]');
+          showToast('All grades cleared');
+          loadUserData();
+        }
+      });
+    }
+    
+    function resetUserAchievements() {
+      if (!currentDbStudentId) { showToast('Select an account first'); return; }
+      var student = getAllStudents().find(function(s) { return s.id === currentDbStudentId; });
+      showConfirmDialog({
+        title: 'Reset Badges', message: 'Reset ALL badges for ' + (student ? student.name : 'this account') + '?',
+        detail: 'This will lock all badges.', icon: 'fa-medal', iconColor: '#e74c3c', confirmText: 'Reset',
+        onConfirm: function() {
+          var achievements = getStudentAchievements(currentDbStudentId);
+          for (var i = 0; i < achievements.length; i++) {
+            achievements[i].unlocked = false;
+            achievements[i].unlockDate = null;
+          }
+          saveStudentAchievements(currentDbStudentId, achievements);
+          showToast('Badges reset');
+          loadUserData();
+        }
+      });
+    }
+    
+    function updateHeaderAvatar() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          var headerAvatar = document.getElementById('headerAvatar');
+          if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function applyDevFont() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    checkDevAccess();
+    populateStudentSelect();
+    updateHeaderAvatar();
+    initMobileMenu();
+    initThemeSelector();
+    applyDevFont();
+    
+    var fontObserver = new MutationObserver(function() { applyDevFont(); });
+    fontObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  </script>
+</body>
+</html>

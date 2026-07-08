@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DEV - System Logs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .dev-hero {
+      text-align: center;
+      padding: 35px 20px;
+      border-radius: 28px;
+      color: white;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .dev-hero h1 { font-size: 1.6rem; margin: 8px 0; }
+    .dev-hero p { opacity: 0.85; font-size: 0.75rem; }
+    
+    .dev-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+    }
+    
+    .student-selector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .student-selector select {
+      flex: 2;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.85rem;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+    }
+    .btn-refresh {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .log-stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .log-stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .log-stat.error { background: rgba(231,76,60,0.1); color: #e74c3c; }
+    .log-stat.info { background: rgba(52,152,219,0.1); color: #3498db; }
+    .log-stat.success { background: rgba(46,204,113,0.1); color: #27ae60; }
+    
+    .log-list {
+      max-height: 450px;
+      overflow-y: auto;
+    }
+    .log-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.7rem;
+    }
+    .log-item:hover {
+      background: rgba(0,0,0,0.02);
+    }
+    .log-type {
+      min-width: 70px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .log-type.error { background: rgba(231,76,60,0.15); color: #e74c3c; }
+    .log-type.info { background: rgba(52,152,219,0.15); color: #3498db; }
+    .log-type.success { background: rgba(46,204,113,0.15); color: #27ae60; }
+    .log-message { flex: 1; }
+    .log-time { font-size: 0.6rem; color: var(--text-light); font-family: monospace; }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+    }
+    .empty-state i {
+      font-size: 50px;
+      opacity: 0.2;
+      margin-bottom: 12px;
+      display: block;
+    }
+    
+    /* Menu développeur moderne */
+    .dev-sidebar {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid var(--primary);
+    }
+    .dev-sidebar-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .dev-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dev-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .dev-nav-link i {
+      width: 24px;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    .dev-nav-link:hover {
+      background: rgba(0,0,0,0.03);
+      border-color: var(--border);
+    }
+    .dev-nav-link.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    .dev-nav-link.active i {
+      color: white;
+    }
+    .dev-nav-link.logout-link {
+      margin-top: 8px;
+      border-top: 1px solid var(--border);
+      border-radius: 0;
+      color: #e74c3c;
+    }
+    .dev-nav-link.logout-link i {
+      color: #e74c3c;
+    }
+    
+    @media (max-width: 550px) {
+      .student-selector { flex-direction: column; }
+      .student-selector select, .btn-refresh { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-history"></i><span>DEV TOOLS</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        
+        <!-- SECTION DÉVELOPPEUR -->
+        <div class="dev-sidebar" id="devSidebar" style="display:none;">
+          <div class="dev-sidebar-title"><i class="fas fa-code"></i> Developer Tools</div>
+          <div class="dev-nav-links">
+            <a href="dev-calculator.html" class="dev-nav-link" id="devCalculatorLink"><i class="fas fa-calculator"></i> Calculator</a>
+            <a href="dev-database.html" class="dev-nav-link" id="devDatabaseLink"><i class="fas fa-database"></i> Database</a>
+            <a href="dev-stats.html" class="dev-nav-link" id="devStatsLink"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
+            <a href="dev-logs.html" class="dev-nav-link active" id="devLogsLink"><i class="fas fa-history"></i> System Logs</a>
+            <a href="dev-backup.html" class="dev-nav-link" id="devBackupLink"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
+            <a href="dev-config.html" class="nav-item" id="devConfigLink"><i class="fas fa-cog"></i> System Config</a>
+          </div>
+        </div>
+        
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="dev-hero">
+        <i class="fas fa-history" style="font-size:45px;opacity:0.5;"></i>
+        <h1>System Logs</h1>
+        <p>View real activity history for each account - Developer Tool</p>
+      </div>
+      
+      <div class="dev-card">
+        <div class="section-title"><i class="fas fa-user"></i> Select Account</div>
+        <div class="student-selector">
+          <select id="logStudentSelect"></select>
+          <button class="btn-refresh" onclick="loadStudentLogs()"><i class="fas fa-sync-alt"></i> Load Logs</button>
+        </div>
+        <div id="logStats" class="log-stats"></div>
+        <div id="logsList" class="log-list">
+          <div class="empty-state"><i class="fas fa-history"></i><p>Select an account to view logs</p></div>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // Vérifier l'accès développeur
+    function checkDevAccess() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          if (!(user.name === 'HANS KEPPER' && user.class === 'B2' && user.number === 9)) {
+            window.location.href = 'dashboard.html';
+          } else {
+            document.getElementById('devSidebar').style.display = 'block';
+          }
+        } else {
+          window.location.href = 'login.html';
+        }
+      } catch(e) {
+        window.location.href = 'login.html';
+      }
+    }
+    
+    function populateStudentSelect() {
+      var students = getAllStudents();
+      var select = document.getElementById('logStudentSelect');
+      var html = '';
+      for (var i = 0; i < students.length; i++) {
+        html += '<option value="' + students[i].id + '">' + students[i].name + ' (ID: ' + students[i].id + ') - ' + students[i].class + ' #' + students[i].number + '</option>';
+      }
+      select.innerHTML = html;
+      if (students.length > 0) loadStudentLogs();
+    }
+    
+    function getStudentHistory(studentId) {
+      var history = JSON.parse(localStorage.getItem('smartgrade_history_' + studentId) || '[]');
+      var notifications = JSON.parse(localStorage.getItem('smartgrade_notifications_' + studentId) || '[]');
+      
+      var allLogs = [];
+      
+      for (var i = 0; i < history.length; i++) {
+        allLogs.push({
+          type: 'info',
+          message: history[i].action,
+          timestamp: history[i].date,
+          source: 'history'
+        });
+      }
+      
+      for (var i = 0; i < notifications.length; i++) {
+        var notif = notifications[i];
+        var type = 'info';
+        if (notif.type === 'badge') type = 'success';
+        else if (notif.type === 'error') type = 'error';
+        
+        allLogs.push({
+          type: type,
+          message: notif.title + ': ' + notif.body,
+          timestamp: notif.date,
+          source: 'notification'
+        });
+      }
+      
+      allLogs.sort(function(a, b) {
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      });
+      
+      return allLogs;
+    }
+    
+    function loadStudentLogs() {
+      var studentId = parseInt(document.getElementById('logStudentSelect').value);
+      var students = getAllStudents();
+      var student = students.find(function(s) { return s.id === studentId; });
+      var logsContainer = document.getElementById('logsList');
+      var statsContainer = document.getElementById('logStats');
+      
+      if (!student) {
+        logsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Student not found</p></div>';
+        statsContainer.innerHTML = '';
+        return;
+      }
+      
+      var logs = getStudentHistory(studentId);
+      
+      var errorCount = 0;
+      var infoCount = 0;
+      var successCount = 0;
+      
+      for (var i = 0; i < logs.length; i++) {
+        if (logs[i].type === 'error') errorCount++;
+        else if (logs[i].type === 'success') successCount++;
+        else infoCount++;
+      }
+      
+      statsContainer.innerHTML = `
+        <div class="log-stat error"><i class="fas fa-circle"></i> Errors: ${errorCount}</div>
+        <div class="log-stat info"><i class="fas fa-circle"></i> Info: ${infoCount}</div>
+        <div class="log-stat success"><i class="fas fa-circle"></i> Success: ${successCount}</div>
+        <div class="log-stat" style="background:rgba(0,0,0,0.05);">📋 Total: ${logs.length} events</div>
+      `;
+      
+      if (logs.length === 0) {
+        logsContainer.innerHTML = '<div class="empty-state"><i class="fas fa-history"></i><p>No activity recorded for this account yet</p><p style="font-size:0.6rem;">Logs appear when the user adds grades, unlocks badges, etc.</p></div>';
+        return;
+      }
+      
+      var html = '';
+      for (var i = 0; i < logs.length; i++) {
+        var log = logs[i];
+        var date = new Date(log.timestamp);
+        var timeStr = formatLogDate(date);
+        
+        var typeClass = log.type;
+        var typeIcon = log.type === 'error' ? 'fa-exclamation-circle' : (log.type === 'success' ? 'fa-check-circle' : 'fa-info-circle');
+        
+        html += '<div class="log-item">';
+        html += '<div class="log-type ' + typeClass + '"><i class="fas ' + typeIcon + '"></i> ' + log.type.toUpperCase() + '</div>';
+        html += '<div class="log-message">' + escapeHtml(log.message) + '</div>';
+        html += '<div class="log-time">' + timeStr + '</div>';
+        html += '</div>';
+      }
+      
+      logsContainer.innerHTML = html;
+    }
+    
+    function formatLogDate(date) {
+      var now = new Date();
+      var diff = Math.floor((now - date) / 1000);
+      if (diff < 60) return 'Just now';
+      if (diff < 3600) return Math.floor(diff / 60) + ' min ago';
+      if (diff < 86400) return Math.floor(diff / 3600) + ' hours ago';
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString().slice(0,5);
+    }
+    
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+    
+    function updateHeaderAvatar() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          var headerAvatar = document.getElementById('headerAvatar');
+          if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function applyDevFont() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    checkDevAccess();
+    populateStudentSelect();
+    updateHeaderAvatar();
+    initMobileMenu();
+    initThemeSelector();
+    applyDevFont();
+    
+    var fontObserver = new MutationObserver(function() { applyDevFont(); });
+    fontObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  </script>
+</body>
+</html>

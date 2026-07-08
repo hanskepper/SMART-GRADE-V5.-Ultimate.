@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Subject Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+  
+    /* ============================================
+       STYLES GÉNÉRAUX
+       ============================================ */
+    
+    .subject-header-card {
+      text-align: center;
+      padding: 20px 16px;
+      border-radius: 20px;
+      color: white;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .subject-header-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index: 0;
+    }
+    @keyframes stripeMove { 0%{background-position:0 0} 100%{background-position:40px 0} }
+    .subject-header-card > * { position: relative; z-index: 1; }
+    
+    .subject-big-number { font-size: 2.8rem; font-weight: 800; }
+    .subject-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; }
+    .subject-icon-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      margin-top: 4px;
+    }
+    .subject-icon-badge i { margin-right: 4px; }
+    
+    .tab-nav {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 4px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 10px 0;
+      border-radius: 12px;
+      border: none;
+      background: transparent;
+      color: var(--text-light);
+      font-weight: 600;
+      font-size: 0.65rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 2px 8px rgba(15,59,72, 0.2);
+    }
+    .tab-btn:active { transform: scale(0.95); }
+    
+    .slides-wrapper { flex: 1; overflow: hidden; position: relative; touch-action: pan-y; }
+    .slides-container { display: flex; height: 100%; transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; }
+    
+    /* === CORRECTION PRINCIPALE : HAUTEUR DES SLIDES === */
+    .slide { 
+      min-width: 100%; 
+      padding: 0 4px; 
+      overflow-y: auto; 
+      max-height: calc(100vh - 240px); 
+      min-height: 200px;
+    }
+    .slide::-webkit-scrollbar { width: 3px; }
+    .slide::-webkit-scrollbar-track { background: var(--border); border-radius: 3px; }
+    .slide::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+    
+    /* ============================================
+       SLIDE 1 : OVERVIEW
+       ============================================ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 14px 8px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    .stat-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .stat-icon { font-size: 1.2rem; margin-bottom: 4px; display: block; }
+    .stat-icon.best { color: #2ecc71; }
+    .stat-icon.worst { color: #e74c3c; }
+    .stat-icon.grades { color: #3498db; }
+    .stat-icon.trend { color: #f39c12; }
+    .stat-value { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+    .stat-label { font-size: 0.5rem; text-transform: uppercase; color: var(--text-light); margin-top: 2px; letter-spacing: 0.5px; }
+    
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .term-card {
+      text-align: center;
+      padding: 12px 8px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .term-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .term-card .term-label-sm { font-size: 0.5rem; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.5px; }
+    .term-card .term-value-sm { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+    .term-card .term-status {
+      font-size: 0.45rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+    .term-card .term-status.excellent { color: #2ecc71; background: rgba(46,204,113,0.1); }
+    .term-card .term-status.verygood { color: #3498db; background: rgba(52,152,219,0.1); }
+    .term-card .term-status.good { color: #f39c12; background: rgba(243,156,18,0.1); }
+    .term-card .term-status.average { color: #e67e22; background: rgba(230,126,34,0.1); }
+    .term-card .term-status.needs { color: #e74c3c; background: rgba(231,76,60,0.1); }
+    
+    .goal-card-sm {
+      padding: 12px 16px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+    }
+    .goal-card-sm:hover { border-color: var(--primary); }
+    .goal-card-sm .goal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+    }
+    .goal-card-sm .goal-header .label { color: var(--text-light); display: flex; align-items: center; gap: 6px; }
+    .goal-card-sm .goal-header .value { font-weight: 700; color: var(--primary); }
+    .goal-bar-sm { height: 6px; background: rgba(0,0,0,0.06); border-radius: 3px; margin-top: 6px; overflow: hidden; }
+    .goal-fill-sm { height: 100%; border-radius: 3px; transition: width 0.8s ease; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+    .goal-fill-sm.achieved { background: linear-gradient(90deg, #2ecc71, #27ae60); }
+    
+    /* === CORRECTION DES CARTES DE NOTES RÉCENTES === */
+    .recent-section {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .recent-grades-preview {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .recent-grade-item {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 10px 8px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.2s ease;
+      min-height: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .recent-grade-item:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .recent-grade-item .rg-seq { font-size: 0.5rem; color: var(--text-light); }
+    .recent-grade-item .rg-value { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+    .recent-grade-item .rg-value.excellent { color: #2ecc71; }
+    .recent-grade-item .rg-value.verygood { color: #3498db; }
+    .recent-grade-item .rg-value.good { color: #f39c12; }
+    .recent-grade-item .rg-value.average { color: #e67e22; }
+    .recent-grade-item .rg-value.needs { color: #e74c3c; }
+    .recent-grade-item .rg-date { font-size: 0.45rem; color: var(--text-light); margin-top: 2px; }
+    .recent-grade-item.avg-card {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-color: transparent;
+      color: white;
+    }
+    .recent-grade-item.avg-card .rg-seq { color: rgba(255,255,255,0.7); }
+    .recent-grade-item.avg-card .rg-value { color: white; }
+    .recent-grade-item.avg-card .rg-date { color: rgba(255,255,255,0.6); }
+    
+    .recent-stats-box {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .recent-stats-box .rs-title { font-size: 0.5rem; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.5px; }
+    .recent-stats-box .rs-value { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+    .recent-stats-box .rs-sub { font-size: 0.5rem; color: var(--text-light); margin-top: 2px; }
+    
+    /* ============================================
+       SLIDE 2 : CHARTS
+       ============================================ */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      height: 100%;
+    }
+    .chart-box {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+    }
+    .chart-box:hover { border-color: var(--primary); }
+    .chart-box h4 {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+      color: var(--text-light);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .chart-box h4 i { color: var(--primary); }
+    .chart-box canvas { flex: 1; width: 100% !important; max-height: 140px; }
+    .chart-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 8px;
+      font-size: 0.5rem;
+      color: var(--text-light);
+    }
+    .chart-stats span { display: flex; align-items: center; gap: 4px; }
+    .chart-stats .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    
+    /* ============================================
+       SLIDE 3 : GRADES - CORRIGÉ
+       ============================================ */
+    .grades-header-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .grades-stat {
+      text-align: center;
+      padding: 10px 8px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+    .grades-stat .gs-value { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+    .grades-stat .gs-label { font-size: 0.45rem; text-transform: uppercase; color: var(--text-light); margin-top: 2px; letter-spacing: 0.5px; }
+    
+    .grades-distribution-compact {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .dist-item {
+      flex: 1;
+      text-align: center;
+      padding: 6px 4px;
+      border-radius: 8px;
+      font-size: 0.5rem;
+      font-weight: 600;
+      color: white;
+      min-width: 50px;
+    }
+    .dist-item.excellent { background: #2ecc71; }
+    .dist-item.verygood { background: #3498db; }
+    .dist-item.good { background: #f39c12; }
+    .dist-item.average { background: #e67e22; }
+    .dist-item.needs { background: #e74c3c; }
+    
+    /* === LISTE DES GRADES - SANS ESPACE VIDE === */
+    .grades-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 4px 4px 8px 4px;
+      max-height: 320px;
+      overflow-y: auto;
+      min-height: fit-content;
+    }
+    .grades-list::-webkit-scrollbar { width: 3px; }
+    .grades-list::-webkit-scrollbar-track { background: var(--border); border-radius: 3px; }
+    .grades-list::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+    
+    /* Cacher le scrollbar quand il n'y a pas assez d'éléments */
+    .grades-list:not(:hover)::-webkit-scrollbar {
+      width: 0;
+    }
+    
+    .grade-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+      min-height: 44px;
+      flex-wrap: wrap;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .grade-item:last-child {
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+    .grade-item:hover { border-color: var(--primary); transform: translateX(3px); }
+    .grade-item .gi-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .grade-item .gi-seq {
+      font-size: 0.55rem;
+      font-weight: 600;
+      color: var(--text-light);
+      background: rgba(0,0,0,0.04);
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+    .grade-item .gi-date { font-size: 0.5rem; color: var(--text-light); }
+    .grade-item .gi-value { font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+    .grade-item .gi-value.excellent { color: #2ecc71; }
+    .grade-item .gi-value.verygood { color: #3498db; }
+    .grade-item .gi-value.good { color: #f39c12; }
+    .grade-item .gi-value.average { color: #e67e22; }
+    .grade-item .gi-value.needs { color: #e74c3c; }
+    .grade-item .gi-delete {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      font-size: 0.7rem;
+    }
+    .grade-item .gi-delete:hover { background: rgba(231,76,60,0.1); color: #e74c3c; }
+    
+    .mini-progress {
+      height: 3px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 2px;
+      margin-top: 2px;
+      overflow: hidden;
+      width: 60px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .mini-progress .fill { height: 100%; border-radius: 2px; }
+    
+    .empty-state {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-light);
+    }
+    .empty-state i { font-size: 40px; opacity: 0.15; margin-bottom: 10px; display: block; }
+    .empty-state p { font-size: 0.7rem; }
+    
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 600px) {
+      .subject-big-number { font-size: 2.2rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-value { font-size: 1.2rem; }
+      .term-grid { grid-template-columns: repeat(3, 1fr); }
+      .term-card .term-value-sm { font-size: 1rem; }
+      .charts-grid { grid-template-columns: 1fr; }
+      .chart-box canvas { max-height: 150px; }
+      .recent-section { grid-template-columns: 1fr; }
+      .recent-grades-preview { grid-template-columns: repeat(2, 1fr); }
+      .grades-header-stats { grid-template-columns: repeat(2, 1fr); }
+      .grades-distribution-compact { flex-wrap: wrap; }
+      .dist-item { min-width: 40px; font-size: 0.45rem; }
+      .slide { max-height: calc(100vh - 200px); }
+      .grades-list { max-height: 260px; }
+    }
+    @media (max-width: 400px) {
+      .stats-grid { gap: 6px; }
+      .stat-card { padding: 10px 4px; }
+      .stat-value { font-size: 1rem; }
+      .grade-item { flex-wrap: wrap; gap: 6px; }
+      .grade-item .gi-left { flex-wrap: wrap; }
+      .recent-grades-preview { grid-template-columns: 1fr 1fr; }
+      .slide { max-height: calc(100vh - 180px); }
+      .grades-list { max-height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-book-open"></i><span id="pageTitle">SUBJECT</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html">
+          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="subjects.html" class="nav-item"><i class="fas fa-layer-group"></i> Subjects</a>
+        <div id="dynamicSubjectsMenu" style="margin-top:8px;margin-bottom:8px;"></div>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content" style="display:flex;flex-direction:column;padding:12px 16px;overflow:hidden;height:100%;">
+      
+      <!-- EN-TÊTE -->
+      <div class="subject-header-card" id="subjectHeader">
+        <div class="subject-label" id="subjectLabel">Subject</div>
+        <div class="subject-big-number" id="yearlyAvg">0.00</div>
+        <div class="subject-icon-badge" id="subjectBadge"><i class="fas fa-book"></i> <span id="subjectName">--</span></div>
+      </div>
+      
+      <!-- ONGLETS -->
+      <div class="tab-nav" id="tabNav">
+        <button class="tab-btn active" data-tab="0">Overview</button>
+        <button class="tab-btn" data-tab="1">Charts</button>
+        <button class="tab-btn" data-tab="2">Grades</button>
+      </div>
+      
+      <!-- SLIDES -->
+      <div class="slides-wrapper" id="slidesWrapper">
+        <div class="slides-container" id="slidesContainer">
+          
+          <!-- SLIDE 1 : OVERVIEW -->
+          <div class="slide" id="slide0">
+            
+            <!-- Stats -->
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-icon best"><i class="fas fa-star"></i></span>
+                <div class="stat-value" id="statBest">--</div>
+                <div class="stat-label">Best</div>
+              </div>
+              <div class="stat-card">
+                <span class="stat-icon worst"><i class="fas fa-exclamation-triangle"></i></span>
+                <div class="stat-value" id="statWorst">--</div>
+                <div class="stat-label">Worst</div>
+              </div>
+              <div class="stat-card">
+                <span class="stat-icon grades"><i class="fas fa-pen"></i></span>
+                <div class="stat-value" id="statTotal">0</div>
+                <div class="stat-label">Grades</div>
+              </div>
+              <div class="stat-card">
+                <span class="stat-icon trend"><i class="fas fa-arrow-up" id="trendIcon"></i></span>
+                <div class="stat-value" id="statTrend">0.00</div>
+                <div class="stat-label">Trend</div>
+              </div>
+            </div>
+            
+            <!-- Termes -->
+            <div class="term-grid">
+              <div class="term-card" onclick="goToTerm(1)">
+                <div class="term-label-sm">Term 1</div>
+                <div class="term-value-sm" id="t1Avg">0.00</div>
+                <div class="term-status" id="t1Status">--</div>
+              </div>
+              <div class="term-card" onclick="goToTerm(2)">
+                <div class="term-label-sm">Term 2</div>
+                <div class="term-value-sm" id="t2Avg">0.00</div>
+                <div class="term-status" id="t2Status">--</div>
+              </div>
+              <div class="term-card" onclick="goToTerm(3)">
+                <div class="term-label-sm">Term 3</div>
+                <div class="term-value-sm" id="t3Avg">0.00</div>
+                <div class="term-status" id="t3Status">--</div>
+              </div>
+            </div>
+            
+            <!-- Recent + Stats -->
+            <div class="recent-section">
+              <div class="recent-grades-preview" id="recentGradesPreview"></div>
+              <div class="recent-stats-box" id="recentStatsBox">
+                <div class="rs-title">Recent Average</div>
+                <div class="rs-value" id="recentAvg">--</div>
+                <div class="rs-sub" id="recentTrend">No data</div>
+              </div>
+            </div>
+            
+            <!-- Objectif -->
+            <div class="goal-card-sm">
+              <div class="goal-header">
+                <span class="label"><i class="fas fa-bullseye"></i> Goal Progress</span>
+                <span class="value" id="goalProgressText">0%</span>
+              </div>
+              <div class="goal-bar-sm">
+                <div class="goal-fill-sm" id="goalProgressFill" style="width:0%;"></div>
+              </div>
+            </div>
+            
+          </div>
+          
+          <!-- SLIDE 2 : CHARTS -->
+          <div class="slide" id="slide1">
+            <div class="charts-grid">
+              <div class="chart-box">
+                <h4><i class="fas fa-chart-line"></i> Grade Evolution</h4>
+                <canvas id="lineChart"></canvas>
+                <div class="chart-stats">
+                  <span><span class="dot" style="background:var(--primary);"></span> Avg: <strong id="chartAvg">0.00</strong></span>
+                  <span><i class="fas fa-arrow-up" style="color:#2ecc71;"></i> Best: <strong id="chartBest">--</strong></span>
+                </div>
+              </div>
+              <div class="chart-box">
+                <h4><i class="fas fa-chart-pie"></i> Grade Distribution</h4>
+                <canvas id="distChart"></canvas>
+                <div class="chart-stats">
+                  <span><span class="dot" style="background:#2ecc71;"></span> Pass: <strong id="distPass">0</strong></span>
+                  <span><span class="dot" style="background:#e74c3c;"></span> Fail: <strong id="distFail">0</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- SLIDE 3 : GRADES -->
+          <div class="slide" id="slide2">
+            
+            <!-- Stats -->
+            <div class="grades-header-stats">
+              <div class="grades-stat">
+                <div class="gs-value" id="gsAvg">0.00</div>
+                <div class="gs-label">Average</div>
+              </div>
+              <div class="grades-stat">
+                <div class="gs-value" id="gsCount">0</div>
+                <div class="gs-label">Total</div>
+              </div>
+              <div class="grades-stat">
+                <div class="gs-value" id="gsPass">0%</div>
+                <div class="gs-label">Pass Rate</div>
+              </div>
+              <div class="grades-stat">
+                <div class="gs-value" id="gsBestSeq">--</div>
+                <div class="gs-label">Best Seq</div>
+              </div>
+            </div>
+            
+            <!-- Distribution compacte -->
+            <div class="grades-distribution-compact" id="distCompact"></div>
+            
+            <!-- Liste -->
+            <div id="gradesList" class="grades-list"></div>
+          </div>
+          
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // VARIABLES
+    // ============================================
+    
+    var subjectId = parseInt(new URLSearchParams(location.search).get('id'));
+    var currentUser = null;
+    var currentSubjectName = '';
+    var subjectIcon = 'fa-book';
+    
+    var ALL_SUBJECTS = [
+      { id: 1, name: "COMPUTER SCIENCES", icon: "fa-laptop-code" },
+      { id: 2, name: "MATHEMATICS", icon: "fa-square-root-variable" },
+      { id: 3, name: "CHEMISTRY", icon: "fa-flask" },
+      { id: 4, name: "HUMAN BIOLOGY", icon: "fa-dna" },
+      { id: 5, name: "GEOLOGY", icon: "fa-mountain" },
+      { id: 6, name: "PHYSICS", icon: "fa-atom" },
+      { id: 7, name: "ADDITIONAL MATHEMATICS", icon: "fa-calculator" },
+      { id: 8, name: "BIOLOGY", icon: "fa-leaf" },
+      { id: 9, name: "ECONOMICS", icon: "fa-chart-line" },
+      { id: 10, name: "ENGLISH LANGUAGE", icon: "fa-language" },
+      { id: 11, name: "GEOGRAPHY", icon: "fa-earth-africa" },
+      { id: 12, name: "CITIZENSHIP", icon: "fa-landmark" },
+      { id: 13, name: "FRENCH", icon: "fa-flag" },
+      { id: 14, name: "FOOD AND NUTRITION", icon: "fa-apple-whole" }
+    ];
+    
+    var lineChart = null;
+    var distChart = null;
+    var currentSlide = 0;
+    var totalSlides = 3;
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var isSwiping = false;
+    
+    // ============================================
+    // SWIPE / NAVIGATION
+    // ============================================
+    
+    function goToSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+      currentSlide = index;
+      document.getElementById('slidesContainer').style.transform = 'translateX(-' + (index * 100) + '%)';
+      document.querySelectorAll('.tab-btn').forEach(function(btn, i) {
+        btn.classList.toggle('active', i === index);
+      });
+    }
+    
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() { goToSlide(parseInt(this.dataset.tab)); });
+    });
+    
+    var wrapper = document.getElementById('slidesWrapper');
+    wrapper.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isSwiping = false;
+    }, { passive: true });
+    
+    wrapper.addEventListener('touchmove', function(e) {
+      var deltaX = e.touches[0].clientX - touchStartX;
+      var deltaY = e.touches[0].clientY - touchStartY;
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 20) {
+        isSwiping = true;
+        e.preventDefault();
+      }
+    }, { passive: false });
+    
+    wrapper.addEventListener('touchend', function(e) {
+      if (!isSwiping) return;
+      var deltaX = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(deltaX) > 50) {
+        if (deltaX < 0 && currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+        else if (deltaX > 0 && currentSlide > 0) goToSlide(currentSlide - 1);
+      }
+      isSwiping = false;
+    }, { passive: true });
+    
+    // ============================================
+    // AVATAR
+    // ============================================
+    
+    function loadHeaderAvatar() {
+      var current = JSON.parse(localStorage.getItem('smartgrade_current') || 'null');
+      if (!current) return;
+      var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + current.id) || '{}');
+      var headerAvatar = document.getElementById('headerAvatar');
+      if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
+        headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+      } else {
+        var gender = current.gender || 'boy';
+        var defaultAvatar = gender === 'girl' ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+        headerAvatar.innerHTML = '<img src="' + defaultAvatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+      }
+    }
+    
+    // ============================================
+    // MENU DYNAMIQUE
+    // ============================================
+    
+    function buildDynamicSubjectsMenu() {
+      var container = document.getElementById('dynamicSubjectsMenu');
+      if (!container) return;
+      var allSubjects = getAllSelectedSubjectsInOrder();
+      if (allSubjects.length === 0) {
+        container.innerHTML = '<div style="padding:12px;font-size:0.7rem;color:var(--text-light);text-align:center;">No subjects selected</div>';
+        return;
+      }
+      var activeSubject = null;
+      var otherSubjects = [];
+      for (var i = 0; i < allSubjects.length; i++) {
+        if (allSubjects[i].id === subjectId) { activeSubject = allSubjects[i]; }
+        else { otherSubjects.push(allSubjects[i]); }
+      }
+      if (!activeSubject && allSubjects.length > 0) {
+        activeSubject = allSubjects[0];
+        subjectId = activeSubject.id;
+      }
+      var html = '<div style="font-size:0.7rem;font-weight:700;color:var(--primary);margin-bottom:8px;padding-left:12px;">MY SUBJECTS</div>';
+      if (activeSubject) {
+        html += '<a href="subject-detail.html?id=' + activeSubject.id + '" class="nav-item active">' +
+          '<i class="fas ' + activeSubject.icon + '"></i> ' + activeSubject.name +
+        '</a>';
+      }
+      for (var i = 0; i < otherSubjects.length; i++) {
+        var s = otherSubjects[i];
+        html += '<a href="subject-detail.html?id=' + s.id + '" class="nav-item">' +
+          '<i class="fas ' + s.icon + '"></i> ' + s.name +
+        '</a>';
+      }
+      container.innerHTML = html;
+    }
+    
+    function getAllSelectedSubjectsInOrder() {
+      if (!currentUser) return [];
+      var selectedIds = {};
+      for (var term = 1; term <= 3; term++) {
+        var selected = getStudentSelectedSubjects(currentUser.id, term);
+        for (var i = 0; i < selected.length; i++) { selectedIds[selected[i]] = true; }
+      }
+      var subjects = [];
+      for (var i = 0; i < ALL_SUBJECTS.length; i++) {
+        if (selectedIds[ALL_SUBJECTS[i].id]) { subjects.push(ALL_SUBJECTS[i]); }
+      }
+      return subjects;
+    }
+    
+    // ============================================
+    // CALCULS
+    // ============================================
+    
+    function getSequencesForTerm(term) {
+      var s = (term - 1) * 2 + 1;
+      return [s, s + 1];
+    }
+    
+    function calculateSubjectTermAvg(subjectId, term, grades) {
+      var seq = getSequencesForTerm(term);
+      var n1 = [], n2 = [];
+      for (var k = 0; k < grades.length; k++) {
+        if (grades[k].subjectId === subjectId && grades[k].sequenceId === seq[0]) n1.push(grades[k].value);
+        if (grades[k].subjectId === subjectId && grades[k].sequenceId === seq[1]) n2.push(grades[k].value);
+      }
+      var a1 = 0, a2 = 0;
+      if (n1.length > 0) { var sum = 0; for (var j = 0; j < n1.length; j++) sum += n1[j]; a1 = sum / n1.length; }
+      if (n2.length > 0) { var sum = 0; for (var j = 0; j < n2.length; j++) sum += n2[j]; a2 = sum / n2.length; }
+      return (a1 + a2) / 2;
+    }
+    
+    function getGradeClass(avg) {
+      if (avg >= 16) return 'excellent';
+      if (avg >= 14) return 'verygood';
+      if (avg >= 12) return 'good';
+      if (avg >= 10) return 'average';
+      return 'needs';
+    }
+    
+    function getStatusText(avg) {
+      if (avg >= 16) return 'Excellent';
+      if (avg >= 14) return 'Very Good';
+      if (avg >= 12) return 'Good';
+      if (avg >= 10) return 'Average';
+      return 'Needs Work';
+    }
+    
+    // ============================================
+    // AJUSTER LA HAUTEUR DE LA LISTE DES GRADES
+    // ============================================
+    
+    function adjustGradesHeight() {
+      var container = document.getElementById('gradesList');
+      if (!container) return;
+      
+      var items = container.querySelectorAll('.grade-item');
+      if (items.length === 0) {
+        container.style.maxHeight = '200px';
+        container.style.minHeight = '100px';
+        return;
+      }
+      
+      // Calculer la hauteur totale
+      var totalHeight = 0;
+      for (var i = 0; i < items.length; i++) {
+        totalHeight += items[i].offsetHeight + 8; // +8 pour le gap
+      }
+      
+      // Ajouter un padding
+      totalHeight += 16;
+      
+      // Limiter à 320px max
+      var maxHeight = Math.min(totalHeight, 320);
+      var minHeight = Math.min(totalHeight, 200);
+      
+      // Appliquer la hauteur
+      container.style.maxHeight = maxHeight + 'px';
+      container.style.minHeight = Math.max(minHeight, 80) + 'px';
+    }
+    
+    // ============================================
+    // CHARGEMENT
+    // ============================================
+    
+    function loadSubject() {
+      currentUser = getCurrentStudent();
+      if (!currentUser) { location = 'login.html'; return; }
+      
+      var allSubjects = getAllSelectedSubjectsInOrder();
+      var subjectObj = null;
+      for (var i = 0; i < allSubjects.length; i++) {
+        if (allSubjects[i].id === subjectId) { subjectObj = allSubjects[i]; break; }
+      }
+      if (!subjectObj && allSubjects.length > 0) {
+        window.location.href = 'subject-detail.html?id=' + allSubjects[0].id;
+        return;
+      }
+      if (!subjectObj) { window.location.href = 'subjects.html'; return; }
+      
+      currentSubjectName = subjectObj.name;
+      subjectIcon = subjectObj.icon;
+      document.getElementById('pageTitle').innerHTML = subjectObj.name;
+      document.getElementById('subjectName').innerHTML = subjectObj.name;
+      document.getElementById('subjectBadge').innerHTML = '<i class="fas ' + subjectObj.icon + '"></i> ' + subjectObj.name;
+      document.getElementById('subjectLabel').innerHTML = subjectObj.name.toUpperCase();
+      
+      loadHeaderAvatar();
+      buildDynamicSubjectsMenu();
+      
+      var allGrades = getStudentGrades(currentUser.id);
+      var grades = allGrades.filter(function(g) { return g.subjectId === subjectId; });
+      
+      // Term averages
+      var t1 = calculateSubjectTermAvg(subjectId, 1, allGrades);
+      var t2 = calculateSubjectTermAvg(subjectId, 2, allGrades);
+      var t3 = calculateSubjectTermAvg(subjectId, 3, allGrades);
+      var yearly = Math.round(((t1 + t2 + t3) / 3) * 100) / 100;
+      
+      document.getElementById('t1Avg').innerHTML = t1 > 0 ? t1.toFixed(2) : '--';
+      document.getElementById('t2Avg').innerHTML = t2 > 0 ? t2.toFixed(2) : '--';
+      document.getElementById('t3Avg').innerHTML = t3 > 0 ? t3.toFixed(2) : '--';
+      document.getElementById('yearlyAvg').innerHTML = yearly > 0 ? yearly.toFixed(2) : '--';
+      
+      document.getElementById('t1Status').innerHTML = t1 > 0 ? getStatusText(t1) : 'No Data';
+      document.getElementById('t1Status').className = 'term-status ' + getGradeClass(t1);
+      document.getElementById('t2Status').innerHTML = t2 > 0 ? getStatusText(t2) : 'No Data';
+      document.getElementById('t2Status').className = 'term-status ' + getGradeClass(t2);
+      document.getElementById('t3Status').innerHTML = t3 > 0 ? getStatusText(t3) : 'No Data';
+      document.getElementById('t3Status').className = 'term-status ' + getGradeClass(t3);
+      
+      // Stats
+      var values = grades.map(function(g) { return g.value; });
+      var totalGrades = grades.length;
+      document.getElementById('statTotal').innerHTML = totalGrades;
+      document.getElementById('gsCount').innerHTML = totalGrades;
+      
+      if (totalGrades > 0) {
+        var best = Math.max.apply(null, values);
+        var worst = Math.min.apply(null, values);
+        var avg = values.reduce(function(a, b) { return a + b; }, 0) / values.length;
+        var trend = values.length >= 2 ? values[values.length - 1] - values[0] : 0;
+        
+        document.getElementById('statBest').innerHTML = best.toFixed(2);
+        document.getElementById('statWorst').innerHTML = worst.toFixed(2);
+        document.getElementById('gsAvg').innerHTML = avg.toFixed(2);
+        var passCount = 0;
+        for (var i = 0; i < values.length; i++) { if (values[i] >= 10) passCount++; }
+        document.getElementById('gsPass').innerHTML = Math.round((passCount / values.length) * 100) + '%';
+        
+        var maxVal = Math.max.apply(null, values);
+        var maxIdx = values.indexOf(maxVal);
+        document.getElementById('gsBestSeq').innerHTML = 'Seq ' + (maxIdx + 1) + ' (' + maxVal.toFixed(2) + ')';
+        
+        var trendIcon = document.getElementById('trendIcon');
+        if (trend > 0.01) { trendIcon.className = 'fas fa-arrow-up'; trendIcon.style.color = '#2ecc71'; }
+        else if (trend < -0.01) { trendIcon.className = 'fas fa-arrow-down'; trendIcon.style.color = '#e74c3c'; }
+        else { trendIcon.className = 'fas fa-minus'; trendIcon.style.color = '#f39c12'; }
+        document.getElementById('statTrend').innerHTML = (trend > 0 ? '+' : '') + trend.toFixed(2);
+        
+        renderRecentGrades(grades);
+        renderDistCompact(grades);
+        
+      } else {
+        document.getElementById('statBest').innerHTML = '--';
+        document.getElementById('statWorst').innerHTML = '--';
+        document.getElementById('statTrend').innerHTML = '--';
+        document.getElementById('trendIcon').className = 'fas fa-minus';
+        document.getElementById('gsAvg').innerHTML = '--';
+        document.getElementById('gsPass').innerHTML = '--';
+        document.getElementById('gsBestSeq').innerHTML = '--';
+      }
+      
+      // Goal
+      var goal = parseFloat(localStorage.getItem('smartgrade_goal_' + currentUser.id) || 12);
+      var progress = Math.min(100, Math.round((yearly / goal) * 100));
+      document.getElementById('goalProgressText').innerHTML = progress + '%';
+      var fill = document.getElementById('goalProgressFill');
+      fill.style.width = progress + '%';
+      if (yearly >= goal) {
+        document.getElementById('goalProgressText').innerHTML = '🎯 Achieved!';
+        fill.classList.add('achieved');
+      } else { fill.classList.remove('achieved'); }
+      
+      // Charts
+      updateCharts(grades);
+      
+      // Grades list
+      renderGrades(grades);
+      
+      // Ajuster la hauteur après un court délai
+      setTimeout(adjustGradesHeight, 100);
+    }
+    
+    // ============================================
+    // RENDER RECENT GRADES (avec 4ème carte)
+    // ============================================
+    
+    function renderRecentGrades(grades) {
+      var container = document.getElementById('recentGradesPreview');
+      var statsBox = document.getElementById('recentStatsBox');
+      
+      if (grades.length === 0) {
+        container.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text-light);font-size:0.6rem;padding:8px;">No grades yet</div>';
+        statsBox.innerHTML = '<div class="rs-title">Recent Average</div><div class="rs-value">--</div><div class="rs-sub">No data</div>';
+        return;
+      }
+      
+      var sorted = grades.slice().sort(function(a, b) { return b.sequenceId - a.sequenceId; });
+      var recent = sorted.slice(0, 3);
+      var html = '';
+      
+      // Les 3 dernières notes
+      for (var i = 0; i < recent.length; i++) {
+        var g = recent[i];
+        var gradeClass = getGradeClass(g.value);
+        var date = g.date ? new Date(g.date).toLocaleDateString() : 'N/A';
+        html += '<div class="recent-grade-item">';
+        html += '<div class="rg-seq">Seq ' + g.sequenceId + '</div>';
+        html += '<div class="rg-value ' + gradeClass + '">' + g.value.toFixed(2) + '</div>';
+        html += '<div class="rg-date">' + date + '</div>';
+        html += '</div>';
+      }
+      
+      // 4ème carte : Moyenne des 3 dernières
+      var recentValues = recent.map(function(g) { return g.value; });
+      var recentAvg = recentValues.reduce(function(a, b) { return a + b; }, 0) / recentValues.length;
+      var avgClass = getGradeClass(recentAvg);
+      
+      html += '<div class="recent-grade-item avg-card">';
+      html += '<div class="rg-seq">Average</div>';
+      html += '<div class="rg-value">' + recentAvg.toFixed(2) + '</div>';
+      html += '<div class="rg-date">Last 3</div>';
+      html += '</div>';
+      
+      container.innerHTML = html;
+      
+      // Stats box
+      var lastVal = recentValues[0] || 0;
+      var firstVal = recentValues[recentValues.length - 1] || 0;
+      var trend = lastVal - firstVal;
+      var trendText = trend > 0.5 ? '↑ Improving' : (trend < -0.5 ? '↓ Declining' : '→ Stable');
+      var trendColor = trend > 0.5 ? '#2ecc71' : (trend < -0.5 ? '#e74c3c' : '#f39c12');
+      
+      statsBox.innerHTML = `
+        <div class="rs-title">Recent Average</div>
+        <div class="rs-value" style="color:${trendColor}">${recentAvg.toFixed(2)}</div>
+        <div class="rs-sub" style="color:${trendColor}">${trendText}</div>
+      `;
+    }
+    
+    // ============================================
+    // RENDER DISTRIBUTION COMPACTE
+    // ============================================
+    
+    function renderDistCompact(grades) {
+      var container = document.getElementById('distCompact');
+      if (grades.length === 0) {
+        container.innerHTML = '<div style="text-align:center;color:var(--text-light);font-size:0.6rem;padding:8px;width:100%;">No grades</div>';
+        return;
+      }
+      
+      var dist = [0, 0, 0, 0, 0];
+      var labels = ['Excellent', 'Very Good', 'Good', 'Average', 'Needs'];
+      var classes = ['excellent', 'verygood', 'good', 'average', 'needs'];
+      
+      for (var i = 0; i < grades.length; i++) {
+        var val = grades[i].value;
+        if (val >= 16) dist[0]++;
+        else if (val >= 14) dist[1]++;
+        else if (val >= 12) dist[2]++;
+        else if (val >= 10) dist[3]++;
+        else dist[4]++;
+      }
+      
+      var html = '';
+      for (var i = 0; i < 5; i++) {
+        if (dist[i] > 0) {
+          html += '<div class="dist-item ' + classes[i] + '">' + labels[i] + ' ' + dist[i] + '</div>';
+        }
+      }
+      if (html === '') html = '<div style="text-align:center;color:var(--text-light);font-size:0.6rem;padding:4px;width:100%;">No grades</div>';
+      container.innerHTML = html;
+    }
+    
+    // ============================================
+    // RENDER GRADES LIST
+    // ============================================
+    
+    function renderGrades(grades) {
+      var container = document.getElementById('gradesList');
+      if (grades.length === 0) {
+        container.innerHTML = '<div class="empty-state"><i class="fas fa-pen"></i><p>No grades for this subject yet</p></div>';
+        return;
+      }
+      grades.sort(function(a, b) { return a.sequenceId - b.sequenceId; });
+      var html = '';
+      for (var i = 0; i < grades.length; i++) {
+        var g = grades[i];
+        var gradeClass = getGradeClass(g.value);
+        var date = g.date ? new Date(g.date).toLocaleDateString() : 'N/A';
+        var progress = Math.min(100, Math.round((g.value / 20) * 100));
+        var color = g.value >= 16 ? '#2ecc71' : (g.value >= 14 ? '#3498db' : (g.value >= 12 ? '#f39c12' : (g.value >= 10 ? '#e67e22' : '#e74c3c')));
+        html += '<div class="grade-item">';
+        html += '<div class="gi-left">';
+        html += '<span class="gi-seq">Seq ' + g.sequenceId + '</span>';
+        html += '<span class="gi-date"><i class="fas fa-calendar"></i> ' + date + '</span>';
+        html += '<span class="mini-progress"><span class="fill" style="width:' + progress + '%;background:' + color + ';"></span></span>';
+        html += '</div>';
+        html += '<div style="display:flex;align-items:center;gap:8px;">';
+        html += '<span class="gi-value ' + gradeClass + '">' + g.value.toFixed(2) + '/20</span>';
+        html += '<button class="gi-delete" onclick="deleteGrade(' + g.id + ', ' + g.value + ')"><i class="fas fa-trash-alt"></i></button>';
+        html += '</div>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+      
+      // Ajuster la hauteur après le rendu
+      setTimeout(adjustGradesHeight, 50);
+    }
+    
+    function deleteGrade(gradeId, gradeValue) {
+      showConfirmDialog({
+        title: 'Delete Grade',
+        message: 'Are you sure you want to delete this grade?',
+        detail: currentSubjectName + ': ' + gradeValue.toFixed(2) + '/20',
+        icon: 'fa-trash-alt',
+        iconColor: '#e74c3c',
+        confirmText: 'Delete',
+        confirmColor: '#e74c3c',
+        onConfirm: function() {
+          var grades = getStudentGrades(currentUser.id);
+          grades = grades.filter(function(g) { return g.id !== gradeId; });
+          saveStudentGrades(currentUser.id, grades);
+          showToast('Grade deleted');
+          loadSubject();
+        }
+      });
+    }
+    
+    function goToTerm(term) { window.location.href = 'term' + term + '.html'; }
+    
+    // ============================================
+    // CHARTES
+    // ============================================
+    
+    function updateCharts(grades) {
+      var ctx1 = document.getElementById('lineChart');
+      if (ctx1) {
+        if (lineChart) lineChart.destroy();
+        var isDark = document.body.classList.contains('night-mode');
+        var textColor = isDark ? '#e0e0e0' : '#1a2a3a';
+        var gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+        var primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#0f3b48';
+        var secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary').trim() || '#00b4d8';
+        
+        var values = grades.map(function(g) { return g.value; });
+        var labels = grades.map(function(g) { return 'Seq ' + g.sequenceId; });
+        
+        if (values.length === 0) { values = [0]; labels = ['No Data']; }
+        
+        var gradient = ctx1.getContext('2d').createLinearGradient(0, 0, 0, 140);
+        gradient.addColorStop(0, primaryColor + '50');
+        gradient.addColorStop(0.6, primaryColor + '15');
+        gradient.addColorStop(1, primaryColor + '00');
+        
+        var lineGradient = ctx1.getContext('2d').createLinearGradient(0, 0, ctx1.width || 300, 0);
+        lineGradient.addColorStop(0, primaryColor);
+        lineGradient.addColorStop(0.5, secondaryColor);
+        lineGradient.addColorStop(1, primaryColor);
+        
+        lineChart = new Chart(ctx1.getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Grade',
+              data: values,
+              borderColor: lineGradient,
+              backgroundColor: gradient,
+              borderWidth: 3,
+              fill: true,
+              tension: 0.4,
+              pointRadius: 6,
+              pointHoverRadius: 9,
+              pointBackgroundColor: '#ffffff',
+              pointBorderColor: primaryColor,
+              pointBorderWidth: 3,
+              pointHoverBorderWidth: 4,
+              pointHoverBackgroundColor: primaryColor,
+              pointHoverBorderColor: '#ffffff',
+              pointStyle: 'circle'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: isDark ? 'rgba(20,30,40,0.95)' : 'rgba(255,255,255,0.95)',
+                titleColor: isDark ? '#ffffff' : '#1a2a3a',
+                bodyColor: isDark ? '#c8d8e8' : '#4a627a',
+                borderColor: primaryColor + '40',
+                borderWidth: 1,
+                cornerRadius: 12,
+                padding: 12,
+                callbacks: { label: function(ctx) { return 'Grade: ' + ctx.raw.toFixed(2) + '/20'; } }
+              }
+            },
+            scales: {
+              y: { min: 0, max: Math.max(20, Math.max.apply(null, values) + 2), ticks: { stepSize: 5, color: textColor, font: { size: 9 } }, grid: { color: gridColor, drawBorder: true, borderColor: gridColor, borderDash: [4, 4] } },
+              x: { ticks: { color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)', font: { size: 8 } }, grid: { display: false } }
+            },
+            animation: { duration: 800, easing: 'easeOutQuart' }
+          },
+          plugins: [{
+            afterDraw: function(chart) {
+              var ctx2 = chart.ctx;
+              var meta = chart.getDatasetMeta(0);
+              var points = meta.data;
+              if (points.length < 2) return;
+              ctx2.save();
+              ctx2.shadowColor = primaryColor + '30';
+              ctx2.shadowBlur = 20;
+              ctx2.beginPath();
+              ctx2.moveTo(points[0].x, points[0].y);
+              for (var i = 1; i < points.length; i++) {
+                var xc = (points[i].x + points[i-1].x) / 2;
+                var yc = (points[i].y + points[i-1].y) / 2;
+                ctx2.quadraticCurveTo(points[i-1].x, points[i-1].y, xc, yc);
+              }
+              ctx2.strokeStyle = primaryColor + '15';
+              ctx2.lineWidth = 8;
+              ctx2.stroke();
+              ctx2.restore();
+              for (var i = 0; i < points.length; i++) {
+                var point = points[i];
+                if (point && point.x && point.y) {
+                  var glow = ctx2.createRadialGradient(point.x, point.y, 0, point.x, point.y, 20);
+                  glow.addColorStop(0, primaryColor + '30');
+                  glow.addColorStop(0.5, primaryColor + '10');
+                  glow.addColorStop(1, primaryColor + '00');
+                  ctx2.fillStyle = glow;
+                  ctx2.beginPath();
+                  ctx2.arc(point.x, point.y, 20, 0, Math.PI * 2);
+                  ctx2.fill();
+                }
+              }
+            }
+          }]
+        });
+        
+        var avg = values.reduce(function(a, b) { return a + b; }, 0) / values.length;
+        document.getElementById('chartAvg').innerHTML = avg > 0 ? avg.toFixed(2) : '0.00';
+        var bestVal = Math.max.apply(null, values);
+        var bestIdx = values.indexOf(bestVal);
+        document.getElementById('chartBest').innerHTML = bestVal > 0 ? 'Seq ' + (bestIdx + 1) + ' (' + bestVal.toFixed(2) + ')' : '--';
+      }
+      
+      var ctx2 = document.getElementById('distChart');
+      if (ctx2) {
+        if (distChart) distChart.destroy();
+        var dist = [0, 0, 0, 0, 0];
+        var pass = 0, fail = 0;
+        for (var i = 0; i < grades.length; i++) {
+          var val = grades[i].value;
+          if (val >= 16) { dist[0]++; pass++; }
+          else if (val >= 14) { dist[1]++; pass++; }
+          else if (val >= 12) { dist[2]++; pass++; }
+          else if (val >= 10) { dist[3]++; pass++; }
+          else { dist[4]++; fail++; }
+        }
+        var isDark = document.body.classList.contains('night-mode');
+        var textColor = isDark ? '#e0e0e0' : '#1a2a3a';
+        distChart = new Chart(ctx2.getContext('2d'), {
+          type: 'doughnut',
+          data: {
+            labels: ['16-20', '14-15.9', '12-13.9', '10-11.9', '<10'],
+            datasets: [{
+              data: dist,
+              backgroundColor: ['#2ecc71', '#3498db', '#f39c12', '#e67e22', '#e74c3c'],
+              borderWidth: 2,
+              borderColor: isDark ? '#1a1a2e' : '#ffffff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'right', labels: { color: textColor, font: { size: 8 }, padding: 6, boxWidth: 10, usePointStyle: true, pointStyle: 'circle' } },
+              tooltip: { callbacks: { label: function(ctx) { return ctx.raw + ' grades'; } } }
+            },
+            cutout: '55%',
+            animation: { duration: 800, easing: 'easeOutQuart' }
+          }
+        });
+        document.getElementById('distPass').innerHTML = pass;
+        document.getElementById('distFail').innerHTML = fail;
+      }
+    }
+    
+    // ============================================
+    // THEME OBSERVER
+    // ============================================
+    
+    var themeObserver = new MutationObserver(function() { loadSubject(); });
+    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    
+    // ============================================
+    // INIT
+    // ============================================
+    
+    loadSubject();
+    initMobileMenu();
+    initThemeSelector();
+    
+    // Exposer la fonction pour ajuster la hauteur
+    window.adjustGradesHeight = adjustGradesHeight;
+  </script>
+</body>
+</html>

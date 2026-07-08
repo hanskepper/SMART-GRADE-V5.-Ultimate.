@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .about-hero {
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 28px;
+      color: white;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .about-hero h1 { font-size: 1.8rem; margin: 8px 0; }
+    .about-hero .version-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+    }
+    
+    .stats-grid-about {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card-about {
+      text-align: center;
+      padding: 20px 10px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+    .stat-number-about {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-label-about {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 6px;
+      opacity: 0.7;
+    }
+    
+    .tech-grid-extended {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .tech-item {
+      text-align: center;
+      padding: 16px 10px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .tech-item:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+    .tech-item i { font-size: 2rem; margin-bottom: 8px; display: block; }
+    .tech-item .tech-name { font-weight: 700; font-size: 0.7rem; }
+    .tech-item .tech-desc { font-size: 0.55rem; color: var(--text-light); margin-top: 4px; }
+    
+    .tech-html5 { color: #E44D26; }
+    .tech-css3 { color: #264DE4; }
+    .tech-js { color: #F7DF1E; text-shadow: 0 0 2px #000; }
+    .tech-json { color: #000000; }
+    .tech-pwa { color: #5A0FC8; }
+    .tech-storage { color: #F39C12; }
+    .tech-webauthn { color: #2ECC71; }
+    .tech-qr { color: #1ABC9C; }
+    .tech-chart { color: #FF6384; }
+    .tech-database { color: #3498DB; }
+    .tech-api { color: #9B59B6; }
+    .tech-sw { color: #E67E22; }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .feature-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateX(4px);
+      border-color: var(--primary);
+    }
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .feature-icon.transfer { background: rgba(26,188,156,0.15); color: #1abc9c; }
+    .feature-icon.backup { background: rgba(52,152,219,0.15); color: #3498db; }
+    .feature-icon.notifications { background: rgba(241,196,15,0.15); color: #f39c12; }
+    .feature-icon.security { background: rgba(46,204,113,0.15); color: #2ecc71; }
+    .feature-icon.flashcard { background: rgba(155,89,182,0.15); color: #9b59b6; }
+    .feature-icon.goal { background: rgba(230,126,34,0.15); color: #e67e22; }
+    .feature-icon.export { background: rgba(231,76,60,0.15); color: #e74c3c; }
+    .feature-icon.theme { background: rgba(0,188,212,0.15); color: #00bcd4; }
+    .feature-icon.history { background: rgba(52,152,219,0.15); color: #3498db; }
+    .feature-icon.compensation { background: rgba(155,89,182,0.15); color: #9b59b6; }
+    .feature-icon.ai { background: rgba(46,204,113,0.15); color: #27ae60; }
+    .feature-icon.search { background: rgba(52,152,219,0.15); color: #2980b9; }
+    .feature-icon.chat { background: rgba(241,196,15,0.15); color: #f39c12; }
+    .feature-icon.homework { background: rgba(155,89,182,0.15); color: #9b59b6; }
+    .feature-icon.notebook { background: rgba(26,188,156,0.15); color: #1abc9c; }
+    .feature-icon.dev { background: rgba(231,76,60,0.15); color: #e74c3c; }
+    .feature-icon.cloud { background: rgba(52,152,219,0.15); color: #3498db; }
+    .feature-icon.auto { background: rgba(46,204,113,0.15); color: #27ae60; }
+    .feature-info { flex: 1; }
+    .feature-title { font-weight: 700; font-size: 0.75rem; }
+    .feature-desc { font-size: 0.6rem; color: var(--text-light); margin-top: 2px; }
+    
+    .complete-features-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .complete-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      padding: 6px 0;
+    }
+    .complete-feature-item i { width: 20px; font-size: 0.7rem; }
+    
+    .info-row-about {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.75rem;
+    }
+    .info-row-about i { width: 28px; text-align: center; }
+    
+    .info-row-clickable {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .info-row-clickable:hover {
+      background: rgba(0,0,0,0.02);
+      transform: translateX(4px);
+    }
+    .info-row-clickable i { width: 28px; text-align: center; }
+    .info-row-clickable .click-hint {
+      margin-left: auto;
+      font-size: 0.55rem;
+      color: var(--text-light);
+    }
+    
+    .friends-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+    .friends-modal.active { display: flex; }
+    .friends-modal-content {
+      background: var(--card-bg);
+      border-radius: 28px;
+      width: 90%;
+      max-width: 320px;
+      max-height: 70%;
+      overflow: hidden;
+      animation: fadeInUp 0.3s ease;
+      border: 1px solid var(--border);
+    }
+    .friends-modal-header {
+      padding: 18px 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .friends-modal-header h3 { color: white; margin: 0; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+    .friends-modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; padding: 0 10px; }
+    .friends-modal-body { padding: 20px; max-height: 60vh; overflow-y: auto; }
+    .friends-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .friend-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .friend-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .friend-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    
+    .tech-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+    .tech-modal.active { display: flex; }
+    .tech-modal-content {
+      background: var(--card-bg);
+      border-radius: 28px;
+      width: 95%;
+      max-width: 650px;
+      max-height: 85%;
+      overflow: hidden;
+      animation: techFadeIn 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    @keyframes techFadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    .tech-modal-header {
+      padding: 18px 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tech-modal-header h3 { color: white; margin: 0; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+    .tech-modal-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; padding: 0 10px; }
+    .tech-modal-body { padding: 20px; max-height: 70vh; overflow-y: auto; }
+    .tech-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tech-tab {
+      padding: 8px 20px;
+      border-radius: 40px;
+      background: rgba(0,0,0,0.05);
+      cursor: pointer;
+      font-size: 0.7rem;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+    }
+    .tech-tab.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    .tech-content { display: none; }
+    .tech-content.active { display: block; }
+    .tech-content ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .tech-content li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.03);
+      border-radius: 30px;
+      border: 1px solid var(--border);
+    }
+    .tech-content li i { width: 24px; color: var(--primary); }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @media (max-width: 550px) {
+      .stats-grid-about { grid-template-columns: repeat(3, 1fr); }
+      .features-grid { grid-template-columns: 1fr; }
+      .tech-grid-extended { grid-template-columns: repeat(2, 1fr); }
+      .complete-features-list { grid-template-columns: 1fr; }
+      .tech-content ul { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <!-- HEADER PRIVÉ AVEC AVATAR -->
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-info-circle"></i><span>ABOUT</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html">
+          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet">
+          <div class="font-sheet" data-font="small">A<sup>-</sup></div>
+          <div class="font-sheet" data-font="medium">A</div>
+          <div class="font-sheet" data-font="large">A<sup>+</sup></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- SIDEBAR PRIVÉ -->
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="about-user.html" class="nav-item active"><i class="fas fa-info-circle"></i> About</a>
+        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
+        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="about-hero">
+        <i class="fas fa-info-circle" style="font-size:50px;opacity:0.5;"></i>
+        <h1>SMART GRADE</h1>
+        <p style="opacity:0.8;font-size:0.75rem;">Ultimate Grade Management System</p>
+        <div class="version-badge">Version 5.0 Ultimate</div>
+      </div>
+      
+      <!-- STATS -->
+      <div class="stats-grid-about">
+        <div class="stat-card-about"><div class="stat-number-about">14</div><div class="stat-label-about">Subjects</div></div>
+        <div class="stat-card-about"><div class="stat-number-about">23</div><div class="stat-label-about">Badges</div></div>
+        <div class="stat-card-about"><div class="stat-number-about">20</div><div class="stat-label-about">Themes</div></div>
+        <div class="stat-card-about"><div class="stat-number-about">12</div><div class="stat-label-about">Fonts</div></div>
+        <div class="stat-card-about"><div class="stat-number-about">15</div><div class="stat-label-about">Search Sources</div></div>
+        <div class="stat-card-about"><div class="stat-number-about">3</div><div class="stat-label-about">AI Models</div></div>
+      </div>
+      
+      <!-- TECHNOLOGIES -->
+      <div class="glass-card text-center">
+        <h3><i class="fas fa-microchip"></i> Core Technologies</h3>
+        <div class="tech-grid-extended">
+          <div class="tech-item" onclick="openTechModal()"><i class="fab fa-html5 tech-html5"></i><div class="tech-name">HTML5</div><div class="tech-desc">Semantic Markup + APIs</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fab fa-css3-alt tech-css3"></i><div class="tech-name">CSS3</div><div class="tech-desc">Flexbox, Grid, Animations</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fab fa-js tech-js"></i><div class="tech-name">JavaScript ES6+</div><div class="tech-desc">Promises, Async/Await</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fas fa-database tech-database"></i><div class="tech-name">localStorage</div><div class="tech-desc">Client-side Database</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fas fa-file-code tech-json"></i><div class="tech-name">JSON</div><div class="tech-desc">Data Interchange Format</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fas fa-mobile-alt tech-pwa"></i><div class="tech-name">PWA</div><div class="tech-desc">Offline + Installable</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fas fa-fingerprint tech-webauthn"></i><div class="tech-name">WebAuthn</div><div class="tech-desc">Biometric Authentication</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fas fa-qrcode tech-qr"></i><div class="tech-name">QR Code API</div><div class="tech-desc">Data Transfer</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fas fa-chart-line tech-chart"></i><div class="tech-name">Chart.js</div><div class="tech-desc">Interactive Graphs</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fas fa-cloud-upload-alt tech-sw"></i><div class="tech-name">Service Worker</div><div class="tech-desc">Offline Caching</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fas fa-bell tech-api"></i><div class="tech-name">Notification API</div><div class="tech-desc">Push Alerts</div></div>
+          <div class="tech-item" onclick="openTechModal()"><i class="fas fa-camera tech-api"></i><div class="tech-name">MediaDevices</div><div class="tech-desc">Camera QR Scanning</div></div>
+        </div>
+        <button class="btn btn-secondary" onclick="openTechModal()" style="margin-top:8px;width:auto;padding:8px 20px;">
+          <i class="fas fa-code"></i> View All Technologies (60+)
+        </button>
+      </div>
+      
+      <!-- Complete Features -->
+<div class="glass-card">
+  <h3><i class="fas fa-star" style="color:var(--primary);"></i> Complete Features</h3>
+  <div class="complete-features-list">
+    
+    <!-- V4 Features -->
+    <div class="complete-feature-item"><i class="fas fa-book" style="color:var(--primary);"></i> 14 Subjects with customizable coefficients</div>
+    <div class="complete-feature-item"><i class="fas fa-layer-group" style="color:var(--primary);"></i> 6 Sequences / 3 Terms per year</div>
+    <div class="complete-feature-item"><i class="fas fa-balance-scale" style="color:var(--primary);"></i> Smart rounding and compensation system</div>
+    <div class="complete-feature-item"><i class="fas fa-chart-pie" style="color:var(--primary);"></i> Advanced statistics and predictions</div>
+    <div class="complete-feature-item"><i class="fas fa-medal" style="color:var(--primary);"></i> 23 Badges (14 achievements + 4 streak + 5 special)</div>
+    <div class="complete-feature-item"><i class="fas fa-palette" style="color:var(--primary);"></i> 20 Themes + 12 Fonts</div>
+    <div class="complete-feature-item"><i class="fas fa-moon" style="color:var(--primary);"></i> Night mode (auto 20h-6h)</div>
+    <div class="complete-feature-item"><i class="fas fa-fingerprint" style="color:var(--primary);"></i> Biometric login (fingerprint)</div>
+    <div class="complete-feature-item"><i class="fas fa-mobile-alt" style="color:var(--primary);"></i> PWA - 100% offline ready</div>
+    <div class="complete-feature-item"><i class="fas fa-calculator" style="color:var(--primary);"></i> Smart grade calculator</div>
+    <div class="complete-feature-item"><i class="fas fa-clone" style="color:var(--primary);"></i> Flashcards for each subject</div>
+    <div class="complete-feature-item"><i class="fas fa-bullseye" style="color:var(--primary);"></i> Personal goals and targets</div>
+    <div class="complete-feature-item"><i class="fas fa-qrcode" style="color:var(--primary);"></i> Data transfer between devices (QR Code)</div>
+    <div class="complete-feature-item"><i class="fas fa-camera" style="color:var(--primary);"></i> Profile photos from gallery</div>
+    <div class="complete-feature-item"><i class="fas fa-file-export" style="color:var(--primary);"></i> Export/Import JSON backup</div>
+    <div class="complete-feature-item"><i class="fas fa-history" style="color:var(--primary);"></i> Activity history log</div>
+    <div class="complete-feature-item"><i class="fas fa-sliders-h" style="color:var(--primary);"></i> Customizable subjects per term</div>
+    <div class="complete-feature-item"><i class="fas fa-file-alt" style="color:var(--primary);"></i> Yearly report with letter grades</div>
+    <div class="complete-feature-item"><i class="fas fa-chart-line" style="color:var(--primary);"></i> Interactive charts (line, bar, radar)</div>
+    <div class="complete-feature-item"><i class="fas fa-search-plus" style="color:var(--primary);"></i> Zoomable progress chart</div>
+    <div class="complete-feature-item"><i class="fas fa-database" style="color:var(--primary);"></i> Auto-backup every hour</div>
+    <div class="complete-feature-item"><i class="fas fa-bell" style="color:var(--primary);"></i> Smart notifications system</div>
+    
+    <!-- V5.0 New Features -->
+    <div class="complete-feature-item"><i class="fas fa-robot" style="color:var(--secondary);"></i> AI Assistant with Groq and Mistral</div>
+    <div class="complete-feature-item"><i class="fas fa-search" style="color:var(--secondary);"></i> Multi-Search (15 sources: DuckDuckGo, Wikipedia, YouTube, GitHub, etc.)</div>
+    <div class="complete-feature-item"><i class="fas fa-comment-dots" style="color:var(--secondary);"></i> P2P Chat with unique codes</div>
+    <div class="complete-feature-item"><i class="fas fa-tasks" style="color:var(--secondary);"></i> Homework Manager with file attachments</div>
+    <div class="complete-feature-item"><i class="fas fa-book" style="color:var(--secondary);"></i> Personal Notebook with colors and pins</div>
+    <div class="complete-feature-item"><i class="fas fa-bolt" style="color:var(--secondary);"></i> Quick Shortcuts for main features</div>
+    <div class="complete-feature-item"><i class="fas fa-code" style="color:var(--secondary);"></i> 6 Developer Tools (Calculator, Database, Stats, Logs, Backup, Config)</div>
+    <div class="complete-feature-item"><i class="fas fa-cloud-upload-alt" style="color:var(--secondary);"></i> Automatic Cloud Sync (JSONBin.io)</div>
+    <div class="complete-feature-item"><i class="fas fa-save" style="color:var(--secondary);"></i> Auto-Save every 30 seconds</div>
+    <div class="complete-feature-item"><i class="fas fa-sync-alt" style="color:var(--secondary);"></i> Auto-Update from GitHub</div>
+    <div class="complete-feature-item"><i class="fas fa-balance-scale" style="color:var(--secondary);"></i> Smart Compensation System for averages</div>
+    <div class="complete-feature-item"><i class="fas fa-infinity" style="color:var(--secondary);"></i> Infinite Streak Badges (cycles of 30 days)</div>
+    
+  </div>
+</div>
+      
+      <!-- KEY FEATURES HIGHLIGHTS -->
+      <div class="glass-card">
+        <h3><i class="fas fa-fire"></i> Key Features Highlights</h3>
+        <div class="features-grid">
+          <div class="feature-card"><div class="feature-icon transfer"><i class="fas fa-exchange-alt"></i></div><div class="feature-info"><div class="feature-title">Data Transfer</div><div class="feature-desc">QR Code + 6-digit code between devices</div></div></div>
+          <div class="feature-card"><div class="feature-icon backup"><i class="fas fa-database"></i></div><div class="feature-info"><div class="feature-title">Auto Backup</div><div class="feature-desc">Hourly backups</div></div></div>
+          <div class="feature-card"><div class="feature-icon notifications"><i class="fas fa-bell"></i></div><div class="feature-info"><div class="feature-title">Smart Notifications</div><div class="feature-desc">Real-time alerts for all activities</div></div></div>
+          <div class="feature-card"><div class="feature-icon security"><i class="fas fa-fingerprint"></i></div><div class="feature-info"><div class="feature-title">Biometric Security</div><div class="feature-desc">Fingerprint login + 4-digit PIN</div></div></div>
+          <div class="feature-card"><div class="feature-icon flashcard"><i class="fas fa-clone"></i></div><div class="feature-info"><div class="feature-title">Flashcards</div><div class="feature-desc">Study with custom cards per subject</div></div></div>
+          <div class="feature-card"><div class="feature-icon goal"><i class="fas fa-bullseye"></i></div><div class="feature-info"><div class="feature-title">Goals and Streaks</div><div class="feature-desc">Track progress with achievements</div></div></div>
+          <div class="feature-card"><div class="feature-icon export"><i class="fas fa-file-export"></i></div><div class="feature-info"><div class="feature-title">Export Options</div><div class="feature-desc">JSON, CSV, HTML, PDF formats</div></div></div>
+          <div class="feature-card"><div class="feature-icon theme"><i class="fas fa-palette"></i></div><div class="feature-info"><div class="feature-title">Customization</div><div class="feature-desc">20 themes + 12 fonts + Night mode</div></div></div>
+          <div class="feature-card"><div class="feature-icon ai"><i class="fas fa-robot"></i></div><div class="feature-info"><div class="feature-title">AI Assistant</div><div class="feature-desc">Groq + Mistral models for homework help</div></div></div>
+          <div class="feature-card"><div class="feature-icon search"><i class="fas fa-search"></i></div><div class="feature-info"><div class="feature-title">Multi-Search</div><div class="feature-desc">15 sources in parallel</div></div></div>
+          <div class="feature-card"><div class="feature-icon chat"><i class="fas fa-comment-dots"></i></div><div class="feature-info"><div class="feature-title">P2P Chat</div><div class="feature-desc">Chat with classmates using unique codes</div></div></div>
+          <div class="feature-card"><div class="feature-icon homework"><i class="fas fa-tasks"></i></div><div class="feature-info"><div class="feature-title">Homework Manager</div><div class="feature-desc">Assignments with file attachments</div></div></div>
+          <div class="feature-card"><div class="feature-icon notebook"><i class="fas fa-book"></i></div><div class="feature-info"><div class="feature-title">Notebook</div><div class="feature-desc">Personal notes with colors and pins</div></div></div>
+          <div class="feature-card"><div class="feature-icon dev"><i class="fas fa-code"></i></div><div class="feature-info"><div class="feature-title">Developer Tools</div><div class="feature-desc">6 tools for advanced users</div></div></div>
+          <div class="feature-card"><div class="feature-icon cloud"><i class="fas fa-cloud-upload-alt"></i></div><div class="feature-info"><div class="feature-title">Cloud Sync</div><div class="feature-desc">Automatic backup to JSONBin.io</div></div></div>
+          <div class="feature-card"><div class="feature-icon auto"><i class="fas fa-save"></i></div><div class="feature-info"><div class="feature-title">Auto-Save + Auto-Update</div><div class="feature-desc">Save every 30s + Update from GitHub</div></div></div>
+        </div>
+      </div>
+      
+ <!-- Version History -->
+<div class="glass-card">
+  <h3><i class="fas fa-history" style="color:var(--primary);"></i> Version History</h3>
+  
+  <div class="info-row-about">
+    <i class="fas fa-tag" style="color:var(--primary);"></i>
+    <strong>v5.0 Ultimate</strong>
+    <span style="margin-left:auto;color:var(--primary);">Current</span>
+  </div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> AI Assistant with Groq and Mistral</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Multi-Search (15 sources)</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> P2P Chat with unique codes</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Homework Manager with file attachments</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Personal Notebook with colors and pins</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> 6 Developer Tools</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Cloud Sync (JSONBin.io)</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Auto-Save every 30 seconds</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Auto-Update from GitHub</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Infinite Streak Badges</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> 23 Badges total</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Compensation System</div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-tag" style="color:var(--text-light);"></i>
+    <strong>v5.0 Ultimate</strong>
+    <span style="margin-left:auto;color:var(--text-light);">Previous</span>
+  </div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Profile photos from gallery</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> QR Code transfer system</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> 20 themes + 12 fonts</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Flashcards and Goals system</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Cross-tab data sync</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Auto-backup every hour</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> 7 error pages (400-503)</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Smart notifications system</div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-tag" style="color:var(--text-light);opacity:0.5;"></i>
+    <strong style="opacity:0.7;">v3.0</strong>
+    <span style="margin-left:auto;color:var(--text-light);opacity:0.5;">Legacy</span>
+  </div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.5;"></i> Achievements and Streaks</div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.5;"></i> Compensation system</div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-tag" style="color:var(--text-light);opacity:0.3;"></i>
+    <strong style="opacity:0.5;">v2.0</strong>
+    <span style="margin-left:auto;color:var(--text-light);opacity:0.3;">Legacy</span>
+  </div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.3;"></i> PWA + Offline support</div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-tag" style="color:var(--text-light);opacity:0.2;"></i>
+    <strong style="opacity:0.3;">v1.0</strong>
+    <span style="margin-left:auto;color:var(--text-light);opacity:0.2;">Original</span>
+  </div>
+  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.2;"></i> Basic grade management</div>
+</div>
+<!-- Acknowledgments -->
+<div class="glass-card">
+  <h3><i class="fas fa-heart" style="color:var(--primary);"></i> Acknowledgments</h3>
+  
+  <div class="info-row-about">
+    <i class="fas fa-gratipay" style="color:var(--primary);"></i> 
+    My Classmates
+  </div>
+  
+  <div class="info-row-clickable" onclick="openFriendsModal()">
+    <i class="fas fa-user-friends" style="color:var(--primary);"></i>
+    <span>My Friends</span>
+    <span class="click-hint"><i class="fas fa-eye" style="color:var(--text-light);"></i> Click to see names</span>
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-gratipay" style="color:var(--secondary);"></i> 
+    Open Source Community
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fab fa-font-awesome" style="color:var(--primary);"></i> 
+    Font Awesome and Google Fonts
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-chart-simple" style="color:var(--secondary);"></i> 
+    Chart.js Team
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-file-pdf" style="color:var(--primary);"></i> 
+    html2pdf.js Team
+  </div>
+  
+  <!-- V5.0 Thanks -->
+  <div class="info-row-about">
+    <i class="fab fa-github" style="color:var(--primary);"></i> 
+    GitHub API (Gist for transfers)
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-cloud-upload-alt" style="color:var(--secondary);"></i> 
+    JSONBin.io (Cloud Sync)
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-robot" style="color:var(--primary);"></i> 
+    Groq and Mistral AI (AI Assistant)
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-qrcode" style="color:var(--secondary);"></i> 
+    QRCode.js and html5-qrcode
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-chart-line" style="color:var(--primary);"></i> 
+    Chart.js and chartjs-plugin-zoom
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-code" style="color:var(--secondary);"></i> 
+    Prism.js (Code highlighting)
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-diagram-project" style="color:var(--primary);"></i> 
+    Mermaid.js (Diagrams)
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-square-root-variable" style="color:var(--secondary);"></i> 
+    MathJax (LaTeX equations)
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-markdown" style="color:var(--primary);"></i> 
+    Marked.js (Markdown rendering)
+  </div>
+  
+</div>
+      
+<!-- Developer -->
+<div class="glass-card">
+  <h3><i class="fas fa-user-astronaut" style="color:var(--primary);"></i> Developer</h3>
+  
+  <div class="info-row-about">
+    <i class="fas fa-user" style="color:var(--primary);"></i>
+    <strong>HANS KEPPER</strong>
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-envelope" style="color:var(--secondary);"></i> 
+    hanskepper52@gmail.com
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-phone" style="color:var(--primary);"></i> 
+    +237 698 640 885
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-map-marker-alt" style="color:var(--secondary);"></i> 
+    Cameroon
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-code" style="color:var(--primary);"></i>
+    <strong>Web Developer</strong>
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-laptop-code" style="color:var(--secondary);"></i> 
+    Specialized in Web Applications
+  </div>
+</div>
+      
+<!-- Institution -->
+<div class="glass-card">
+  <h3><i class="fas fa-school" style="color:var(--primary);"></i> Institution</h3>
+  
+  <div class="info-row-about">
+    <i class="fas fa-building" style="color:var(--primary);"></i>
+    <strong>SIN GBHS FOUMBAN</strong>
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-graduation-cap" style="color:var(--secondary);"></i> 
+    Form 5B Science
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-calendar" style="color:var(--primary);"></i> 
+    Academic Year 2026-2027
+  </div>
+  
+  <div class="info-row-about">
+    <i class="fas fa-flag-checkered" style="color:var(--secondary);"></i> 
+    Cameroon National Curriculum
+  </div>
+</div>
+      <div class="glass-card text-center">
+        <i class="fas fa-copyright" style="font-size:30px;opacity:0.3;"></i>
+        <p style="font-size:0.65rem;margin-top:8px;">SMART GRADE v5.0 Ultimate</p>
+        <p style="font-size:0.6rem;color:var(--text-light);">Developed by HANS KEPPER • SIN GBHS FOUMBAN 2026-2027</p>
+        <p style="font-size:0.55rem;color:var(--text-light);">All rights reserved.</p>
+      </div>
+      
+    </main>
+  </div>
+  
+  <!-- FRIENDS MODAL -->
+  <div id="friendsModal" class="friends-modal">
+    <div class="friends-modal-content">
+      <div class="friends-modal-header">
+        <h3><i class="fas fa-user-friends"></i> My Friends</h3>
+        <button class="friends-modal-close" onclick="closeFriendsModal()">&times;</button>
+      </div>
+      <div class="friends-modal-body">
+        <div class="friends-list" id="friendsList"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- TECH MODAL -->
+  <div id="techModal" class="tech-modal">
+    <div class="tech-modal-content">
+      <div class="tech-modal-header"><h3><i class="fas fa-code"></i> Technologies Used (60+)</h3><button class="tech-modal-close" onclick="closeTechModal()">&times;</button></div>
+      <div class="tech-modal-body">
+        <div class="tech-tabs">
+          <button class="tech-tab active" onclick="showTechTab('html5')">HTML5</button>
+          <button class="tech-tab" onclick="showTechTab('css3')">CSS3</button>
+          <button class="tech-tab" onclick="showTechTab('js')">JavaScript</button>
+          <button class="tech-tab" onclick="showTechTab('storage')">Storage</button>
+          <button class="tech-tab" onclick="showTechTab('pwa')">PWA and APIs</button>
+          <button class="tech-tab" onclick="showTechTab('features')">Features</button>
+        </div>
+        
+        <div id="techHtml5" class="tech-content active">
+          <ul>
+            <li><i class="fab fa-html5"></i> Semantic Elements</li>
+            <li><i class="fas fa-check-circle"></i> LocalStorage API</li>
+            <li><i class="fas fa-check-circle"></i> Canvas API</li>
+            <li><i class="fas fa-check-circle"></i> FileReader API</li>
+            <li><i class="fas fa-check-circle"></i> MediaDevices API</li>
+            <li><i class="fas fa-check-circle"></i> Notification API</li>
+            <li><i class="fas fa-check-circle"></i> Vibration API</li>
+            <li><i class="fas fa-check-circle"></i> Clipboard API</li>
+            <li><i class="fas fa-check-circle"></i> Web Storage API</li>
+            <li><i class="fas fa-check-circle"></i> Viewport meta for mobile</li>
+          </ul>
+        </div>
+        
+        <div id="techCss3" class="tech-content">
+          <ul>
+            <li><i class="fab fa-css3-alt"></i> Flexbox and Grid Layout</li>
+            <li><i class="fas fa-check-circle"></i> CSS Animations and Keyframes</li>
+            <li><i class="fas fa-check-circle"></i> CSS Variables (Custom Properties)</li>
+            <li><i class="fas fa-check-circle"></i> Glassmorphism (backdrop-filter)</li>
+            <li><i class="fas fa-check-circle"></i> Media Queries (Responsive)</li>
+            <li><i class="fas fa-check-circle"></i> Gradients and Transforms</li>
+            <li><i class="fas fa-check-circle"></i> 20 Color Themes</li>
+            <li><i class="fas fa-check-circle"></i> Dark / Light Mode (Night mode)</li>
+            <li><i class="fas fa-check-circle"></i> Custom Scrollbar</li>
+            <li><i class="fas fa-check-circle"></i> Box Shadow and Border Radius</li>
+          </ul>
+        </div>
+        
+        <div id="techJs" class="tech-content">
+          <ul>
+            <li><i class="fab fa-js"></i> ES6+ Syntax (let, const, arrow)</li>
+            <li><i class="fas fa-check-circle"></i> Promises and Async/Await</li>
+            <li><i class="fas fa-check-circle"></i> LocalStorage Database Management</li>
+            <li><i class="fas fa-chart-line"></i> Chart.js Integration</li>
+            <li><i class="fas fa-fingerprint"></i> WebAuthn API (Fingerprint)</li>
+            <li><i class="fas fa-mobile-alt"></i> Service Worker (PWA)</li>
+            <li><i class="fas fa-qrcode"></i> QR Code Generation and Scanning</li>
+            <li><i class="fas fa-volume-up"></i> Speech Synthesis (TTS Audio Guide)</li>
+            <li><i class="fas fa-camera"></i> Camera and QR Scanning</li>
+            <li><i class="fas fa-palette"></i> Dynamic Theme Switching</li>
+          </ul>
+        </div>
+        
+        <div id="techStorage" class="tech-content">
+          <ul>
+            <li><i class="fas fa-database"></i> localStorage (Client-side DB)</li>
+            <li><i class="fas fa-file-code"></i> JSON Data Exchange Format</li>
+            <li><i class="fas fa-file-export"></i> Export/Import (CSV, JSON, PDF, HTML)</li>
+            <li><i class="fas fa-cloud-upload-alt"></i> Backup and Restore System</li>
+            <li><i class="fas fa-sync-alt"></i> Cross-tab Data Sync (storage event)</li>
+            <li><i class="fas fa-qrcode"></i> QR Code Data Transfer</li>
+            <li><i class="fas fa-key"></i> 6-Character Secure Transfer Codes</li>
+            <li><i class="fas fa-chart-bar"></i> Data Compression (Base64 for images)</li>
+            <li><i class="fas fa-chart-simple"></i> Storage Usage Monitoring</li>
+            <li><i class="fas fa-save"></i> Auto-save every 30 seconds</li>
+          </ul>
+        </div>
+        
+        <div id="techPwa" class="tech-content">
+          <ul>
+            <li><i class="fas fa-mobile-alt"></i> Progressive Web App (PWA)</li>
+            <li><i class="fas fa-cloud-upload-alt"></i> Service Worker (Offline Mode)</li>
+            <li><i class="fas fa-file-alt"></i> Web App Manifest</li>
+            <li><i class="fas fa-fingerprint"></i> WebAuthn (Fingerprint Login)</li>
+            <li><i class="fas fa-camera"></i> MediaDevices (Camera for QR)</li>
+            <li><i class="fas fa-qrcode"></i> html5-qrcode Library</li>
+            <li><i class="fas fa-chart-line"></i> Chart.js (Bar, Radar, Doughnut)</li>
+            <li><i class="fas fa-search-plus"></i> chartjs-plugin-zoom</li>
+            <li><i class="fas fa-bell"></i> Notification API</li>
+            <li><i class="fas fa-mobile"></i> Vibration API (Haptic Feedback)</li>
+            <li><i class="fas fa-copy"></i> Clipboard API (Copy/Paste)</li>
+            <li><i class="fas fa-file"></i> FileReader API (Import/Export)</li>
+            <li><i class="fas fa-volume-up"></i> Speech Synthesis (Audio Guide 16 chapters)</li>
+            <li><i class="fas fa-file-pdf"></i> html2pdf.js (PDF Generation)</li>
+          </ul>
+        </div>
+        
+        <div id="techFeatures" class="tech-content">
+          <ul>
+            <li><i class="fas fa-layer-group"></i> 14 Subjects with coefficients</li>
+            <li><i class="fas fa-chart-line"></i> 3 Terms / 6 Sequences</li>
+            <li><i class="fas fa-medal"></i> 23 Achievement Badges</li>
+            <li><i class="fas fa-palette"></i> 20 Color Themes</li>
+            <li><i class="fas fa-font"></i> 12 Font Families</li>
+            <li><i class="fas fa-moon"></i> Night Mode (auto 20h-6h)</li>
+            <li><i class="fas fa-fingerprint"></i> Fingerprint Login</li>
+            <li><i class="fas fa-clone"></i> Flashcards System</li>
+            <li><i class="fas fa-bullseye"></i> Goals and Targets</li>
+            <li><i class="fas fa-qrcode"></i> QR Code Transfer</li>
+            <li><i class="fas fa-database"></i> JSON Backup/Restore</li>
+            <li><i class="fas fa-file-csv"></i> CSV Export</li>
+            <li><i class="fas fa-file-pdf"></i> PDF Export</li>
+            <li><i class="fas fa-chart-pie"></i> Interactive Charts</li>
+            <li><i class="fas fa-calendar-alt"></i> Class Timetable</li>
+            <li><i class="fas fa-history"></i> Activity History</li>
+            <li><i class="fas fa-bell"></i> Smart Notifications</li>
+            <li><i class="fas fa-balance-scale"></i> Compensation System</li>
+            <li><i class="fas fa-robot"></i> AI Assistant (Groq + Mistral)</li>
+            <li><i class="fas fa-search"></i> Multi-Search (15 sources)</li>
+            <li><i class="fas fa-comment-dots"></i> P2P Chat</li>
+            <li><i class="fas fa-tasks"></i> Homework Manager</li>
+            <li><i class="fas fa-book"></i> Personal Notebook</li>
+            <li><i class="fas fa-code"></i> 6 Developer Tools</li>
+            <li><i class="fas fa-cloud-upload-alt"></i> Cloud Sync</li>
+            <li><i class="fas fa-save"></i> Auto-Save</li>
+            <li><i class="fas fa-sync-alt"></i> Auto-Update</li>
+            <li><i class="fas fa-infinity"></i> Infinite Streak Badges</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    var FRIENDS_LIST = [
+      "LAMBO ALVARES",
+      "DAVILA GEORGINA",
+      "WANYOU ROMIEL",
+      "SAMARI AYATOU",
+      "EWALOW"
+    ];
+    
+    function getAvatarLetter(name) {
+      return name.charAt(0).toUpperCase();
+    }
+    
+    function openFriendsModal() {
+      var modal = document.getElementById('friendsModal');
+      var friendsListDiv = document.getElementById('friendsList');
+      
+      var html = '';
+      for (var i = 0; i < FRIENDS_LIST.length; i++) {
+        var friendName = FRIENDS_LIST[i];
+        html += '<div class="friend-item">' +
+          '<div class="friend-avatar">' + getAvatarLetter(friendName) + '</div>' +
+          '<div class="friend-name">' + friendName + '</div>' +
+        '</div>';
+      }
+      
+      friendsListDiv.innerHTML = html;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeFriendsModal() {
+      document.getElementById('friendsModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    function openTechModal() {
+      document.getElementById('techModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeTechModal() {
+      document.getElementById('techModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    function showTechTab(tab) {
+      document.querySelectorAll('.tech-tab').forEach(function(btn) { btn.classList.remove('active'); });
+      document.querySelectorAll('.tech-content').forEach(function(content) { content.classList.remove('active'); });
+      
+      if (tab === 'html5') {
+        document.querySelector('.tech-tab:nth-child(1)').classList.add('active');
+        document.getElementById('techHtml5').classList.add('active');
+      } else if (tab === 'css3') {
+        document.querySelector('.tech-tab:nth-child(2)').classList.add('active');
+        document.getElementById('techCss3').classList.add('active');
+      } else if (tab === 'js') {
+        document.querySelector('.tech-tab:nth-child(3)').classList.add('active');
+        document.getElementById('techJs').classList.add('active');
+      } else if (tab === 'storage') {
+        document.querySelector('.tech-tab:nth-child(4)').classList.add('active');
+        document.getElementById('techStorage').classList.add('active');
+      } else if (tab === 'pwa') {
+        document.querySelector('.tech-tab:nth-child(5)').classList.add('active');
+        document.getElementById('techPwa').classList.add('active');
+      } else if (tab === 'features') {
+        document.querySelector('.tech-tab:nth-child(6)').classList.add('active');
+        document.getElementById('techFeatures').classList.add('active');
+      }
+    }
+    
+    // ============================================
+    // METTRE À JOUR L'AVATAR
+    // ============================================
+    function updateHeaderAvatar() {
+      var headerAvatar = document.getElementById('headerAvatar');
+      if (!headerAvatar) return;
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          } else {
+            headerAvatar.innerHTML = '<i class="fas fa-user-graduate"></i>';
+          }
+        }
+      } catch(e) {
+        headerAvatar.innerHTML = '<i class="fas fa-user-graduate"></i>';
+      }
+    }
+    
+    document.getElementById('techModal').addEventListener('click', function(e) {
+      if (e.target === this) closeTechModal();
+    });
+    
+    document.getElementById('friendsModal').addEventListener('click', function(e) {
+      if (e.target === this) closeFriendsModal();
+    });
+    
+    initParticles();
+    initThemeSelector();
+    initMobileMenu();
+    updateHeaderAvatar();
+    
+    if (typeof applyGlobalFont === 'function') {
+      applyGlobalFont();
+    }
+  </script>
+</body>
+</html>

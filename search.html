@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Multi Search</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  
+  <!-- API Keys -->
+  <script src="js/api-keys.js"></script>
+  
+  <style>
+    .search-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    .search-box {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      background: var(--card-bg);
+      border-radius: 60px;
+      padding: 4px;
+      border: 2px solid var(--border);
+      transition: all 0.3s ease;
+    }
+    .search-box:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(15,59,72,0.1);
+    }
+    .search-box input {
+      flex: 1;
+      padding: 14px 20px;
+      border: none;
+      background: var(--card-bg) !important;
+      color: var(--text) !important;
+      font-size: 0.95rem;
+      outline: none;
+      font-family: inherit;
+      min-width: 0;
+      border-radius: 60px;
+    }
+    .search-box input::placeholder {
+      color: var(--text-light);
+      opacity: 0.6;
+    }
+    .search-box button {
+      padding: 14px 24px;
+      border-radius: 60px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+    .search-box button:active {
+      transform: scale(0.95);
+    }
+    
+    /* ============================================
+       MODE NUIT - CORRECTION CHAMP RECHERCHE
+       ============================================ */
+    body.night-mode .search-box {
+      background: var(--card-bg) !important;
+      border-color: var(--border) !important;
+    }
+    body.night-mode .search-box input {
+      background: var(--card-bg) !important;
+      color: var(--text) !important;
+    }
+    body.night-mode .search-box input::placeholder {
+      color: var(--text-light) !important;
+      opacity: 0.5;
+    }
+    body.night-mode .search-box:focus-within {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 4px rgba(15,59,72,0.15) !important;
+    }
+    
+    .suggestions-box {
+      margin-top: 16px;
+      margin-bottom: 20px;
+      padding: 16px 20px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    .suggestions-box .title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .suggestions-box .title i {
+      color: var(--primary);
+    }
+    .suggestions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .suggestions-grid .tag {
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .suggestions-grid .tag:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(15,59,72,0.04);
+    }
+    
+    .sources-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 0;
+      border-bottom: none;
+    }
+    .source-tab-all {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: auto;
+      min-width: 120px;
+    }
+    .source-tab {
+      padding: 8px 12px;
+      border-radius: 30px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .source-tab.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    .source-tab .count {
+      background: rgba(0,0,0,0.05);
+      padding: 0 8px;
+      border-radius: 20px;
+      font-size: 0.5rem;
+      font-weight: 700;
+    }
+    .source-tab.active .count {
+      background: rgba(255,255,255,0.2);
+    }
+    
+    @media (max-width: 600px) {
+      .sources-tabs {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+      }
+      .source-tab {
+        font-size: 0.5rem;
+        padding: 6px 8px;
+      }
+      .source-tab-all {
+        grid-column: 1 / -1;
+      }
+    }
+    
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 768px) {
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+      .suggestions-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .suggestions-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .suggestions-grid .tag {
+        font-size: 0.55rem;
+        padding: 6px 10px;
+      }
+    }
+    
+    .result-source-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .result-source-header {
+      padding: 10px 16px;
+      background: rgba(0,0,0,0.02);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+    .result-source-header .source-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .result-source-header .source-name i {
+      color: var(--primary);
+      font-size: 0.85rem;
+      width: 20px;
+      text-align: center;
+    }
+    .result-source-header .badge {
+      font-size: 0.55rem;
+      font-weight: 400;
+      color: var(--text-light);
+      background: rgba(0,0,0,0.05);
+      padding: 2px 12px;
+      border-radius: 20px;
+    }
+    .result-source-body {
+      padding: 8px 16px;
+      max-height: 380px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .result-source-body::-webkit-scrollbar {
+      width: 3px;
+    }
+    .result-source-body::-webkit-scrollbar-track {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .result-source-body::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .result-item-mini {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      align-items: flex-start;
+    }
+    .result-item-mini:last-child {
+      border-bottom: none;
+    }
+    .result-item-mini:hover {
+      transform: translateX(4px);
+    }
+    .result-item-mini .thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+    }
+    .result-item-mini .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .result-item-mini .thumb .placeholder {
+      font-size: 1.5rem;
+      color: var(--text-light);
+      opacity: 0.3;
+    }
+    .result-item-mini .info {
+      flex: 1;
+      min-width: 0;
+    }
+    .result-item-mini .info .title {
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: var(--primary);
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+    .result-item-mini .info .snippet {
+      font-size: 0.65rem;
+      color: var(--text-light);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .result-item-mini .info .url {
+      font-size: 0.55rem;
+      color: var(--text-light);
+      opacity: 0.4;
+      margin-top: 2px;
+      word-break: break-all;
+    }
+    
+    .result-empty {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--text-light);
+    }
+    .result-empty i {
+      font-size: 30px;
+      opacity: 0.15;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .result-empty p {
+      font-size: 0.7rem;
+    }
+    
+    .result-loading {
+      text-align: center;
+      padding: 30px 16px;
+    }
+    .result-loading .spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 10px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .result-loading p {
+      font-size: 0.65rem;
+      color: var(--text-light);
+    }
+    
+    .search-stats {
+      font-size: 0.6rem;
+      color: var(--text-light);
+      margin-bottom: 12px;
+      padding: 6px 16px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 30px;
+      display: inline-block;
+      min-height: 24px;
+    }
+    
+    .search-powered {
+      text-align: center;
+      font-size: 0.55rem;
+      color: var(--text-light);
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .search-powered a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    
+    .progress-text {
+      font-weight: 600;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-search"></i><span>SEARCH</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div id="headerAvatar" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="search.html" class="nav-item active"><i class="fas fa-search"></i> Search</a>
+        <a href="ai-assistant.html" class="nav-item"><i class="fas fa-robot"></i> AI Assistant</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="index.html" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
+        <i class="fas fa-search" style="font-size:35px;opacity:0.5;"></i>
+        <h2 style="color:white;margin:6px 0;">Multi-Search</h2>
+        <p style="opacity:0.8;font-size:0.65rem;">15 sources in parallel</p>
+      </div>
+      
+      <div class="search-container">
+        
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search the web..." autofocus>
+          <button onclick="performMultiSearch()">
+            <i class="fas fa-search"></i> Search
+          </button>
+        </div>
+        
+        <div id="suggestionsBox" class="suggestions-box" style="display:none;">
+          <div class="title"><i class="fas fa-lightbulb"></i> Related searches</div>
+          <div class="suggestions-grid" id="suggestionsGrid"></div>
+        </div>
+        
+        <div id="searchStats" class="search-stats">
+          <i class="fas fa-info-circle"></i> Enter a search term to begin
+        </div>
+        
+        <div class="sources-tabs" id="sourcesTabs">
+          <span class="source-tab source-tab-all active" data-source="all" onclick="filterSource('all')">
+            <i class="fas fa-layer-group"></i> All <span class="count" id="countAll">0</span>
+          </span>
+          <span class="source-tab" data-source="duckduckgo" onclick="filterSource('duckduckgo')">
+            <i class="fas fa-shield-alt"></i> DuckDuckGo <span class="count" id="countDuckduckgo">0</span>
+          </span>
+          <span class="source-tab" data-source="wikipedia" onclick="filterSource('wikipedia')">
+            <i class="fas fa-wikipedia-w"></i> Wikipedia <span class="count" id="countWikipedia">0</span>
+          </span>
+          <span class="source-tab" data-source="wiktionary" onclick="filterSource('wiktionary')">
+            <i class="fas fa-book"></i> Wiktionary <span class="count" id="countWiktionary">0</span>
+          </span>
+          <span class="source-tab" data-source="openlibrary" onclick="filterSource('openlibrary')">
+            <i class="fas fa-book-open"></i> Books <span class="count" id="countOpenlibrary">0</span>
+          </span>
+          <span class="source-tab" data-source="wikimedia" onclick="filterSource('wikimedia')">
+            <i class="fas fa-images"></i> Images <span class="count" id="countWikimedia">0</span>
+          </span>
+          <span class="source-tab" data-source="wikidata" onclick="filterSource('wikidata')">
+            <i class="fas fa-database"></i> Wikidata <span class="count" id="countWikidata">0</span>
+          </span>
+          <span class="source-tab" data-source="googlebooks" onclick="filterSource('googlebooks')">
+            <i class="fas fa-google"></i> Google Books <span class="count" id="countGooglebooks">0</span>
+          </span>
+          <span class="source-tab" data-source="internetarchive" onclick="filterSource('internetarchive')">
+            <i class="fas fa-archive"></i> Archive <span class="count" id="countInternetarchive">0</span>
+          </span>
+          <span class="source-tab" data-source="jisho" onclick="filterSource('jisho')">
+            <i class="fas fa-language"></i> Jisho <span class="count" id="countJisho">0</span>
+          </span>
+          <span class="source-tab" data-source="theaudiodb" onclick="filterSource('theaudiodb')">
+            <i class="fas fa-music"></i> Music <span class="count" id="countTheaudiodb">0</span>
+          </span>
+          <span class="source-tab" data-source="omdb" onclick="filterSource('omdb')">
+            <i class="fas fa-film"></i> Movies <span class="count" id="countOmdb">0</span>
+          </span>
+          <span class="source-tab" data-source="newsapi" onclick="filterSource('newsapi')">
+            <i class="fas fa-newspaper"></i> News <span class="count" id="countNewsapi">0</span>
+          </span>
+          <span class="source-tab" data-source="youtube" onclick="filterSource('youtube')">
+            <i class="fab fa-youtube"></i> YouTube <span class="count" id="countYoutube">0</span>
+          </span>
+          <span class="source-tab" data-source="reddit" onclick="filterSource('reddit')">
+            <i class="fab fa-reddit"></i> Reddit <span class="count" id="countReddit">0</span>
+          </span>
+          <span class="source-tab" data-source="github" onclick="filterSource('github')">
+            <i class="fab fa-github"></i> GitHub <span class="count" id="countGithub">0</span>
+          </span>
+        </div>
+        
+        <div id="resultsGrid" class="results-grid"></div>
+        
+        <div class="search-powered">
+          <i class="fas fa-shield-alt"></i> Powered by 15 sources: DuckDuckGo · Wikipedia · Wiktionary · OpenLibrary · WikiMedia · Wikidata · Google Books · Internet Archive · Jisho · TheAudioDB · OMDb · NewsAPI · YouTube · Reddit · GitHub
+        </div>
+        
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // MULTI-SEARCH ENGINE - 15 SOURCES OPTIMISÉ
+    // AVEC SUGGESTIONS INTELLIGENTES
+    // ============================================
+    
+    var currentQuery = '';
+    var allResults = {};
+    var currentFilter = 'all';
+    var searchInProgress = false;
+    var completedSources = 0;
+    var totalSources = 15;
+    var abortControllers = {};
+    var searchCache = {};
+    var suggestionsCache = {};
+    var cacheExpiry = 5 * 60 * 1000; // 5 minutes
+    
+    var SOURCES = [
+      { id: 'duckduckgo', name: 'DuckDuckGo', icon: 'fa-shield-alt' },
+      { id: 'wikipedia', name: 'Wikipedia', icon: 'fa-wikipedia-w' },
+      { id: 'wiktionary', name: 'Wiktionary', icon: 'fa-book' },
+      { id: 'openlibrary', name: 'OpenLibrary', icon: 'fa-book-open' },
+      { id: 'wikimedia', name: 'WikiMedia', icon: 'fa-images' },
+      { id: 'wikidata', name: 'Wikidata', icon: 'fa-database' },
+      { id: 'googlebooks', name: 'Google Books', icon: 'fa-google' },
+      { id: 'internetarchive', name: 'Internet Archive', icon: 'fa-archive' },
+      { id: 'jisho', name: 'Jisho', icon: 'fa-language' },
+      { id: 'theaudiodb', name: 'TheAudioDB', icon: 'fa-music' },
+      { id: 'omdb', name: 'OMDb', icon: 'fa-film' },
+      { id: 'newsapi', name: 'NewsAPI', icon: 'fa-newspaper' },
+      { id: 'youtube', name: 'YouTube', icon: 'fa-youtube' },
+      { id: 'reddit', name: 'Reddit', icon: 'fa-reddit' },
+      { id: 'github', name: 'GitHub', icon: 'fa-github' }
+    ];
+    
+    var FAST_SOURCES = ['duckduckgo', 'wikipedia', 'wiktionary', 'openlibrary', 'wikidata', 'github', 'reddit'];
+    var SLOW_SOURCES = ['googlebooks', 'internetarchive', 'jisho', 'theaudiodb', 'omdb', 'newsapi', 'youtube', 'wikimedia'];
+    
+    // ============================================
+    // FETCH AVEC TIMEOUT
+    // ============================================
+    
+    function fetchWithTimeout(url, options, timeout) {
+      timeout = timeout || 8000;
+      return Promise.race([
+        fetch(url, options),
+        new Promise(function(_, reject) {
+          setTimeout(function() {
+            reject(new Error('Timeout'));
+          }, timeout);
+        })
+      ]);
+    }
+    
+    // ============================================
+    // CRÉER UN ABORT CONTROLLER
+    // ============================================
+    
+    function createAbortController(sourceId) {
+      if (abortControllers[sourceId]) {
+        abortControllers[sourceId].abort();
+      }
+      abortControllers[sourceId] = new AbortController();
+      return abortControllers[sourceId];
+    }
+    
+    // ============================================
+    // PROGRESS INDICATOR
+    // ============================================
+    
+    function updateProgress() {
+      completedSources++;
+      var stats = document.getElementById('searchStats');
+      var progress = Math.round((completedSources / totalSources) * 100);
+      if (progress < 100) {
+        stats.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading ' + completedSources + '/' + totalSources + ' sources (' + progress + '%)';
+      } else {
+        stats.innerHTML = '<i class="fas fa-check-circle"></i> ' + totalSources + ' sources loaded';
+        setTimeout(function() {
+          if (!searchInProgress) {
+            var total = countTotalResults();
+            if (total > 0) {
+              stats.innerHTML = '<i class="fas fa-file-alt"></i> ' + total + ' total results from ' + totalSources + ' sources for "' + escapeHtml(currentQuery) + '"';
+            }
+          }
+        }, 500);
+      }
+    }
+    
+    function countTotalResults() {
+      var total = 0;
+      for (var id in allResults) {
+        total += allResults[id] ? allResults[id].length : 0;
+      }
+      return total;
+    }
+    
+    function resetProgress() {
+      completedSources = 0;
+      var stats = document.getElementById('searchStats');
+      stats.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting search...';
+    }
+    
+    // ============================================
+    // CACHE
+    // ============================================
+    
+    function getCachedResults(query) {
+      if (searchCache[query] && (Date.now() - searchCache[query].timestamp < cacheExpiry)) {
+        return searchCache[query].data;
+      }
+      return null;
+    }
+    
+    function setCachedResults(query, data) {
+      searchCache[query] = {
+        data: data,
+        timestamp: Date.now()
+      };
+    }
+    
+    // ============================================
+    // SEARCH FUNCTIONS WITH TIMEOUT & ABORT
+    // ============================================
+    
+    function searchDuckDuckGo(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('duckduckgo');
+        var url = 'https://api.duckduckgo.com/?q=' + encodeURIComponent(query) + '&format=json&no_html=1&skip_disambig=1';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.AbstractText) {
+              results.push({
+                title: data.Heading || data.AbstractText.substring(0, 60) + '...',
+                snippet: data.AbstractText,
+                url: data.AbstractURL || '#',
+                source: 'DuckDuckGo',
+                thumb: null
+              });
+            }
+            if (data.RelatedTopics && data.RelatedTopics.length > 0) {
+              for (var i = 0; i < data.RelatedTopics.length && results.length < 8; i++) {
+                var topic = data.RelatedTopics[i];
+                if (topic.Text && topic.FirstURL) {
+                  var cleanText = topic.Text.replace(/<[^>]*>/g, '').trim();
+                  results.push({
+                    title: cleanText.substring(0, 80) + (cleanText.length > 80 ? '...' : ''),
+                    snippet: cleanText,
+                    url: topic.FirstURL || '#',
+                    source: 'DuckDuckGo',
+                    thumb: null
+                  });
+                }
+              }
+            }
+            allResults['duckduckgo'] = results;
+            renderSourceResults('duckduckgo', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['duckduckgo'] = [];
+            renderSourceResults('duckduckgo', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    function searchWikipedia(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('wikipedia');
+        var url = 'https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=' + encodeURIComponent(query) + '&format=json&origin=*&srlimit=8';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.query && data.query.search) {
+              var pageIds = [];
+              for (var i = 0; i < data.query.search.length; i++) {
+                pageIds.push(data.query.search[i].pageid);
+              }
+              var imageUrl = 'https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&pageids=' + pageIds.join('|') + '&format=json&origin=*&pithumbsize=100';
+              return fetchWithTimeout(imageUrl, { signal: controller.signal }, 8000)
+                .then(function(res) { return res.json(); })
+                .then(function(imgData) {
+                  for (var i = 0; i < data.query.search.length; i++) {
+                    var item = data.query.search[i];
+                    var thumb = null;
+                    if (imgData.query && imgData.query.pages && imgData.query.pages[item.pageid]) {
+                      var page = imgData.query.pages[item.pageid];
+                      if (page.thumbnail && page.thumbnail.source) {
+                        thumb = page.thumbnail.source;
+                      }
+                    }
+                    results.push({
+                      title: item.title,
+                      snippet: item.snippet ? item.snippet.replace(/<[^>]*>/g, '') : 'Wikipedia article',
+                      url: 'https://en.wikipedia.org/wiki/' + encodeURIComponent(item.title.replace(/ /g, '_')),
+                      source: 'Wikipedia',
+                      thumb: thumb
+                    });
+                  }
+                  allResults['wikipedia'] = results;
+                  renderSourceResults('wikipedia', results);
+                  updateProgress();
+                  resolve(results);
+                });
+            }
+            allResults['wikipedia'] = [];
+            renderSourceResults('wikipedia', []);
+            updateProgress();
+            resolve([]);
+          })
+          .catch(function() {
+            allResults['wikipedia'] = [];
+            renderSourceResults('wikipedia', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // WIKTIONARY
+    // ============================================
+    
+    function searchWiktionary(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('wiktionary');
+        var url = 'https://en.wiktionary.org/w/api.php?action=query&list=search&srsearch=' + encodeURIComponent(query) + '&format=json&origin=*&srlimit=8';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.query && data.query.search) {
+              for (var i = 0; i < data.query.search.length; i++) {
+                var item = data.query.search[i];
+                results.push({
+                  title: item.title,
+                  snippet: item.snippet ? item.snippet.replace(/<[^>]*>/g, '') : 'Definition',
+                  url: 'https://en.wiktionary.org/wiki/' + encodeURIComponent(item.title.replace(/ /g, '_')),
+                  source: 'Wiktionary',
+                  thumb: null
+                });
+              }
+            }
+            allResults['wiktionary'] = results;
+            renderSourceResults('wiktionary', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['wiktionary'] = [];
+            renderSourceResults('wiktionary', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // OPENLIBRARY
+    // ============================================
+    
+    function searchOpenLibrary(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('openlibrary');
+        var url = 'https://openlibrary.org/search.json?q=' + encodeURIComponent(query) + '&limit=8';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.docs && data.docs.length > 0) {
+              for (var i = 0; i < data.docs.length; i++) {
+                var book = data.docs[i];
+                var title = book.title || 'Unknown title';
+                var author = book.author_name ? book.author_name[0] : 'Unknown author';
+                var coverId = book.cover_i || null;
+                var thumb = coverId ? 'https://covers.openlibrary.org/b/id/' + coverId + '-S.jpg' : null;
+                results.push({
+                  title: title,
+                  snippet: 'by ' + author + (book.first_publish_year ? ' (' + book.first_publish_year + ')' : ''),
+                  url: 'https://openlibrary.org' + (book.key || ''),
+                  source: 'OpenLibrary',
+                  thumb: thumb
+                });
+              }
+            }
+            allResults['openlibrary'] = results;
+            renderSourceResults('openlibrary', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['openlibrary'] = [];
+            renderSourceResults('openlibrary', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // WIKIMEDIA - AVEC IMAGES
+    // ============================================
+    
+    function searchWikiMedia(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('wikimedia');
+        var url = 'https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=' + encodeURIComponent(query) + '&format=json&origin=*&srlimit=8&srnamespace=6';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.query && data.query.search) {
+              for (var i = 0; i < data.query.search.length; i++) {
+                var item = data.query.search[i];
+                var title = item.title;
+                var thumb = 'https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/' + encodeURIComponent(title) + '&width=100';
+                results.push({
+                  title: title.replace(/File:/g, ''),
+                  snippet: item.snippet ? item.snippet.replace(/<[^>]*>/g, '') : 'Image',
+                  url: 'https://commons.wikimedia.org/wiki/' + encodeURIComponent(title.replace(/ /g, '_')),
+                  source: 'WikiMedia',
+                  thumb: thumb,
+                  isImage: true
+                });
+              }
+            }
+            allResults['wikimedia'] = results;
+            renderSourceResults('wikimedia', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['wikimedia'] = [];
+            renderSourceResults('wikimedia', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // WIKIDATA
+    // ============================================
+    
+    function searchWikidata(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('wikidata');
+        var url = 'https://www.wikidata.org/w/api.php?action=wbsearchentities&search=' + encodeURIComponent(query) + '&format=json&origin=*&limit=8&language=en';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.search) {
+              for (var i = 0; i < data.search.length; i++) {
+                var item = data.search[i];
+                results.push({
+                  title: item.label || item.id,
+                  snippet: item.description || 'Wikidata entity',
+                  url: 'https://www.wikidata.org/wiki/' + item.id,
+                  source: 'Wikidata',
+                  thumb: null
+                });
+              }
+            }
+            allResults['wikidata'] = results;
+            renderSourceResults('wikidata', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['wikidata'] = [];
+            renderSourceResults('wikidata', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // GOOGLE BOOKS
+    // ============================================
+    
+    function searchGoogleBooks(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('googlebooks');
+        var url = 'https://www.googleapis.com/books/v1/volumes?q=' + encodeURIComponent(query) + '&maxResults=8';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.items) {
+              for (var i = 0; i < data.items.length; i++) {
+                var book = data.items[i];
+                var info = book.volumeInfo;
+                var thumb = info.imageLinks ? info.imageLinks.thumbnail : null;
+                results.push({
+                  title: info.title || 'Unknown',
+                  snippet: (info.authors ? info.authors.join(', ') : '') + (info.publishedDate ? ' (' + info.publishedDate + ')' : ''),
+                  url: info.infoLink || '#',
+                  source: 'Google Books',
+                  thumb: thumb
+                });
+              }
+            }
+            allResults['googlebooks'] = results;
+            renderSourceResults('googlebooks', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['googlebooks'] = [];
+            renderSourceResults('googlebooks', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // INTERNET ARCHIVE
+    // ============================================
+    
+    function searchInternetArchive(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('internetarchive');
+        var url = 'https://archive.org/advancedsearch.php?q=' + encodeURIComponent(query) + '&output=json&rows=8&fl[]=identifier&fl[]=title&fl[]=description&fl[]=collection';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.response && data.response.docs) {
+              for (var i = 0; i < data.response.docs.length; i++) {
+                var item = data.response.docs[i];
+                var thumb = 'https://archive.org/services/img/' + item.identifier;
+                results.push({
+                  title: item.title || item.identifier || 'Archive item',
+                  snippet: item.description ? item.description.substring(0, 150) : 'Internet Archive item',
+                  url: 'https://archive.org/details/' + item.identifier,
+                  source: 'Internet Archive',
+                  thumb: thumb
+                });
+              }
+            }
+            allResults['internetarchive'] = results;
+            renderSourceResults('internetarchive', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['internetarchive'] = [];
+            renderSourceResults('internetarchive', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // JISHO - Dictionnaire Japonais
+    // ============================================
+    
+    function searchJisho(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('jisho');
+        var url = 'https://jisho.org/api/v1/search/words?keyword=' + encodeURIComponent(query);
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.data) {
+              for (var i = 0; i < data.data.length && i < 8; i++) {
+                var item = data.data[i];
+                var japanese = item.japanese[0] || {};
+                var senses = item.senses[0] || {};
+                var parts = senses.parts_of_speech ? senses.parts_of_speech.join(', ') : '';
+                var english = senses.english_definitions ? senses.english_definitions.join('; ') : '';
+                results.push({
+                  title: japanese.word || japanese.reading || 'Japanese word',
+                  snippet: parts + ': ' + english,
+                  url: 'https://jisho.org/word/' + encodeURIComponent(japanese.word || japanese.reading || ''),
+                  source: 'Jisho',
+                  thumb: null
+                });
+              }
+            }
+            allResults['jisho'] = results;
+            renderSourceResults('jisho', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['jisho'] = [];
+            renderSourceResults('jisho', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // THEAUDIODB - Musique
+    // ============================================
+    
+    function searchTheAudioDB(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('theaudiodb');
+        var url = 'https://www.theaudiodb.com/api/v1/json/2/search.php?s=' + encodeURIComponent(query);
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.artists) {
+              for (var i = 0; i < data.artists.length && i < 8; i++) {
+                var artist = data.artists[i];
+                var thumb = artist.strArtistThumb || artist.strArtistLogo || null;
+                results.push({
+                  title: artist.strArtist || 'Artist',
+                  snippet: artist.strGenre ? artist.strGenre : (artist.strBiographyEN ? artist.strBiographyEN.substring(0, 120) + '...' : 'Music artist'),
+                  url: 'https://www.theaudiodb.com/artist/' + artist.idArtist,
+                  source: 'TheAudioDB',
+                  thumb: thumb
+                });
+              }
+            }
+            allResults['theaudiodb'] = results;
+            renderSourceResults('theaudiodb', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['theaudiodb'] = [];
+            renderSourceResults('theaudiodb', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // OMDB - FILMS (avec clé API)
+    // ============================================
+    
+    function searchOMDb(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('omdb');
+        var apiKey = typeof API_KEYS !== 'undefined' ? API_KEYS.omdb : 'votre_cle_omdb';
+        
+        if (!apiKey || apiKey === 'votre_cle_omdb') {
+          allResults['omdb'] = [];
+          renderSourceResults('omdb', []);
+          updateProgress();
+          resolve([]);
+          return;
+        }
+        
+        var url = 'https://www.omdbapi.com/?s=' + encodeURIComponent(query) + '&apikey=' + apiKey + '&type=movie&page=1';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.Search) {
+              for (var i = 0; i < data.Search.length && i < 8; i++) {
+                var movie = data.Search[i];
+                results.push({
+                  title: movie.Title + ' (' + movie.Year + ')',
+                  snippet: 'Film',
+                  url: 'https://www.imdb.com/title/' + movie.imdbID,
+                  source: 'OMDb',
+                  thumb: movie.Poster !== 'N/A' ? movie.Poster : null
+                });
+              }
+            }
+            allResults['omdb'] = results;
+            renderSourceResults('omdb', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['omdb'] = [];
+            renderSourceResults('omdb', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // NEWSAPI - ACTUALITÉS (avec clé API)
+    // ============================================
+    
+    function searchNewsAPI(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('newsapi');
+        var apiKey = typeof API_KEYS !== 'undefined' ? API_KEYS.newsapi : 'votre_cle_newsapi';
+        
+        if (!apiKey || apiKey === 'votre_cle_newsapi') {
+          allResults['newsapi'] = [];
+          renderSourceResults('newsapi', []);
+          updateProgress();
+          resolve([]);
+          return;
+        }
+        
+        var url = 'https://newsapi.org/v2/everything?q=' + encodeURIComponent(query) + '&apiKey=' + apiKey + '&pageSize=8&language=en';
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.articles) {
+              for (var i = 0; i < data.articles.length && i < 8; i++) {
+                var article = data.articles[i];
+                results.push({
+                  title: article.title || 'News article',
+                  snippet: article.description || article.content || '',
+                  url: article.url || '#',
+                  source: 'NewsAPI',
+                  thumb: article.urlToImage || null
+                });
+              }
+            }
+            allResults['newsapi'] = results;
+            renderSourceResults('newsapi', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['newsapi'] = [];
+            renderSourceResults('newsapi', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // YOUTUBE - VIDÉOS (avec clé API)
+    // ============================================
+    
+    function searchYouTube(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('youtube');
+        var apiKey = typeof API_KEYS !== 'undefined' ? API_KEYS.youtube : 'votre_cle_youtube';
+        
+        if (!apiKey || apiKey === 'votre_cle_youtube') {
+          allResults['youtube'] = [];
+          renderSourceResults('youtube', []);
+          updateProgress();
+          resolve([]);
+          return;
+        }
+        
+        var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + encodeURIComponent(query) + '&maxResults=8&type=video&key=' + apiKey;
+        
+        fetchWithTimeout(url, { signal: controller.signal }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.items) {
+              for (var i = 0; i < data.items.length; i++) {
+                var item = data.items[i];
+                var thumb = item.snippet.thumbnails ? item.snippet.thumbnails.medium.url : null;
+                results.push({
+                  title: item.snippet.title || 'YouTube video',
+                  snippet: item.snippet.description ? item.snippet.description.substring(0, 150) + '...' : 'YouTube video',
+                  url: 'https://www.youtube.com/watch?v=' + item.id.videoId,
+                  source: 'YouTube',
+                  thumb: thumb
+                });
+              }
+            }
+            allResults['youtube'] = results;
+            renderSourceResults('youtube', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['youtube'] = [];
+            renderSourceResults('youtube', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // REDDIT - FORUMS
+    // ============================================
+    
+    function searchReddit(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('reddit');
+        var url = 'https://www.reddit.com/search.json?q=' + encodeURIComponent(query) + '&limit=8&sort=relevance';
+        
+        fetchWithTimeout(url, {
+          signal: controller.signal,
+          headers: { 'User-Agent': 'SMART GRADE Search/1.0' }
+        }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.data && data.data.children) {
+              for (var i = 0; i < data.data.children.length; i++) {
+                var post = data.data.children[i].data;
+                var thumb = post.thumbnail && post.thumbnail.startsWith('http') ? post.thumbnail : null;
+                results.push({
+                  title: post.title || 'Reddit post',
+                  snippet: post.selftext ? post.selftext.substring(0, 150) + '...' : 'Reddit discussion',
+                  url: 'https://www.reddit.com' + post.permalink,
+                  source: 'Reddit',
+                  thumb: thumb
+                });
+              }
+            }
+            allResults['reddit'] = results;
+            renderSourceResults('reddit', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['reddit'] = [];
+            renderSourceResults('reddit', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // GITHUB - CODE
+    // ============================================
+    
+    function searchGitHub(query) {
+      return new Promise(function(resolve) {
+        var controller = createAbortController('github');
+        var url = 'https://api.github.com/search/repositories?q=' + encodeURIComponent(query) + '&per_page=8&sort=stars';
+        
+        fetchWithTimeout(url, {
+          signal: controller.signal,
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        }, 8000)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            var results = [];
+            if (data.items) {
+              for (var i = 0; i < data.items.length; i++) {
+                var repo = data.items[i];
+                var thumb = repo.owner && repo.owner.avatar_url ? repo.owner.avatar_url : null;
+                results.push({
+                  title: repo.full_name || repo.name || 'GitHub repository',
+                  snippet: repo.description ? repo.description.substring(0, 150) + '...' : 'GitHub repository',
+                  url: repo.html_url || '#',
+                  source: 'GitHub',
+                  thumb: thumb
+                });
+              }
+            }
+            allResults['github'] = results;
+            renderSourceResults('github', results);
+            updateProgress();
+            resolve(results);
+          })
+          .catch(function() {
+            allResults['github'] = [];
+            renderSourceResults('github', []);
+            updateProgress();
+            resolve([]);
+          });
+      });
+    }
+    
+    // ============================================
+    // RENDER FUNCTIONS
+    // ============================================
+    
+    function renderSourceResults(sourceId, results) {
+      var body = document.getElementById('body-' + sourceId);
+      var badge = document.getElementById('badge-' + sourceId);
+      if (!body) return;
+      
+      if (badge) {
+        badge.innerHTML = results.length + ' result(s)';
+      }
+      
+      if (results.length === 0) {
+        body.innerHTML = '<div class="result-empty"><i class="fas fa-search"></i><p>No results</p></div>';
+        return;
+      }
+      
+      var html = '';
+      for (var i = 0; i < results.length && i < 10; i++) {
+        var r = results[i];
+        var displayUrl = r.url;
+        if (displayUrl.length > 50) {
+          displayUrl = displayUrl.substring(0, 50) + '...';
+        }
+        
+        var thumbHtml = '';
+        if (r.thumb) {
+          thumbHtml = '<div class="thumb"><img src="' + r.thumb + '" alt="" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=\\\'placeholder\\\'><i class=\\\'fas fa-image\\\'></i></div>\'"></div>';
+        } else {
+          thumbHtml = '<div class="thumb"><div class="placeholder"><i class="fas fa-file"></i></div></div>';
+        }
+        
+        html += '<div class="result-item-mini" onclick="openUrl(\'' + escapeHtml(r.url) + '\')">';
+        html += thumbHtml;
+        html += '<div class="info">';
+        html += '<div class="title">' + escapeHtml(r.title) + '</div>';
+        html += '<div class="snippet">' + escapeHtml(r.snippet).substring(0, 150) + (r.snippet.length > 150 ? '...' : '') + '</div>';
+        html += '<div class="url"><i class="fas fa-link"></i> ' + escapeHtml(displayUrl) + '</div>';
+        html += '</div></div>';
+      }
+      body.innerHTML = html;
+    }
+    
+    // ============================================
+    // STATS ET FILTRES
+    // ============================================
+    
+    function updateAllCounts() {
+      var total = 0;
+      var order = ['duckduckgo', 'wikipedia', 'wiktionary', 'openlibrary', 'wikimedia', 'wikidata', 'googlebooks', 'internetarchive', 'jisho', 'theaudiodb', 'omdb', 'newsapi', 'youtube', 'reddit', 'github'];
+      
+      for (var i = 0; i < order.length; i++) {
+        var id = order[i];
+        var count = allResults[id] ? allResults[id].length : 0;
+        var el = document.getElementById('count' + id.charAt(0).toUpperCase() + id.slice(1));
+        if (el) el.innerHTML = count;
+        total += count;
+      }
+      
+      document.getElementById('countAll').innerHTML = total;
+    }
+    
+    function filterSource(sourceId) {
+      currentFilter = sourceId;
+      
+      document.querySelectorAll('.source-tab').forEach(function(tab) {
+        tab.classList.toggle('active', tab.dataset.source === sourceId);
+      });
+      
+      var cards = document.querySelectorAll('.result-source-card');
+      cards.forEach(function(card) {
+        var id = card.dataset.source;
+        if (sourceId === 'all' || id === sourceId) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    
+    // ============================================
+    // GÉNÉRATEUR DE SUGGESTIONS INTELLIGENTES
+    // ============================================
+    
+    async function generateSuggestions(query, results) {
+      var box = document.getElementById('suggestionsBox');
+      var grid = document.getElementById('suggestionsGrid');
+      
+      // Vérifier le cache
+      if (suggestionsCache[query]) {
+        displaySuggestions(suggestionsCache[query]);
+        return;
+      }
+      
+      var suggestions = [];
+      var seen = {};
+      
+      function addSuggestion(text) {
+        if (!text || text.length < 2) return;
+        text = text.trim().substring(0, 60);
+        if (!seen[text]) {
+          seen[text] = true;
+          suggestions.push(text);
+        }
+      }
+      
+      // ============================================
+      // 1. EXTRAIRE DES RÉSULTATS DES API
+      // ============================================
+      
+      // Extraire des titres
+      for (var sourceId in results) {
+        var items = results[sourceId] || [];
+        for (var i = 0; i < items.length && suggestions.length < 6; i++) {
+          var title = items[i].title || '';
+          if (title && title.length > 3) {
+            var cleanTitle = title.replace(/[^a-zA-Z0-9 ]/g, '').trim();
+            if (cleanTitle.length > 3) {
+              addSuggestion(cleanTitle);
+            }
+            
+            var words = cleanTitle.split(' ');
+            for (var j = 0; j < words.length && suggestions.length < 10; j++) {
+              var word = words[j].trim();
+              if (word.length > 4) {
+                addSuggestion(word);
+              }
+            }
+          }
+        }
+      }
+      
+      // Extraire des snippets
+      for (var sourceId in results) {
+        var items = results[sourceId] || [];
+        for (var i = 0; i < items.length && suggestions.length < 8; i++) {
+          var snippet = items[i].snippet || '';
+          if (snippet && snippet.length > 10) {
+            var firstSentence = snippet.split(/[.!?]/)[0].trim();
+            if (firstSentence.length > 10 && firstSentence.length < 60) {
+              addSuggestion(firstSentence);
+            }
+            
+            var words = snippet.split(' ');
+            for (var j = 0; j < words.length && suggestions.length < 12; j++) {
+              var word = words[j].replace(/[^a-zA-Z]/g, '');
+              if (word.length > 5) {
+                addSuggestion(word);
+              }
+            }
+          }
+        }
+      }
+      
+      // ============================================
+      // 2. API DE SUGGESTIONS (SI PAS ASSEZ)
+      // ============================================
+      
+      if (suggestions.length < 3) {
+        try {
+          var wikiRes = await fetch(
+            'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + encodeURIComponent(query) + '&limit=6&format=json&origin=*',
+            { signal: AbortSignal.timeout(3000) }
+          );
+          var wikiData = await wikiRes.json();
+          if (wikiData && wikiData[1]) {
+            for (var i = 0; i < wikiData[1].length && suggestions.length < 6; i++) {
+              addSuggestion(wikiData[1][i]);
+            }
+          }
+        } catch(e) {}
+      }
+      
+      if (suggestions.length < 3) {
+        try {
+          var ddgRes = await fetch(
+            'https://duckduckgo.com/ac/?q=' + encodeURIComponent(query) + '&type=list',
+            { signal: AbortSignal.timeout(3000) }
+          );
+          var ddgData = await ddgRes.json();
+          if (ddgData && ddgData[1]) {
+            for (var i = 0; i < ddgData[1].length && suggestions.length < 6; i++) {
+              addSuggestion(ddgData[1][i]);
+            }
+          }
+        } catch(e) {}
+      }
+      
+      // ============================================
+      // 3. FALLBACK (PRÉFIXES GÉNÉRIQUES)
+      // ============================================
+      
+      if (suggestions.length < 2) {
+        var prefixes = ['definition of', 'history of', 'types of', 'how to', 'what is', 'examples of', 'importance of'];
+        for (var i = 0; i < prefixes.length && suggestions.length < 6; i++) {
+          addSuggestion(prefixes[i] + ' ' + query);
+        }
+      }
+      
+      // ============================================
+      // 4. AFFICHAGE
+      // ============================================
+      
+      // Limiter à 6 suggestions
+      suggestions = suggestions.slice(0, 6);
+      
+      // Mettre en cache
+      suggestionsCache[query] = suggestions;
+      
+      displaySuggestions(suggestions);
+    }
+    
+    function displaySuggestions(suggestions) {
+      var box = document.getElementById('suggestionsBox');
+      var grid = document.getElementById('suggestionsGrid');
+      
+      if (suggestions.length > 0) {
+        box.style.display = 'block';
+        var html = '';
+        for (var i = 0; i < suggestions.length; i++) {
+          var safeText = suggestions[i].replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          html += '<span class="tag" onclick="searchTip(\'' + encodeURIComponent(suggestions[i]) + '\')">' + safeText + '</span>';
+        }
+        grid.innerHTML = html;
+      } else {
+        box.style.display = 'none';
+      }
+    }
+    
+    // ============================================
+    // PERFORM MULTI SEARCH
+    // ============================================
+    
+    function performMultiSearch() {
+      var input = document.getElementById('searchInput');
+      var query = input.value.trim();
+      
+      if (!query) {
+        showToast('Please enter a search query');
+        return;
+      }
+      
+      currentQuery = query;
+      searchInProgress = true;
+      
+      // Vérifier le cache
+      var cached = getCachedResults(query);
+      if (cached) {
+        allResults = cached;
+        displayCachedResults();
+        return;
+      }
+      
+      allResults = {};
+      document.getElementById('resultsGrid').innerHTML = '';
+      document.getElementById('suggestionsBox').style.display = 'none';
+      resetProgress();
+      
+      var grid = document.getElementById('resultsGrid');
+      grid.innerHTML = '';
+      
+      // Créer les cartes
+      for (var i = 0; i < SOURCES.length; i++) {
+        var source = SOURCES[i];
+        var card = document.createElement('div');
+        card.className = 'result-source-card';
+        card.id = 'card-' + source.id;
+        card.dataset.source = source.id;
+        card.innerHTML = '<div class="result-source-header">' +
+          '<span class="source-name"><i class="fas ' + source.icon + '"></i> ' + source.name + '</span>' +
+          '<span class="badge" id="badge-' + source.id + '"><i class="fas fa-spinner fa-spin"></i></span>' +
+        '</div>' +
+        '<div class="result-source-body" id="body-' + source.id + '">' +
+          '<div class="result-loading"><div class="spinner"></div><p>Searching...</p></div>' +
+        '</div>';
+        grid.appendChild(card);
+      }
+      
+      var searchFunctions = {
+        duckduckgo: searchDuckDuckGo,
+        wikipedia: searchWikipedia,
+        wiktionary: searchWiktionary,
+        openlibrary: searchOpenLibrary,
+        wikimedia: searchWikiMedia,
+        wikidata: searchWikidata,
+        googlebooks: searchGoogleBooks,
+        internetarchive: searchInternetArchive,
+        jisho: searchJisho,
+        theaudiodb: searchTheAudioDB,
+        omdb: searchOMDb,
+        newsapi: searchNewsAPI,
+        youtube: searchYouTube,
+        reddit: searchReddit,
+        github: searchGitHub
+      };
+      
+      // Lancer d'abord les sources rapides
+      var fastPromises = [];
+      for (var i = 0; i < FAST_SOURCES.length; i++) {
+        var key = FAST_SOURCES[i];
+        if (searchFunctions[key]) {
+          fastPromises.push(searchFunctions[key](query));
+        }
+      }
+      
+      // Puis les sources lentes en arrière-plan
+      Promise.all(fastPromises).then(function() {
+        for (var i = 0; i < SLOW_SOURCES.length; i++) {
+          var key = SLOW_SOURCES[i];
+          if (searchFunctions[key]) {
+            searchFunctions[key](query);
+          }
+        }
+      }).then(async function() {
+        searchInProgress = false;
+        updateAllCounts();
+        await generateSuggestions(query, allResults);
+        setCachedResults(query, allResults);
+        var stats = document.getElementById('searchStats');
+        var total = countTotalResults();
+        if (total > 0) {
+          stats.innerHTML = '<i class="fas fa-file-alt"></i> ' + total + ' total results from ' + totalSources + ' sources for "' + escapeHtml(currentQuery) + '"';
+        }
+      });
+    }
+    
+    function displayCachedResults() {
+      var grid = document.getElementById('resultsGrid');
+      grid.innerHTML = '';
+      
+      for (var i = 0; i < SOURCES.length; i++) {
+        var source = SOURCES[i];
+        var results = allResults[source.id] || [];
+        var card = document.createElement('div');
+        card.className = 'result-source-card';
+        card.id = 'card-' + source.id;
+        card.dataset.source = source.id;
+        card.innerHTML = '<div class="result-source-header">' +
+          '<span class="source-name"><i class="fas ' + source.icon + '"></i> ' + source.name + '</span>' +
+          '<span class="badge" id="badge-' + source.id + '">' + results.length + ' result(s)</span>' +
+        '</div>' +
+        '<div class="result-source-body" id="body-' + source.id + '"></div>';
+        grid.appendChild(card);
+        renderSourceResults(source.id, results);
+      }
+      
+      updateAllCounts();
+      generateSuggestions(currentQuery, allResults);
+      
+      var stats = document.getElementById('searchStats');
+      var total = countTotalResults();
+      stats.innerHTML = '<i class="fas fa-database"></i> Cached results: ' + total + ' total from ' + totalSources + ' sources';
+    }
+    
+    // ============================================
+    // UTILITIES
+    // ============================================
+    
+    function searchTip(query) {
+      document.getElementById('searchInput').value = query;
+      performMultiSearch();
+    }
+    
+    function openUrl(url) {
+      if (url && url !== '#') {
+        window.open(url, '_blank');
+      }
+    }
+    
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+    
+    function showToast(message) {
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+      container.appendChild(toast);
+      setTimeout(function() { toast.remove(); }, 3000);
+    }
+    
+    // ============================================
+    // EVENTS
+    // ============================================
+    
+    document.getElementById('searchInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        performMultiSearch();
+      }
+    });
+    
+    // ============================================
+    // INITIALISATION
+    // ============================================
+    
+    function initSearchPage() {
+      if (typeof updateHeaderAvatar === 'function') updateHeaderAvatar();
+      if (typeof initMobileMenu === 'function') initMobileMenu();
+      if (typeof initThemeSelector === 'function') initThemeSelector();
+      applyFontToAll();
+      document.getElementById('searchInput').focus();
+    }
+    
+    function applyFontToAll() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif',
+        'roboto': 'Roboto, sans-serif',
+        'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif',
+        'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif',
+        'pacifico': 'Pacifico, cursive',
+        'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive',
+        'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif',
+        'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    window.performMultiSearch = performMultiSearch;
+    window.searchTip = searchTip;
+    window.openUrl = openUrl;
+    window.filterSource = filterSource;
+    
+    initSearchPage();
+    
+    console.log('Multi-Search loaded - 15 sources with smart suggestions');
+  </script>
+</body>
+</html>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SMART GRADE">
+  <meta name="theme-color" content="#0f3b48">
+  <title>SMART GRADE</title>
+
+  <!-- ============================================
+     PWA ICONS - ANDROID (Chrome)
+  ============================================ -->
+  <link rel="icon" type="image/png" sizes="48x48" href="./icons/icon-48x48.png">
+  <link rel="icon" type="image/png" sizes="72x72" href="./icons/icon-72x72.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="./icons/icon-96x96.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="./icons/icon-128x128.png">
+  <link rel="icon" type="image/png" sizes="144x144" href="./icons/icon-144x144.png">
+  <link rel="icon" type="image/png" sizes="152x152" href="./icons/icon-152x152.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="./icons/icon-256x256.png">
+  <link rel="icon" type="image/png" sizes="384x384" href="./icons/icon-384x384.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512x512.png">
+
+  <!-- ============================================
+     PWA ICONS - APPLE TOUCH (iOS)
+  ============================================ -->
+  <link rel="apple-touch-icon" sizes="57x57" href="./icons/icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="./icons/icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="./icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="./icons/icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="./icons/icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="./icons/icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="./icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="./icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="./icons/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./icons/icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="1024x1024" href="./icons/icon-1024x1024.png">
+
+  <!-- ============================================
+     FONTS & STYLES
+  ============================================ -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Cacher le header et le sidebar pour le splash */
+    .mobile-header,
+    .sidebar-menu,
+    .sheet-overlay,
+    .bottom-sheet {
+      display: none !important;
+    }
+
+    .app-container {
+      background: transparent !important;
+    }
+
+    .splash-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      height: 100%;
+      width: 100%;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .splash-card {
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .splash-logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 16px;
+      display: block;
+      animation: splashPulse 2s ease-in-out infinite;
+      filter: drop-shadow(0 4px 15px rgba(0,255,255,0.2));
+    }
+
+    @keyframes splashPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .splash-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, var(--secondary), var(--primary));
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .splash-subtitle {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-light);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .splash-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .splash-info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-light);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px 16px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .splash-info-item i {
+      color: var(--secondary);
+      font-size: 0.7rem;
+    }
+
+    .loader-wrapper {
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* LOADER 1 - Cercle */
+    .loader1-container {
+      --uib-size: 50px;
+      --uib-color: var(--primary);
+      --uib-speed: 1.4s;
+      --uib-bg-opacity: 0.2;
+      height: var(--uib-size);
+      width: var(--uib-size);
+      transform-origin: center;
+      overflow: visible;
+    }
+    .loader1-car {
+      fill: none;
+      stroke: var(--uib-color);
+      stroke-dasharray: 15, 85;
+      stroke-dashoffset: 0;
+      stroke-linecap: round;
+      animation: travel var(--uib-speed) linear infinite;
+      will-change: stroke-dasharray, stroke-dashoffset;
+      transition: stroke 0.5s ease;
+    }
+    .loader1-track {
+      stroke: var(--uib-color);
+      opacity: var(--uib-bg-opacity);
+      transition: stroke 0.5s ease;
+    }
+    @keyframes travel {
+      0% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -100; }
+    }
+
+    /* LOADER 2 - Particules orbitant */
+    .loader2-container {
+      --uib-size: 45px;
+      --uib-color: var(--primary);
+      --uib-speed: 1.75s;
+      position: relative;
+      height: var(--uib-size);
+      width: var(--uib-size);
+      animation: rotate calc(var(--uib-speed) * 4) linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loader2-particle {
+      position: absolute;
+      top: 0%;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+    .loader2-particle::before {
+      content: '';
+      position: absolute;
+      height: 17.5%;
+      width: 17.5%;
+      border-radius: 50%;
+      background-color: var(--uib-color);
+      flex-shrink: 0;
+      transition: background-color 0.3s ease;
+      animation: orbit var(--uib-speed) linear infinite;
+    }
+    .loader2-particle:nth-child(1) { transform: rotate(8deg); }
+    .loader2-particle:nth-child(1)::before { animation-delay: 0s; }
+    .loader2-particle:nth-child(2) { transform: rotate(36deg); }
+    .loader2-particle:nth-child(2)::before { animation-delay: -0.4s; }
+    .loader2-particle:nth-child(3) { transform: rotate(72deg); }
+    .loader2-particle:nth-child(3)::before { animation-delay: -0.9s; }
+    .loader2-particle:nth-child(4) { transform: rotate(108deg); }
+    .loader2-particle:nth-child(4)::before { animation-delay: -0.5s; }
+    .loader2-particle:nth-child(5) { transform: rotate(144deg); }
+    .loader2-particle:nth-child(5)::before { animation-delay: -0.3s; }
+    .loader2-particle:nth-child(6) { transform: rotate(180deg); }
+    .loader2-particle:nth-child(6)::before { animation-delay: -0.2s; }
+    .loader2-particle:nth-child(7) { transform: rotate(216deg); }
+    .loader2-particle:nth-child(7)::before { animation-delay: -0.6s; }
+    .loader2-particle:nth-child(8) { transform: rotate(252deg); }
+    .loader2-particle:nth-child(8)::before { animation-delay: -0.7s; }
+    .loader2-particle:nth-child(9) { transform: rotate(288deg); }
+    .loader2-particle:nth-child(9)::before { animation-delay: -0.1s; }
+    .loader2-particle:nth-child(10) { transform: rotate(324deg); }
+    .loader2-particle:nth-child(10)::before { animation-delay: -0.8s; }
+    @keyframes orbit {
+      0%, 100% { transform: translate(calc(var(--uib-size) * 0.5)) scale(0.73684); opacity: 0.65; }
+      25% { transform: translate(0%) scale(0.47368); opacity: 0.3; }
+      50% { transform: translate(calc(var(--uib-size) * -0.5)) scale(0.73684); opacity: 0.65; }
+      75% { transform: translate(0%) scale(1); opacity: 1; }
+    }
+
+    /* LOADER 3 - Dots qui sautent sur 3 lignes */
+    .loader3-container {
+      --uib-size: 60px;
+      --uib-color: var(--primary);
+      --uib-speed: 1.5s;
+      --uib-dot-size: calc(var(--uib-size) * 0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60px;
+      width: 60px;
+      margin: 0 auto;
+    }
+    .loader3-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 4px 0;
+    }
+    .loader3-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--uib-color);
+      border-radius: 50%;
+      animation: jump3 var(--uib-speed) ease-in-out infinite;
+    }
+    .loader3-row:nth-child(1) .loader3-dot:nth-child(1) { animation-delay: -0.48s; }
+    .loader3-row:nth-child(1) .loader3-dot:nth-child(2) { animation-delay: -0.32s; }
+    .loader3-row:nth-child(1) .loader3-dot:nth-child(3) { animation-delay: -0.16s; }
+    .loader3-row:nth-child(2) .loader3-dot:nth-child(1) { animation-delay: -0.40s; }
+    .loader3-row:nth-child(2) .loader3-dot:nth-child(2) { animation-delay: -0.24s; }
+    .loader3-row:nth-child(2) .loader3-dot:nth-child(3) { animation-delay: -0.08s; }
+    .loader3-row:nth-child(3) .loader3-dot:nth-child(1) { animation-delay: -0.32s; }
+    .loader3-row:nth-child(3) .loader3-dot:nth-child(2) { animation-delay: -0.16s; }
+    .loader3-row:nth-child(3) .loader3-dot:nth-child(3) { animation-delay: 0s; }
+    @keyframes jump3 {
+      0%, 100% { transform: translateY(0); opacity: 0.3; }
+      50% { transform: translateY(-12px); opacity: 1; }
+    }
+
+    /* LOADER 4 - Slices */
+    .loader4-container {
+      --uib-size: 45px;
+      --uib-color: var(--primary);
+      --uib-speed: 2.5s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: var(--uib-size);
+      width: var(--uib-size);
+      margin: 0 auto;
+    }
+    .loader4-slice {
+      position: relative;
+      height: calc(var(--uib-size) / 6);
+      width: 100%;
+    }
+    .loader4-slice::before,
+    .loader4-slice::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: calc(50% - var(--uib-size) / 12);
+      height: 100%;
+      width: calc(100% / 6);
+      border-radius: 50%;
+      background-color: var(--uib-color);
+      animation: sliceOrbit var(--uib-speed) linear infinite;
+      transition: background-color 0.3s ease;
+    }
+    .loader4-slice:nth-child(1)::after { animation-delay: -1.25s; }
+    .loader4-slice:nth-child(2)::before { animation-delay: -0.416s; }
+    .loader4-slice:nth-child(2)::after { animation-delay: -1.666s; }
+    .loader4-slice:nth-child(3)::before { animation-delay: -0.832s; }
+    .loader4-slice:nth-child(3)::after { animation-delay: -2.082s; }
+    .loader4-slice:nth-child(4)::before { animation-delay: -1.248s; }
+    .loader4-slice:nth-child(4)::after { animation-delay: -2.498s; }
+    .loader4-slice:nth-child(5)::before { animation-delay: -1.664s; }
+    .loader4-slice:nth-child(5)::after { animation-delay: -2.914s; }
+    .loader4-slice:nth-child(6)::before { animation-delay: -2.08s; }
+    .loader4-slice:nth-child(6)::after { animation-delay: -3.33s; }
+    @keyframes sliceOrbit {
+      0%, 100% { transform: translateX(calc(var(--uib-size) * 0.25)) scale(0.73684); opacity: 0.65; }
+      25% { transform: translateX(0%) scale(0.47368); opacity: 0.3; }
+      50% { transform: translateX(calc(var(--uib-size) * -0.25)) scale(0.73684); opacity: 0.65; }
+      75% { transform: translateX(0%) scale(1); opacity: 1; }
+    }
+
+    /* LOADER 5 - Path */
+    .loader5-container {
+      --uib-size: 55px;
+      --uib-color: var(--primary);
+      --uib-speed: 1.3s;
+      --uib-bg-opacity: .1;
+      height: calc(var(--uib-size) * (2.1 / 5));
+      width: var(--uib-size);
+      transform-origin: center;
+      overflow: visible;
+      margin: 0 auto;
+    }
+    .loader5-car {
+      fill: none;
+      stroke: var(--uib-color);
+      stroke-dasharray: 15, 85;
+      stroke-dashoffset: 0;
+      stroke-linecap: round;
+      animation: travel5 var(--uib-speed) linear infinite;
+      will-change: stroke-dasharray, stroke-dashoffset;
+      transition: stroke 0.5s ease;
+    }
+    .loader5-track {
+      stroke: var(--uib-color);
+      opacity: var(--uib-bg-opacity);
+    }
+    @keyframes travel5 {
+      0% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 100; }
+    }
+
+    .splash-progress-text {
+      font-size: 0.6rem;
+      color: var(--text-light);
+      margin-top: 16px;
+      font-family: 'Courier Prime', monospace;
+      text-align: center;
+    }
+
+    .splash-dots {
+      display: inline-flex;
+      gap: 3px;
+      margin-left: 4px;
+    }
+
+    .splash-dots span {
+      width: 4px;
+      height: 4px;
+      background: var(--secondary);
+      border-radius: 50%;
+      display: inline-block;
+      animation: dotPulse 1.4s infinite ease-in-out both;
+    }
+
+    .splash-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .splash-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes dotPulse {
+      0%, 80%, 100% { transform: scale(0.5); opacity: 0.3; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    .splash-version {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 0.55rem;
+      color: var(--text-light);
+      background: var(--card-bg);
+      padding: 5px 14px;
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      z-index: 2;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 550px) {
+      .splash-logo { width: 75px; height: 75px; }
+      .splash-title { font-size: 1.5rem; }
+      .splash-info-item { padding: 6px 12px; font-size: 0.6rem; }
+      .splash-version { bottom: 15px; right: 15px; font-size: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    <div class="splash-container">
+      <div class="glass-card splash-card">
+
+        <img src="./icons/icon.png" alt="SMART GRADE" class="splash-logo">
+
+        <div class="splash-title">SMART GRADE</div>
+        <div class="splash-subtitle">GRADE MANAGEMENT SYSTEM</div>
+
+        <div class="splash-info">
+          <div class="splash-info-item"><i class="fas fa-school"></i><span>GBHS FOUMBAN</span></div>
+          <div class="splash-info-item"><i class="fas fa-users"></i><span>Form 5B Science</span></div>
+          <div class="splash-info-item"><i class="fas fa-calendar-alt"></i><span>2026-2027</span></div>
+        </div>
+
+        <div id="loaderContainer" class="loader-wrapper"></div>
+
+        <div class="splash-progress-text" id="progressText">
+          Initializing system<span class="splash-dots"><span></span><span></span><span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="splash-version">
+      <i class="fas fa-code-branch"></i> v5.0 Ultimate
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // ============================================
+    // LISTES DES ÉLÉMENTS ALEATOIRES
+    // ============================================
+
+    var LOADERS = [
+      {
+        name: 'loader1',
+        html: '<svg class="loader1-container" viewBox="0 0 40 40" height="40" width="40" preserveAspectRatio="xMidYMid meet"><path class="loader1-track" fill="none" stroke-width="4" pathLength="100" d="M29.76 18.72c0 7.28-3.92 13.6-9.84 16.96-2.88 1.68-6.24 2.64-9.84 2.64-3.6 0-6.88-0.96-9.76-2.64 0-7.28 3.92-13.52 9.84-16.96 2.88-1.68 6.24-2.64 9.76-2.64s6.88 0.96 9.76 2.64c5.84 3.36 9.76 9.68 9.84 16.96-2.88 1.68-6.24 2.64-9.76 2.64-3.6 0-6.88-0.96-9.84-2.64-5.84-3.36-9.76-9.68-9.76-16.96 0-7.28 3.92-13.6 9.76-16.96 5.92-3.36 9.84 2.96 9.84 10.24z"></path><path class="loader1-car" fill="none" stroke-width="4" pathLength="100" d="M29.76 18.72c0 7.28-3.92 13.6-9.84 16.96-2.88 1.68-6.24 2.64-9.84 2.64-3.6 0-6.88-0.96-9.76-2.64 0-7.28 3.92-13.52 9.84-16.96 2.88-1.68 6.24-2.64 9.76-2.64s6.88 0.96 9.76 2.64c5.84 3.36 9.76 9.68 9.84 16.96-2.88 1.68-6.24 2.64-9.76 2.64-3.6 0-6.88-0.96-9.84-2.64-5.84-3.36-9.76-9.68-9.76-16.96 0-7.28 3.92-13.6 9.76-16.96 5.92-3.36 9.84 2.96 9.84 10.24z"></path></svg>'
+      },
+      {
+        name: 'loader2',
+        html: '<div class="loader2-container" style="--uib-size:45px;--uib-color:var(--primary);--uib-speed:1.75s;position:relative;height:45px;width:45px;margin:0 auto;"><div class="loader2-particle"></div><div class="loader2-particle"></div><div class="loader2-particle"></div><div class="loader2-particle"></div><div class="loader2-particle"></div><div class="loader2-particle"></div><div class="loader2-particle"></div><div class="loader2-particle"></div><div class="loader2-particle"></div><div class="loader2-particle"></div></div>'
+      },
+      {
+        name: 'loader3',
+        html: '<div class="loader3-container" style="--uib-size:60px;--uib-color:var(--primary);--uib-speed:1.5s;"><div class="loader3-row"><div class="loader3-dot"></div><div class="loader3-dot"></div><div class="loader3-dot"></div></div><div class="loader3-row"><div class="loader3-dot"></div><div class="loader3-dot"></div><div class="loader3-dot"></div></div><div class="loader3-row"><div class="loader3-dot"></div><div class="loader3-dot"></div><div class="loader3-dot"></div></div></div>'
+      },
+      {
+        name: 'loader4',
+        html: '<div class="loader4-container" style="--uib-size:45px;--uib-color:var(--primary);--uib-speed:2.5s;display:flex;flex-direction:column;align-items:center;justify-content:center;height:45px;width:45px;margin:0 auto;"><div class="loader4-slice"></div><div class="loader4-slice"></div><div class="loader4-slice"></div><div class="loader4-slice"></div><div class="loader4-slice"></div><div class="loader4-slice"></div></div>'
+      },
+      {
+        name: 'loader5',
+        html: '<svg class="loader5-container" viewBox="0 0 55 23.1" height="23.1" width="55" preserveAspectRatio="xMidYMid meet"><path class="loader5-track" fill="none" stroke-width="4" pathLength="100" d="M26.7,12.2c3.5,3.4,7.4,7.8,12.7,7.8c5.5,0,9.6-4.4,9.6-9.5C49,5,45.1,1,39.8,1c-5.5,0-9.5,4.2-13.1,7.8l-3.4,3.3c-3.6,3.6-7.6,7.8-13.1,7.8C4.9,20,1,16,1,10.5C1,5.4,5.1,1,10.6,1c5.3,0,9.2,4.5,12.7,7.8L26.7,12.2z"></path><path class="loader5-car" fill="none" stroke-width="4" pathLength="100" d="M26.7,12.2c3.5,3.4,7.4,7.8,12.7,7.8c5.5,0,9.6-4.4,9.6-9.5C49,5,45.1,1,39.8,1c-5.5,0-9.5,4.2-13.1,7.8l-3.4,3.3c-3.6,3.6-7.6,7.8-13.1,7.8C4.9,20,1,16,1,10.5C1,5.4,5.1,1,10.6,1c5.3,0,9.2,4.5,12.7,7.8L26.7,12.2z"></path></svg>'
+      }
+    ];
+
+    var THEMES_LIST = [
+      'default', 'crimson', 'forest', 'ocean', 'royal',
+      'sunset', 'rose', 'turquoise', 'amber', 'graphite',
+      'lavender', 'cherry', 'midnight', 'mint', 'coral',
+      'indigo', 'chocolate', 'electric', 'steel', 'lime'
+    ];
+
+    var FONTS_LIST = [
+      'inter', 'roboto', 'cinzel', 'quicksand', 'courier-prime',
+      'fredoka', 'pacifico', 'bangers', 'lobster', 'permanent-marker',
+      'comfortaa', 'righteous'
+    ];
+
+    var FONT_FAMILIES = {
+      'inter': 'Inter, sans-serif',
+      'roboto': 'Roboto, sans-serif',
+      'cinzel': 'Cinzel, serif',
+      'quicksand': 'Quicksand, sans-serif',
+      'courier-prime': '"Courier Prime", monospace',
+      'fredoka': 'Fredoka, sans-serif',
+      'pacifico': 'Pacifico, cursive',
+      'bangers': 'Bangers, cursive',
+      'lobster': 'Lobster, cursive',
+      'permanent-marker': '"Permanent Marker", cursive',
+      'comfortaa': 'Comfortaa, sans-serif',
+      'righteous': 'Righteous, sans-serif'
+    };
+
+    // ============================================
+    // SÉLECTION ALEATOIRE SANS RÉPÉTITION
+    // ============================================
+
+    function getRandomItemWithoutRepeat(list, lastItemKey) {
+      var lastItem = sessionStorage.getItem(lastItemKey);
+      var available = list.filter(function(item) {
+        return item !== lastItem;
+      });
+      if (available.length === 0) available = list;
+      var randomIndex = Math.floor(Math.random() * available.length);
+      var selected = available[randomIndex];
+      sessionStorage.setItem(lastItemKey, selected);
+      return selected;
+    }
+
+    // ============================================
+    // APPLIQUER TOUS LES ÉLÉMENTS ALEATOIRES
+    // ============================================
+
+    // 1. LOADER
+    var selectedLoader = getRandomItemWithoutRepeat(LOADERS.map(function(l) { return l.name; }), 'smartgrade_last_splash_loader');
+    var loaderObj = LOADERS.find(function(l) { return l.name === selectedLoader; });
+    document.getElementById('loaderContainer').innerHTML = loaderObj.html;
+
+    // 2. THÈME
+    var selectedTheme = getRandomItemWithoutRepeat(THEMES_LIST, 'smartgrade_last_splash_theme');
+    document.body.classList.add('theme-' + selectedTheme);
+
+    // 3. MODE NUIT (50% de chance)
+    var isDark = Math.random() < 0.5;
+    if (isDark) {
+      document.body.classList.add('night-mode');
+    }
+
+    // 4. POLICE
+    var selectedFont = getRandomItemWithoutRepeat(FONTS_LIST, 'smartgrade_last_splash_font');
+    var fontFamily = FONT_FAMILIES[selectedFont] || 'Inter, sans-serif';
+    document.body.style.fontFamily = fontFamily;
+
+    // Appliquer la police à tous les éléments du splash
+    var allElements = document.querySelectorAll('.splash-card, .splash-title, .splash-subtitle, .splash-info-item, .splash-progress-text');
+    for (var i = 0; i < allElements.length; i++) {
+      allElements[i].style.fontFamily = fontFamily;
+    }
+
+    // ============================================
+    // TEXTE PROGRESSIF (3 points animés)
+    // ============================================
+
+    var progressMessages = [
+      'Initializing system',
+      'Loading modules',
+      'Preparing workspace',
+      'Connecting to database',
+      'Loading themes',
+      'Loading fonts',
+      'Checking updates',
+      'Almost ready',
+      'Finalizing',
+      'Welcome to SMART GRADE'
+    ];
+
+    var msgIndex = 0;
+    var progressText = document.getElementById('progressText');
+    var totalDuration = 10000;
+    var intervalTime = totalDuration / progressMessages.length;
+
+    var msgInterval = setInterval(function() {
+      if (msgIndex < progressMessages.length) {
+        progressText.innerHTML = progressMessages[msgIndex] + '<span class="splash-dots"><span></span><span></span><span></span></span>';
+        msgIndex++;
+      } else {
+        clearInterval(msgInterval);
+      }
+    }, intervalTime);
+
+    // ============================================
+    // REDIRECTION
+    // ============================================
+
+    setTimeout(function() {
+      document.body.style.transition = 'opacity 0.6s ease';
+      document.body.style.opacity = '0';
+      setTimeout(function() {
+        window.location.href = 'index.html';
+      }, 600);
+    }, totalDuration + 500);
+
+    // ============================================
+    // INITIALISATION
+    // ============================================
+
+    if (typeof initParticles === 'function') {
+      initParticles();
+    }
+
+    var toastContainer = document.getElementById('toastContainer');
+    if (toastContainer) {
+      toastContainer.style.display = 'none';
+    }
+
+    function updateLoaderColor() {
+      var rootStyles = getComputedStyle(document.body);
+      var primaryColor = rootStyles.getPropertyValue('--primary').trim() || '#0f3b48';
+      var loaders = document.querySelectorAll('.loader1-container, .loader2-container, .loader3-container, .loader4-container, .loader5-container');
+      for (var i = 0; i < loaders.length; i++) {
+        loaders[i].style.setProperty('--uib-color', primaryColor);
+      }
+      var dots = document.querySelectorAll('.loader3-dot');
+      for (var i = 0; i < dots.length; i++) {
+        dots[i].style.backgroundColor = primaryColor;
+      }
+    }
+
+    setTimeout(updateLoaderColor, 100);
+
+    var themeObserver = new MutationObserver(function() {
+      updateLoaderColor();
+    });
+    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    // Afficher la configuration aléatoire dans la console
+    console.log('🎲 SPLASH RANDOM:');
+    console.log('  - Loader:', selectedLoader);
+    console.log('  - Theme:', selectedTheme);
+    console.log('  - Night mode:', isDark ? '🌙 ON' : '☀️ OFF');
+    console.log('  - Font:', selectedFont);
+  </script>
+
+  <!-- ============================================
+       SERVICE WORKER - ENREGISTREMENT
+  ============================================ -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js')
+          .then(function(registration) {
+            console.log('[SW] ✅ Enregistré avec succès');
+            console.log('[SW] 📁 Portée:', registration.scope);
+            registration.update();
+          })
+          .catch(function(error) {
+            console.log('[SW] ❌ Erreur:', error);
+          });
+      });
+    }
+  </script>
+
+</body>
+</html>

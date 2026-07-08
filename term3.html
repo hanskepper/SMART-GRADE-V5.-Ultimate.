@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Term 3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    /* ============================================
+       STYLES GÉNÉRAUX
+       ============================================ */
+    
+    .term-header-card{
+      text-align:center;
+      padding:20px 16px;
+      border-radius:20px;
+      color:white;
+      margin-bottom:12px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      flex-shrink:0;
+      position:relative;
+      overflow:hidden;
+    }
+    .term-header-card::before {
+      content:'';
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index:0;
+    }
+    @keyframes stripeMove { 0%{background-position:0 0} 100%{background-position:40px 0} }
+    .term-header-card > * { position:relative; z-index:1; }
+    
+    .term-big-number{
+      font-size:2.8rem;
+      font-weight:800;
+    }
+    .term-label{
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      opacity:0.8;
+    }
+    .subjects-count-badge{
+      display:inline-block;
+      background:rgba(255,255,255,0.2);
+      padding:4px 12px;
+      border-radius:20px;
+      font-size:0.6rem;
+      margin-top:4px;
+    }
+    
+    /* Navigation */
+    .tab-nav {
+      display: flex;
+      gap: 4px;
+      margin-bottom:12px;
+      background: var(--card-bg);
+      border-radius:16px;
+      padding:4px;
+      border:1px solid var(--border);
+      flex-shrink:0;
+    }
+    .tab-btn {
+      flex:1;
+      padding:10px 0;
+      border-radius:12px;
+      border:none;
+      background:transparent;
+      color:var(--text-light);
+      font-weight:600;
+      font-size:0.65rem;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      font-family:inherit;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+    .tab-btn.active {
+      background:linear-gradient(135deg, var(--primary), var(--secondary));
+      color:white;
+      box-shadow:0 2px 8px rgba(15,59,72,0.2);
+    }
+    .tab-btn:active { transform:scale(0.95); }
+    
+    /* Slides */
+    .slides-wrapper { flex:1; overflow:hidden; position:relative; touch-action:pan-y; }
+    .slides-container { display:flex; height:100%; transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
+    .slide { min-width:100%; padding:0 4px; overflow-y:auto; max-height:calc(100vh - 260px); }
+    .slide::-webkit-scrollbar { width:3px; }
+    .slide::-webkit-scrollbar-track { background:var(--border); border-radius:3px; }
+    .slide::-webkit-scrollbar-thumb { background:var(--primary); border-radius:3px; }
+    
+    /* ============================================
+       SLIDE 1 : OVERVIEW
+       ============================================ */
+    .stats-grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-bottom:12px;
+    }
+    .stat-card {
+      text-align:center;
+      padding:16px 8px;
+      background:var(--card-bg);
+      border-radius:16px;
+      border:1px solid var(--border);
+      transition:all 0.2s ease;
+    }
+    .stat-card:hover { border-color:var(--primary); transform:translateY(-2px); }
+    .stat-icon { font-size:1.4rem; margin-bottom:4px; display:block; }
+    .stat-icon.best { color:#2ecc71; }
+    .stat-icon.worst { color:#e74c3c; }
+    .stat-icon.grades { color:#3498db; }
+    .stat-icon.passing { color:#f39c12; }
+    .stat-value { font-size:1.6rem; font-weight:800; color:var(--primary); }
+    .stat-label { font-size:0.5rem; text-transform:uppercase; color:var(--text-light); margin-top:2px; letter-spacing:0.5px; }
+    
+    .bw-container {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-bottom:12px;
+    }
+    .bw-card {
+      padding:14px 16px;
+      background:var(--card-bg);
+      border-radius:16px;
+      border:1px solid var(--border);
+      transition:all 0.2s ease;
+    }
+    .bw-card:hover { border-color:var(--primary); transform:translateY(-2px); }
+    .bw-card .bw-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:6px;
+    }
+    .bw-card .bw-label {
+      font-size:0.5rem;
+      text-transform:uppercase;
+      color:var(--text-light);
+      letter-spacing:0.5px;
+      display:flex;
+      align-items:center;
+      gap:4px;
+    }
+    .bw-card .bw-subject {
+      font-weight:700;
+      font-size:0.85rem;
+    }
+    .bw-card .bw-grade {
+      font-size:1.4rem;
+      font-weight:800;
+    }
+    .bw-card .bw-grade.best { color:#2ecc71; }
+    .bw-card .bw-grade.worst { color:#e74c3c; }
+    .bw-bar {
+      height:4px;
+      background:rgba(0,0,0,0.06);
+      border-radius:2px;
+      margin-top:6px;
+      overflow:hidden;
+    }
+    .bw-bar .fill { height:100%; border-radius:2px; transition:width 0.8s ease; }
+    .bw-bar .fill.best { background:linear-gradient(90deg,#2ecc71,#27ae60); }
+    .bw-bar .fill.worst { background:linear-gradient(90deg,#e74c3c,#c0392b); }
+    
+    .goal-card {
+      padding:12px 16px;
+      background:var(--card-bg);
+      border-radius:16px;
+      border:1px solid var(--border);
+      margin-bottom:12px;
+      transition:all 0.2s ease;
+    }
+    .goal-card:hover { border-color:var(--primary); }
+    .goal-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:0.7rem;
+    }
+    .goal-header .label { color:var(--text-light); display:flex; align-items:center; gap:6px; }
+    .goal-header .value { font-weight:700; color:var(--primary); }
+    .goal-bar { height:6px; background:rgba(0,0,0,0.06); border-radius:3px; margin-top:6px; overflow:hidden; }
+    .goal-fill { height:100%; border-radius:3px; transition:width 0.8s ease; background:linear-gradient(90deg, var(--primary), var(--secondary)); }
+    .goal-fill.achieved { background:linear-gradient(90deg, #2ecc71, #27ae60); }
+    
+    .improve-section {
+      background:var(--card-bg);
+      border-radius:16px;
+      border:1px solid var(--border);
+      padding:12px 16px;
+      margin-bottom:12px;
+    }
+    .improve-title {
+      font-size:0.6rem;
+      font-weight:700;
+      text-transform:uppercase;
+      color:var(--text-light);
+      letter-spacing:0.5px;
+      margin-bottom:8px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .improve-item {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:6px 0;
+      border-bottom:1px solid var(--border);
+      font-size:0.7rem;
+    }
+    .improve-item:last-child { border-bottom:none; }
+    .improve-item .name { font-weight:600; }
+    .improve-item .grade { font-weight:700; color:#e74c3c; }
+    
+    .tip-card {
+      background:linear-gradient(135deg, rgba(46,204,113,0.08), rgba(46,204,113,0.02));
+      border:1px solid rgba(46,204,113,0.2);
+      border-radius:16px;
+      padding:12px 16px;
+      margin-bottom:12px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .tip-card i { font-size:1.2rem; color:#2ecc71; flex-shrink:0; }
+    .tip-card .tip-text { font-size:0.7rem; color:var(--text-light); line-height:1.4; }
+    .tip-card .tip-text strong { color:var(--text); }
+    
+    .comp-alert {
+      background:rgba(231,76,60,0.1);
+      border-left:4px solid #e74c3c;
+      padding:10px 12px;
+      border-radius:8px;
+      margin-bottom:10px;
+      font-size:0.65rem;
+    }
+    
+    /* ============================================
+       SLIDE 2 : CHARTS
+       ============================================ */
+    .charts-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      height:100%;
+    }
+    .chart-box {
+      background:var(--card-bg);
+      border-radius:16px;
+      padding:12px;
+      border:1px solid var(--border);
+      display:flex;
+      flex-direction:column;
+      transition:all 0.2s ease;
+    }
+    .chart-box:hover { border-color:var(--primary); }
+    .chart-box h4 {
+      font-size:0.6rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      text-align:center;
+      color:var(--text-light);
+      margin-bottom:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+    }
+    .chart-box h4 i { color:var(--primary); }
+    .chart-box canvas { flex:1; width:100% !important; max-height:140px; }
+    .chart-stats {
+      display:flex;
+      justify-content:space-around;
+      margin-top:8px;
+      font-size:0.55rem;
+      color:var(--text-light);
+    }
+    .chart-stats span { display:flex; align-items:center; gap:4px; }
+    .chart-stats .dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
+    
+    /* ============================================
+       SLIDE 3 : SUBJECTS (CARTES MODERNES)
+       ============================================ */
+    .subjects-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      padding-bottom:8px;
+    }
+    .subject-card-modern {
+      background:var(--card-bg);
+      border-radius:16px;
+      padding:14px;
+      border:1px solid var(--border);
+      transition:all 0.2s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .subject-card-modern:hover {
+      border-color:var(--primary);
+      transform:translateY(-3px);
+      box-shadow:0 4px 16px rgba(0,0,0,0.06);
+    }
+    .subject-card-modern .sc-top {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+    .subject-card-modern .sc-name {
+      font-weight:700;
+      font-size:0.7rem;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .subject-card-modern .sc-name .icon {
+      width:24px;
+      height:24px;
+      border-radius:6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:0.6rem;
+      flex-shrink:0;
+    }
+    .subject-card-modern .sc-grade {
+      font-size:1.3rem;
+      font-weight:800;
+      color:var(--primary);
+    }
+    .subject-card-modern .sc-grade.excellent { color:#2ecc71; }
+    .subject-card-modern .sc-grade.verygood { color:#3498db; }
+    .subject-card-modern .sc-grade.good { color:#f39c12; }
+    .subject-card-modern .sc-grade.average { color:#e67e22; }
+    .subject-card-modern .sc-grade.needs { color:#e74c3c; }
+    
+    .subject-card-modern .sc-bottom {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:8px;
+      padding-top:8px;
+      border-top:1px solid var(--border);
+    }
+    .subject-card-modern .sc-status {
+      font-size:0.5rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+    .subject-card-modern .sc-status.excellent { color:#2ecc71; }
+    .subject-card-modern .sc-status.verygood { color:#3498db; }
+    .subject-card-modern .sc-status.good { color:#f39c12; }
+    .subject-card-modern .sc-status.average { color:#e67e22; }
+    .subject-card-modern .sc-status.needs { color:#e74c3c; }
+    
+    .subject-card-modern .sc-coeff {
+      font-size:0.5rem;
+      color:var(--text-light);
+      background:rgba(0,0,0,0.04);
+      padding:2px 10px;
+      border-radius:20px;
+    }
+    .sc-progress {
+      height:3px;
+      background:rgba(0,0,0,0.06);
+      border-radius:2px;
+      margin-top:6px;
+      overflow:hidden;
+    }
+    .sc-progress .fill { height:100%; border-radius:2px; transition:width 0.6s ease; }
+    
+    .empty-state {
+      text-align:center;
+      padding:30px 20px;
+      color:var(--text-light);
+    }
+    .empty-state i { font-size:40px; opacity:0.15; margin-bottom:10px; display:block; }
+    .empty-state p { font-size:0.7rem; }
+    
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width:600px) {
+      .term-big-number { font-size:2.2rem; }
+      .stat-value { font-size:1.3rem; }
+      .bw-card .bw-grade { font-size:1.2rem; }
+      .charts-grid { grid-template-columns:1fr; }
+      .chart-box canvas { max-height:150px; }
+      .subjects-grid { grid-template-columns:1fr; }
+      .stat-icon { font-size:1.2rem; }
+      .tip-card { padding:10px 12px; }
+      .tip-card i { font-size:1rem; }
+    }
+    @media (max-width:400px) {
+      .stats-grid { gap:6px; }
+      .stat-card { padding:10px 4px; }
+      .stat-value { font-size:1rem; }
+      .bw-container { gap:6px; }
+      .bw-card { padding:10px 12px; }
+      .bw-card .bw-subject { font-size:0.7rem; }
+      .bw-card .bw-grade { font-size:1rem; }
+      .subject-card-modern { padding:10px; }
+      .subject-card-modern .sc-grade { font-size:1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-3"></i><span>TERM 3</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html">
+          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="term1.html" class="nav-item"><i class="fas fa-1"></i> Term 1</a>
+        <a href="term2.html" class="nav-item"><i class="fas fa-2"></i> Term 2</a>
+        <a href="term3.html" class="nav-item active"><i class="fas fa-3"></i> Term 3</a>
+        <a href="yearly.html" class="nav-item"><i class="fas fa-chart-line"></i> Yearly</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content" style="display:flex;flex-direction:column;padding:12px 16px;overflow:hidden;height:100%;">
+      
+      <!-- EN-TÊTE -->
+      <div class="term-header-card">
+        <div class="term-label">Term 3</div>
+        <div class="term-big-number" id="overallTerm3">0.00</div>
+        <div class="subjects-count-badge" id="subjectsCount3">0 subjects</div>
+      </div>
+      
+      <!-- ONGLETS -->
+      <div class="tab-nav" id="tabNav">
+        <button class="tab-btn active" data-tab="0">Overview</button>
+        <button class="tab-btn" data-tab="1">Charts</button>
+        <button class="tab-btn" data-tab="2">Subjects</button>
+      </div>
+      
+      <!-- SLIDES -->
+      <div class="slides-wrapper" id="slidesWrapper">
+        <div class="slides-container" id="slidesContainer">
+          
+          <!-- SLIDE 1 : OVERVIEW -->
+          <div class="slide" id="slide0">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-icon best"><i class="fas fa-star"></i></span>
+                <div class="stat-value" id="statBest">--</div>
+                <div class="stat-label">Best Subject</div>
+              </div>
+              <div class="stat-card">
+                <span class="stat-icon worst"><i class="fas fa-exclamation-triangle"></i></span>
+                <div class="stat-value" id="statWorst">--</div>
+                <div class="stat-label">Needs Work</div>
+              </div>
+              <div class="stat-card">
+                <span class="stat-icon grades"><i class="fas fa-pen"></i></span>
+                <div class="stat-value" id="statTotalGrades">0</div>
+                <div class="stat-label">Total Grades</div>
+              </div>
+              <div class="stat-card">
+                <span class="stat-icon passing"><i class="fas fa-check-circle"></i></span>
+                <div class="stat-value" id="statPassing">0%</div>
+                <div class="stat-label">Passing Rate</div>
+              </div>
+            </div>
+            
+            <div class="bw-container">
+              <div class="bw-card">
+                <div class="bw-header">
+                  <span class="bw-label"><i class="fas fa-star" style="color:#f39c12;"></i> Best</span>
+                  <span class="bw-grade best" id="bestGrade">--</span>
+                </div>
+                <div class="bw-subject" id="bestSubject">--</div>
+                <div class="bw-bar"><div class="fill best" id="bestBar" style="width:0%;"></div></div>
+              </div>
+              <div class="bw-card">
+                <div class="bw-header">
+                  <span class="bw-label"><i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i> Needs Work</span>
+                  <span class="bw-grade worst" id="worstGrade">--</span>
+                </div>
+                <div class="bw-subject" id="worstSubject">--</div>
+                <div class="bw-bar"><div class="fill worst" id="worstBar" style="width:0%;"></div></div>
+              </div>
+            </div>
+            
+            <div class="goal-card">
+              <div class="goal-header">
+                <span class="label"><i class="fas fa-bullseye"></i> Goal Progress</span>
+                <span class="value" id="goalProgressText">0%</span>
+              </div>
+              <div class="goal-bar">
+                <div class="goal-fill" id="goalProgressFill" style="width:0%;"></div>
+              </div>
+            </div>
+            
+            <div class="improve-section" id="improveSection">
+              <div class="improve-title"><i class="fas fa-arrow-up" style="color:#e74c3c;"></i> Subjects to Improve</div>
+              <div id="improveList">
+                <div style="text-align:center;padding:8px;color:var(--text-light);font-size:0.65rem;">No subjects below 10</div>
+              </div>
+            </div>
+            
+            <div class="tip-card" id="tipCard">
+              <i class="fas fa-lightbulb"></i>
+              <div class="tip-text"><strong>Tip:</strong> <span id="tipText">Keep going, you are doing great!</span></div>
+            </div>
+            
+            <div class="comp-alert" id="compMsg" style="display:none;"></div>
+          </div>
+          
+          <!-- SLIDE 2 : CHARTS -->
+          <div class="slide" id="slide1">
+            <div class="charts-grid">
+              <div class="chart-box">
+                <h4><i class="fas fa-chart-bar"></i> Subject Averages</h4>
+                <canvas id="barChart"></canvas>
+                <div class="chart-stats">
+                  <span><span class="dot" style="background:var(--primary);"></span> Avg: <strong id="chartAvg">0.00</strong></span>
+                  <span><i class="fas fa-arrow-up" style="color:#2ecc71;"></i> Best: <strong id="chartBest">--</strong></span>
+                </div>
+              </div>
+              <div class="chart-box">
+                <h4><i class="fas fa-chart-pie"></i> Grade Distribution</h4>
+                <canvas id="distChart"></canvas>
+                <div class="chart-stats">
+                  <span><span class="dot" style="background:#2ecc71;"></span> Pass: <strong id="distPass">0</strong></span>
+                  <span><span class="dot" style="background:#e74c3c;"></span> Fail: <strong id="distFail">0</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- SLIDE 3 : SUBJECTS -->
+          <div class="slide" id="slide2">
+            <div id="subjectsGrid" class="subjects-grid"></div>
+          </div>
+          
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // VARIABLES
+    // ============================================
+    
+    var sc = ['#3498db','#e74c3c','#9b59b6','#2ecc71','#e67e22','#00bcd4','#f39c12','#1abc9c','#27ae60','#2980b9','#c0392b','#8e44ad','#16a085','#d35400'];
+    var allSubs = [
+      {id:1,name:"COMPUTER SCIENCES",icon:"fa-laptop-code"},
+      {id:2,name:"MATHEMATICS",icon:"fa-square-root-variable"},
+      {id:3,name:"CHEMISTRY",icon:"fa-flask"},
+      {id:4,name:"HUMAN BIOLOGY",icon:"fa-dna"},
+      {id:5,name:"GEOLOGY",icon:"fa-mountain"},
+      {id:6,name:"PHYSICS",icon:"fa-atom"},
+      {id:7,name:"ADDITIONAL MATHEMATICS",icon:"fa-calculator"},
+      {id:8,name:"BIOLOGY",icon:"fa-leaf"},
+      {id:9,name:"ECONOMICS",icon:"fa-chart-line"},
+      {id:10,name:"ENGLISH LANGUAGE",icon:"fa-language"},
+      {id:11,name:"GEOGRAPHY",icon:"fa-earth-africa"},
+      {id:12,name:"CITIZENSHIP",icon:"fa-landmark"},
+      {id:13,name:"FRENCH",icon:"fa-flag"},
+      {id:14,name:"FOOD AND NUTRITION",icon:"fa-apple-whole"}
+    ];
+    
+    var TIPS = [
+      "Study more in your weak subjects to improve overall average.",
+      "Review past papers for better exam preparation.",
+      "Focus on understanding concepts rather than memorization.",
+      "Create a study schedule and stick to it.",
+      "Practice past exam questions regularly.",
+      "Take breaks to keep your mind fresh while studying.",
+      "Explain topics to others to reinforce your understanding."
+    ];
+    
+    var barChart = null;
+    var distChart = null;
+    var currentSlide = 0;
+    var totalSlides = 3;
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var isSwiping = false;
+    var currentTerm = 3;
+    
+    // ============================================
+    // SWIPE / NAVIGATION
+    // ============================================
+    
+    function goToSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+      currentSlide = index;
+      document.getElementById('slidesContainer').style.transform = 'translateX(-' + (index * 100) + '%)';
+      
+      document.querySelectorAll('.tab-btn').forEach(function(btn, i) {
+        btn.classList.toggle('active', i === index);
+      });
+    }
+    
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        goToSlide(parseInt(this.dataset.tab));
+      });
+    });
+    
+    var wrapper = document.getElementById('slidesWrapper');
+    wrapper.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isSwiping = false;
+    }, { passive: true });
+    
+    wrapper.addEventListener('touchmove', function(e) {
+      var deltaX = e.touches[0].clientX - touchStartX;
+      var deltaY = e.touches[0].clientY - touchStartY;
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 20) {
+        isSwiping = true;
+        e.preventDefault();
+      }
+    }, { passive: false });
+    
+    wrapper.addEventListener('touchend', function(e) {
+      if (!isSwiping) return;
+      var deltaX = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(deltaX) > 50) {
+        if (deltaX < 0 && currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+        else if (deltaX > 0 && currentSlide > 0) goToSlide(currentSlide - 1);
+      }
+      isSwiping = false;
+    }, { passive: true });
+    
+    // ============================================
+    // FONCTION POUR CHARGER L'AVATAR
+    // ============================================
+    
+    function loadHeaderAvatar() {
+      var current = JSON.parse(localStorage.getItem('smartgrade_current') || 'null');
+      if (!current) return;
+      
+      var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + current.id) || '{}');
+      var headerAvatar = document.getElementById('headerAvatar');
+      
+      if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
+        headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+      } else {
+        var gender = current.gender || 'boy';
+        var defaultAvatar = gender === 'girl' ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+        headerAvatar.innerHTML = '<img src="' + defaultAvatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+      }
+    }
+    
+    // ============================================
+    // CHARGEMENT
+    // ============================================
+    
+    function getSequencesForTerm(term) {
+      var s = (term - 1) * 2 + 1;
+      return [s, s + 1];
+    }
+    
+    function loadTerm() {
+      var current = JSON.parse(localStorage.getItem('smartgrade_current') || 'null');
+      if (!current) { location = 'login.html'; return; }
+      var sid = current.id;
+      var grades = JSON.parse(localStorage.getItem('smartgrade_grades_' + sid) || '[]');
+      var selected = JSON.parse(localStorage.getItem('smartgrade_selected_' + sid + '_term' + currentTerm) || '[]');
+      var coeffs = JSON.parse(localStorage.getItem('smartgrade_coeffs_' + sid) || '{}');
+      var comps = JSON.parse(localStorage.getItem('smartgrade_compensations_' + sid) || '{}');
+      var comp = comps['' + currentTerm] || null;
+      
+      // Charger l'avatar
+      loadHeaderAvatar();
+      
+      var seq = getSequencesForTerm(currentTerm);
+      
+      var subs = [];
+      for (var i = 0; i < allSubs.length; i++) {
+        if (selected.indexOf(allSubs[i].id) !== -1) {
+          var s = allSubs[i];
+          s.coefficient = coeffs[s.id] || 5;
+          subs.push(s);
+        }
+      }
+      
+      var tw = 0, tc = 0;
+      var subjectData = [];
+      var best = { name: '--', avg: -1 };
+      var worst = { name: '--', avg: 21 };
+      var totalGrades = 0;
+      var passingCount = 0;
+      var lowSubjects = [];
+      
+      for (var i = 0; i < subs.length; i++) {
+        var s = subs[i];
+        var seq1 = seq[0], seq2 = seq[1];
+        var n1 = [], n2 = [];
+        for (var k = 0; k < grades.length; k++) {
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq1) n1.push(grades[k].value);
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq2) n2.push(grades[k].value);
+        }
+        var a1 = 0, a2 = 0;
+        if (n1.length > 0) { var sum = 0; for (var j = 0; j < n1.length; j++) sum += n1[j]; a1 = Math.round((sum / n1.length) * 100) / 100; }
+        if (n2.length > 0) { var sum = 0; for (var j = 0; j < n2.length; j++) sum += n2[j]; a2 = Math.round((sum / n2.length) * 100) / 100; }
+        var ma = Math.round(((a1 + a2) / 2) * 100) / 100;
+        tw += ma * s.coefficient;
+        tc += s.coefficient;
+        
+        if (n1.length > 0 || n2.length > 0) {
+          totalGrades += n1.length + n2.length;
+          if (ma >= 10) passingCount++;
+          subjectData.push({ name: s.name, avg: ma, color: sc[i % sc.length], coeff: s.coefficient });
+          if (ma > best.avg && ma > 0) { best = { name: s.name, avg: ma }; }
+          if (ma < worst.avg && ma > 0) { worst = { name: s.name, avg: ma }; }
+          if (ma > 0 && ma < 10) lowSubjects.push({ name: s.name, grade: ma });
+        }
+      }
+      
+      var avg = tc > 0 ? Math.round((tw / tc) * 100) / 100 : 0;
+      
+      var overallId = 'overallTerm' + currentTerm;
+      var countId = 'subjectsCount' + currentTerm;
+      document.getElementById(overallId).innerHTML = avg.toFixed(2);
+      document.getElementById(countId).innerHTML = subs.length + ' subjects selected';
+      if (comp) {
+        document.getElementById('compMsg').style.display = 'block';
+        document.getElementById('compMsg').innerHTML = '<i class="fas fa-balance-scale"></i> <strong>Compensated:</strong> Average preserved.';
+      }
+      
+      // Stats
+      document.getElementById('statBest').innerHTML = best.avg > 0 ? best.avg.toFixed(2) : '--';
+      document.getElementById('statWorst').innerHTML = worst.avg < 21 ? worst.avg.toFixed(2) : '--';
+      document.getElementById('statTotalGrades').innerHTML = totalGrades;
+      var passingPercent = subjectData.length > 0 ? Math.round((passingCount / subjectData.length) * 100) : 0;
+      document.getElementById('statPassing').innerHTML = passingPercent + '%';
+      
+      // Best/Worst
+      document.getElementById('bestSubject').innerHTML = best.avg > 0 ? best.name : '--';
+      document.getElementById('bestGrade').innerHTML = best.avg > 0 ? best.avg.toFixed(2) + '/20' : '--';
+      document.getElementById('worstSubject').innerHTML = worst.avg < 21 ? worst.name : '--';
+      document.getElementById('worstGrade').innerHTML = worst.avg < 21 ? worst.avg.toFixed(2) + '/20' : '--';
+      document.getElementById('bestBar').style.width = best.avg > 0 ? Math.min(100, (best.avg / 20) * 100) + '%' : '0%';
+      document.getElementById('worstBar').style.width = worst.avg < 21 && worst.avg > 0 ? Math.min(100, (worst.avg / 20) * 100) + '%' : '0%';
+      
+      // Goal
+      var goal = parseFloat(localStorage.getItem('smartgrade_goal_' + sid) || 12);
+      var progress = Math.min(100, Math.round((avg / goal) * 100));
+      document.getElementById('goalProgressText').innerHTML = progress + '%';
+      var fill = document.getElementById('goalProgressFill');
+      fill.style.width = progress + '%';
+      if (avg >= goal) {
+        document.getElementById('goalProgressText').innerHTML = '🎯 Achieved!';
+        fill.classList.add('achieved');
+      } else {
+        fill.classList.remove('achieved');
+      }
+      
+      // Improve list
+      var improveList = document.getElementById('improveList');
+      if (lowSubjects.length === 0) {
+        improveList.innerHTML = '<div style="text-align:center;padding:8px;color:var(--text-light);font-size:0.65rem;">✅ All subjects above 10</div>';
+      } else {
+        var html = '';
+        lowSubjects.sort(function(a,b) { return a.grade - b.grade; });
+        for (var i = 0; i < Math.min(3, lowSubjects.length); i++) {
+          html += '<div class="improve-item"><span class="name">' + lowSubjects[i].name + '</span><span class="grade">' + lowSubjects[i].grade.toFixed(2) + '/20</span></div>';
+        }
+        improveList.innerHTML = html;
+      }
+      
+      // Tip
+      var randomTip = TIPS[Math.floor(Math.random() * TIPS.length)];
+      document.getElementById('tipText').innerHTML = randomTip;
+      
+      // Charts
+      updateCharts(subjectData, avg);
+      
+      // Subjects grid
+      renderSubjects(subjectData);
+    }
+    
+    function renderSubjects(data) {
+      var container = document.getElementById('subjectsGrid');
+      if (data.length === 0) {
+        container.innerHTML = '<div class="empty-state"><i class="fas fa-book"></i><p>No subjects with grades</p></div>';
+        return;
+      }
+      
+      var html = '';
+      for (var i = 0; i < data.length; i++) {
+        var s = data[i];
+        var gradeClass = '';
+        var statusClass = '';
+        var statusText = '';
+        if (s.avg >= 16) { gradeClass = 'excellent'; statusClass = 'excellent'; statusText = 'Excellent'; }
+        else if (s.avg >= 14) { gradeClass = 'verygood'; statusClass = 'verygood'; statusText = 'Very Good'; }
+        else if (s.avg >= 12) { gradeClass = 'good'; statusClass = 'good'; statusText = 'Good'; }
+        else if (s.avg >= 10) { gradeClass = 'average'; statusClass = 'average'; statusText = 'Average'; }
+        else if (s.avg > 0) { gradeClass = 'needs'; statusClass = 'needs'; statusText = 'Needs Work'; }
+        
+        var iconColor = sc[i % sc.length];
+        var progress = Math.min(100, Math.round((s.avg / 20) * 100));
+        
+        var subj = allSubs.find(function(x) { return x.name === s.name; });
+        var icon = subj ? subj.icon : 'fa-book';
+        
+        html += '<div class="subject-card-modern">';
+        html += '<div class="sc-top">';
+        html += '<div class="sc-name"><span class="icon" style="background:' + iconColor + ';"><i class="fas ' + icon + '"></i></span>' + s.name + '</div>';
+        html += '<div class="sc-grade ' + gradeClass + '">' + s.avg.toFixed(2) + '</div>';
+        html += '</div>';
+        html += '<div class="sc-progress"><div class="fill" style="width:' + progress + '%;background:' + iconColor + ';"></div></div>';
+        html += '<div class="sc-bottom">';
+        html += '<span class="sc-status ' + statusClass + '">' + statusText + '</span>';
+        html += '<span class="sc-coeff">Coeff: ' + (s.coeff || 5) + '</span>';
+        html += '</div>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+    }
+    
+    function updateCharts(data, avg) {
+      var ctx1 = document.getElementById('barChart');
+      if (ctx1) {
+        if (barChart) barChart.destroy();
+        var labels = data.map(function(d) { return d.name.substring(0, 6); });
+        var values = data.map(function(d) { return d.avg; });
+        var colors = data.map(function(d) { return d.color; });
+        
+        var isDark = document.body.classList.contains('night-mode');
+        var textColor = isDark ? '#e0e0e0' : '#1a2a3a';
+        var gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)';
+        
+        barChart = new Chart(ctx1.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: values,
+              backgroundColor: colors,
+              borderRadius: 4,
+              borderSkipped: false,
+              maxBarThickness: 20
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    return data[ctx.dataIndex].name + ': ' + ctx.raw.toFixed(2) + '/20';
+                  }
+                }
+              }
+            },
+            scales: {
+              y: { min: 0, max: 20, ticks: { stepSize: 5, color: textColor, font: { size: 8 } }, grid: { color: gridColor } },
+              x: { ticks: { color: textColor, font: { size: 7 } }, grid: { display: false } }
+            },
+            animation: { duration: 800, easing: 'easeOutQuart' }
+          }
+        });
+        
+        document.getElementById('chartAvg').innerHTML = avg.toFixed(2);
+        var bestVal = Math.max.apply(null, values);
+        var bestIdx = values.indexOf(bestVal);
+        document.getElementById('chartBest').innerHTML = bestVal > 0 ? data[bestIdx].name + ' (' + bestVal.toFixed(2) + ')' : '--';
+      }
+      
+      var ctx2 = document.getElementById('distChart');
+      if (ctx2) {
+        if (distChart) distChart.destroy();
+        var dist = [0, 0, 0, 0, 0];
+        var pass = 0, fail = 0;
+        for (var i = 0; i < data.length; i++) {
+          var val = data[i].avg;
+          if (val >= 16) { dist[0]++; pass++; }
+          else if (val >= 14) { dist[1]++; pass++; }
+          else if (val >= 12) { dist[2]++; pass++; }
+          else if (val >= 10) { dist[3]++; pass++; }
+          else if (val > 0) { dist[4]++; fail++; }
+        }
+        
+        var isDark = document.body.classList.contains('night-mode');
+        var textColor = isDark ? '#e0e0e0' : '#1a2a3a';
+        
+        distChart = new Chart(ctx2.getContext('2d'), {
+          type: 'doughnut',
+          data: {
+            labels: ['16-20', '14-15.9', '12-13.9', '10-11.9', '<10'],
+            datasets: [{
+              data: dist,
+              backgroundColor: ['#2ecc71', '#3498db', '#f39c12', '#e67e22', '#e74c3c'],
+              borderWidth: 2,
+              borderColor: isDark ? '#1a1a2e' : '#ffffff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'right',
+                labels: { color: textColor, font: { size: 8 }, padding: 6, boxWidth: 10, usePointStyle: true, pointStyle: 'circle' }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) { return ctx.raw + ' subjects'; }
+                }
+              }
+            },
+            cutout: '55%',
+            animation: { duration: 800, easing: 'easeOutQuart' }
+          }
+        });
+        
+        document.getElementById('distPass').innerHTML = pass;
+        document.getElementById('distFail').innerHTML = fail;
+      }
+    }
+    
+    // Theme observer
+    var themeObserver = new MutationObserver(function() {
+      loadTerm();
+    });
+    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    
+    // Déterminer le terme depuis le nom de la page
+    var pageName = window.location.pathname.split('/').pop();
+    if (pageName.includes('term1')) currentTerm = 1;
+    else if (pageName.includes('term2')) currentTerm = 2;
+    else if (pageName.includes('term3')) currentTerm = 3;
+    
+    loadTerm();
+    initMobileMenu();
+    initThemeSelector();
+  </script>
+</body>
+</html>

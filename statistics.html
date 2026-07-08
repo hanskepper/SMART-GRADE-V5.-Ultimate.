@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - Statistics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 16px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-label {
+      font-size: 0.6rem;
+      color: var(--text-light);
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+    .chart-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .chart-buttons button {
+      padding: 8px 16px;
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+    
+    #radarCard {
+      display: block;
+    }
+    #radarCard canvas {
+      border-radius: 12px;
+      padding: 8px;
+      background: var(--card-bg);
+      transition: all 0.3s ease;
+    }
+    
+    @media (max-width: 550px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      #radarCard canvas {
+        padding: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-chart-pie"></i><span>STATISTICS</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content"><div class="theme-grid-rect" id="themeGrid"></div><div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div></div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="statistics.html" class="nav-item active"><i class="fas fa-chart-pie"></i> Statistics</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      
+      <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
+        <i class="fas fa-chart-pie" style="font-size:35px;opacity:0.5;"></i>
+        <h2 style="color:white;margin:6px 0;">Statistics</h2>
+        <p style="opacity:0.8;font-size:0.65rem;">Detailed performance analysis</p>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value" id="statBest">--</div><div class="stat-label">BEST SUBJECT</div></div>
+        <div class="stat-card"><div class="stat-value" id="statWorst">--</div><div class="stat-label">WORST SUBJECT</div></div>
+        <div class="stat-card"><div class="stat-value" id="statTotal">0</div><div class="stat-label">TOTAL GRADES</div></div>
+        <div class="stat-card"><div class="stat-value" id="statAvg">0.00</div><div class="stat-label">YEARLY AVG</div></div>
+      </div>
+      
+      <div class="glass-card">
+        <h3><i class="fas fa-chart-bar"></i> Performance by Subject</h3>
+        <div style="position:relative;height:280px;width:100%;">
+          <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart-buttons" id="barChartButtons"></div>
+      </div>
+      
+      <div class="glass-card">
+        <h3><i class="fas fa-chart-pie"></i> Grade Distribution</h3>
+        <div style="position:relative;height:250px;width:100%;">
+          <canvas id="distChart"></canvas>
+        </div>
+        <div class="chart-buttons" id="distChartButtons"></div>
+      </div>
+      
+      <div class="glass-card" id="radarCard">
+        <h3><i class="fas fa-compass"></i> Skills Radar</h3>
+        <div style="position:relative;height:300px;width:100%;">
+          <canvas id="radarChart"></canvas>
+        </div>
+        <div class="chart-buttons" id="radarChartButtons"></div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    // ============================================
+    // STATISTICS - VERSION CORRIGÉE
+    // ============================================
+    
+    var barChart = null, distChart = null, radarChart = null;
+    
+    var DEFAULT_SUBJECTS = [
+      { id: 1, name: "COMPUTER SCIENCES", code: "CS", icon: "fa-laptop-code" },
+      { id: 2, name: "MATHEMATICS", code: "MATH", icon: "fa-square-root-variable" },
+      { id: 3, name: "CHEMISTRY", code: "CHM", icon: "fa-flask" },
+      { id: 4, name: "HUMAN BIOLOGY", code: "HBIO", icon: "fa-dna" },
+      { id: 5, name: "GEOLOGY", code: "GEL", icon: "fa-mountain" },
+      { id: 6, name: "PHYSICS", code: "PHY", icon: "fa-atom" },
+      { id: 7, name: "ADDITIONAL MATHEMATICS", code: "AMATH", icon: "fa-calculator" },
+      { id: 8, name: "BIOLOGY", code: "BIO", icon: "fa-leaf" },
+      { id: 9, name: "ECONOMICS", code: "ECO", icon: "fa-chart-line" },
+      { id: 10, name: "ENGLISH LANGUAGE", code: "ENG", icon: "fa-language" },
+      { id: 11, name: "GEOGRAPHY", code: "GEO", icon: "fa-earth-africa" },
+      { id: 12, name: "CITIZENSHIP", code: "CIV", icon: "fa-landmark" },
+      { id: 13, name: "FRENCH", code: "FR", icon: "fa-flag" },
+      { id: 14, name: "FOOD AND NUTRITION", code: "FDN", icon: "fa-apple-whole" }
+    ];
+    
+    // ============================================
+    // AVATAR PAR DÉFAUT
+    // ============================================
+    function updateHeaderAvatar() {
+      var ha = document.getElementById('headerAvatar');
+      if (!ha) return;
+      
+      var cu = getCurrentStudent();
+      if (!cu) {
+        ha.innerHTML = '<i class="fas fa-user-graduate"></i>';
+        return;
+      }
+      
+      var profile = getProfile(cu.id);
+      
+      if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
+        ha.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+        return;
+      }
+      
+      var gender = cu.gender || 'boy';
+      var defaultAvatar = gender === 'girl' ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+      ha.innerHTML = '<img src="' + defaultAvatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+    }
+    
+    // ============================================
+    // UTILITIES
+    // ============================================
+    function getBarColor(avg) {
+      if (avg >= 16) return '#2ecc71';
+      if (avg >= 14) return '#3498db';
+      if (avg >= 12) return '#f39c12';
+      if (avg >= 10) return '#e67e22';
+      return '#e74c3c';
+    }
+    
+    function getGradeLetter(avg) {
+      if (avg >= 18) return 'A+';
+      if (avg >= 16) return 'A';
+      if (avg >= 14) return 'B+';
+      if (avg >= 12) return 'B';
+      if (avg >= 10) return 'C';
+      if (avg >= 8) return 'D';
+      return 'F';
+    }
+    
+    function getStatusText(avg) {
+      if (avg >= 16) return 'Excellent';
+      if (avg >= 14) return 'Very Good';
+      if (avg >= 12) return 'Good';
+      if (avg >= 10) return 'Average';
+      if (avg >= 8) return 'Below Average';
+      return 'Needs Work';
+    }
+    
+    function isDarkMode() {
+      return document.body.classList.contains('night-mode');
+    }
+    
+    function getTextColor() {
+      return isDarkMode() ? '#e0e0e0' : '#1a2a3a';
+    }
+    
+    function getGridColor() {
+      return isDarkMode() ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)';
+    }
+    
+    function getRadarColor() {
+      return isDarkMode() ? '#00ffff' : '#0f3b48';
+    }
+    
+    function getDisplayName(subject) {
+      if (subject.code && subject.code !== '') {
+        return subject.code;
+      }
+      if (subject.name) {
+        return subject.name.substring(0, 6);
+      }
+      return '--';
+    }
+    
+    function formatNumber(num) {
+      if (isNaN(num) || !isFinite(num)) return '--';
+      return num.toFixed(2);
+    }
+    
+    function downloadChartAsImage(chartId) {
+      var canvas = document.getElementById(chartId);
+      if (!canvas) { showToast('Chart not found'); return; }
+      var link = document.createElement('a');
+      link.download = chartId + '.png';
+      link.href = canvas.toDataURL();
+      link.click();
+      showToast('Chart saved as PNG');
+    }
+    
+    function resetChartZoom() {
+      if (barChart && barChart.resetZoom) barChart.resetZoom();
+      if (distChart && distChart.resetZoom) distChart.resetZoom();
+      if (radarChart && radarChart.resetZoom) radarChart.resetZoom();
+      showToast('Zoom reset');
+    }
+    
+    // ============================================
+    // INIT
+    // ============================================
+    function init() {
+      var current = JSON.parse(localStorage.getItem('smartgrade_current') || 'null');
+      if (!current) { window.location.href = 'login.html'; return; }
+      var sid = current.id;
+      
+      var grades = JSON.parse(localStorage.getItem('smartgrade_grades_' + sid) || '[]');
+      var ct = getCurrentTerm();
+      var selected = JSON.parse(localStorage.getItem('smartgrade_selected_' + sid + '_term' + ct) || '[1,2,3,4,5,6,7,8,9,10,11,12,13,14]');
+      
+      updateHeaderAvatar();
+      
+      var subs = [];
+      for (var i = 0; i < DEFAULT_SUBJECTS.length; i++) {
+        if (selected.indexOf(DEFAULT_SUBJECTS[i].id) !== -1) {
+          subs.push(DEFAULT_SUBJECTS[i]);
+        }
+      }
+      
+      document.getElementById('statTotal').innerHTML = grades.length;
+      document.getElementById('statAvg').innerHTML = formatNumber(calculateYearlyAverage(sid));
+      
+      var best = null, ba = -1, worst = null, wa = 21;
+      var barData = [], radData = [];
+      
+      for (var i = 0; i < subs.length; i++) {
+        var s = subs[i];
+        var sg = [];
+        for (var k = 0; k < grades.length; k++) {
+          if (grades[k].subjectId === s.id) sg.push(grades[k].value);
+        }
+        var a = sg.length ? roundToTwo(sg.reduce(function(a, b) { return a + b; }, 0) / sg.length) : 0;
+        
+        if (sg.length > 0) {
+          if (a > ba) { ba = a; best = s; }
+          if (a < wa) { wa = a; worst = s; }
+          radData.push({ code: s.code, name: s.name, avg: a });
+        }
+        barData.push({ code: s.code, name: s.name, avg: a });
+      }
+      
+      document.getElementById('statBest').innerHTML = best ? getDisplayName(best) : '--';
+      document.getElementById('statWorst').innerHTML = worst ? getDisplayName(worst) : '--';
+      
+      // ============================================
+      // BAR CHART
+      // ============================================
+      var ctx1 = document.getElementById('barChart');
+      if (ctx1) {
+        if (barChart) barChart.destroy();
+        barChart = new Chart(ctx1.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: barData.map(function(x) { return getDisplayName(x); }),
+            datasets: [{
+              data: barData.map(function(x) { return x.avg; }),
+              backgroundColor: barData.map(function(x) { return getBarColor(x.avg); }),
+              borderRadius: 6,
+              borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    var item = barData[ctx.dataIndex];
+                    return (item.name || item.code) + ': ' + ctx.raw.toFixed(2) + '/20';
+                  }
+                }
+              },
+              zoom: {
+                pan: { enabled: true, mode: 'xy' },
+                zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'xy' }
+              }
+            },
+            scales: {
+              y: {
+                min: 0,
+                max: 20,
+                ticks: {
+                  stepSize: 2,
+                  color: getTextColor()
+                },
+                grid: {
+                  color: getGridColor()
+                }
+              },
+              x: {
+                ticks: {
+                  color: getTextColor(),
+                  maxRotation: 45,
+                  minRotation: 45,
+                  font: { size: 10 }
+                },
+                grid: {
+                  color: getGridColor()
+                }
+              }
+            },
+            animation: {
+              duration: 800,
+              easing: 'easeOutQuart'
+            }
+          }
+        });
+      }
+      
+      // ============================================
+      // PIE CHART
+      // ============================================
+      var dist = [0, 0, 0, 0, 0];
+      for (var i = 0; i < grades.length; i++) {
+        var val = grades[i].value;
+        if (val >= 16) dist[0]++;
+        else if (val >= 14) dist[1]++;
+        else if (val >= 12) dist[2]++;
+        else if (val >= 10) dist[3]++;
+        else dist[4]++;
+      }
+      
+      var ctx2 = document.getElementById('distChart');
+      if (ctx2) {
+        if (distChart) distChart.destroy();
+        distChart = new Chart(ctx2.getContext('2d'), {
+          type: 'doughnut',
+          data: {
+            labels: ['16-20', '14-15.9', '12-13.9', '10-11.9', '<10'],
+            datasets: [{
+              data: dist,
+              backgroundColor: ['#2ecc71', '#3498db', '#f39c12', '#e67e22', '#e74c3c'],
+              borderWidth: 2,
+              borderColor: isDarkMode() ? '#1a1a2e' : '#ffffff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  color: getTextColor(),
+                  font: { size: 9 },
+                  padding: 12
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    return ctx.raw + ' grades';
+                  }
+                }
+              }
+            },
+            cutout: '60%',
+            animation: {
+              duration: 1000,
+              easing: 'easeOutQuart'
+            }
+          }
+        });
+      }
+      
+      // ============================================
+      // RADAR CHART - AMÉLIORÉ
+      // ============================================
+      var ctx3 = document.getElementById('radarChart');
+      if (ctx3 && radData.length >= 3) {
+        document.getElementById('radarCard').style.display = 'block';
+        if (radarChart) radarChart.destroy();
+        
+        var labels = radData.map(function(x) {
+          var name = x.code || x.name || '';
+          if (name.length > 6) {
+            return name.substring(0, 6);
+          }
+          return name;
+        });
+        
+        radarChart = new Chart(ctx3.getContext('2d'), {
+          type: 'radar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Average',
+              data: radData.map(function(x) { return x.avg; }),
+              backgroundColor: isDarkMode() ? 'rgba(0,255,255,0.1)' : 'rgba(15,59,72,0.06)',
+              borderColor: getRadarColor(),
+              borderWidth: 2,
+              pointRadius: 4,
+              pointBackgroundColor: getRadarColor(),
+              pointBorderColor: isDarkMode() ? '#1a1a2e' : '#ffffff',
+              pointBorderWidth: 2,
+              pointHoverRadius: 7,
+              pointHoverBackgroundColor: getRadarColor(),
+              fill: true,
+              tension: 0.1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    var item = radData[ctx.dataIndex];
+                    var name = item.name || item.code || 'Subject';
+                    var avg = ctx.raw;
+                    var letter = getGradeLetter(avg);
+                    var status = getStatusText(avg);
+                    return [
+                      name + ': ' + avg.toFixed(2) + '/20',
+                      'Grade: ' + letter,
+                      'Status: ' + status
+                    ];
+                  }
+                },
+                backgroundColor: 'rgba(0,0,0,0.9)',
+                titleColor: '#fff',
+                bodyColor: '#e0e0e0',
+                cornerRadius: 12,
+                padding: 14,
+                bodyFont: { size: 12 },
+                titleFont: { size: 11, weight: 'bold' },
+                multiKeyBackground: 'transparent'
+              },
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              r: {
+                min: 0,
+                max: 20,
+                ticks: {
+                  stepSize: 5,
+                  color: getTextColor(),
+                  backdropColor: 'transparent',
+                  font: { size: 9 },
+                  count: 5,
+                  callback: function(val) { return val + ''; }
+                },
+                grid: {
+                  color: getGridColor(),
+                  circular: true
+                },
+                angleLines: {
+                  color: getGridColor(),
+                  lineWidth: 1
+                },
+                pointLabels: {
+                  color: getTextColor(),
+                  font: {
+                    size: 10,
+                    weight: '600'
+                  },
+                  padding: 8
+                }
+              }
+            },
+            animation: {
+              duration: 800,
+              easing: 'easeOutQuart'
+            }
+          }
+        });
+      } else if (ctx3 && radData.length > 0 && radData.length < 3) {
+        document.getElementById('radarCard').style.display = 'block';
+        if (radarChart) radarChart.destroy();
+        
+        radarChart = new Chart(ctx3.getContext('2d'), {
+          type: 'radar',
+          data: {
+            labels: radData.map(function(x) { return getDisplayName(x); }),
+            datasets: [{
+              data: radData.map(function(x) { return x.avg; }),
+              backgroundColor: isDarkMode() ? 'rgba(0,255,255,0.1)' : 'rgba(15,59,72,0.06)',
+              borderColor: getRadarColor(),
+              borderWidth: 2,
+              pointRadius: 4,
+              pointBackgroundColor: getRadarColor(),
+              pointBorderColor: isDarkMode() ? '#1a1a2e' : '#ffffff',
+              pointBorderWidth: 2,
+              pointHoverRadius: 7,
+              fill: true,
+              tension: 0.1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    var item = radData[ctx.dataIndex];
+                    var name = item.name || item.code || 'Subject';
+                    var avg = ctx.raw;
+                    var letter = getGradeLetter(avg);
+                    var status = getStatusText(avg);
+                    return [
+                      name + ': ' + avg.toFixed(2) + '/20',
+                      'Grade: ' + letter,
+                      'Status: ' + status
+                    ];
+                  }
+                }
+              },
+              legend: { display: false }
+            },
+            scales: {
+              r: {
+                min: 0,
+                max: 20,
+                ticks: {
+                  stepSize: 5,
+                  color: getTextColor(),
+                  backdropColor: 'transparent',
+                  font: { size: 9 }
+                },
+                grid: {
+                  color: getGridColor(),
+                  circular: true
+                },
+                angleLines: {
+                  color: getGridColor()
+                },
+                pointLabels: {
+                  color: getTextColor(),
+                  font: {
+                    size: 10,
+                    weight: '600'
+                  },
+                  padding: 8
+                }
+              }
+            },
+            animation: {
+              duration: 800,
+              easing: 'easeOutQuart'
+            }
+          }
+        });
+      } else {
+        document.getElementById('radarCard').style.display = 'none';
+      }
+      
+      addChartButtons();
+    }
+    
+    function addChartButtons() {
+      var barContainer = document.getElementById('barChartButtons');
+      if (barContainer && !barContainer.innerHTML) {
+        barContainer.innerHTML = '<button class="btn btn-secondary" onclick="downloadChartAsImage(\'barChart\')"><i class="fas fa-download"></i> Save Chart</button><button class="btn btn-secondary" onclick="resetChartZoom()"><i class="fas fa-expand"></i> Reset Zoom</button>';
+      }
+      var distContainer = document.getElementById('distChartButtons');
+      if (distContainer && !distContainer.innerHTML) {
+        distContainer.innerHTML = '<button class="btn btn-secondary" onclick="downloadChartAsImage(\'distChart\')"><i class="fas fa-download"></i> Save Chart</button>';
+      }
+      var radarContainer = document.getElementById('radarChartButtons');
+      if (radarContainer && !radarContainer.innerHTML) {
+        radarContainer.innerHTML = '<button class="btn btn-secondary" onclick="downloadChartAsImage(\'radarChart\')"><i class="fas fa-download"></i> Save Chart</button>';
+      }
+    }
+    
+    // ============================================
+    // THEME OBSERVER
+    // ============================================
+    var themeObserver = new MutationObserver(function() {
+      if (radarChart) {
+        var isDark = isDarkMode();
+        var textColor = getTextColor();
+        var gridColor = getGridColor();
+        var radarColor = getRadarColor();
+        
+        radarChart.options.scales.r.ticks.color = textColor;
+        radarChart.options.scales.r.grid.color = gridColor;
+        radarChart.options.scales.r.angleLines.color = gridColor;
+        radarChart.options.scales.r.pointLabels.color = textColor;
+        radarChart.data.datasets[0].borderColor = radarColor;
+        radarChart.data.datasets[0].pointBackgroundColor = radarColor;
+        radarChart.data.datasets[0].backgroundColor = isDark ? 'rgba(0,255,255,0.1)' : 'rgba(15,59,72,0.06)';
+        radarChart.update();
+      }
+      
+      if (distChart) {
+        distChart.options.plugins.legend.labels.color = getTextColor();
+        distChart.update();
+      }
+      
+      if (barChart) {
+        barChart.options.scales.y.ticks.color = getTextColor();
+        barChart.options.scales.y.grid.color = getGridColor();
+        barChart.options.scales.x.ticks.color = getTextColor();
+        barChart.options.scales.x.grid.color = getGridColor();
+        barChart.update();
+      }
+    });
+    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    
+    // ============================================
+    // START
+    // ============================================
+    window.downloadChartAsImage = downloadChartAsImage;
+    window.resetChartZoom = resetChartZoom;
+    
+    init();
+    initMobileMenu();
+    initThemeSelector();
+    
+    setTimeout(function() {
+      if (typeof applyGlobalFont === 'function') {
+        applyGlobalFont();
+      }
+    }, 100);
+  </script>
+</body>
+</html>

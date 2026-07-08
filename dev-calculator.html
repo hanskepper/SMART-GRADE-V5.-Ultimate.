@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DEV - Grade Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    /* ============================================
+       OVERLAY DE CONNEXION
+       ============================================ */
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+    .login-overlay .glass-card { 
+      max-width: 350px; 
+      width: 90%; 
+      text-align: center; 
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 32px 24px;
+    }
+    .login-overlay .glass-card i { 
+      font-size: 55px; 
+      color: var(--primary); 
+      margin-bottom: 16px; 
+      display: block; 
+    }
+    .login-overlay .glass-card input {
+      width: 100%;
+      padding: 14px;
+      margin: 16px 0;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: var(--card-bg);
+      color: var(--text);
+      text-align: center;
+      font-size: 1rem;
+    }
+    .login-overlay .glass-card button { 
+      width: 100%; 
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    /* ============================================
+       SÉLECTEUR PERSONNALISÉ MODERNE
+       ============================================ */
+    .custom-select {
+      position: relative;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+    .custom-select-trigger {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--text);
+      transition: all 0.2s ease;
+    }
+    .custom-select-trigger:hover {
+      border-color: var(--primary);
+    }
+    .custom-select-options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--card-bg);
+      border: 2px solid var(--primary);
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .custom-select.open .custom-select-options { display: block; }
+    .custom-select-option {
+      padding: 10px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .custom-select-option:hover { background: rgba(15,59,72,0.08); }
+    .custom-select-option.selected { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+    
+    /* ============================================
+       STYLES PRINCIPAUX
+       ============================================ */
+    .dev-hero {
+      text-align: center;
+      padding: 35px 20px;
+      border-radius: 28px;
+      color: white;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .dev-hero h1 { font-size: 1.6rem; margin: 8px 0; }
+    .dev-hero p { opacity: 0.85; font-size: 0.75rem; }
+    
+    .dev-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .tab-btn {
+      padding: 8px 18px;
+      border-radius: 40px;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      color: var(--text);
+    }
+    .tab-btn i { margin-right: 6px; }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+    .form-group label i { width: 20px; color: var(--primary); margin-right: 6px; }
+    
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      box-sizing: border-box;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .btn-calc {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    .btn-calc:active { transform: scale(0.97); }
+    
+    .result-box {
+      background: rgba(46,204,113,0.08);
+      border-left: 4px solid #2ecc71;
+      padding: 18px;
+      border-radius: 14px;
+      margin-top: 18px;
+    }
+    .result-box.error {
+      background: rgba(231,76,60,0.08);
+      border-left-color: #e74c3c;
+    }
+    .result-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-align: center;
+    }
+    .result-label {
+      font-size: 0.7rem;
+      text-align: center;
+      color: var(--text-light);
+      margin-top: 6px;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .stat-card {
+      background: rgba(0,0,0,0.02);
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .stat-label {
+      font-size: 0.6rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+    
+    .input-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .input-row .form-group {
+      flex: 1;
+      min-width: 120px;
+    }
+    
+    .info-text {
+      font-size: 0.65rem;
+      color: var(--text-light);
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+    
+    .dev-sidebar {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid var(--primary);
+    }
+    .dev-sidebar-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .dev-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dev-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .dev-nav-link i {
+      width: 24px;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    .dev-nav-link:hover {
+      background: rgba(0,0,0,0.03);
+      border-color: var(--border);
+    }
+    .dev-nav-link.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
+    }
+    .dev-nav-link.active i { color: white; }
+    
+    @media (max-width: 550px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .tabs { justify-content: center; }
+      .tab-btn { padding: 6px 14px; font-size: 0.7rem; }
+      .input-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay de connexion -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="glass-card">
+      <i class="fas fa-lock"></i>
+      <h2>Admin Access</h2>
+      <input type="password" id="adminPassword" placeholder="Enter password">
+      <button onclick="checkAdminLogin()">Login</button>
+      <div id="loginError" style="color: #e74c3c; margin-top: 12px; display: none;">Wrong password</div>
+    </div>
+  </div>
+
+  <div class="app-container" id="appContainer" style="display: none;">
+    <div class="particles" id="particles"></div>
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-calculator"></i><span>DEV TOOLS</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        
+        <div class="dev-sidebar">
+          <div class="dev-sidebar-title"><i class="fas fa-code"></i> Developer Tools</div>
+          <div class="dev-nav-links">
+            <a href="dev-calculator.html" class="dev-nav-link active"><i class="fas fa-calculator"></i> Calculator</a>
+            <a href="dev-database.html" class="dev-nav-link"><i class="fas fa-database"></i> Database</a>
+            <a href="dev-stats.html" class="dev-nav-link"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
+            <a href="dev-logs.html" class="dev-nav-link"><i class="fas fa-history"></i> System Logs</a>
+            <a href="dev-backup.html" class="dev-nav-link"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
+            <a href="dev-config.html" class="dev-nav-link"><i class="fas fa-cog"></i> System Config</a>
+          </div>
+        </div>
+        
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="dev-hero">
+        <i class="fas fa-calculator" style="font-size:45px;opacity:0.5;"></i>
+        <h1>Grade Calculator</h1>
+        <p>Advanced calculation tools for developers</p>
+      </div>
+      
+      <div class="dev-card">
+        <div class="tabs">
+          <div class="tab-btn active" onclick="switchTab('student')"><i class="fas fa-user-graduate"></i> Student Averages</div>
+          <div class="tab-btn" onclick="switchTab('subject')"><i class="fas fa-book"></i> Subject Analysis</div>
+          <div class="tab-btn" onclick="switchTab('predict')"><i class="fas fa-chart-line"></i> Grade Predictor</div>
+          <div class="tab-btn" onclick="switchTab('target')"><i class="fas fa-bullseye"></i> Target Calculator</div>
+        </div>
+        
+        <!-- TAB 1: Student Averages -->
+        <div id="tabStudent" class="tab-content active">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Select Student</label>
+            <div class="custom-select" id="studentSelectCustom">
+              <div class="custom-select-trigger">
+                <span><i class="fas fa-user-graduate"></i> <span id="selectedStudentText">-- Select Student --</span></span>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="custom-select-options" id="studentOptions"></div>
+            </div>
+          </div>
+          <button class="btn-calc" onclick="calculateStudentAverages()"><i class="fas fa-chart-line"></i> Calculate Averages</button>
+          <div id="studentResult"></div>
+        </div>
+        
+        <!-- TAB 2: Subject Analysis -->
+        <div id="tabSubject" class="tab-content">
+          <div class="input-row">
+            <div class="form-group">
+              <label><i class="fas fa-user"></i> Select Student</label>
+              <div class="custom-select" id="subjectStudentSelectCustom">
+                <div class="custom-select-trigger">
+                  <span><i class="fas fa-user-graduate"></i> <span id="selectedSubjectStudentText">-- Select Student --</span></span>
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="custom-select-options" id="subjectStudentOptions"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-book"></i> Subject</label>
+              <div class="custom-select" id="subjectIdCustom">
+                <div class="custom-select-trigger">
+                  <span><i class="fas fa-book"></i> <span id="selectedSubjectText">-- Select Subject --</span></span>
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="custom-select-options" id="subjectIdOptions"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-calendar"></i> Period</label>
+              <div class="custom-select" id="subjectTermCustom">
+                <div class="custom-select-trigger">
+                  <span><i class="fas fa-calendar"></i> <span id="selectedSubjectTermText">Term 1</span></span>
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="custom-select-options">
+                  <div class="custom-select-option" data-value="1">Term 1</div>
+                  <div class="custom-select-option" data-value="2">Term 2</div>
+                  <div class="custom-select-option" data-value="3">Term 3</div>
+                  <div class="custom-select-option" data-value="yearly">Yearly (All Terms)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn-calc" onclick="calculateSubjectAnalysis()"><i class="fas fa-chart-bar"></i> Analyze Subject</button>
+          <div id="subjectResult"></div>
+        </div>
+        
+        <!-- TAB 3: Grade Predictor -->
+        <div id="tabPredict" class="tab-content">
+          <div class="input-row">
+            <div class="form-group">
+              <label><i class="fas fa-user"></i> Select Student</label>
+              <div class="custom-select" id="predictStudentSelectCustom">
+                <div class="custom-select-trigger">
+                  <span><i class="fas fa-user-graduate"></i> <span id="selectedPredictStudentText">-- Select Student --</span></span>
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="custom-select-options" id="predictStudentOptions"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-book"></i> Subject</label>
+              <div class="custom-select" id="predictSubjectIdCustom">
+                <div class="custom-select-trigger">
+                  <span><i class="fas fa-book"></i> <span id="selectedPredictSubjectText">-- Select Subject --</span></span>
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="custom-select-options" id="predictSubjectOptions"></div>
+              </div>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="form-group">
+              <label><i class="fas fa-chart-line"></i> Current Average</label>
+              <input type="number" id="currentAvg" step="0.5" min="0" max="20" placeholder="0-20">
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-bullseye"></i> Target Average</label>
+              <input type="number" id="targetAvg" step="0.5" min="0" max="20" placeholder="0-20">
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-balance-scale"></i> Exam Coefficient</label>
+              <input type="number" id="examCoeff" value="5" min="1" max="10" step="1">
+            </div>
+          </div>
+          <button class="btn-calc" onclick="calculateNeededGrade()"><i class="fas fa-calculator"></i> Calculate Needed Grade</button>
+          <div id="predictResult"></div>
+        </div>
+        
+        <!-- TAB 4: Target Calculator -->
+        <div id="tabTarget" class="tab-content">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Select Student</label>
+            <div class="custom-select" id="targetStudentSelectCustom">
+              <div class="custom-select-trigger">
+                <span><i class="fas fa-user-graduate"></i> <span id="selectedTargetStudentText">-- Select Student --</span></span>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="custom-select-options" id="targetStudentOptions"></div>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="form-group">
+              <label><i class="fas fa-bullseye"></i> Desired Final Average</label>
+              <input type="number" id="desiredAvg" step="0.5" min="0" max="20" placeholder="0-20">
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-calendar"></i> Remaining Exam Coefficient</label>
+              <input type="number" id="remainingCoeff" value="5" min="1" max="30" step="1">
+            </div>
+          </div>
+          <button class="btn-calc" onclick="calculateRequiredGrade()"><i class="fas fa-chart-line"></i> Calculate Required Grade</button>
+          <div id="targetResult"></div>
+        </div>
+        
+        <div class="info-text">
+          <i class="fas fa-info-circle"></i> All calculations use the official SMART GRADE formula with coefficients
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/confirm-dialog.js"></script>
+  
+  <script>
+    // ============================================
+    // ADMIN PASSWORD
+    // ============================================
+    const ADMIN_PASSWORD = 'SmartGradeAdmin2026';
+    
+    function checkAdminLogin() {
+      var password = document.getElementById('adminPassword').value;
+      if (password === ADMIN_PASSWORD) {
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.getElementById('appContainer').style.display = 'block';
+        initAppAfterLogin();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+    
+    // Variables globales pour stocker les sélections
+    var selectedStudentId = null;
+    var selectedSubjectStudentId = null;
+    var selectedSubjectId = null;
+    var selectedSubjectTerm = '1';
+    var selectedPredictStudentId = null;
+    var selectedPredictSubjectId = null;
+    var selectedTargetStudentId = null;
+    
+    var DEFAULT_SUBJECTS = [
+      {id:1,name:"COMPUTER SCIENCES"},{id:2,name:"MATHEMATICS"},{id:3,name:"CHEMISTRY"},
+      {id:4,name:"HUMAN BIOLOGY"},{id:5,name:"GEOLOGY"},{id:6,name:"PHYSICS"},
+      {id:7,name:"ADDITIONAL MATHEMATICS"},{id:8,name:"BIOLOGY"},{id:9,name:"ECONOMICS"},
+      {id:10,name:"ENGLISH LANGUAGE"},{id:11,name:"GEOGRAPHY"},{id:12,name:"CITIZENSHIP"},
+      {id:13,name:"FRENCH"},{id:14,name:"FOOD AND NUTRITION"}
+    ];
+    
+    // ============================================
+    // CALCUL CORRECT DES MOYENNES
+    // ============================================
+    function calculateStudentTermAverageCorrect(studentId, term) {
+      var grades = getStudentGrades(studentId);
+      var coeffs = getSubjectCoefficients(studentId);
+      var selected = getStudentSelectedSubjects(studentId, term);
+      
+      if (!selected || selected.length === 0) return 0;
+      
+      var totalWeighted = 0;
+      var totalCoeff = 0;
+      var seq1 = (term - 1) * 2 + 1;
+      var seq2 = seq1 + 1;
+      
+      for (var i = 0; i < selected.length; i++) {
+        var subjectId = selected[i];
+        var coeff = coeffs[subjectId] || 5;
+        
+        var seq1Grades = grades.filter(function(g) { return g.subjectId === subjectId && g.sequenceId === seq1; });
+        var seq2Grades = grades.filter(function(g) { return g.subjectId === subjectId && g.sequenceId === seq2; });
+        
+        var avg1 = 0;
+        if (seq1Grades.length > 0) {
+          var sum1 = 0;
+          for (var j = 0; j < seq1Grades.length; j++) sum1 += seq1Grades[j].value;
+          avg1 = sum1 / seq1Grades.length;
+        }
+        
+        var avg2 = 0;
+        if (seq2Grades.length > 0) {
+          var sum2 = 0;
+          for (var j = 0; j < seq2Grades.length; j++) sum2 += seq2Grades[j].value;
+          avg2 = sum2 / seq2Grades.length;
+        }
+        
+        var subjectAvg = (avg1 + avg2) / 2;
+        totalWeighted += subjectAvg * coeff;
+        totalCoeff += coeff;
+      }
+      
+      return totalCoeff > 0 ? roundToTwo(totalWeighted / totalCoeff) : 0;
+    }
+    
+    function calculateSubjectTermAverageCalc(subjectId, term, grades) {
+      var seq1 = (term - 1) * 2 + 1;
+      var seq2 = seq1 + 1;
+      var seq1Grades = grades.filter(function(g) { return g.subjectId === subjectId && g.sequenceId === seq1; });
+      var seq2Grades = grades.filter(function(g) { return g.subjectId === subjectId && g.sequenceId === seq2; });
+      
+      var avg1 = 0;
+      if (seq1Grades.length > 0) {
+        var sum1 = 0;
+        for (var j = 0; j < seq1Grades.length; j++) sum1 += seq1Grades[j].value;
+        avg1 = sum1 / seq1Grades.length;
+      }
+      
+      var avg2 = 0;
+      if (seq2Grades.length > 0) {
+        var sum2 = 0;
+        for (var j = 0; j < seq2Grades.length; j++) sum2 += seq2Grades[j].value;
+        avg2 = sum2 / seq2Grades.length;
+      }
+      
+      return parseFloat(((avg1 + avg2) / 2).toFixed(2));
+    }
+    
+    function getGradeLetter(a) {
+      if (a >= 18) return 'A+';
+      if (a >= 16) return 'A';
+      if (a >= 14) return 'B+';
+      if (a >= 12) return 'B';
+      if (a >= 10) return 'C';
+      if (a >= 8) return 'D';
+      return 'F';
+    }
+    
+    // ============================================
+    // INITIALISATION DES SÉLECTEURS
+    // ============================================
+    function initCustomSelects() {
+      var students = getAllStudents();
+      
+      // Générer les options HTML
+      var optionsHtml = '<div class="custom-select-option" data-value="">-- Select Student --</div>';
+      for (var i = 0; i < students.length; i++) {
+        optionsHtml += '<div class="custom-select-option" data-value="' + students[i].id + '">' + students[i].name + ' (ID: ' + students[i].id + ')</div>';
+      }
+      
+      var subjectHtml = '<div class="custom-select-option" data-value="">-- Select Subject --</div>';
+      for (var i = 0; i < DEFAULT_SUBJECTS.length; i++) {
+        subjectHtml += '<div class="custom-select-option" data-value="' + DEFAULT_SUBJECTS[i].id + '">' + DEFAULT_SUBJECTS[i].name + '</div>';
+      }
+      
+      // Student select
+      var studentSelect = document.getElementById('studentSelectCustom');
+      if (studentSelect) {
+        document.getElementById('studentOptions').innerHTML = optionsHtml;
+        setupCustomSelect(studentSelect, 'selectedStudentText', function(val) { selectedStudentId = val; });
+      }
+      
+      // Subject student select
+      var subjectStudentSelect = document.getElementById('subjectStudentSelectCustom');
+      if (subjectStudentSelect) {
+        document.getElementById('subjectStudentOptions').innerHTML = optionsHtml;
+        setupCustomSelect(subjectStudentSelect, 'selectedSubjectStudentText', function(val) { selectedSubjectStudentId = val; });
+      }
+      
+      // Subject ID select
+      var subjectIdSelect = document.getElementById('subjectIdCustom');
+      if (subjectIdSelect) {
+        document.getElementById('subjectIdOptions').innerHTML = subjectHtml;
+        setupCustomSelect(subjectIdSelect, 'selectedSubjectText', function(val) { selectedSubjectId = val; });
+      }
+      
+      // Predict student select
+      var predictStudentSelect = document.getElementById('predictStudentSelectCustom');
+      if (predictStudentSelect) {
+        document.getElementById('predictStudentOptions').innerHTML = optionsHtml;
+        setupCustomSelect(predictStudentSelect, 'selectedPredictStudentText', function(val) { selectedPredictStudentId = val; });
+      }
+      
+      // Predict subject select
+      var predictSubjectSelect = document.getElementById('predictSubjectIdCustom');
+      if (predictSubjectSelect) {
+        document.getElementById('predictSubjectOptions').innerHTML = subjectHtml;
+        setupCustomSelect(predictSubjectSelect, 'selectedPredictSubjectText', function(val) { selectedPredictSubjectId = val; });
+      }
+      
+      // Target student select
+      var targetStudentSelect = document.getElementById('targetStudentSelectCustom');
+      if (targetStudentSelect) {
+        document.getElementById('targetStudentOptions').innerHTML = optionsHtml;
+        setupCustomSelect(targetStudentSelect, 'selectedTargetStudentText', function(val) { selectedTargetStudentId = val; });
+      }
+      
+      // Term select
+      var termSelect = document.getElementById('subjectTermCustom');
+      if (termSelect) {
+        setupCustomSelect(termSelect, 'selectedSubjectTermText', function(val) { selectedSubjectTerm = val; });
+      }
+    }
+    
+    function setupCustomSelect(container, textSpanId, onSelectCallback) {
+      var trigger = container.querySelector('.custom-select-trigger');
+      var options = container.querySelectorAll('.custom-select-option');
+      
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.querySelectorAll('.custom-select').forEach(function(s) {
+          if (s !== container) s.classList.remove('open');
+        });
+        container.classList.toggle('open');
+      });
+      
+      options.forEach(function(opt) {
+        opt.addEventListener('click', function() {
+          var value = this.dataset.value;
+          var text = this.textContent;
+          document.getElementById(textSpanId).innerHTML = text;
+          if (onSelectCallback) {
+            onSelectCallback(value ? parseInt(value) : null);
+          }
+          container.classList.remove('open');
+        });
+      });
+    }
+    
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.custom-select').forEach(function(s) {
+        s.classList.remove('open');
+      });
+    });
+    
+    // ============================================
+    // FONCTIONS DE CALCUL
+    // ============================================
+    function calculateStudentAverages() {
+      var studentId = selectedStudentId;
+      var students = getAllStudents();
+      var student = students.find(function(s) { return s.id === studentId; });
+      var resultDiv = document.getElementById('studentResult');
+      
+      if (!student) { 
+        resultDiv.innerHTML = '<div class="result-box error"><i class="fas fa-exclamation-triangle"></i> Please select a student</div>'; 
+        return; 
+      }
+      
+      var t1 = calculateStudentTermAverageCorrect(studentId, 1);
+      var t2 = calculateStudentTermAverageCorrect(studentId, 2);
+      var t3 = calculateStudentTermAverageCorrect(studentId, 3);
+      var yearly = (t1 + t2 + t3) / 3;
+      var letter = getGradeLetter(yearly);
+      
+      resultDiv.innerHTML = '<div class="result-box"><div style="font-weight:700; margin-bottom:14px;"><i class="fas fa-user-check"></i> ' + student.name + ' (ID: ' + studentId + ')</div><div class="stats-grid"><div class="stat-card"><div class="stat-value">' + t1.toFixed(2) + '</div><div class="stat-label">Term 1</div></div><div class="stat-card"><div class="stat-value">' + t2.toFixed(2) + '</div><div class="stat-label">Term 2</div></div><div class="stat-card"><div class="stat-value">' + t3.toFixed(2) + '</div><div class="stat-label">Term 3</div></div><div class="stat-card"><div class="stat-value">' + yearly.toFixed(2) + '</div><div class="stat-label">Yearly</div></div></div><div class="result-value">' + letter + '</div><div class="result-label">Overall Grade</div></div>';
+    }
+    
+    function calculateSubjectAnalysis() {
+      var studentId = selectedSubjectStudentId;
+      var subjectId = selectedSubjectId;
+      var term = selectedSubjectTerm;
+      var students = getAllStudents();
+      var student = students.find(function(s) { return s.id === studentId; });
+      var resultDiv = document.getElementById('subjectResult');
+      var subject = DEFAULT_SUBJECTS.find(function(s) { return s.id === subjectId; });
+      
+      if (!student || !subject) { 
+        resultDiv.innerHTML = '<div class="result-box error"><i class="fas fa-exclamation-triangle"></i> Please select a student and subject</div>'; 
+        return; 
+      }
+      
+      var grades = getStudentGrades(studentId);
+      if (term === 'yearly') {
+        var t1 = calculateSubjectTermAverageCalc(subjectId, 1, grades);
+        var t2 = calculateSubjectTermAverageCalc(subjectId, 2, grades);
+        var t3 = calculateSubjectTermAverageCalc(subjectId, 3, grades);
+        var yearly = (t1 + t2 + t3) / 3;
+        resultDiv.innerHTML = '<div class="result-box"><div style="font-weight:700; margin-bottom:12px;">' + subject.name + ' - ' + student.name + '</div><div class="stats-grid"><div class="stat-card"><div class="stat-value">' + t1.toFixed(2) + '</div><div class="stat-label">Term 1</div></div><div class="stat-card"><div class="stat-value">' + t2.toFixed(2) + '</div><div class="stat-label">Term 2</div></div><div class="stat-card"><div class="stat-value">' + t3.toFixed(2) + '</div><div class="stat-label">Term 3</div></div><div class="stat-card"><div class="stat-value">' + yearly.toFixed(2) + '</div><div class="stat-label">Yearly</div></div></div><div class="result-value">' + getGradeLetter(yearly) + '</div><div class="result-label">Overall Grade</div></div>';
+      } else {
+        var termNum = parseInt(term);
+        var avg = calculateSubjectTermAverageCalc(subjectId, termNum, grades);
+        var coeff = getSubjectCoefficient(studentId, subjectId);
+        resultDiv.innerHTML = '<div class="result-box"><div style="font-weight:700; margin-bottom:12px;">' + subject.name + ' - ' + student.name + '</div><div class="result-value">' + avg.toFixed(2) + ' / 20</div><div class="result-label">Term ' + termNum + ' Average (Coefficient: ' + coeff + ')</div><div class="result-label" style="margin-top:8px;">Grade: ' + getGradeLetter(avg) + '</div></div>';
+      }
+    }
+    
+    function calculateNeededGrade() {
+      var studentId = selectedPredictStudentId;
+      var subjectId = selectedPredictSubjectId;
+      var currentAvg = parseFloat(document.getElementById('currentAvg').value);
+      var targetAvg = parseFloat(document.getElementById('targetAvg').value);
+      var examCoeff = parseFloat(document.getElementById('examCoeff').value);
+      var resultDiv = document.getElementById('predictResult');
+      
+      if (!studentId || !subjectId) { 
+        resultDiv.innerHTML = '<div class="result-box error"><i class="fas fa-exclamation-triangle"></i> Please select a student and subject</div>'; 
+        return; 
+      }
+      if (isNaN(currentAvg) || isNaN(targetAvg) || isNaN(examCoeff)) { 
+        resultDiv.innerHTML = '<div class="result-box error"><i class="fas fa-exclamation-triangle"></i> Please fill all fields</div>'; 
+        return; 
+      }
+      
+      var coeff = getSubjectCoefficient(studentId, subjectId);
+      var totalCoeff = coeff + examCoeff;
+      var needed = (targetAvg * totalCoeff - currentAvg * coeff) / examCoeff;
+      needed = Math.round(needed * 100) / 100;
+      
+      var message = '';
+      var color = '#2ecc71';
+      if (needed < 0) { 
+        needed = 0; 
+        message = 'You have already reached your target!'; 
+      } else if (needed > 20) { 
+        message = 'Target is impossible with current parameters'; 
+        color = '#e74c3c'; 
+      } else { 
+        message = 'You need at least this grade on your next exam'; 
+      }
+      
+      resultDiv.innerHTML = '<div class="result-box"><div class="result-value" style="color:' + color + ';">' + needed.toFixed(2) + ' / 20</div><div class="result-label">' + message + '</div><div class="stats-grid" style="margin-top:14px;"><div class="stat-card"><div class="stat-value">' + currentAvg.toFixed(2) + '</div><div class="stat-label">Current Avg</div></div><div class="stat-card"><div class="stat-value">' + targetAvg.toFixed(2) + '</div><div class="stat-label">Target Avg</div></div><div class="stat-card"><div class="stat-value">' + examCoeff + '</div><div class="stat-label">Exam Coeff</div></div><div class="stat-card"><div class="stat-value">' + coeff + '</div><div class="stat-label">Current Coeff</div></div></div></div>';
+    }
+    
+    function calculateRequiredGrade() {
+      var studentId = selectedTargetStudentId;
+      var desiredAvg = parseFloat(document.getElementById('desiredAvg').value);
+      var remainingCoeff = parseFloat(document.getElementById('remainingCoeff').value);
+      var resultDiv = document.getElementById('targetResult');
+      var students = getAllStudents();
+      var student = students.find(function(s) { return s.id === studentId; });
+      
+      if (!student) { 
+        resultDiv.innerHTML = '<div class="result-box error"><i class="fas fa-exclamation-triangle"></i> Please select a student</div>'; 
+        return; 
+      }
+      if (isNaN(desiredAvg) || isNaN(remainingCoeff)) { 
+        resultDiv.innerHTML = '<div class="result-box error"><i class="fas fa-exclamation-triangle"></i> Please fill all fields</div>'; 
+        return; 
+      }
+      
+      var t1 = calculateStudentTermAverageCorrect(studentId, 1);
+      var t2 = calculateStudentTermAverageCorrect(studentId, 2);
+      var t3 = calculateStudentTermAverageCorrect(studentId, 3);
+      var currentYearly = (t1 + t2 + t3) / 3;
+      var currentTotal = t1 + t2 + t3;
+      var needed = (desiredAvg * 3 - currentTotal) / remainingCoeff;
+      needed = Math.round(needed * 100) / 100;
+      
+      var message = '';
+      var color = '#2ecc71';
+      if (needed < 0) { 
+        needed = 0; 
+        message = 'You have already reached your target!'; 
+      } else if (needed > 20) { 
+        message = 'Target is impossible with remaining exams'; 
+        color = '#e74c3c'; 
+      } else { 
+        message = 'Average needed on remaining exams'; 
+      }
+      
+      resultDiv.innerHTML = '<div class="result-box"><div class="result-value" style="color:' + color + ';">' + needed.toFixed(2) + ' / 20</div><div class="result-label">' + message + '</div><div class="stats-grid" style="margin-top:14px;"><div class="stat-card"><div class="stat-value">' + currentYearly.toFixed(2) + '</div><div class="stat-label">Current Yearly</div></div><div class="stat-card"><div class="stat-value">' + desiredAvg.toFixed(2) + '</div><div class="stat-label">Target Yearly</div></div><div class="stat-card"><div class="stat-value">' + remainingCoeff + '</div><div class="stat-label">Remaining Coeff</div></div></div></div>';
+    }
+    
+    function updateHeaderAvatar() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          var headerAvatar = document.getElementById('headerAvatar');
+          if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function applyDevFont() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    function initAppAfterLogin() {
+      initCustomSelects();
+      updateHeaderAvatar();
+      initMobileMenu();
+      initThemeSelector();
+      applyDevFont();
+    }
+    
+    // ============================================
+    // SWITCH ONGLETS
+    // ============================================
+    window.switchTab = function(tab) {
+      document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      if (tab === 'student') { 
+        document.getElementById('tabStudent').classList.add('active'); 
+        document.querySelector('.tab-btn:nth-child(1)').classList.add('active'); 
+      }
+      if (tab === 'subject') { 
+        document.getElementById('tabSubject').classList.add('active'); 
+        document.querySelector('.tab-btn:nth-child(2)').classList.add('active'); 
+      }
+      if (tab === 'predict') { 
+        document.getElementById('tabPredict').classList.add('active'); 
+        document.querySelector('.tab-btn:nth-child(3)').classList.add('active'); 
+      }
+      if (tab === 'target') { 
+        document.getElementById('tabTarget').classList.add('active'); 
+        document.querySelector('.tab-btn:nth-child(4)').classList.add('active'); 
+      }
+    };
+    
+    window.calculateStudentAverages = calculateStudentAverages;
+    window.calculateSubjectAnalysis = calculateSubjectAnalysis;
+    window.calculateNeededGrade = calculateNeededGrade;
+    window.calculateRequiredGrade = calculateRequiredGrade;
+    window.checkAdminLogin = checkAdminLogin;
+  </script>
+</body>
+</html>

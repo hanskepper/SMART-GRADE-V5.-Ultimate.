@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SMART GRADE - EULA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/night-mode.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
+  <style>
+    .legal-hero {
+      text-align: center;
+      padding: 50px 20px;
+      border-radius: 32px;
+      color: white;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      position: relative;
+      overflow: hidden;
+    }
+    .legal-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index: 0;
+    }
+    @keyframes stripeMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 0; }
+    }
+    .legal-hero > * { position: relative; z-index: 1; }
+    .legal-hero h1 { font-size: 2rem; margin: 12px 0; letter-spacing: -0.5px; }
+    .legal-hero p { opacity: 0.9; font-size: 0.85rem; }
+    .legal-hero .last-updated {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      margin-top: 16px;
+    }
+    
+    .legal-content {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .legal-section {
+      margin-bottom: 32px;
+      scroll-margin-top: 80px;
+    }
+    .legal-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .legal-section h3 i {
+      font-size: 1.2rem;
+      width: 32px;
+      color: var(--secondary);
+    }
+    .legal-section p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .legal-section ul, .legal-section ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+    .legal-section li {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .legal-section .highlight {
+      background: rgba(var(--primary-rgb), 0.08);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border-left: 3px solid var(--primary);
+      margin: 16px 0;
+    }
+    .legal-date {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-light);
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .toc {
+      background: rgba(0,0,0,0.02);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      border: 1px solid var(--border);
+    }
+    .toc h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .toc a {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toc a:hover {
+      color: var(--primary);
+    }
+    .badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .badge-item {
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--border);
+    }
+    .badge-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: var(--primary);
+      color: white;
+    }
+    .badge-info h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .badge-info p {
+      font-size: 0.6rem;
+      margin: 0;
+    }
+    @media (max-width: 550px) {
+      .legal-hero h1 { font-size: 1.5rem; }
+      .legal-content { padding: 20px; }
+      .legal-section h3 { font-size: 0.95rem; }
+      .legal-section p, .legal-section li { font-size: 0.75rem; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .badge-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="app-container">
+    
+    <div class="mobile-header">
+      <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+      <div class="header-logo"><i class="fas fa-file-signature"></i><span>EULA</span></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      </div>
+    </div>
+    
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="bottom-sheet" id="bottomSheet">
+      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-content">
+        <div class="theme-grid-rect" id="themeGrid"></div>
+        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+      </div>
+    </div>
+    
+    <div class="sidebar-menu" id="sidebarMenu">
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="eula.html" class="nav-item active"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
+        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    
+    <main class="main-content">
+      <div class="legal-hero">
+        <i class="fas fa-file-signature" style="font-size:55px;opacity:0.5;"></i>
+        <h1>End User License Agreement</h1>
+        <p>SIN GBHS FOUMBAN - Form 5B Science</p>
+        <div class="last-updated">
+          <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
+        </div>
+      </div>
+      
+      <div class="legal-content">
+        <div class="toc">
+          <h4><i class="fas fa-list"></i> Table of Contents</h4>
+          <div class="toc-grid">
+            <a href="#section1"><i class="fas fa-chevron-right"></i> 1. Agreement Overview</a>
+            <a href="#section2"><i class="fas fa-chevron-right"></i> 2. License Grant</a>
+            <a href="#section3"><i class="fas fa-chevron-right"></i> 3. Permitted Uses</a>
+            <a href="#section4"><i class="fas fa-chevron-right"></i> 4. Restrictions</a>
+            <a href="#section5"><i class="fas fa-chevron-right"></i> 5. Data Ownership</a>
+            <a href="#section6"><i class="fas fa-chevron-right"></i> 6. Disclaimer of Warranty</a>
+            <a href="#section7"><i class="fas fa-chevron-right"></i> 7. Limitation of Liability</a>
+            <a href="#section8"><i class="fas fa-chevron-right"></i> 8. Termination</a>
+            <a href="#section9"><i class="fas fa-chevron-right"></i> 9. Governing Law</a>
+            <a href="#section10"><i class="fas fa-chevron-right"></i> 10. Contact Information</a>
+          </div>
+        </div>
+        
+        <div id="section1" class="legal-section">
+          <h3><i class="fas fa-gavel"></i> 1. Agreement Overview</h3>
+          <p>This End User License Agreement ("EULA") is a legal agreement between you ("User", "Student") and HANS KEPPER ("Developer") for the use of SMART GRADE software application ("Software"). By installing, accessing, or using SMART GRADE, you agree to be bound by the terms of this EULA. If you do not agree to these terms, do not use the Software.</p>
+          <div class="highlight">
+            <i class="fas fa-info-circle"></i> <strong>Important:</strong> This EULA applies exclusively to students of SIN GBHS FOUMBAN, Form 5B Science, academic year 2026-2027.
+          </div>
+        </div>
+        
+        <div id="section2" class="legal-section">
+          <h3><i class="fas fa-check-circle"></i> 2. License Grant</h3>
+          <p>The Developer grants you a non-exclusive, non-transferable, revocable license to use SMART GRADE for personal, educational purposes at SIN GBHS FOUMBAN. This license is valid for the academic year 2026-2027.</p>
+          <div class="badge-grid">
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-check"></i></div>
+              <div class="badge-info">
+                <h4>Personal Use</h4>
+                <p>Use the Software on your personal devices</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-check"></i></div>
+              <div class="badge-info">
+                <h4>Educational Use</h4>
+                <p>Track grades and academic performance</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-check"></i></div>
+              <div class="badge-info">
+                <h4>Study Tools</h4>
+                <p>Use flashcards and study features</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-check"></i></div>
+              <div class="badge-info">
+                <h4>Data Export</h4>
+                <p>Export your data in various formats</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="section3" class="legal-section">
+          <h3><i class="fas fa-list-alt"></i> 3. Permitted Uses</h3>
+          <ul>
+            <li><i class="fas fa-chart-line"></i> Entering and tracking your academic grades</li>
+            <li><i class="fas fa-chart-bar"></i> Viewing statistics and performance reports</li>
+            <li><i class="fas fa-clone"></i> Creating and using flashcards for studying</li>
+            <li><i class="fas fa-bullseye"></i> Setting and tracking academic goals</li>
+            <li><i class="fas fa-calendar-alt"></i> Viewing the class timetable</li>
+            <li><i class="fas fa-exchange-alt"></i> Transferring data between your own devices</li>
+            <li><i class="fas fa-database"></i> Creating backups of your data</li>
+            <li><i class="fas fa-file-export"></i> Exporting your data in JSON, CSV, HTML, or PDF format</li>
+          </ul>
+        </div>
+        
+        <div id="section4" class="legal-section">
+          <h3><i class="fas fa-ban"></i> 4. Restrictions</h3>
+          <p>You agree NOT to:</p>
+          <ul>
+            <li><i class="fas fa-code"></i> Modify, reverse engineer, decompile, or disassemble the Software</li>
+            <li><i class="fas fa-share-alt"></i> Distribute, sublicense, rent, or lease the Software to third parties</li>
+            <li><i class="fas fa-user-secret"></i> Use the Software for any illegal purpose under Cameroonian law</li>
+            <li><i class="fas fa-bug"></i> Introduce malware, viruses, or harmful code</li>
+            <li><i class="fas fa-copy"></i> Remove or alter any copyright notices</li>
+            <li><i class="fas fa-fingerprint"></i> Attempt to bypass security features (PIN, fingerprint)</li>
+            <li><i class="fas fa-pen"></i> Falsify or manipulate grade data entered by teachers</li>
+          </ul>
+        </div>
+        
+        <div id="section5" class="legal-section">
+          <h3><i class="fas fa-database"></i> 5. Data Ownership</h3>
+          <p>All data you enter into SMART GRADE (grades, notes, flashcards, profile information) remains your property. The Developer does not claim ownership over your data. You are solely responsible for:</p>
+          <ul>
+            <li><i class="fas fa-database"></i> Backing up your data regularly</li>
+            <li><i class="fas fa-file-export"></i> Exporting your data before account deletion</li>
+            <li><i class="fas fa-key"></i> Maintaining the confidentiality of your PIN</li>
+            <li><i class="fas fa-history"></i> Understanding that the Developer is not responsible for data loss</li>
+          </ul>
+          <div class="highlight">
+            <i class="fas fa-download"></i> <strong>Recommendation:</strong> Use the Export feature regularly to save backups of your data.
+          </div>
+        </div>
+        
+        <div id="section6" class="legal-section">
+          <h3><i class="fas fa-scale-balanced"></i> 6. Disclaimer of Warranty</h3>
+          <p>THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. THE DEVELOPER DOES NOT WARRANT THAT:</p>
+          <ul>
+            <li><i class="fas fa-sync-alt"></i> The Software will be error-free or uninterrupted</li>
+            <li><i class="fas fa-calculator"></i> Grade calculations are 100% accurate (always verify with official school records)</li>
+            <li><i class="fas fa-check-circle"></i> The Software will meet your specific requirements</li>
+            <li><i class="fas fa-wrench"></i> Any errors will be corrected</li>
+            <li><i class="fas fa-cloud-upload-alt"></i> Cloud services (GitHub Gist) will always be available</li>
+          </ul>
+          <p>Grade calculations are for informational purposes only. The official grades from SIN GBHS FOUMBAN take precedence over any calculations in this Software.</p>
+        </div>
+        
+        <div id="section7" class="legal-section">
+          <h3><i class="fas fa-shield"></i> 7. Limitation of Liability</h3>
+          <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL THE DEVELOPER (HANS KEPPER) BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATING TO:</p>
+          <ul>
+            <li><i class="fas fa-laptop"></i> Your use or inability to use the Software</li>
+            <li><i class="fas fa-calculator"></i> Any errors or inaccuracies in grade calculations</li>
+            <li><i class="fas fa-database"></i> Loss of data (always maintain backups)</li>
+            <li><i class="fas fa-key"></i> Unauthorized access to your account due to weak PIN</li>
+            <li><i class="fas fa-cloud"></i> Third-party services (GitHub, JSONBin.io, etc.)</li>
+            <li><i class="fas fa-graduation-cap"></i> Academic consequences resulting from use of the Software</li>
+          </ul>
+          <div class="highlight">
+            <i class="fas fa-exclamation-triangle"></i> <strong>Important:</strong> The Developer's total liability shall not exceed the amount paid for the Software (if any). As the Software is provided free of charge, liability is limited to zero.
+          </div>
+        </div>
+        
+        <div id="section8" class="legal-section">
+          <h3><i class="fas fa-trash-alt"></i> 8. Termination</h3>
+          <p>This EULA is effective until terminated. Your rights under this EULA will terminate automatically without notice if you fail to comply with any term of this agreement. Upon termination, you must:</p>
+          <ul>
+            <li><i class="fas fa-stop"></i> Cease all use of the Software</li>
+            <li><i class="fas fa-trash"></i> Delete all copies of the Software from your devices</li>
+            <li><i class="fas fa-user-slash"></i> Delete your account and associated data (or export it first)</li>
+          </ul>
+          <p>The Developer also reserves the right to terminate your access to the Software for conduct that violates these terms or is harmful to other users.</p>
+        </div>
+        
+        <div id="section9" class="legal-section">
+          <h3><i class="fas fa-flag-checkered"></i> 9. Governing Law</h3>
+          <p>This EULA shall be governed by and construed in accordance with the laws of the Republic of Cameroon, without regard to its conflict of law provisions. Any disputes arising from this agreement shall be resolved in the courts of Foumban, West Region, Cameroon.</p>
+        </div>
+        
+        <div id="section10" class="legal-section">
+          <h3><i class="fas fa-envelope"></i> 10. Contact Information</h3>
+          <p>If you have any questions about this EULA, please contact the developer:</p>
+          <ul>
+            <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
+            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
+            <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
+            <li><i class="fab fa-github"></i> <strong>GitHub:</strong> hanskepper</li>
+            <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
+            <li><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Foumban, West Region, Cameroon</li>
+          </ul>
+        </div>
+        
+        <div class="legal-date">
+          <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026<br>
+          <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
+          <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>
+          <i class="fas fa-copyright"></i> 2026-2027 HANS KEPPER. All rights reserved.<br>
+          <i class="fas fa-check-circle"></i> By using SMART GRADE, you agree to this EULA.
+        </div>
+      </div>
+      
+    </main>
+  </div>
+  
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="js/utils.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  
+  <script>
+    function updateHeaderAvatar() {
+      try {
+        var stored = localStorage.getItem('smartgrade_current');
+        if (stored) {
+          var user = JSON.parse(stored);
+          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+          var headerAvatar = document.getElementById('headerAvatar');
+          if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
+            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+          }
+        }
+      } catch(e) {}
+    }
+    
+    function applyGlobalFont() {
+      var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
+      var fontMap = {
+        'inter': 'Inter, sans-serif', 'roboto': 'Roboto, sans-serif', 'cinzel': 'Cinzel, serif',
+        'quicksand': 'Quicksand, sans-serif', 'courier-prime': '"Courier Prime", monospace',
+        'fredoka': 'Fredoka, sans-serif', 'pacifico': 'Pacifico, cursive', 'bangers': 'Bangers, cursive',
+        'lobster': 'Lobster, cursive', 'permanent-marker': '"Permanent Marker", cursive',
+        'comfortaa': 'Comfortaa, sans-serif', 'righteous': 'Righteous, sans-serif'
+      };
+      document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
+    }
+    
+    updateHeaderAvatar();
+    initMobileMenu();
+    initThemeSelector();
+    applyGlobalFont();
+    
+    var fontObserver = new MutationObserver(function() { applyGlobalFont(); });
+    fontObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    
+    function logout() {
+      localStorage.removeItem('smartgrade_current');
+      window.location.href = 'index.html';
+    }
+    
+    window.logout = logout;
+  </script>
+</body>
+</html>
