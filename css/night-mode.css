@@ -1,0 +1,338 @@
+/* ============================================
+   NIGHT MODE CSS - CORRECTIONS SPÉCIFIQUES
+   ============================================ */
+
+body.night-mode .app-container {
+  background: transparent !important;
+}
+
+body.night-mode .glass-card,
+body.night-mode .stat-card,
+body.night-mode .term-card,
+body.night-mode .subject-card,
+body.night-mode .goal-card,
+body.night-mode .transfer-card,
+body.night-mode .achievement-card,
+body.night-mode .student-list-item,
+body.night-mode .stats-banner .stat-badge,
+body.night-mode .filter-chip,
+body.night-mode .notif-card {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border) !important;
+}
+
+body.night-mode .mobile-header,
+body.night-mode .sidebar-menu {
+  background: var(--card-bg) !important;
+  border-bottom-color: var(--border) !important;
+  border-right-color: var(--border) !important;
+}
+
+body.night-mode .stat-value,
+body.night-mode .term-value,
+body.night-mode .subject-avg,
+body.night-mode .goal-value {
+  color: var(--primary) !important;
+}
+
+body.night-mode .stat-label,
+body.night-mode .term-title,
+body.night-mode .subject-meta,
+body.night-mode .student-class,
+body.night-mode .info-label,
+body.night-mode .history-time {
+  color: var(--text-light) !important;
+}
+
+body.night-mode .student-name,
+body.night-mode .notif-title,
+body.night-mode .achievement-name,
+body.night-mode .info-value,
+body.night-mode .history-item {
+  color: var(--text) !important;
+}
+
+body.night-mode .nav-item {
+  color: var(--text-light) !important;
+}
+
+body.night-mode .nav-item.active {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+  color: white !important;
+}
+
+body.night-mode .btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+  color: white !important;
+}
+
+body.night-mode .btn-secondary {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+}
+
+body.night-mode input,
+body.night-mode select,
+body.night-mode textarea {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+}
+
+body.night-mode .particles div {
+  background: var(--text-light) !important;
+  opacity: 0.3 !important;
+  width: 3px !important;
+  height: 3px !important;
+}
+
+body.night-mode .progress-bar {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.night-mode .progress-fill {
+  background: linear-gradient(90deg, var(--primary), var(--secondary)) !important;
+}
+
+body.night-mode .goal-slider {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+body.night-mode .goal-slider::-webkit-slider-thumb {
+  background: var(--primary) !important;
+  border: 2px solid white !important;
+}
+
+body.night-mode canvas {
+  filter: brightness(1.15) contrast(1.1) !important;
+  background: transparent !important;
+}
+
+body.night-mode .scatter-container,
+body.night-mode .radar-container {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid var(--border) !important;
+}
+
+body.night-mode .avatar-placeholder {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+}
+
+body.night-mode .toast {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+  color: white !important;
+}
+
+body.night-mode .bottom-sheet {
+  background: var(--card-bg) !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+body.night-mode .theme-btn-header {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+}
+
+body.night-mode .motivation-card {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+  color: white !important;
+}
+
+body.night-mode .hero-card h1 {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+body.night-mode .modal-content {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border) !important;
+}
+
+body.night-mode .danger-alert {
+  background: rgba(231, 76, 60, 0.15) !important;
+  border-left: 4px solid #e74c3c !important;
+}
+
+body.night-mode .filter-chip.active {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+  color: white !important;
+}
+
+body.night-mode .notif-card.unread {
+  border-left: 4px solid var(--primary) !important;
+}
+
+/* Fond noir forcé */
+body.night-mode,
+body.night-mode .app-container,
+body.night-mode .main-content,
+body.night-mode .login-container,
+body.night-mode .mobile-header,
+body.night-mode .sidebar-menu {
+  background: #000000 !important;
+}
+
+body.night-mode .glass-card,
+body.night-mode .stat-card,
+body.night-mode .term-card,
+body.night-mode .subject-card,
+body.night-mode .goal-card,
+body.night-mode .login-card,
+body.night-mode .student-list-item {
+  background: #0a0a0a !important;
+  border-color: #1a1a1a !important;
+}
+
+body.night-mode .stat-label,
+body.night-mode .term-title,
+body.night-mode .student-class,
+body.night-mode .info-label {
+  color: #9aaebf !important;
+}
+
+body.night-mode .student-name,
+body.night-mode .stat-value,
+body.night-mode .term-value {
+  color: #ffffff !important;
+}
+
+body.night-mode .btn-primary {
+  background: linear-gradient(135deg, #333333, #1a1a1a) !important;
+}
+
+body.night-mode input,
+body.night-mode select {
+  background: #0a0a0a !important;
+  border-color: #2a2a2a !important;
+}
+
+body.night-mode .particles div {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Barres de progression */
+body.night-mode .progress-bar {
+  background: #2a2a2a !important;
+  border-radius: 30px !important;
+  height: 36px !important;
+}
+
+body.night-mode .progress-fill {
+  background: linear-gradient(90deg, var(--primary), var(--secondary)) !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+
+body.night-mode .goal-progress-bar {
+  background: #2a2a2a !important;
+  border-radius: 10px !important;
+}
+
+body.night-mode .goal-progress-fill {
+  background: linear-gradient(90deg, var(--primary), var(--secondary)) !important;
+}
+
+/* Graphiques */
+body.night-mode canvas {
+  filter: brightness(1.2) contrast(1.15) !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 12px !important;
+  padding: 8px !important;
+}
+
+body.night-mode .scatter-container,
+body.night-mode .radar-container {
+  background: rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid #2a2a2a !important;
+  border-radius: 16px !important;
+}
+
+body.night-mode .chart-legend span {
+  color: #e0e0e0 !important;
+}
+
+/* Zoom controls */
+body.night-mode .zoom-controls button {
+  background: #1a1a1a !important;
+  border-color: #3a3a3a !important;
+  color: white !important;
+}
+
+body.night-mode .subject-card {
+  background: #0a0a0a !important;
+  border: 1px solid #1a1a1a !important;
+}
+
+body.night-mode .subject-card .subject-name {
+  color: #e0e0e0 !important;
+}
+
+/* ============================================
+   PARTICULES MODE NUIT - SOLUTION FINALE
+   ============================================ */
+
+/* Activer les particules en mode nuit */
+body.night-mode .particles {
+  display: block !important;
+  z-index: 0 !important;
+}
+
+/* Style des particules - utilise la couleur secondaire du thème */
+body.night-mode .particles div {
+  background: var(--secondary) !important;
+  box-shadow: 0 0 8px var(--secondary) !important;
+  border-radius: 50% !important;
+  position: absolute !important;
+  animation: floatParticleNight 10s linear infinite !important;
+}
+
+/* Tailles variées pour les particules */
+body.night-mode .particles div:nth-child(odd) {
+  width: 4px !important;
+  height: 4px !important;
+  opacity: 0.5 !important;
+  animation-duration: 12s !important;
+}
+
+body.night-mode .particles div:nth-child(even) {
+  width: 2px !important;
+  height: 2px !important;
+  opacity: 0.3 !important;
+  animation-duration: 8s !important;
+}
+
+body.night-mode .particles div:nth-child(3n) {
+  width: 6px !important;
+  height: 6px !important;
+  opacity: 0.4 !important;
+  animation-duration: 15s !important;
+}
+
+body.night-mode .particles div:nth-child(5n) {
+  width: 3px !important;
+  height: 3px !important;
+  opacity: 0.6 !important;
+  animation-duration: 6s !important;
+}
+
+/* Animation spécifique pour les particules en mode nuit */
+@keyframes floatParticleNight {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  85% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-20vh) rotate(360deg);
+    opacity: 0;
+  }
+}

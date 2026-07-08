@@ -1,0 +1,97 @@
+/* ============================================
+   BASE CSS - RESET, ANIMATIONS, VARIABLES
+   ============================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { touch-action: pan-x pan-y; -webkit-user-select: none; user-select: none; }
+
+body {
+  font-family: 'Inter', 'Poppins', sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  transition: all 0.3s ease;
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  overflow: hidden;
+}
+
+@keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes floatParticle { 0% { transform: translateY(100vh) rotate(0deg); opacity:0; } 10% { opacity:0.5; } 90% { opacity:0.3; } 100% { transform: translateY(-20vh) rotate(360deg); opacity:0; } }
+@keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseFinger { 0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(15,59,72,0.4)} 50%{transform:scale(1.05);box-shadow:0 0 0 15px rgba(15,59,72,0)} }
+@keyframes borderShine { 0% { left: -100%; } 100% { left: 100%; } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes badgePulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
+@keyframes confetti-fall { 0%{transform:translateY(-100vh) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+@keyframes welcomeBounce { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+
+body { animation: pageIn 0.3s ease; }
+
+/* Tailles de police */
+body.font-small { font-size: 14px; }
+body.font-medium { font-size: 16px; }
+body.font-large { font-size: 18px; }
+
+/* Polices de base */
+body.font-inter { font-family: 'Inter', sans-serif; }
+body.font-roboto { font-family: 'Roboto', sans-serif; }
+body.font-cinzel { font-family: 'Cinzel', serif; }
+body.font-quicksand { font-family: 'Quicksand', sans-serif; }
+body.font-courier-prime { font-family: 'Courier Prime', monospace; }
+body.font-fredoka { font-family: 'Fredoka', sans-serif; }
+body.font-pacifico { font-family: 'Pacifico', cursive; }
+body.font-bangers { font-family: 'Bangers', cursive; }
+body.font-lobster { font-family: 'Lobster', cursive; }
+body.font-permanent-marker { font-family: 'Permanent Marker', cursive; }
+body.font-comfortaa { font-family: 'Comfortaa', sans-serif; }
+body.font-righteous { font-family: 'Righteous', sans-serif; }
+
+/* App container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+}
+
+@media (orientation: landscape) { 
+  .app-container { flex-direction: row; } 
+  .main-content { max-width: 800px; margin: 0 auto; } 
+  .stats-grid { grid-template-columns: repeat(4, 1fr); } 
+  .term-grid { grid-template-columns: repeat(4, 1fr); } 
+}
+
+/* Responsive */
+@media (max-width: 480px) { 
+  .stats-grid, .term-grid { grid-template-columns: 1fr; } 
+  .term-tabs { flex-direction: column; } 
+  .mobile-header { padding: 10px 12px; } 
+  .theme-btn-header span { display: none; } 
+  .theme-btn-header { padding: 8px 12px; } 
+  .theme-grid-rect { grid-template-columns: repeat(4, 1fr); } 
+}
+
+/* Utilitaires */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mb-1 { margin-bottom: 8px; }
+.p-1 { padding: 8px; }
+.flex { display: flex; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.gap-1 { gap: 8px; }
+.w-full { width: 100%; }
+
+/* Scrollbar */
+.main-content::-webkit-scrollbar { width: 3px; }
+.main-content::-webkit-scrollbar-track { background: var(--border); }
+.main-content::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }

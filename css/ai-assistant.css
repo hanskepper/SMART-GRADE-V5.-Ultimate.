@@ -1,0 +1,1505 @@
+/* ============================================
+   AI ASSISTANT - STYLES COMPLETS FINAUX
+   ============================================ */
+
+/* ============================================
+   CONTENEUR PRINCIPAL
+   ============================================ */
+
+.ai-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ============================================
+   ONGLETS
+   ============================================ */
+
+.ai-tabs {
+  display: flex;
+  gap: 8px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.ai-tab {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.ai-tab.active {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  box-shadow: 0 2px 8px rgba(15,59,72,0.2);
+}
+
+.ai-tab:active {
+  transform: scale(0.95);
+}
+
+/* ============================================
+   CONTENU DES ONGLETS
+   ============================================ */
+
+.ai-tab-content {
+  display: none;
+  flex: 1;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.ai-tab-content.active {
+  display: flex;
+}
+
+/* ============================================
+   CHAT MESSAGES
+   ============================================ */
+
+.chat-messages {
+  background: var(--card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+.chat-messages .empty-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: var(--text-light);
+}
+
+.chat-messages .empty-chat i {
+  font-size: 50px;
+  opacity: 0.15;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.chat-messages .empty-chat p {
+  font-size: 0.75rem;
+}
+
+/* ============================================
+   MESSAGES
+   ============================================ */
+
+.message {
+  display: flex;
+  gap: 12px;
+  max-width: 100%;
+  animation: fadeInUp 0.3s ease;
+}
+
+.message.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message.user .message-bubble {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border-radius: 20px 20px 4px 20px;
+}
+
+.message.assistant .message-bubble {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 20px 20px 20px 4px;
+  width: 100%;
+}
+
+.message-bubble {
+  padding: 12px 18px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  max-width: 85%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-x: auto;
+}
+
+/* ============================================
+   AVATARS
+   ============================================ */
+
+.message-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.message-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.message-icon i {
+  color: white;
+  font-size: 1rem;
+}
+
+.message.user .message-icon {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.message.assistant .message-icon {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--primary);
+}
+
+.message.assistant .message-icon i {
+  color: var(--primary);
+}
+
+body.night-mode .message.assistant .message-icon {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body.night-mode .message.assistant .message-icon i {
+  color: var(--secondary);
+}
+
+.message-time {
+  font-size: 0.55rem;
+  color: var(--text-light);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* ============================================
+   ACTIONS DES MESSAGES
+   ============================================ */
+
+.message-actions {
+  display: none;
+  gap: 4px;
+  margin-top: 4px;
+  justify-content: flex-end;
+}
+
+.message:hover .message-actions {
+  display: flex;
+}
+
+.message-actions button {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  transition: all 0.2s;
+}
+
+.message-actions button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--primary);
+}
+
+.message-actions .delete-btn:hover {
+  color: #e74c3c;
+}
+
+/* ============================================
+   CHAT INPUT
+   ============================================ */
+
+.chat-input-area {
+  flex-shrink: 0;
+  display: flex;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.chat-input-area textarea {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 2px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 0.85rem;
+  resize: none;
+  height: 48px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.chat-input-area textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.chat-input-area button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.chat-input-area button:active {
+  transform: scale(0.9);
+}
+
+/* ============================================
+   THINKING ANIMATION
+   ============================================ */
+
+.thinking-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 20px;
+  margin: 4px 0;
+}
+
+.thinking-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.thinking-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: thinkBounce 1.4s infinite ease-in-out both;
+}
+
+.thinking-dots span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.thinking-dots span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+.thinking-dots span:nth-child(3) {
+  animation-delay: 0s;
+}
+
+@keyframes thinkBounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.thinking-text {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.thinking-text i {
+  color: var(--primary);
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.thinking-progress {
+  flex: 1;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 80px;
+}
+
+.thinking-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 2px;
+  animation: progressPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes progressPulse {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* ============================================
+   SETTINGS
+   ============================================ */
+
+.settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 4px;
+}
+
+.settings-grid::-webkit-scrollbar {
+  width: 3px;
+}
+
+.settings-grid::-webkit-scrollbar-track {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.settings-grid::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+.settings-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+
+.settings-card h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.model-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.model-btn {
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 2px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.model-btn.active {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border-color: transparent;
+}
+
+.model-btn:active {
+  transform: scale(0.95);
+}
+
+.model-info {
+  font-size: 0.65rem;
+  color: var(--text-light);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ============================================
+   LIENS DÉCORÉS
+   ============================================ */
+
+.message-bubble a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(15, 59, 72, 0.04);
+  border-bottom: 2px solid var(--primary);
+  transition: all 0.25s ease;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.message-bubble a:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-bottom-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(15, 59, 72, 0.2);
+}
+
+.message-bubble a::after {
+  content: '\f35d';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 0.45rem;
+  margin-left: 3px;
+  opacity: 0.4;
+  transition: all 0.25s ease;
+  display: inline-block;
+}
+
+.message-bubble a:hover::after {
+  opacity: 1;
+  transform: translateX(2px);
+  color: #ffffff;
+}
+
+body.night-mode .message-bubble a {
+  color: var(--secondary);
+  background: rgba(0, 255, 255, 0.06);
+  border-bottom-color: var(--secondary);
+}
+
+body.night-mode .message-bubble a:hover {
+  color: #0a0a0a;
+  background: var(--secondary);
+  border-bottom-color: transparent;
+  box-shadow: 0 2px 8px rgba(0, 255, 255, 0.2);
+}
+
+body.night-mode .message-bubble a:hover::after {
+  color: #0a0a0a;
+}
+
+/* ============================================
+   TABLEAUX - AVEC BORDURES VERTICALES
+   ============================================ */
+
+.message-bubble .table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 10px 0;
+  border-radius: 12px;
+  max-width: 100%;
+}
+
+.message-bubble table {
+  min-width: 500px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.message-bubble th {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 10px 12px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.message-bubble td {
+  padding: 9px 12px;
+  text-align: center;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.message-bubble tr:last-child td {
+  border-bottom: 1px solid var(--border);
+}
+
+.message-bubble tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.night-mode .message-bubble tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+body.night-mode .message-bubble td {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.night-mode .message-bubble table {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================
+   ÉQUATIONS LATEX - SCROLL HORIZONTAL
+   ============================================ */
+
+.message-bubble .MathJax_Display {
+  display: block !important;
+  text-align: center !important;
+  margin: 12px 0 !important;
+  padding: 10px 0 !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+}
+
+.message-bubble .MathJax_Display::-webkit-scrollbar {
+  height: 4px;
+}
+
+.message-bubble .MathJax_Display::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.message-bubble .MathJax_Display::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+body.night-mode .message-bubble .MathJax_Display::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+}
+
+/* Équations inline trop longues */
+.message-bubble .MathJax {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  max-width: 100% !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  padding: 2px 0 !important;
+}
+
+.message-bubble .MathJax::-webkit-scrollbar {
+  height: 3px;
+}
+
+.message-bubble .MathJax::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.message-bubble .MathJax::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+body.night-mode .message-bubble .MathJax::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+}
+
+/* Couleurs des équations */
+.message-bubble .MathJax {
+  color: var(--text) !important;
+}
+
+body.night-mode .message-bubble .MathJax {
+  color: #e8e8e8 !important;
+}
+
+/* ============================================
+   CODE
+   ============================================ */
+
+.code-block-wrapper {
+  position: relative;
+  margin: 10px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+body.night-mode .code-block-wrapper {
+  background: #0a0a0a;
+}
+body:not(.night-mode) .code-block-wrapper {
+  background: #1a1a1a;
+}
+
+.code-block-wrapper pre {
+  margin: 0 !important;
+  padding: 16px 20px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.code-block-wrapper code {
+  font-family: 'Courier Prime', monospace !important;
+  font-size: 0.7rem !important;
+  line-height: 1.6 !important;
+  color: #e8e8e8 !important;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 0.55rem;
+  color: #aaa;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.copy-code-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* ============================================
+   MERMAID - STYLES ADAPTATIFS
+   ============================================ */
+
+.mermaid-wrapper {
+  background: rgba(0, 0, 0, 0.03);
+  padding: 16px;
+  border-radius: 16px;
+  margin: 12px 0;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  min-height: 80px;
+}
+
+.mermaid-wrapper:hover {
+  border-color: var(--primary);
+}
+
+.mermaid-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.mermaid-actions {
+  display: none;
+  gap: 8px;
+  margin-bottom: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mermaid-actions button {
+  padding: 6px 14px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
+}
+
+.mermaid-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 59, 72, 0.3);
+}
+
+.mermaid-actions button:active {
+  transform: scale(0.95);
+}
+
+.mermaid-render {
+  display: none;
+  width: 100%;
+  cursor: pointer;
+  overflow: auto;
+  max-height: 500px;
+}
+
+.mermaid-render svg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+.mermaid-render svg:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   MERMAID - MODE CLAIR (par défaut)
+   ============================================ */
+
+.mermaid-wrapper svg {
+  background: #ffffff !important;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.mermaid-wrapper svg text {
+  fill: #1a2a3a !important;
+}
+
+.mermaid-wrapper svg .label text {
+  fill: #1a2a3a !important;
+}
+
+.mermaid-wrapper svg .node rect,
+.mermaid-wrapper svg .node circle,
+.mermaid-wrapper svg .node polygon {
+  fill: #f0f4f8 !important;
+  stroke: #0f3b48 !important;
+  stroke-width: 2px !important;
+}
+
+.mermaid-wrapper svg .node .label {
+  fill: #1a2a3a !important;
+}
+
+.mermaid-wrapper svg .cluster rect {
+  fill: #e8ecf0 !important;
+  stroke: #0f3b48 !important;
+}
+
+.mermaid-wrapper svg .edgePath .path {
+  stroke: #0f3b48 !important;
+  stroke-width: 2px !important;
+}
+
+.mermaid-wrapper svg .edgeLabel {
+  background: #ffffff !important;
+  color: #1a2a3a !important;
+}
+
+.mermaid-wrapper svg .edgeLabel rect {
+  fill: #ffffff !important;
+}
+
+.mermaid-wrapper svg .edgeLabel span {
+  color: #1a2a3a !important;
+}
+
+/* ============================================
+   MERMAID - MODE NUIT
+   ============================================ */
+
+body.night-mode .mermaid-wrapper svg {
+  background: #1a1a2e !important;
+}
+
+body.night-mode .mermaid-wrapper svg text {
+  fill: #e8e8e8 !important;
+}
+
+body.night-mode .mermaid-wrapper svg .label text {
+  fill: #e8e8e8 !important;
+}
+
+body.night-mode .mermaid-wrapper svg .node rect,
+body.night-mode .mermaid-wrapper svg .node circle,
+body.night-mode .mermaid-wrapper svg .node polygon {
+  fill: #2a2a4a !important;
+  stroke: #00b4d8 !important;
+}
+
+body.night-mode .mermaid-wrapper svg .node .label {
+  fill: #e8e8e8 !important;
+}
+
+body.night-mode .mermaid-wrapper svg .cluster rect {
+  fill: #1a1a2e !important;
+  stroke: #00b4d8 !important;
+}
+
+body.night-mode .mermaid-wrapper svg .edgePath .path {
+  stroke: #00b4d8 !important;
+}
+
+body.night-mode .mermaid-wrapper svg .edgeLabel {
+  background: #1a1a2e !important;
+  color: #e8e8e8 !important;
+}
+
+body.night-mode .mermaid-wrapper svg .edgeLabel rect {
+  fill: #1a1a2e !important;
+}
+
+body.night-mode .mermaid-wrapper svg .edgeLabel span {
+  color: #e8e8e8 !important;
+}
+
+/* Transition */
+.mermaid-wrapper svg {
+  transition: all 0.3s ease !important;
+}
+
+.mermaid-error {
+  color: #e74c3c;
+  padding: 16px 20px;
+  font-size: 0.7rem;
+  background: rgba(231, 76, 60, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(231, 76, 60, 0.2);
+  text-align: center;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.night-mode .mermaid-wrapper {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border);
+}
+
+body.night-mode .mermaid-actions button {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   ZOOM OVERLAY - PLEIN ÉCRAN DÉCORÉ
+   ============================================ */
+
+.zoom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  animation: zoomOverlayIn 0.4s ease;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@keyframes zoomOverlayIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.zoom-overlay.active {
+  display: flex;
+}
+
+/* ============================================
+   ZOOM CONTENT
+   ============================================ */
+
+.zoom-content {
+  background: var(--card-bg);
+  border-radius: 28px;
+  padding: 24px;
+  max-width: 94%;
+  width: 100%;
+  max-height: 94vh;
+  height: 94vh;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  animation: zoomContentIn 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes zoomContentIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+body.night-mode .zoom-content {
+  background: #1a1a2e;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================
+   ZOOM HEADER
+   ============================================ */
+
+.zoom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 2px solid var(--border);
+}
+
+.zoom-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.zoom-title i {
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.zoom-title .title-text {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.zoom-close {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoom-close:hover {
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+  transform: rotate(90deg);
+}
+
+body.night-mode .zoom-close {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body.night-mode .zoom-close:hover {
+  background: rgba(231, 76, 60, 0.2);
+}
+
+/* ============================================
+   ZOOM IMAGE
+   ============================================ */
+
+.zoom-image-container {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 16px;
+  padding: 16px;
+  position: relative;
+  cursor: grab;
+  border: 1px solid var(--border);
+}
+
+.zoom-image-container:active {
+  cursor: grabbing;
+}
+
+.zoom-image-container .zoom-image-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.15s ease;
+  transform-origin: center center;
+}
+
+.zoom-image-container svg {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  display: block;
+}
+
+body.night-mode .zoom-image-container svg {
+  background: #1a1a2e;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.zoom-image-container::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.zoom-image-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.zoom-image-container::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+body.night-mode .zoom-image-container::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+}
+
+/* ============================================
+   ZOOM CONTROLS - BOUTONS RONDS AVEC ICÔNES
+   ============================================ */
+
+.zoom-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 2px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.zoom-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  box-shadow: 0 2px 8px rgba(15, 59, 72, 0.15);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.zoom-btn i {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.zoom-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(15, 59, 72, 0.3);
+}
+
+.zoom-btn:active {
+  transform: scale(0.92);
+}
+
+/* Bouton secondaire */
+.zoom-btn.secondary {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text);
+  border: 2px solid var(--border);
+  box-shadow: none;
+}
+
+.zoom-btn.secondary:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Mode nuit - secondaire */
+body.night-mode .zoom-btn.secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.night-mode .zoom-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Bouton danger */
+.zoom-btn.danger {
+  background: rgba(231, 76, 60, 0.12);
+  color: #e74c3c;
+  border: 2px solid rgba(231, 76, 60, 0.2);
+  box-shadow: none;
+}
+
+.zoom-btn.danger:hover {
+  background: #e74c3c;
+  color: white;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+}
+
+/* ============================================
+   ZOOM INDICATEUR
+   ============================================ */
+
+.zoom-indicator {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  pointer-events: none;
+  opacity: 0.7;
+  z-index: 5;
+}
+
+body.night-mode .zoom-indicator {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   ZOOM CONTROLS - RESPONSIVE
+   ============================================ */
+
+@media (max-width: 550px) {
+  .zoom-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .zoom-btn i {
+    font-size: 0.85rem;
+  }
+
+  .zoom-controls {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .zoom-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .zoom-btn i {
+    font-size: 0.75rem;
+  }
+
+  .zoom-controls {
+    gap: 6px;
+  }
+}
+
+/* ============================================
+   INFO TEXT
+   ============================================ */
+
+.info-text {
+  flex-shrink: 0;
+  font-size: 0.55rem;
+  text-align: center;
+  margin-top: 6px;
+  padding: 2px 0;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.info-text span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-text i {
+  font-size: 0.6rem;
+}
+
+/* ============================================
+   MODALES
+   ============================================ */
+
+.action-modal-content {
+  background: var(--card-bg);
+  border-radius: 24px;
+  padding: 8px;
+  max-width: 280px;
+  width: 85%;
+  border: 1px solid var(--border);
+}
+
+.action-modal-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: all 0.2s;
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.action-modal-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.action-modal-item.danger {
+  color: #e74c3c;
+}
+
+.action-modal-item i {
+  width: 24px;
+  text-align: center;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE GLOBAL
+   ============================================ */
+
+@media (max-width: 550px) {
+  .chat-messages {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .message-bubble {
+    font-size: 0.8rem;
+    padding: 10px 14px;
+    max-width: 90%;
+  }
+
+  .message-bubble table {
+    min-width: 380px;
+    font-size: 0.6rem;
+  }
+
+  .message-bubble th,
+  .message-bubble td {
+    padding: 6px 6px;
+  }
+
+  .code-block-wrapper pre {
+    padding: 12px 14px !important;
+  }
+
+  .code-block-wrapper code {
+    font-size: 0.65rem !important;
+  }
+
+  .ai-tab {
+    font-size: 0.65rem;
+    padding: 8px 0;
+  }
+
+  .thinking-text {
+    font-size: 0.65rem;
+  }
+
+  .thinking-progress {
+    max-width: 50px;
+  }
+
+  .settings-card {
+    padding: 14px;
+  }
+
+  .model-btn {
+    font-size: 0.65rem;
+    padding: 6px 12px;
+  }
+
+  .chat-input-area textarea {
+    height: 40px;
+    font-size: 0.8rem;
+    padding: 10px 14px;
+  }
+
+  .chat-input-area button {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .info-text {
+    font-size: 0.5rem;
+    gap: 8px;
+  }
+
+  .chat-messages .empty-chat i {
+    font-size: 40px;
+  }
+
+  .mermaid-wrapper {
+    padding: 12px;
+  }
+
+  .zoom-content {
+    padding: 16px;
+    max-width: 96%;
+  }
+
+  .zoom-title {
+    font-size: 0.75rem;
+  }
+
+  .zoom-image-container svg {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .chat-messages {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .message-bubble {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+  }
+
+  .message-bubble table {
+    min-width: 300px;
+    font-size: 0.55rem;
+  }
+
+  .message-bubble th,
+  .message-bubble td {
+    padding: 4px 4px;
+  }
+
+  .mermaid-actions button {
+    font-size: 0.55rem;
+    padding: 4px 10px;
+  }
+}
