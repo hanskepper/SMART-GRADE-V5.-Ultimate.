@@ -14,21 +14,54 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f3b48">
   <style>
+    /* ============================================
+       ABOUT HERO - STYLE COMME PAGES LÉGALES
+    ============================================ */
     .about-hero {
       text-align: center;
-      padding: 40px 20px;
-      border-radius: 28px;
+      padding: 50px 20px;
+      border-radius: 32px;
       color: white;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
+      position: relative;
+      overflow: hidden;
     }
-    .about-hero h1 { font-size: 1.8rem; margin: 8px 0; }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index: 0;
+    }
+    @keyframes stripeMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 0; }
+    }
+    .about-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+    .about-hero h1 {
+      font-size: 2rem;
+      margin: 12px 0;
+      letter-spacing: -0.5px;
+    }
+    .about-hero p {
+      opacity: 0.9;
+      font-size: 0.85rem;
+    }
     .about-hero .version-badge {
       display: inline-block;
       background: rgba(255,255,255,0.2);
       padding: 6px 16px;
-      border-radius: 20px;
+      border-radius: 40px;
       font-size: 0.7rem;
+      margin-top: 16px;
     }
     
     .stats-grid-about {
@@ -358,7 +391,7 @@
       <div class="header-logo"><i class="fas fa-info-circle"></i><span>ABOUT</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html">
-          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
+          <div id="headerAvatar" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;overflow:hidden;flex-shrink:0;">
             <i class="fas fa-user-graduate"></i>
           </div>
         </a>
@@ -381,7 +414,10 @@
     
     <!-- SIDEBAR PRIVÉ -->
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header">
+        <h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3>
+        <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+      </div>
       <nav class="sidebar-nav">
         <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
         <a href="about-user.html" class="nav-item active"><i class="fas fa-info-circle"></i> About</a>
@@ -400,10 +436,12 @@
     <div class="overlay" id="overlay"></div>
     
     <main class="main-content">
+      
+      <!-- ABOUT HERO - STYLE ANIMÉ -->
       <div class="about-hero">
-        <i class="fas fa-info-circle" style="font-size:50px;opacity:0.5;"></i>
+        <i class="fas fa-info-circle" style="font-size:55px;opacity:0.5;position:relative;z-index:1;"></i>
         <h1>SMART GRADE</h1>
-        <p style="opacity:0.8;font-size:0.75rem;">Ultimate Grade Management System</p>
+        <p style="opacity:0.9;font-size:0.85rem;">Ultimate Grade Management System</p>
         <div class="version-badge">Version 5.0 Ultimate</div>
       </div>
       
@@ -439,51 +477,48 @@
         </button>
       </div>
       
-      <!-- Complete Features -->
-<div class="glass-card">
-  <h3><i class="fas fa-star" style="color:var(--primary);"></i> Complete Features</h3>
-  <div class="complete-features-list">
-    
-    <!-- V4 Features -->
-    <div class="complete-feature-item"><i class="fas fa-book" style="color:var(--primary);"></i> 14 Subjects with customizable coefficients</div>
-    <div class="complete-feature-item"><i class="fas fa-layer-group" style="color:var(--primary);"></i> 6 Sequences / 3 Terms per year</div>
-    <div class="complete-feature-item"><i class="fas fa-balance-scale" style="color:var(--primary);"></i> Smart rounding and compensation system</div>
-    <div class="complete-feature-item"><i class="fas fa-chart-pie" style="color:var(--primary);"></i> Advanced statistics and predictions</div>
-    <div class="complete-feature-item"><i class="fas fa-medal" style="color:var(--primary);"></i> 23 Badges (14 achievements + 4 streak + 5 special)</div>
-    <div class="complete-feature-item"><i class="fas fa-palette" style="color:var(--primary);"></i> 20 Themes + 12 Fonts</div>
-    <div class="complete-feature-item"><i class="fas fa-moon" style="color:var(--primary);"></i> Night mode (auto 20h-6h)</div>
-    <div class="complete-feature-item"><i class="fas fa-fingerprint" style="color:var(--primary);"></i> Biometric login (fingerprint)</div>
-    <div class="complete-feature-item"><i class="fas fa-mobile-alt" style="color:var(--primary);"></i> PWA - 100% offline ready</div>
-    <div class="complete-feature-item"><i class="fas fa-calculator" style="color:var(--primary);"></i> Smart grade calculator</div>
-    <div class="complete-feature-item"><i class="fas fa-clone" style="color:var(--primary);"></i> Flashcards for each subject</div>
-    <div class="complete-feature-item"><i class="fas fa-bullseye" style="color:var(--primary);"></i> Personal goals and targets</div>
-    <div class="complete-feature-item"><i class="fas fa-qrcode" style="color:var(--primary);"></i> Data transfer between devices (QR Code)</div>
-    <div class="complete-feature-item"><i class="fas fa-camera" style="color:var(--primary);"></i> Profile photos from gallery</div>
-    <div class="complete-feature-item"><i class="fas fa-file-export" style="color:var(--primary);"></i> Export/Import JSON backup</div>
-    <div class="complete-feature-item"><i class="fas fa-history" style="color:var(--primary);"></i> Activity history log</div>
-    <div class="complete-feature-item"><i class="fas fa-sliders-h" style="color:var(--primary);"></i> Customizable subjects per term</div>
-    <div class="complete-feature-item"><i class="fas fa-file-alt" style="color:var(--primary);"></i> Yearly report with letter grades</div>
-    <div class="complete-feature-item"><i class="fas fa-chart-line" style="color:var(--primary);"></i> Interactive charts (line, bar, radar)</div>
-    <div class="complete-feature-item"><i class="fas fa-search-plus" style="color:var(--primary);"></i> Zoomable progress chart</div>
-    <div class="complete-feature-item"><i class="fas fa-database" style="color:var(--primary);"></i> Auto-backup every hour</div>
-    <div class="complete-feature-item"><i class="fas fa-bell" style="color:var(--primary);"></i> Smart notifications system</div>
-    
-    <!-- V5.0 New Features -->
-    <div class="complete-feature-item"><i class="fas fa-robot" style="color:var(--secondary);"></i> AI Assistant with Groq and Mistral</div>
-    <div class="complete-feature-item"><i class="fas fa-search" style="color:var(--secondary);"></i> Multi-Search (15 sources: DuckDuckGo, Wikipedia, YouTube, GitHub, etc.)</div>
-    <div class="complete-feature-item"><i class="fas fa-comment-dots" style="color:var(--secondary);"></i> P2P Chat with unique codes</div>
-    <div class="complete-feature-item"><i class="fas fa-tasks" style="color:var(--secondary);"></i> Homework Manager with file attachments</div>
-    <div class="complete-feature-item"><i class="fas fa-book" style="color:var(--secondary);"></i> Personal Notebook with colors and pins</div>
-    <div class="complete-feature-item"><i class="fas fa-bolt" style="color:var(--secondary);"></i> Quick Shortcuts for main features</div>
-    <div class="complete-feature-item"><i class="fas fa-code" style="color:var(--secondary);"></i> 6 Developer Tools (Calculator, Database, Stats, Logs, Backup, Config)</div>
-    <div class="complete-feature-item"><i class="fas fa-cloud-upload-alt" style="color:var(--secondary);"></i> Automatic Cloud Sync (JSONBin.io)</div>
-    <div class="complete-feature-item"><i class="fas fa-save" style="color:var(--secondary);"></i> Auto-Save every 30 seconds</div>
-    <div class="complete-feature-item"><i class="fas fa-sync-alt" style="color:var(--secondary);"></i> Auto-Update from GitHub</div>
-    <div class="complete-feature-item"><i class="fas fa-balance-scale" style="color:var(--secondary);"></i> Smart Compensation System for averages</div>
-    <div class="complete-feature-item"><i class="fas fa-infinity" style="color:var(--secondary);"></i> Infinite Streak Badges (cycles of 30 days)</div>
-    
-  </div>
-</div>
+      <!-- COMPLETE FEATURES -->
+      <div class="glass-card">
+        <h3><i class="fas fa-star"></i> Complete Features</h3>
+        <div class="complete-features-list">
+          <div class="complete-feature-item"><i class="fas fa-book" style="color:var(--primary);"></i> 14 Subjects with customizable coefficients</div>
+          <div class="complete-feature-item"><i class="fas fa-layer-group" style="color:var(--primary);"></i> 6 Sequences / 3 Terms per year</div>
+          <div class="complete-feature-item"><i class="fas fa-balance-scale" style="color:var(--primary);"></i> Smart rounding and compensation system</div>
+          <div class="complete-feature-item"><i class="fas fa-chart-pie" style="color:var(--primary);"></i> Advanced statistics and predictions</div>
+          <div class="complete-feature-item"><i class="fas fa-medal" style="color:var(--primary);"></i> 23 Badges (14 achievements + 4 streak + 5 special)</div>
+          <div class="complete-feature-item"><i class="fas fa-palette" style="color:var(--primary);"></i> 20 Themes + 12 Fonts</div>
+          <div class="complete-feature-item"><i class="fas fa-moon" style="color:var(--primary);"></i> Night mode (auto 20h-6h)</div>
+          <div class="complete-feature-item"><i class="fas fa-fingerprint" style="color:var(--primary);"></i> Biometric login (fingerprint)</div>
+          <div class="complete-feature-item"><i class="fas fa-mobile-alt" style="color:var(--primary);"></i> PWA - 100% offline ready</div>
+          <div class="complete-feature-item"><i class="fas fa-calculator" style="color:var(--primary);"></i> Smart grade calculator</div>
+          <div class="complete-feature-item"><i class="fas fa-clone" style="color:var(--primary);"></i> Flashcards for each subject</div>
+          <div class="complete-feature-item"><i class="fas fa-bullseye" style="color:var(--primary);"></i> Personal goals and targets</div>
+          <div class="complete-feature-item"><i class="fas fa-qrcode" style="color:var(--primary);"></i> Data transfer between devices (QR Code)</div>
+          <div class="complete-feature-item"><i class="fas fa-camera" style="color:var(--primary);"></i> Profile photos from gallery</div>
+          <div class="complete-feature-item"><i class="fas fa-file-export" style="color:var(--primary);"></i> Export/Import JSON backup</div>
+          <div class="complete-feature-item"><i class="fas fa-history" style="color:var(--primary);"></i> Activity history log</div>
+          <div class="complete-feature-item"><i class="fas fa-sliders-h" style="color:var(--primary);"></i> Customizable subjects per term</div>
+          <div class="complete-feature-item"><i class="fas fa-file-alt" style="color:var(--primary);"></i> Yearly report with letter grades</div>
+          <div class="complete-feature-item"><i class="fas fa-chart-line" style="color:var(--primary);"></i> Interactive charts (line, bar, radar)</div>
+          <div class="complete-feature-item"><i class="fas fa-search-plus" style="color:var(--primary);"></i> Zoomable progress chart</div>
+          <div class="complete-feature-item"><i class="fas fa-database" style="color:var(--primary);"></i> Auto-backup every hour</div>
+          <div class="complete-feature-item"><i class="fas fa-bell" style="color:var(--primary);"></i> Smart notifications system</div>
+          
+          <!-- V5.0 New Features -->
+          <div class="complete-feature-item"><i class="fas fa-robot" style="color:var(--secondary);"></i> AI Assistant with Groq and Mistral</div>
+          <div class="complete-feature-item"><i class="fas fa-search" style="color:var(--secondary);"></i> Multi-Search (15 sources: DuckDuckGo, Wikipedia, YouTube, GitHub, etc.)</div>
+          <div class="complete-feature-item"><i class="fas fa-comment-dots" style="color:var(--secondary);"></i> P2P Chat with unique codes</div>
+          <div class="complete-feature-item"><i class="fas fa-tasks" style="color:var(--secondary);"></i> Homework Manager with file attachments</div>
+          <div class="complete-feature-item"><i class="fas fa-book" style="color:var(--secondary);"></i> Personal Notebook with colors and pins</div>
+          <div class="complete-feature-item"><i class="fas fa-bolt" style="color:var(--secondary);"></i> Quick Shortcuts for main features</div>
+          <div class="complete-feature-item"><i class="fas fa-code" style="color:var(--secondary);"></i> 6 Developer Tools (Calculator, Database, Stats, Logs, Backup, Config)</div>
+          <div class="complete-feature-item"><i class="fas fa-cloud-upload-alt" style="color:var(--secondary);"></i> Automatic Cloud Sync (JSONBin.io)</div>
+          <div class="complete-feature-item"><i class="fas fa-save" style="color:var(--secondary);"></i> Auto-Save every 30 seconds</div>
+          <div class="complete-feature-item"><i class="fas fa-sync-alt" style="color:var(--secondary);"></i> Auto-Update from GitHub</div>
+          <div class="complete-feature-item"><i class="fas fa-balance-scale" style="color:var(--secondary);"></i> Smart Compensation System for averages</div>
+          <div class="complete-feature-item"><i class="fas fa-infinity" style="color:var(--secondary);"></i> Infinite Streak Badges (cycles of 30 days)</div>
+        </div>
+      </div>
       
       <!-- KEY FEATURES HIGHLIGHTS -->
       <div class="glass-card">
@@ -508,206 +543,143 @@
         </div>
       </div>
       
- <!-- Version History -->
-<div class="glass-card">
-  <h3><i class="fas fa-history" style="color:var(--primary);"></i> Version History</h3>
-  
-  <div class="info-row-about">
-    <i class="fas fa-tag" style="color:var(--primary);"></i>
-    <strong>v5.0 Ultimate</strong>
-    <span style="margin-left:auto;color:var(--primary);">Current</span>
-  </div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> AI Assistant with Groq and Mistral</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Multi-Search (15 sources)</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> P2P Chat with unique codes</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Homework Manager with file attachments</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Personal Notebook with colors and pins</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> 6 Developer Tools</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Cloud Sync (JSONBin.io)</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Auto-Save every 30 seconds</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Auto-Update from GitHub</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Infinite Streak Badges</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> 23 Badges total</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Compensation System</div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-tag" style="color:var(--text-light);"></i>
-    <strong>v5.0 Ultimate</strong>
-    <span style="margin-left:auto;color:var(--text-light);">Previous</span>
-  </div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Profile photos from gallery</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> QR Code transfer system</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> 20 themes + 12 fonts</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Flashcards and Goals system</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Cross-tab data sync</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Auto-backup every hour</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> 7 error pages (400-503)</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Smart notifications system</div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-tag" style="color:var(--text-light);opacity:0.5;"></i>
-    <strong style="opacity:0.7;">v3.0</strong>
-    <span style="margin-left:auto;color:var(--text-light);opacity:0.5;">Legacy</span>
-  </div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.5;"></i> Achievements and Streaks</div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.5;"></i> Compensation system</div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-tag" style="color:var(--text-light);opacity:0.3;"></i>
-    <strong style="opacity:0.5;">v2.0</strong>
-    <span style="margin-left:auto;color:var(--text-light);opacity:0.3;">Legacy</span>
-  </div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.3;"></i> PWA + Offline support</div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-tag" style="color:var(--text-light);opacity:0.2;"></i>
-    <strong style="opacity:0.3;">v1.0</strong>
-    <span style="margin-left:auto;color:var(--text-light);opacity:0.2;">Original</span>
-  </div>
-  <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.2;"></i> Basic grade management</div>
-</div>
-<!-- Acknowledgments -->
-<div class="glass-card">
-  <h3><i class="fas fa-heart" style="color:var(--primary);"></i> Acknowledgments</h3>
-  
-  <div class="info-row-about">
-    <i class="fas fa-gratipay" style="color:var(--primary);"></i> 
-    My Classmates
-  </div>
-  
-  <div class="info-row-clickable" onclick="openFriendsModal()">
-    <i class="fas fa-user-friends" style="color:var(--primary);"></i>
-    <span>My Friends</span>
-    <span class="click-hint"><i class="fas fa-eye" style="color:var(--text-light);"></i> Click to see names</span>
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-gratipay" style="color:var(--secondary);"></i> 
-    Open Source Community
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fab fa-font-awesome" style="color:var(--primary);"></i> 
-    Font Awesome and Google Fonts
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-chart-simple" style="color:var(--secondary);"></i> 
-    Chart.js Team
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-file-pdf" style="color:var(--primary);"></i> 
-    html2pdf.js Team
-  </div>
-  
-  <!-- V5.0 Thanks -->
-  <div class="info-row-about">
-    <i class="fab fa-github" style="color:var(--primary);"></i> 
-    GitHub API (Gist for transfers)
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-cloud-upload-alt" style="color:var(--secondary);"></i> 
-    JSONBin.io (Cloud Sync)
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-robot" style="color:var(--primary);"></i> 
-    Groq and Mistral AI (AI Assistant)
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-qrcode" style="color:var(--secondary);"></i> 
-    QRCode.js and html5-qrcode
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-chart-line" style="color:var(--primary);"></i> 
-    Chart.js and chartjs-plugin-zoom
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-code" style="color:var(--secondary);"></i> 
-    Prism.js (Code highlighting)
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-diagram-project" style="color:var(--primary);"></i> 
-    Mermaid.js (Diagrams)
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-square-root-variable" style="color:var(--secondary);"></i> 
-    MathJax (LaTeX equations)
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-markdown" style="color:var(--primary);"></i> 
-    Marked.js (Markdown rendering)
-  </div>
-  
-</div>
+      <!-- VERSION HISTORY -->
+      <div class="glass-card">
+        <h3><i class="fas fa-history"></i> Version History</h3>
+        <div class="info-row-about"><i class="fas fa-tag" style="color:var(--primary);"></i><strong>v5.0 Ultimate</strong><span style="margin-left:auto;color:var(--primary);">Current</span></div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> AI Assistant with Groq and Mistral</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Multi-Search (15 sources)</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> P2P Chat with unique codes</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Homework Manager with file attachments</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Personal Notebook with colors and pins</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> 6 Developer Tools</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Cloud Sync (JSONBin.io)</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Auto-Save every 30 seconds</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Auto-Update from GitHub</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Infinite Streak Badges</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> 23 Badges total</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--secondary);"></i> Compensation System</div>
+        <div class="info-row-about"><i class="fas fa-tag" style="color:var(--text-light);"></i><strong>v4.0.3 Ultimate</strong><span style="margin-left:auto;color:var(--text-light);">Previous</span></div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Profile photos from gallery</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> QR Code transfer system</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> 20 themes + 12 fonts</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Flashcards and Goals system</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Cross-tab data sync</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Auto-backup every hour</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> 7 error pages (400-503)</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);"></i> Smart notifications system</div>
+        <div class="info-row-about"><i class="fas fa-tag" style="color:var(--text-light);opacity:0.5;"></i><strong style="opacity:0.7;">v3.0</strong><span style="margin-left:auto;color:var(--text-light);opacity:0.5;">Legacy</span></div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.5;"></i> Achievements and Streaks</div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.5;"></i> Compensation system</div>
+        <div class="info-row-about"><i class="fas fa-tag" style="color:var(--text-light);opacity:0.3;"></i><strong style="opacity:0.5;">v2.0</strong><span style="margin-left:auto;color:var(--text-light);opacity:0.3;">Legacy</span></div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.3;"></i> PWA + Offline support</div>
+        <div class="info-row-about"><i class="fas fa-tag" style="color:var(--text-light);opacity:0.2;"></i><strong style="opacity:0.3;">v1.0</strong><span style="margin-left:auto;color:var(--text-light);opacity:0.2;">Original</span></div>
+        <div class="info-row-about"><i class="fas fa-plus-circle" style="color:var(--text-light);opacity:0.2;"></i> Basic grade management</div>
+      </div>
       
-<!-- Developer -->
-<div class="glass-card">
-  <h3><i class="fas fa-user-astronaut" style="color:var(--primary);"></i> Developer</h3>
-  
-  <div class="info-row-about">
-    <i class="fas fa-user" style="color:var(--primary);"></i>
-    <strong>HANS KEPPER</strong>
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-envelope" style="color:var(--secondary);"></i> 
-    hanskepper52@gmail.com
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-phone" style="color:var(--primary);"></i> 
-    +237 698 640 885
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-map-marker-alt" style="color:var(--secondary);"></i> 
-    Cameroon
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-code" style="color:var(--primary);"></i>
-    <strong>Web Developer</strong>
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-laptop-code" style="color:var(--secondary);"></i> 
-    Specialized in Web Applications
-  </div>
-</div>
+      <!-- ACKNOWLEDGMENTS -->
+      <div class="glass-card">
+        <h3><i class="fas fa-heart" style="color:var(--primary);"></i> Acknowledgments</h3>
+        
+        <div class="info-row-about">
+          <i class="fas fa-gratipay" style="color:var(--primary);"></i> 
+          My Classmates
+        </div>
+        
+        <div class="info-row-clickable" onclick="openFriendsModal()">
+          <i class="fas fa-user-friends" style="color:var(--primary);"></i>
+          <span>My Friends</span>
+          <span class="click-hint"><i class="fas fa-eye" style="color:var(--text-light);"></i> Click to see names</span>
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-gratipay" style="color:var(--secondary);"></i> 
+          Open Source Community
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fab fa-font-awesome" style="color:var(--primary);"></i> 
+          Font Awesome and Google Fonts
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-chart-simple" style="color:var(--secondary);"></i> 
+          Chart.js Team
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-file-pdf" style="color:var(--primary);"></i> 
+          html2pdf.js Team
+        </div>
+        
+        <!-- V5.0 Thanks -->
+        <div class="info-row-about">
+          <i class="fab fa-github" style="color:var(--primary);"></i> 
+          GitHub API (Gist for transfers)
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-cloud-upload-alt" style="color:var(--secondary);"></i> 
+          JSONBin.io (Cloud Sync)
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-robot" style="color:var(--primary);"></i> 
+          Groq and Mistral AI (AI Assistant)
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-qrcode" style="color:var(--secondary);"></i> 
+          QRCode.js and html5-qrcode
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-chart-line" style="color:var(--primary);"></i> 
+          Chart.js and chartjs-plugin-zoom
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-code" style="color:var(--secondary);"></i> 
+          Prism.js (Code highlighting)
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-diagram-project" style="color:var(--primary);"></i> 
+          Mermaid.js (Diagrams)
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-square-root-variable" style="color:var(--secondary);"></i> 
+          MathJax (LaTeX equations)
+        </div>
+        
+        <div class="info-row-about">
+          <i class="fas fa-markdown" style="color:var(--primary);"></i> 
+          Marked.js (Markdown rendering)
+        </div>
+        
+      </div>
       
-<!-- Institution -->
-<div class="glass-card">
-  <h3><i class="fas fa-school" style="color:var(--primary);"></i> Institution</h3>
-  
-  <div class="info-row-about">
-    <i class="fas fa-building" style="color:var(--primary);"></i>
-    <strong>SIN GBHS FOUMBAN</strong>
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-graduation-cap" style="color:var(--secondary);"></i> 
-    Form 5B Science
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-calendar" style="color:var(--primary);"></i> 
-    Academic Year 2026-2027
-  </div>
-  
-  <div class="info-row-about">
-    <i class="fas fa-flag-checkered" style="color:var(--secondary);"></i> 
-    Cameroon National Curriculum
-  </div>
-</div>
+      <!-- DEVELOPER -->
+      <div class="glass-card">
+        <h3><i class="fas fa-user-astronaut" style="color:var(--primary);"></i> Developer</h3>
+        <div class="info-row-about"><i class="fas fa-user" style="color:var(--primary);"></i><strong>HANS KEPPER</strong></div>
+        <div class="info-row-about"><i class="fas fa-envelope" style="color:var(--secondary);"></i> hanskepper52@gmail.com</div>
+        <div class="info-row-about"><i class="fas fa-phone" style="color:var(--primary);"></i> +237 698 640 885</div>
+        <div class="info-row-about"><i class="fas fa-map-marker-alt" style="color:var(--secondary);"></i> Cameroon</div>
+        <div class="info-row-about"><i class="fas fa-code" style="color:var(--primary);"></i><strong>Web Developer</strong></div>
+        <div class="info-row-about"><i class="fas fa-laptop-code" style="color:var(--secondary);"></i> Specialized in Web Applications</div>
+      </div>
+      
+      <!-- INSTITUTION -->
+      <div class="glass-card">
+        <h3><i class="fas fa-school" style="color:var(--primary);"></i> Institution</h3>
+        <div class="info-row-about"><i class="fas fa-building" style="color:var(--primary);"></i><strong>SIN GBHS FOUMBAN</strong></div>
+        <div class="info-row-about"><i class="fas fa-graduation-cap" style="color:var(--secondary);"></i> Form 5B Science</div>
+        <div class="info-row-about"><i class="fas fa-calendar" style="color:var(--primary);"></i> Academic Year 2026-2027</div>
+        <div class="info-row-about"><i class="fas fa-flag-checkered" style="color:var(--secondary);"></i> Cameroon National Curriculum</div>
+      </div>
+      
       <div class="glass-card text-center">
         <i class="fas fa-copyright" style="font-size:30px;opacity:0.3;"></i>
         <p style="font-size:0.65rem;margin-top:8px;">SMART GRADE v5.0 Ultimate</p>
@@ -944,16 +916,23 @@
     function updateHeaderAvatar() {
       var headerAvatar = document.getElementById('headerAvatar');
       if (!headerAvatar) return;
+      
       try {
         var stored = localStorage.getItem('smartgrade_current');
-        if (stored) {
-          var user = JSON.parse(stored);
-          var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
-          if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
-            headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
-          } else {
-            headerAvatar.innerHTML = '<i class="fas fa-user-graduate"></i>';
-          }
+        if (!stored) {
+          headerAvatar.innerHTML = '<i class="fas fa-user-graduate"></i>';
+          return;
+        }
+        
+        var user = JSON.parse(stored);
+        var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + user.id) || '{}');
+        
+        if (profile.avatarBase64 && profile.avatarBase64 !== '' && profile.avatarBase64.length > 100) {
+          headerAvatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
+        } else {
+          var gender = user.gender || 'boy';
+          var defaultAvatar = gender === 'girl' ? './icons/avatar-girl.png' : './icons/avatar-boy.png';
+          headerAvatar.innerHTML = '<img src="' + defaultAvatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
         }
       } catch(e) {
         headerAvatar.innerHTML = '<i class="fas fa-user-graduate"></i>';
@@ -968,10 +947,25 @@
       if (e.target === this) closeFriendsModal();
     });
     
+    // Initialisation
     initParticles();
     initThemeSelector();
     initMobileMenu();
     updateHeaderAvatar();
+    
+    // Observer les changements de stockage
+    window.addEventListener('storage', function(e) {
+      if (e.key && (e.key.indexOf('smartgrade_profile_') !== -1 || e.key === 'smartgrade_current')) {
+        updateHeaderAvatar();
+      }
+    });
+    
+    // Observer les changements de visibilité
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) {
+        updateHeaderAvatar();
+      }
+    });
     
     if (typeof applyGlobalFont === 'function') {
       applyGlobalFont();
