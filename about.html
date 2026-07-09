@@ -14,21 +14,54 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f3b48">
   <style>
+    /* ============================================
+       ABOUT HERO - STYLE COMME PAGES LÉGALES
+    ============================================ */
     .about-hero {
       text-align: center;
-      padding: 40px 20px;
-      border-radius: 28px;
+      padding: 50px 20px;
+      border-radius: 32px;
       color: white;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
+      position: relative;
+      overflow: hidden;
     }
-    .about-hero h1 { font-size: 1.8rem; margin: 8px 0; }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      animation: stripeMove 3s linear infinite;
+      z-index: 0;
+    }
+    @keyframes stripeMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 0; }
+    }
+    .about-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+    .about-hero h1 {
+      font-size: 2rem;
+      margin: 12px 0;
+      letter-spacing: -0.5px;
+    }
+    .about-hero p {
+      opacity: 0.9;
+      font-size: 0.85rem;
+    }
     .about-hero .version-badge {
       display: inline-block;
       background: rgba(255,255,255,0.2);
       padding: 6px 16px;
-      border-radius: 20px;
+      border-radius: 40px;
       font-size: 0.7rem;
+      margin-top: 16px;
     }
     
     .stats-grid-about {
