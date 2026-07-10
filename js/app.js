@@ -933,138 +933,91 @@ if ('serviceWorker' in navigator) {
 })();
 
 // ============================================
-// AUTO-UPDATE - DÉTECTION AUTOMATIQUE
-// Fonctionne hors ligne avec cache
-// Mise à jour automatique quand connecté
+// SILENT AUTO-UPDATE - NO NOTIFICATIONS
 // ============================================
 
-(function autoUpdateOnConnection() {
-
-  var APP_VERSION = '5.0.1';
-  var isUpdating = false;
-
+(function() {
+  
+  var APP_VERSION = '5.0.3';
+  var updateCheckInterval = null;
+  
   // ============================================
-  // VÉRIFIER LES MISES À JOUR
+  // CHECK FOR UPDATES - SILENT
   // ============================================
-
+  
   function checkForUpdates() {
-    if (isUpdating) return;
-    if (!navigator.onLine) {
-      console.log('[AutoUpdate] 📴 Hors ligne - utilisation du cache');
-      return;
-    }
-
-    isUpdating = true;
-    console.log('[AutoUpdate] 🌐 Connexion active - vérification...');
-
+    if (!navigator.onLine) return;
+    
+    // Check Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.ready.then(function(registration) {
-        // Vérifier si une nouvelle version existe
-        registration.update().then(function() {
-          console.log('[AutoUpdate] ✅ Service Worker mis à jour');
-          
-          // Vérifier la version
-          if (navigator.serviceWorker.controller) {
-            navigator.serviceWorker.controller.postMessage('getVersion');
-          }
-          
-          // Si une nouvelle version est en attente
-          if (registration.waiting) {
-            console.log('[AutoUpdate] 🚀 Nouvelle version disponible!');
-            showToast('🔄 Mise à jour disponible...');
-            registration.waiting.postMessage('skipWaiting');
-            setTimeout(function() {
-              window.location.reload();
-            }, 1500);
-          }
-        }).catch(function() {
-          console.log('[AutoUpdate] ⚠️ Aucune mise à jour disponible');
-        });
-
-        // Écouter les messages du SW
-        navigator.serviceWorker.addEventListener('message', function(event) {
-          if (event.data && event.data.version) {
-            var swVersion = event.data.version;
-            console.log('[AutoUpdate] Version SW:', swVersion, '| App:', APP_VERSION);
-            
-            if (swVersion !== APP_VERSION) {
-              console.log('[AutoUpdate] 🚀 Nouvelle version détectée!');
-              showToast('🔄 Mise à jour disponible...');
-              setTimeout(function() {
-                window.location.reload();
-              }, 1500);
-            }
-          }
-        });
+        registration.update();
       });
     }
-
-    setTimeout(function() {
-      isUpdating = false;
-    }, 10000);
-  }
-
-  // ============================================
-  // ÉVÉNEMENTS - DÉTECTION AUTOMATIQUE
-  // ============================================
-
-  // Quand la connexion revient
-  window.addEventListener('online', function() {
-    console.log('[AutoUpdate] 📶 Connexion rétablie');
-    showToast('📶 Connecté - mise à jour automatique');
-    setTimeout(checkForUpdates, 2000);
-  });
-
-  // Quand la page devient visible
-  document.addEventListener('visibilitychange', function() {
-    if (!document.hidden && navigator.onLine) {
-      console.log('[AutoUpdate] 👁️ Page visible - vérification');
-      checkForUpdates();
-    }
-  });
-
-  // Toutes les 30 minutes
-  setInterval(function() {
-    if (navigator.onLine) {
-      checkForUpdates();
-    }
-  }, 30 * 60 * 1000);
-
-  // ============================================
-  // TOAST NOTIFICATION (discrète)
-  // ============================================
-
-  function showToast(message) {
-    var container = document.getElementById('toastContainer');
-    if (!container) return;
     
-    var toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
-    container.appendChild(toast);
-    
-    setTimeout(function() {
-      toast.style.opacity = '0';
-      setTimeout(function() { if (toast.parentNode) toast.remove(); }, 300);
-    }, 3000);
+    // Check version from server
+    fetch('./version.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function(response) {
+        if (!response.ok) throw new Error('Version not available');
+        return response.json();
+      })
+      .then(function(data) {
+        var remoteVersion = data.version || data.versionCode || '0';
+        var localVersion = localStorage.getItem('smartgrade_app_version') || APP_VERSION;
+        
+        if (remoteVersion !== localVersion && remoteVersion !== '0') {
+          console.log('[Update] New version available: ' + remoteVersion);
+          localStorage.setItem('smartgrade_app_version', remoteVersion);
+          
+          // Silent update - reload after 2 seconds
+          setTimeout(function() {
+            window.location.reload(true);
+          }, 2000);
+        }
+      })
+      .catch(function() {
+        // Silent fail
+      });
   }
-
+  
   // ============================================
-  // DÉMARRAGE
+  // START MONITORING
   // ============================================
-
-  // Si connecté au chargement, vérifier
-  if (navigator.onLine) {
+  
+  function startUpdateMonitoring() {
+    // Check immediately
     setTimeout(checkForUpdates, 3000);
-  } else {
-    console.log('[AutoUpdate] 📴 Hors ligne - mode cache uniquement');
+    
+    // Check every 10 minutes
+    updateCheckInterval = setInterval(checkForUpdates, 10 * 60 * 1000);
+    
+    // Check when connection returns
+    window.addEventListener('online', function() {
+      setTimeout(checkForUpdates, 2000);
+    });
+    
+    // Check when page becomes visible
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) {
+        setTimeout(checkForUpdates, 1000);
+      }
+    });
   }
-
-  console.log('[AutoUpdate] 🔄 Système prêt');
-  console.log('[AutoUpdate] 📴 Hors ligne: cache utilisé');
-  console.log('[AutoUpdate] 🌐 Connecté: mise à jour automatique');
-
+  
+  // ============================================
+  // INIT
+  // ============================================
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startUpdateMonitoring);
+  } else {
+    startUpdateMonitoring();
+  }
+  
+  console.log('[Update] Silent auto-update started - v' + APP_VERSION);
+  
 })();
+
 // ============================================
 // FIN DE APP.JS
 // ============================================
