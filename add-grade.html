@@ -14,390 +14,138 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f3b48">
   <style>
-    /* ============================================
-       ADD GRADE - STYLE UNIQUE
-       ============================================ */
-
-    /* HERO SPÉCIFIQUE */
-    .grade-hero {
-      text-align: center;
-      padding: 28px 20px;
-      border-radius: 24px;
-      color: white;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      position: relative;
+    .grade-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.7rem;
+      background: var(--card-bg);
+      border-radius: 16px;
       overflow: hidden;
     }
-
-    .grade-hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
-      animation: stripeMove 3s linear infinite;
-      z-index: 0;
+    .grade-table th {
+      background: var(--primary);
+      color: white;
+      padding: 12px 8px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-
-    @keyframes stripeMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 40px 0; }
+    .grade-table td {
+      padding: 10px 8px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
     }
-
-    .grade-hero > * { position: relative; z-index: 1; }
-    .grade-hero h2 { color: white; font-size: 1.3rem; margin: 4px 0; }
-    .grade-hero p { opacity: 0.85; font-size: 0.7rem; color: white; }
-    .grade-hero .hero-icon {
-      font-size: 32px;
-      opacity: 0.4;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    /* ============================================
-       FORMULAIRE
-       ============================================ */
-
-    .form-container {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 20px;
-      border: 1px solid var(--border);
-      transition: all 0.3s ease;
-    }
-
-    .form-container:hover {
-      border-color: var(--primary);
-    }
-
-    /* ============================================
-       CHAMPS DE SAISIE
-       ============================================ */
-
-    .form-field {
-      margin-bottom: 16px;
-    }
-
-    .form-field label {
+    .grade-table .subject-name {
+      text-align: left;
+      font-weight: 600;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
     }
-
-    .form-field label i {
-      color: var(--primary);
-      width: 18px;
-      text-align: center;
-      font-size: 0.7rem;
-    }
-
-    .form-field select,
-    .form-field input,
-    .form-field textarea {
-      width: 100%;
-      padding: 12px 16px;
-      background: var(--card-bg);
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      font-size: 0.85rem;
-      color: var(--text);
-      transition: all 0.3s ease;
-      font-family: inherit;
-      box-sizing: border-box;
-    }
-
-    .form-field select:focus,
-    .form-field input:focus,
-    .form-field textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(15,59,72,0.06);
-      outline: none;
-    }
-
-    .form-field textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
-
-    .form-field .hint {
-      font-size: 0.55rem;
-      color: var(--text-light);
-      margin-top: 4px;
+    .grade-table .subject-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      color: white;
+      font-size: 0.7rem;
     }
-
-    .form-field .hint i {
-      font-size: 0.5rem;
-      color: var(--primary);
-    }
-
-    /* ============================================
-       SÉQUENCES - STYLE UNIQUE
-       ============================================ */
-
-    .seq-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .seq-card {
-      background: var(--card-bg);
+    .grade-table input {
+      width: 80px;
+      padding: 8px;
+      border-radius: 8px;
       border: 2px solid var(--border);
-      border-radius: 16px;
-      padding: 14px 8px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .grade-table input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(15,59,72,0.1);
+    }
+    .grade-table input.invalid {
+      border-color: #e74c3c;
+      background: rgba(231,76,60,0.05);
+    }
+    .grade-table .avg-col {
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 0.85rem;
+    }
+    .term-tabs-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .term-tab-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 14px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
-    }
-
-    .seq-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 0;
-    }
-
-    .seq-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--primary);
-    }
-
-    .seq-card:active {
-      transform: scale(0.95);
-    }
-
-    .seq-card.selected {
-      border-color: transparent;
-      color: white;
-      box-shadow: 0 4px 20px rgba(15,59,72,0.2);
-    }
-
-    .seq-card.selected::after {
-      opacity: 1;
-    }
-
-    .seq-card.selected .seq-num,
-    .seq-card.selected .seq-term {
-      position: relative;
-      z-index: 1;
-      color: white;
-    }
-
-    .seq-card.selected .seq-term {
-      opacity: 0.7;
-    }
-
-    .seq-num {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--primary);
-      position: relative;
-      z-index: 0;
-      transition: color 0.3s ease;
-    }
-
-    .seq-term {
-      font-size: 0.5rem;
-      opacity: 0.5;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 2px;
-      position: relative;
-      z-index: 0;
-      transition: color 0.3s ease;
-    }
-
-    .seq-check {
-      position: absolute;
-      top: 4px;
-      right: 6px;
-      font-size: 0.5rem;
-      opacity: 0;
-      transform: scale(0);
-      transition: all 0.3s ease;
-      z-index: 2;
-    }
-
-    .seq-card.selected .seq-check {
-      opacity: 1;
-      transform: scale(1);
-      color: white;
-    }
-
-    /* ============================================
-       PRÉVISUALISATION
-       ============================================ */
-
-    .preview-box {
-      background: rgba(0,0,0,0.02);
-      border-radius: 16px;
-      padding: 16px 20px;
-      margin: 16px 0;
-      text-align: center;
-      border: 1px solid var(--border);
-      transition: all 0.3s ease;
-    }
-
-    .preview-box:hover {
-      border-color: var(--primary);
-    }
-
-    .preview-title {
-      font-size: 0.55rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text-light);
-      margin-bottom: 6px;
-    }
-
-    .preview-grade {
-      font-size: 2.5rem;
-      font-weight: 800;
-      font-family: 'Courier Prime', monospace;
-      color: var(--primary);
-      transition: color 0.3s ease;
-    }
-
-    .preview-grade.excellent { color: #2ecc71; }
-    .preview-grade.verygood { color: #3498db; }
-    .preview-grade.good { color: #f39c12; }
-    .preview-grade.average { color: #e67e22; }
-    .preview-grade.needs { color: #e74c3c; }
-
-    .preview-subject {
-      font-size: 0.85rem;
       font-weight: 600;
-      margin-top: 4px;
+      font-size: 0.7rem;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
-
-    .preview-detail {
-      font-size: 0.6rem;
-      color: var(--text-light);
-      margin-top: 2px;
+    .term-tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-color: transparent;
     }
-
-    /* ============================================
-       BOUTONS
-       ============================================ */
-
-    .btn-row {
+    .coeff-col {
+      font-weight: 700;
+      width: 55px;
+    }
+    .action-buttons {
       display: flex;
       gap: 12px;
       margin-top: 16px;
     }
-
-    .btn-row .btn {
-      flex: 1;
-      padding: 14px;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.8rem;
-      transition: all 0.3s ease;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: none;
-    }
-
-    .btn-row .btn:active { transform: scale(0.96); }
-
-    .btn-cancel {
-      background: rgba(0,0,0,0.04);
-      color: var(--text);
-      border: 2px solid var(--border) !important;
-    }
-
-    .btn-cancel:hover {
-      background: rgba(0,0,0,0.08);
-    }
-
-    .btn-save {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    .badge-notification {
+      position: fixed;
+      bottom: 100px;
+      left: 16px;
+      right: 16px;
+      background: linear-gradient(135deg, #f39c12, #e67e22);
       color: white;
-      box-shadow: 0 4px 20px rgba(15,59,72,0.15);
+      padding: 12px 16px;
+      border-radius: 30px;
+      text-align: center;
+      font-size: 0.75rem;
+      z-index: 1000;
+      animation: slideUp 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
-
-    .btn-save:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(15,59,72,0.2);
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
-
-    .btn-save:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .spinner {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: white;
-      animation: spin 0.8s linear infinite;
-      margin-right: 6px;
-      vertical-align: middle;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ============================================
-       RESPONSIVE
-       ============================================ */
-
-    @media (max-width: 550px) {
-      .seq-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+    @media (max-width: 600px) {
+      .grade-table input {
+        width: 65px;
+        padding: 6px;
+        font-size: 0.7rem;
       }
-      .seq-card {
-        padding: 10px 4px;
-      }
-      .seq-num { font-size: 0.9rem; }
-      .btn-row { flex-direction: column; }
-      .preview-grade { font-size: 2rem; }
-    }
-
-    @media (max-width: 400px) {
-      .seq-grid { gap: 6px; }
-      .seq-card { padding: 8px 2px; }
-      .seq-num { font-size: 0.8rem; }
-      .form-field { margin-bottom: 12px; }
-      .form-field select,
-      .form-field input { padding: 10px 12px; font-size: 0.8rem; }
     }
   </style>
 </head>
 <body>
   <div class="particles" id="particles"></div>
   <div class="app-container">
-
-    <!-- ============================================
-         HEADER
-    ============================================ -->
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
       <div class="header-logo"><i class="fas fa-pen-fancy"></i><span>ADD GRADE</span></div>
@@ -410,24 +158,22 @@
         <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
       </div>
     </div>
-
-    <!-- ============================================
-         THEME SHEET
-    ============================================ -->
+    
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
       <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
-        <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
+        <div class="font-row-sheet">
+          <div class="font-sheet" data-font="small">A<sup>-</sup></div>
+          <div class="font-sheet" data-font="medium">A</div>
+          <div class="font-sheet" data-font="large">A<sup>+</sup></div>
+        </div>
       </div>
     </div>
-
-    <!-- ============================================
-         SIDEBAR
-    ============================================ -->
+    
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
         <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
         <a href="add-grade.html" class="nav-item active"><i class="fas fa-pen-fancy"></i> Add Grade</a>
@@ -439,391 +185,485 @@
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
-
-    <!-- ============================================
-         MAIN CONTENT
-    ============================================ -->
-    <main class="main-content" style="padding:12px 16px;display:flex;flex-direction:column;height:100%;">
-
-      <!-- HERO -->
-      <div class="grade-hero">
-        <span class="hero-icon"><i class="fas fa-pen-fancy"></i></span>
-        <h2>Add Grade</h2>
-        <p>Enter your grades quickly and easily</p>
+    
+    <main class="main-content">
+      
+      <div class="term-tabs-row" id="termTabs">
+        <div class="term-tab-btn active" data-term="1"><i class="fas fa-1"></i> Term 1</div>
+        <div class="term-tab-btn" data-term="2"><i class="fas fa-2"></i> Term 2</div>
+        <div class="term-tab-btn" data-term="3"><i class="fas fa-3"></i> Term 3</div>
       </div>
-
-      <!-- FORMULAIRE -->
-      <div class="form-container" style="flex:1;overflow-y:auto;">
-
-        <form id="gradeForm">
-
-          <!-- MATIÈRE -->
-          <div class="form-field">
-            <label><i class="fas fa-book"></i> Subject</label>
-            <select id="subjectSelect" required>
-              <option value="">-- Select a subject --</option>
-            </select>
-          </div>
-
-          <!-- SÉQUENCE -->
-          <div class="form-field">
-            <label><i class="fas fa-hashtag"></i> Sequence</label>
-            <div class="seq-grid" id="sequenceGrid">
-              <div class="seq-card" data-seq="1">
-                <span class="seq-check"><i class="fas fa-check-circle"></i></span>
-                <div class="seq-num">S1</div>
-                <div class="seq-term">Term 1</div>
-              </div>
-              <div class="seq-card" data-seq="2">
-                <span class="seq-check"><i class="fas fa-check-circle"></i></span>
-                <div class="seq-num">S2</div>
-                <div class="seq-term">Term 1</div>
-              </div>
-              <div class="seq-card" data-seq="3">
-                <span class="seq-check"><i class="fas fa-check-circle"></i></span>
-                <div class="seq-num">S3</div>
-                <div class="seq-term">Term 2</div>
-              </div>
-              <div class="seq-card" data-seq="4">
-                <span class="seq-check"><i class="fas fa-check-circle"></i></span>
-                <div class="seq-num">S4</div>
-                <div class="seq-term">Term 2</div>
-              </div>
-              <div class="seq-card" data-seq="5">
-                <span class="seq-check"><i class="fas fa-check-circle"></i></span>
-                <div class="seq-num">S5</div>
-                <div class="seq-term">Term 3</div>
-              </div>
-              <div class="seq-card" data-seq="6">
-                <span class="seq-check"><i class="fas fa-check-circle"></i></span>
-                <div class="seq-num">S6</div>
-                <div class="seq-term">Term 3</div>
-              </div>
-            </div>
-            <input type="hidden" id="sequenceSelect" value="1">
-          </div>
-
-          <!-- NOTE -->
-          <div class="form-field">
-            <label><i class="fas fa-chart-line"></i> Grade (0.00 – 20.00)</label>
-            <input type="number" id="gradeValue" step="0.01" min="0" max="20" placeholder="Enter grade..." required>
-            <div class="hint"><i class="fas fa-info-circle"></i> Between 0.00 and 20.00 (max 2 decimals)</div>
-          </div>
-
-          <!-- DATE -->
-          <div class="form-field">
-            <label><i class="fas fa-calendar-alt"></i> Date</label>
-            <input type="date" id="gradeDate" required>
-          </div>
-
-          <!-- NOTES -->
-          <div class="form-field">
-            <label><i class="fas fa-pen"></i> Notes (optional)</label>
-            <textarea id="gradeNotes" rows="2" placeholder="Add any comments about this grade..."></textarea>
-          </div>
-
-          <!-- PRÉVISUALISATION -->
-          <div class="preview-box" id="previewBox">
-            <div class="preview-title">📋 Preview</div>
-            <div class="preview-grade" id="previewGrade">— / 20</div>
-            <div class="preview-subject" id="previewSubject">Select a subject</div>
-            <div class="preview-detail" id="previewDetail"></div>
-          </div>
-
-          <!-- BOUTONS -->
-          <div class="btn-row">
-            <button type="button" class="btn btn-cancel" onclick="window.location.href='dashboard.html'">
-              <i class="fas fa-times"></i> Cancel
-            </button>
-            <button type="submit" class="btn btn-save" id="saveBtn">
-              <i class="fas fa-save"></i> Save Grade
-            </button>
-          </div>
-
-        </form>
-
+      
+      <div class="glass-card" style="overflow-x:auto;padding:0;">
+        <table class="grade-table" id="gradeTable">
+          <thead id="tableHeader"></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
       </div>
-
+      
+      <div class="action-buttons">
+        <button class="btn btn-primary" onclick="saveAllGrades()"><i class="fas fa-save"></i> Save All Grades</button>
+      </div>
+      
     </main>
   </div>
-
+  
   <div id="toastContainer" class="toast-container"></div>
-
+  
   <script src="js/utils.js"></script>
   <script src="js/database.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/app.js"></script>
-
+  
   <script>
-    // ============================================
-    // ADD GRADE - LOGIQUE
-    // ============================================
-
     var currentUser = null;
-    var selectedSequence = 1;
-    var editGradeId = null;
-
-    var SUBJECTS = [
-      { id: 1, name: "COMPUTER SCIENCES", icon: "fa-laptop-code" },
-      { id: 2, name: "MATHEMATICS", icon: "fa-square-root-variable" },
-      { id: 3, name: "CHEMISTRY", icon: "fa-flask" },
-      { id: 4, name: "HUMAN BIOLOGY", icon: "fa-dna" },
-      { id: 5, name: "GEOLOGY", icon: "fa-mountain" },
-      { id: 6, name: "PHYSICS", icon: "fa-atom" },
-      { id: 7, name: "ADDITIONAL MATHEMATICS", icon: "fa-calculator" },
-      { id: 8, name: "BIOLOGY", icon: "fa-leaf" },
-      { id: 9, name: "ECONOMICS", icon: "fa-chart-line" },
-      { id: 10, name: "ENGLISH LANGUAGE", icon: "fa-language" },
-      { id: 11, name: "GEOGRAPHY", icon: "fa-earth-africa" },
-      { id: 12, name: "CITIZENSHIP", icon: "fa-landmark" },
-      { id: 13, name: "FRENCH", icon: "fa-flag" },
-      { id: 14, name: "FOOD AND NUTRITION", icon: "fa-apple-whole" }
-    ];
-
-    // ============================================
-    // INIT
-    // ============================================
-
-    function init() {
-      currentUser = getCurrentStudent();
-      if (!currentUser) {
-        window.location.href = 'login.html';
-        return;
-      }
-
-      loadSubjects();
-      initSequence();
-      loadEditGrade();
-      updatePreview();
-
-      document.getElementById('gradeDate').value = new Date().toISOString().split('T')[0];
-
-      document.getElementById('subjectSelect').addEventListener('change', updatePreview);
-      document.getElementById('gradeValue').addEventListener('input', updatePreview);
-      document.getElementById('gradeForm').addEventListener('submit', handleSubmit);
-
-      updateHeaderAvatar();
+    var currentTerm = 1;
+    var subjectColors = ['#3498db','#e74c3c','#9b59b6','#2ecc71','#e67e22','#00bcd4','#f39c12','#1abc9c','#27ae60','#2980b9','#c0392b','#8e44ad','#16a085','#d35400'];
+    
+    // Convertir virgule en point et valider
+    function validateAndConvertGrade(value) {
+      if (value === '' || value === null || value === undefined) return '';
+      
+      var strValue = String(value).trim();
+      strValue = strValue.replace(',', '.');
+      
+      var num = parseFloat(strValue);
+      
+      if (isNaN(num)) return '';
+      if (num < 0) return '0';
+      if (num > 20) return '20';
+      
+      return Math.round(num * 100) / 100;
     }
-
-    // ============================================
-    // CHARGER LES MATIÈRES
-    // ============================================
-
-    function loadSubjects() {
-      var select = document.getElementById('subjectSelect');
-      select.innerHTML = '<option value="">-- Select a subject --</option>';
-      for (var i = 0; i < SUBJECTS.length; i++) {
-        var opt = document.createElement('option');
-        opt.value = SUBJECTS[i].id;
-        opt.textContent = SUBJECTS[i].name;
-        select.appendChild(opt);
-      }
+    
+    function isValidGrade(value) {
+      if (value === '' || value === null || value === undefined) return false;
+      var num = parseFloat(String(value).replace(',', '.'));
+      return !isNaN(num) && num >= 0 && num <= 20;
     }
-
+    
     // ============================================
-    // SÉLECTEUR DE SÉQUENCE
+    // BADGE 25: COMEBACK KING
+    // Condition simple: amélioration de 5 points à n'importe quel moment
     // ============================================
-
-    function initSequence() {
-      var cards = document.querySelectorAll('.seq-card');
-      cards.forEach(function(card) {
-        card.addEventListener('click', function() {
-          cards.forEach(function(c) { c.classList.remove('selected'); });
-          this.classList.add('selected');
-          selectedSequence = parseInt(this.dataset.seq);
-          document.getElementById('sequenceSelect').value = selectedSequence;
-          updatePreview();
+    function checkComebackKingBadge() {
+      if (!currentUser || !currentUser.id) return false;
+      
+      var grades = getStudentGrades(currentUser.id);
+      if (grades.length < 2) return false;
+      
+      var comebackDetected = false;
+      var subjects = {};
+      
+      // Grouper les notes par matière
+      for (var i = 0; i < grades.length; i++) {
+        var g = grades[i];
+        if (!subjects[g.subjectId]) subjects[g.subjectId] = [];
+        subjects[g.subjectId].push({
+          sequenceId: g.sequenceId,
+          value: g.value
         });
-      });
-      if (cards.length) {
-        cards[0].classList.add('selected');
-        selectedSequence = 1;
-        document.getElementById('sequenceSelect').value = 1;
       }
-    }
-
-    // ============================================
-    // CHARGER UNE NOTE À MODIFIER
-    // ============================================
-
-    function loadEditGrade() {
-      var params = new URLSearchParams(window.location.search);
-      editGradeId = parseInt(params.get('gradeId'));
-
-      if (editGradeId) {
-        var grades = getStudentGrades(currentUser.id);
-        var grade = null;
-        for (var i = 0; i < grades.length; i++) {
-          if (grades[i].id === editGradeId) {
-            grade = grades[i];
+      
+      // Pour chaque matière, vérifier toutes les paires de notes
+      for (var subjId in subjects) {
+        var notes = subjects[subjId];
+        
+        // Trier par séquence
+        notes.sort(function(a, b) {
+          return a.sequenceId - b.sequenceId;
+        });
+        
+        // Vérifier chaque paire de séquences (l'une après l'autre)
+        for (var i = 1; i < notes.length; i++) {
+          var prevValue = notes[i-1].value;
+          var currentValue = notes[i].value;
+          var improvement = currentValue - prevValue;
+          
+          // Si amélioration d'au moins 5 points
+          if (improvement >= 5) {
+            comebackDetected = true;
+            console.log('[Comeback King] Détecté! Matière:', subjId, 'Amélioration:', prevValue, '→', currentValue, '(+' + improvement + ')');
             break;
           }
         }
-
-        if (grade) {
-          document.getElementById('subjectSelect').value = grade.subjectId;
-          document.getElementById('gradeValue').value = grade.value;
-          document.getElementById('gradeDate').value = grade.date || new Date().toISOString().split('T')[0];
-          document.getElementById('gradeNotes').value = grade.notes || '';
-
-          var cards = document.querySelectorAll('.seq-card');
-          cards.forEach(function(c) {
-            c.classList.remove('selected');
-            if (parseInt(c.dataset.seq) === grade.sequenceId) {
-              c.classList.add('selected');
-              selectedSequence = grade.sequenceId;
-              document.getElementById('sequenceSelect').value = selectedSequence;
-            }
-          });
-
-          document.querySelector('.btn-save').innerHTML = '<i class="fas fa-edit"></i> Update Grade';
+        if (comebackDetected) break;
+      }
+      
+      if (comebackDetected) {
+        if (unlockBadgeById(currentUser.id, 25)) {
+          showBadgeNotification(['Comeback King']);
+          return true;
         }
       }
+      return false;
     }
-
-    // ============================================
-    // PRÉVISUALISATION
-    // ============================================
-
-    function updatePreview() {
-      var subjectId = parseInt(document.getElementById('subjectSelect').value);
-      var value = parseFloat(document.getElementById('gradeValue').value);
-
-      var subject = null;
-      for (var i = 0; i < SUBJECTS.length; i++) {
-        if (SUBJECTS[i].id === subjectId) {
-          subject = SUBJECTS[i];
+    
+    // Fonction pour vérifier et débloquer TOUS les badges liés aux notes
+    function checkAllGradeBadges() {
+      if (!currentUser || !currentUser.id) return;
+      
+      var allGrades = getStudentGrades(currentUser.id);
+      var totalGrades = allGrades.length;
+      var badgesUnlocked = [];
+      
+      console.log('[Badges] Vérification après sauvegarde - Total grades:', totalGrades);
+      
+      // BADGE 1: First Grade
+      if (totalGrades >= 1) {
+        if (unlockBadgeById(currentUser.id, 1)) badgesUnlocked.push('First Grade');
+      }
+      
+      // BADGE 2: Perfect Score
+      var hasPerfectScore = false;
+      for (var i = 0; i < allGrades.length; i++) {
+        if (allGrades[i].value >= 19.95) {
+          hasPerfectScore = true;
           break;
         }
       }
-
-      var gradeEl = document.getElementById('previewGrade');
-      var subjectEl = document.getElementById('previewSubject');
-      var detailEl = document.getElementById('previewDetail');
-
-      if (subject && !isNaN(value) && value >= 0) {
-        gradeEl.textContent = value.toFixed(2) + ' / 20';
-        gradeEl.className = 'preview-grade';
-        if (value >= 16) gradeEl.classList.add('excellent');
-        else if (value >= 14) gradeEl.classList.add('verygood');
-        else if (value >= 12) gradeEl.classList.add('good');
-        else if (value >= 10) gradeEl.classList.add('average');
-        else gradeEl.classList.add('needs');
-
-        subjectEl.textContent = subject.name;
-        detailEl.textContent = 'Sequence ' + selectedSequence + ' • Term ' + Math.ceil(selectedSequence / 2);
-      } else if (subject) {
-        gradeEl.textContent = '— / 20';
-        gradeEl.className = 'preview-grade';
-        subjectEl.textContent = subject.name;
-        detailEl.textContent = 'Sequence ' + selectedSequence + ' • Term ' + Math.ceil(selectedSequence / 2);
-      } else {
-        gradeEl.textContent = '— / 20';
-        gradeEl.className = 'preview-grade';
-        subjectEl.textContent = 'Select a subject';
-        detailEl.textContent = '';
+      if (hasPerfectScore) {
+        if (unlockBadgeById(currentUser.id, 2)) badgesUnlocked.push('Perfect Score');
       }
-    }
-
-    // ============================================
-    // SOUMISSION
-    // ============================================
-
-    function handleSubmit(e) {
-      e.preventDefault();
-
-      var subjectId = parseInt(document.getElementById('subjectSelect').value);
-      var value = parseFloat(document.getElementById('gradeValue').value);
-      var date = document.getElementById('gradeDate').value;
-      var notes = document.getElementById('gradeNotes').value.trim();
-
-      if (!subjectId) { showToast('Please select a subject'); return; }
-      if (isNaN(value) || value < 0 || value > 20) { showToast('Grade must be between 0 and 20'); return; }
-      if (value.toString().split('.')[1] && value.toString().split('.')[1].length > 2) {
-        showToast('Maximum 2 decimal places');
-        return;
+      
+      // BADGE 4: Bookworm
+      if (totalGrades >= 10) {
+        if (unlockBadgeById(currentUser.id, 4)) badgesUnlocked.push('Bookworm');
       }
-
-      var btn = document.getElementById('saveBtn');
-      var original = btn.innerHTML;
-      btn.innerHTML = '<span class="spinner"></span> Saving...';
-      btn.disabled = true;
-
-      setTimeout(function() {
-        var grades = getStudentGrades(currentUser.id);
-
-        var subjectName = '';
-        for (var i = 0; i < SUBJECTS.length; i++) {
-          if (SUBJECTS[i].id === subjectId) { subjectName = SUBJECTS[i].name; break; }
-        }
-
-        if (editGradeId) {
-          for (var i = 0; i < grades.length; i++) {
-            if (grades[i].id === editGradeId) {
-              grades[i].subjectId = subjectId;
-              grades[i].sequenceId = selectedSequence;
-              grades[i].value = Math.round(value * 100) / 100;
-              grades[i].date = date;
-              grades[i].notes = notes;
+      
+      // BADGE 5: Dedication
+      if (totalGrades >= 30) {
+        if (unlockBadgeById(currentUser.id, 5)) badgesUnlocked.push('Dedication');
+      }
+      
+      // BADGE 12: Study Progress
+      if (totalGrades >= 25) {
+        if (unlockBadgeById(currentUser.id, 12)) badgesUnlocked.push('Study Progress');
+      }
+      
+      // BADGE 14: Excellent Result
+      if (hasPerfectScore) {
+        if (unlockBadgeById(currentUser.id, 14)) badgesUnlocked.push('Excellent Result');
+      }
+      
+      // BADGE 3: High Average
+      var yearlyAvg = calculateYearlyAverage(currentUser.id);
+      if (yearlyAvg >= 12) {
+        if (unlockBadgeById(currentUser.id, 3)) badgesUnlocked.push('High Average');
+      }
+      
+      // BADGE 6: Scholar
+      var achievements = getStudentAchievements(currentUser.id);
+      var unlockedCount = 0;
+      for (var i = 0; i < achievements.length; i++) {
+        if (achievements[i].unlocked) unlockedCount++;
+      }
+      if (unlockedCount >= 8) {
+        if (unlockBadgeById(currentUser.id, 6)) badgesUnlocked.push('Scholar');
+      }
+      
+      // BADGE 7: Rising Star
+      var t1 = calculateStudentTermAverage(currentUser.id, 1);
+      var t2 = calculateStudentTermAverage(currentUser.id, 2);
+      var t3 = calculateStudentTermAverage(currentUser.id, 3);
+      if ((t2 - t1 >= 1) || (t3 - t2 >= 1)) {
+        if (unlockBadgeById(currentUser.id, 7)) badgesUnlocked.push('Rising Star');
+      }
+      
+      // BADGE 8: Unstoppable
+      if (t1 > 0 && t2 > 0 && t3 > 0) {
+        if (unlockBadgeById(currentUser.id, 8)) badgesUnlocked.push('Unstoppable');
+      }
+      
+      // BADGE 9: Subject Completion
+      for (var term = 1; term <= 3; term++) {
+        var selected = getStudentSelectedSubjects(currentUser.id, term);
+        var allHaveGrades = true;
+        for (var j = 0; j < selected.length; j++) {
+          var hasGrade = false;
+          for (var k = 0; k < allGrades.length; k++) {
+            if (allGrades[k].subjectId === selected[j]) {
+              hasGrade = true;
               break;
             }
           }
-          saveStudentGrades(currentUser.id, grades);
-          addHistory(currentUser.id, 'Grade updated: ' + subjectName + ' → ' + value.toFixed(2));
-          showToast('✅ Grade updated!');
-        } else {
-          var newId = Date.now();
-          grades.push({
-            id: newId,
-            subjectId: subjectId,
-            sequenceId: selectedSequence,
-            value: Math.round(value * 100) / 100,
-            date: date,
-            notes: notes
-          });
-          saveStudentGrades(currentUser.id, grades);
-          addHistory(currentUser.id, 'Grade added: ' + subjectName + ' → ' + value.toFixed(2));
-          showToast('✅ Grade saved!');
+          if (!hasGrade) {
+            allHaveGrades = false;
+            break;
+          }
+        }
+        if (allHaveGrades && selected.length > 0) {
+          if (unlockBadgeById(currentUser.id, 9)) badgesUnlocked.push('Subject Completion');
+          break;
+        }
+      }
+      
+      // BADGE 10: Active Semester
+      for (var term = 1; term <= 3; term++) {
+        var selected = getStudentSelectedSubjects(currentUser.id, term);
+        var allComplete = true;
+        var seq1 = (term - 1) * 2 + 1;
+        var seq2 = seq1 + 1;
+        for (var j = 0; j < selected.length; j++) {
+          var hasSeq1 = false;
+          var hasSeq2 = false;
+          for (var k = 0; k < allGrades.length; k++) {
+            if (allGrades[k].subjectId === selected[j] && allGrades[k].sequenceId === seq1) hasSeq1 = true;
+            if (allGrades[k].subjectId === selected[j] && allGrades[k].sequenceId === seq2) hasSeq2 = true;
+          }
+          if (!hasSeq1 || !hasSeq2) {
+            allComplete = false;
+            break;
+          }
+        }
+        if (allComplete && selected.length > 0) {
+          if (unlockBadgeById(currentUser.id, 10)) badgesUnlocked.push('Active Semester');
+          break;
+        }
+      }
+      
+      // BADGE 11: Discipline Mastery
+      var subjectAverages = {};
+      for (var i = 0; i < allGrades.length; i++) {
+        if (!subjectAverages[allGrades[i].subjectId]) subjectAverages[allGrades[i].subjectId] = [];
+        subjectAverages[allGrades[i].subjectId].push(allGrades[i].value);
+      }
+      for (var subjId in subjectAverages) {
+        var sum = 0;
+        for (var j = 0; j < subjectAverages[subjId].length; j++) sum += subjectAverages[subjId][j];
+        var avg = sum / subjectAverages[subjId].length;
+        if (avg >= 15) {
+          if (unlockBadgeById(currentUser.id, 11)) badgesUnlocked.push('Discipline Mastery');
+          break;
+        }
+      }
+      
+      // BADGE 13: Full Achievement
+      var allRequiredUnlocked = true;
+      for (var badgeId = 1; badgeId <= 14; badgeId++) {
+        var found = false;
+        for (var i = 0; i < achievements.length; i++) {
+          if (achievements[i].id === badgeId && achievements[i].unlocked) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          allRequiredUnlocked = false;
+          break;
+        }
+      }
+      if (allRequiredUnlocked) {
+        if (unlockBadgeById(currentUser.id, 13)) badgesUnlocked.push('Full Achievement');
+      }
+      
+      // BADGE 25: COMEBACK KING (appel séparé)
+      checkComebackKingBadge();
+      
+      // Afficher les notifications pour les badges débloqués
+      if (badgesUnlocked.length > 0) {
+        showBadgeNotification(badgesUnlocked);
+      }
+      
+      // Recharger l'affichage
+      loadAddGrade();
+    }
+    
+    function showBadgeNotification(badges) {
+      var container = document.getElementById('toastContainer');
+      if (!container) return;
+      
+      var toast = document.createElement('div');
+      toast.className = 'badge-notification';
+      if (badges.length === 1) {
+        toast.innerHTML = '<i class="fas fa-medal"></i> Badge unlocked: ' + badges[0] + '!';
+      } else {
+        toast.innerHTML = '<i class="fas fa-medal"></i> Badges unlocked: ' + badges.join(', ');
+      }
+      container.appendChild(toast);
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(function() { if (toast.parentNode) toast.remove(); }, 4000);
+      }, 4000);
+    }
+    
+    function loadAddGrade() {
+      currentUser = requireAuth();
+      if (!currentUser) return;
+      
+      var subjects = getActiveSubjectsWithCoefficients(currentUser.id, currentTerm);
+      var grades = getStudentGrades(currentUser.id);
+      var seq1 = (currentTerm - 1) * 2 + 1;
+      var seq2 = seq1 + 1;
+      
+      var headerHtml = '<tr><th style="text-align:left;">SUBJECT</th><th>COEFF</th><th>S' + seq1 + '</th><th>S' + seq2 + '</th><th>AVERAGE</th></tr>';
+      document.getElementById('tableHeader').innerHTML = headerHtml;
+      
+      var bodyHtml = '';
+      for (var i = 0; i < subjects.length; i++) {
+        var s = subjects[i];
+        var g1 = null;
+        var g2 = null;
+        for (var k = 0; k < grades.length; k++) {
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq1) g1 = grades[k];
+          if (grades[k].subjectId === s.id && grades[k].sequenceId === seq2) g2 = grades[k];
+        }
+        var v1 = g1 ? g1.value : '';
+        var v2 = g2 ? g2.value : '';
+        var avg = (v1 !== '' && v2 !== '') ? formatNumber((parseFloat(v1) + parseFloat(v2)) / 2) : '--';
+        
+        bodyHtml += '<tr>' +
+          '<td class="subject-name">' +
+            '<div class="subject-icon" style="background:' + (subjectColors[i % subjectColors.length] || '#3498db') + ';">' +
+              '<i class="fas ' + s.icon + '"></i>' +
+            '</div>' +
+            '<span>' + s.name + '</span>' +
+          '</td>' +
+          '<td class="coeff-col">' + s.coefficient + '</td>' +
+          '<td><input type="text" step="any" min="0" max="20" class="grade-input" data-subj="' + s.id + '" data-seq="' + seq1 + '" value="' + (v1 !== '' ? v1 : '') + '" placeholder="0-20"></td>' +
+          '<td><input type="text" step="any" min="0" max="20" class="grade-input" data-subj="' + s.id + '" data-seq="' + seq2 + '" value="' + (v2 !== '' ? v2 : '') + '" placeholder="0-20"></td>' +
+          '<td class="avg-col" id="avg-' + s.id + '">' + avg + '</td>' +
+        '</tr>';
+      }
+      document.getElementById('tableBody').innerHTML = bodyHtml;
+      
+      document.querySelectorAll('.grade-input').forEach(function(input) {
+        input.addEventListener('input', function() {
+          var rawValue = this.value;
+          var converted = validateAndConvertGrade(rawValue);
+          if (converted !== '' && converted !== rawValue) {
+            this.value = converted;
+          }
+          if (isValidGrade(this.value)) {
+            this.classList.remove('invalid');
+          } else if (this.value !== '') {
+            this.classList.add('invalid');
+          } else {
+            this.classList.remove('invalid');
+          }
+          updateAverageForSubject(parseInt(this.dataset.subj));
+        });
+        
+        input.addEventListener('blur', function() {
+          var rawValue = this.value;
+          var converted = validateAndConvertGrade(rawValue);
+          if (converted !== '' && converted !== rawValue) {
+            this.value = converted;
+          }
+          if (this.value === '') {
+            this.classList.remove('invalid');
+          }
+          updateAverageForSubject(parseInt(this.dataset.subj));
+        });
+      });
+      
+      initHeaderProfile();
+    }
+    
+    function updateAverageForSubject(subjectId) {
+      var seq1 = (currentTerm - 1) * 2 + 1;
+      var seq2 = seq1 + 1;
+      
+      var input1 = document.querySelector('.grade-input[data-subj="' + subjectId + '"][data-seq="' + seq1 + '"]');
+      var input2 = document.querySelector('.grade-input[data-subj="' + subjectId + '"][data-seq="' + seq2 + '"]');
+      var avgCell = document.getElementById('avg-' + subjectId);
+      
+      var val1 = input1 && isValidGrade(input1.value) ? parseFloat(String(input1.value).replace(',', '.')) : NaN;
+      var val2 = input2 && isValidGrade(input2.value) ? parseFloat(String(input2.value).replace(',', '.')) : NaN;
+      
+      var avg = '--';
+      if (!isNaN(val1) && !isNaN(val2)) {
+        avg = ((val1 + val2) / 2).toFixed(2);
+      } else if (!isNaN(val1)) {
+        avg = val1.toFixed(2);
+      } else if (!isNaN(val2)) {
+        avg = val2.toFixed(2);
+      }
+      
+      if (avgCell) avgCell.innerHTML = avg;
+    }
+    
+    function saveAllGrades() {
+      var grades = getStudentGrades(currentUser.id);
+      var inputs = document.querySelectorAll('.grade-input');
+      var changed = false;
+      var savedCount = 0;
+      
+      inputs.forEach(function(input) {
+        var subjectId = parseInt(input.dataset.subj);
+        var sequenceId = parseInt(input.dataset.seq);
+        var rawValue = input.value;
+        
+        if (rawValue !== '' && rawValue !== null) {
+          var convertedValue = validateAndConvertGrade(rawValue);
+          if (convertedValue !== '') {
+            var value = parseFloat(convertedValue);
+            var roundedValue = Math.round(value * 100) / 100;
+            
+            var existingIndex = -1;
+            for (var i = 0; i < grades.length; i++) {
+              if (grades[i].subjectId === subjectId && grades[i].sequenceId === sequenceId) {
+                existingIndex = i;
+                break;
+              }
+            }
+            
+            if (existingIndex !== -1) {
+              if (grades[existingIndex].value !== roundedValue) {
+                grades[existingIndex].value = roundedValue;
+                changed = true;
+                savedCount++;
+              }
+            } else {
+              var newId = grades.length > 0 ? Math.max.apply(null, grades.map(function(g) { return g.id; })) + 1 : 1;
+              grades.push({
+                id: newId,
+                subjectId: subjectId,
+                sequenceId: sequenceId,
+                value: roundedValue,
+                date: new Date().toISOString().split('T')[0]
+              });
+              changed = true;
+              savedCount++;
+            }
+          }
+        }
+      });
+      
+      if (changed) {
+        saveStudentGrades(currentUser.id, grades);
+        addHistory(currentUser.id, 'Grades updated for Term ' + currentTerm);
+        playActionFeedback();
+        showToast('Grades saved successfully! (' + savedCount + ' grade(s) updated)');
+        
+        // VÉRIFIER TOUS LES BADGES APRÈS SAUVEGARDE
+        checkAllGradeBadges();
+        
+        // Vérifier aussi les badges généraux
+        if (typeof checkAndUnlockAllNewBadges === 'function') {
           checkAndUnlockAllNewBadges(currentUser.id);
         }
-
-        btn.innerHTML = original;
-        btn.disabled = false;
-
-        setTimeout(function() {
-          window.location.href = 'subject-detail.html?id=' + subjectId;
-        }, 600);
-
-      }, 400);
+        
+      } else {
+        showToast('No valid grades to save');
+      }
     }
-
-    // ============================================
-    // AVATAR
-    // ============================================
-
-    function updateHeaderAvatar() {
-      try {
-        var profile = JSON.parse(localStorage.getItem('smartgrade_profile_' + currentUser.id) || '{}');
-        var avatar = document.getElementById('headerAvatar');
-        if (profile.avatarBase64 && profile.avatarBase64.length > 100) {
-          avatar.innerHTML = '<img src="' + profile.avatarBase64 + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">';
-        }
-      } catch(e) {}
-    }
-
-    // ============================================
-    // INIT
-    // ============================================
-
-    init();
+    
+    document.querySelectorAll('.term-tab-btn').forEach(function(tab, index) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.term-tab-btn').forEach(function(t) {
+          t.classList.remove('active');
+        });
+        tab.classList.add('active');
+        currentTerm = index + 1;
+        loadAddGrade();
+      });
+    });
+    
+    loadAddGrade();
     initMobileMenu();
     initThemeSelector();
-
-    setTimeout(function() {
-      if (typeof applyGlobalFont === 'function') applyGlobalFont();
-    }, 100);
   </script>
-  <!-- PWA Manager -->
-  <script src="js/pwa.js" defer></script>
 </body>
 </html>
