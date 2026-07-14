@@ -206,7 +206,7 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
         <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
         <a href="privacy.html" class="nav-item active"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
@@ -563,5 +563,7 @@
     var fontObserver = new MutationObserver(function() { applyGlobalFont(); });
     fontObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   </script>
+  <!-- PWA Manager -->
+  <script src="js/pwa.js" defer></script>
 </body>
 </html>

@@ -48,5 +48,7 @@
     initParticles(); initThemeSelector(); initMobileMenu();
     var seconds = 30, countdownEl = document.getElementById('countdown'), timer = setInterval(function() { seconds--; if (countdownEl) countdownEl.innerHTML = seconds; if (seconds <= 0) { clearInterval(timer); window.location.href = 'index.html'; } }, 1000);
   </script>
+  <!-- PWA Manager -->
+  <script src="js/pwa.js" defer></script>
 </body>
 </html>

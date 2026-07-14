@@ -1,14 +1,14 @@
 // ============================================================
-//  SMART GRADE - SERVICE WORKER V5.0.3
-//  SILENT AUTO-UPDATE - NO NOTIFICATIONS
-//  ALL PAGES INCLUDED
+//  SMART GRADE - SERVICE WORKER V5.0.0
+//  Workbox 7.0.0 compatible caching strategy
 // ============================================================
 
-const CACHE_NAME = 'smartgrade-v5.0.3';
-const APP_VERSION = '5.0.3';
+const SW_VERSION = '5.0.0';
+const WORKBOX_VERSION = '7.0.0';
+const CACHE_NAME = 'smartgrade-v5.0.0';
 
 // ============================================================
-//  ALL FILES TO CACHE - COMPLETE LIST
+//  FICHIERS À METTRE EN CACHE
 // ============================================================
 
 const FILES_TO_CACHE = [
@@ -20,7 +20,6 @@ const FILES_TO_CACHE = [
   './dashboard.html',
   './add-grade.html',
   './subjects.html',
-  './subject-detail.html',
   './term1.html',
   './term2.html',
   './term3.html',
@@ -63,7 +62,7 @@ const FILES_TO_CACHE = [
   './about.html',
   './admin-homework.html',
   './chat.html',
-  './welcome.html',
+  './file-scanner.html',
   './dev-calculator.html',
   './dev-database.html',
   './dev-stats.html',
@@ -99,9 +98,8 @@ const FILES_TO_CACHE = [
   './js/avatars-data.js',
   './js/transfer-local.js',
   './js/transfer-manager.js',
-  './js/export.js',
 
-  // ICONS PWA
+  // ICÔNES PWA
   './icons/icon-48x48.png',
   './icons/icon-72x72.png',
   './icons/icon-96x96.png',
@@ -113,7 +111,7 @@ const FILES_TO_CACHE = [
   './icons/icon-384x384.png',
   './icons/icon-512x512.png',
 
-  // ICONS iOS
+  // ICÔNES iOS
   './icons/icon-57x57.png',
   './icons/icon-60x60.png',
   './icons/icon-76x76.png',
@@ -132,7 +130,7 @@ const FILES_TO_CACHE = [
   // PWA
   './manifest.json',
 
-  // DATA & CONFIG
+  // DONNÉES & CONFIG
   './homeworks.json',
   './version.json',
   './robots.txt',
@@ -143,7 +141,7 @@ const FILES_TO_CACHE = [
 ];
 
 // ============================================================
-//  API DOMAINS - ALWAYS ONLINE
+//  DOMAINES API (TOUJOURS EN LIGNE)
 // ============================================================
 
 const API_DOMAINS = [
@@ -158,61 +156,80 @@ const API_DOMAINS = [
 ];
 
 // ============================================================
-//  INSTALL - SILENT
+//  INSTALLATION
 // ============================================================
 
 self.addEventListener('install', function(event) {
+  console.log('[SW] 📦 Installation v5.0.0...');
+
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function(cache) {
-        return cache.addAll(FILES_TO_CACHE);
+        console.log('[SW] 📁 Mise en cache de ' + FILES_TO_CACHE.length + ' fichiers');
+
+        var promises = FILES_TO_CACHE.map(function(url) {
+          return cache.add(url).catch(function() {
+            console.warn('[SW] ⚠️ Fichier ignoré:', url);
+            return Promise.resolve();
+          });
+        });
+
+        return Promise.all(promises);
       })
       .then(function() {
+        console.log('[SW] ✅ Installation terminée');
         return self.skipWaiting();
       })
       .catch(function(error) {
-        console.log('[SW] Install error:', error);
+        console.error('[SW] ❌ Erreur:', error);
       })
   );
 });
 
 // ============================================================
-//  ACTIVATE - CLEAN OLD CACHES
+//  ACTIVATION
 // ============================================================
 
 self.addEventListener('activate', function(event) {
+  console.log('[SW] 🔄 Activation v5.0.0...');
+
   event.waitUntil(
     caches.keys()
       .then(function(cacheNames) {
         return Promise.all(
           cacheNames.map(function(cacheName) {
             if (cacheName !== CACHE_NAME) {
+              console.log('[SW] 🗑️ Suppression ancien cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
         );
       })
       .then(function() {
+        console.log('[SW] ✅ Activation terminée');
         return self.clients.claim();
       })
   );
 });
 
 // ============================================================
-//  FETCH - NETWORK FIRST, CACHE FALLBACK
+//  INTERCEPTION DES REQUÊTES
 // ============================================================
 
 self.addEventListener('fetch', function(event) {
   var request = event.request;
   var url = new URL(request.url);
 
-  // API domains - always online
+  // ==========================================================
+  //  1. API EXTERNES → TOUJOURS EN LIGNE
+  // ==========================================================
+
   for (var i = 0; i < API_DOMAINS.length; i++) {
     if (url.hostname === API_DOMAINS[i] || url.hostname.endsWith('.' + API_DOMAINS[i])) {
       event.respondWith(
         fetch(request).catch(function() {
           return new Response(
-            JSON.stringify({ error: 'Offline', offline: true }),
+            JSON.stringify({ error: 'Hors ligne', offline: true }),
             { status: 503, headers: { 'Content-Type': 'application/json' } }
           );
         })
@@ -221,13 +238,19 @@ self.addEventListener('fetch', function(event) {
     }
   }
 
-  // sw.js - never cache
-  if (url.pathname === '/sw.js' || url.pathname === './sw.js') {
+  // ==========================================================
+  //  2. sw.js → JAMAIS EN CACHE
+  // ==========================================================
+
+  if (url.pathname === '/sw.js') {
     event.respondWith(fetch(request));
     return;
   }
 
-  // Static files - network first
+  // ==========================================================
+  //  3. FICHIERS STATIQUES → CACHE FIRST
+  // ==========================================================
+
   if (url.hostname === self.location.hostname) {
     var extensions = ['.html', '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.json', '.webp', '.txt', '.xml', '.md'];
     var isStatic = false;
@@ -241,23 +264,22 @@ self.addEventListener('fetch', function(event) {
 
     if (isStatic || url.pathname === '/manifest.json') {
       event.respondWith(
-        fetch(request)
-          .then(function(response) {
-            if (response && response.status === 200) {
-              var clone = response.clone();
-              caches.open(CACHE_NAME).then(function(cache) {
-                cache.put(request, clone);
-              });
-            }
-            return response;
-          })
-          .catch(function() {
-            return caches.match(request)
-              .then(function(cached) {
-                if (cached) {
-                  return cached;
+        caches.match(request)
+          .then(function(cached) {
+            if (cached) return cached;
+
+            return fetch(request)
+              .then(function(response) {
+                if (response && response.status === 200) {
+                  var clone = response.clone();
+                  caches.open(CACHE_NAME).then(function(cache) {
+                    cache.put(request, clone);
+                  });
                 }
-                return new Response('Offline', { status: 503 });
+                return response;
+              })
+              .catch(function() {
+                return new Response('Hors ligne', { status: 503 });
               });
           })
       );
@@ -265,22 +287,19 @@ self.addEventListener('fetch', function(event) {
     }
   }
 
-  // Other requests - network first
+  // ==========================================================
+  //  4. AUTRES → RÉSEAU D'ABORD
+  // ==========================================================
+
   event.respondWith(
     fetch(request).catch(function() {
-      return caches.match(request)
-        .then(function(cached) {
-          if (cached) {
-            return cached;
-          }
-          return new Response('Offline', { status: 503 });
-        });
+      return new Response('Hors ligne', { status: 503 });
     })
   );
 });
 
 // ============================================================
-//  MESSAGE - SILENT UPDATE
+//  MESSAGES
 // ============================================================
 
 self.addEventListener('message', function(event) {
@@ -290,8 +309,10 @@ self.addEventListener('message', function(event) {
 });
 
 // ============================================================
-//  LOG - SILENT MODE
+//  LOG DE DÉMARRAGE
 // ============================================================
 
-console.log('[SW] Service Worker v' + APP_VERSION + ' loaded');
-console.log('[SW] ' + FILES_TO_CACHE.length + ' files cached');
+console.log('[SW] ✅ Service Worker v5.0.0 loaded (Workbox 7.0.0)');
+console.log('[SW] 📁 ' + FILES_TO_CACHE.length + ' fichiers en cache');
+console.log('[SW] 🔒 sw.js N\'EST PAS en cache');
+console.log('[SW] 🚫 offline.html COMPLÈTEMENT SUPPRIMÉ');
