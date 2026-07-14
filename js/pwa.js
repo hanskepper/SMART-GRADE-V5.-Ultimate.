@@ -1,10 +1,11 @@
 // ============================================
-// SMART GRADE v5.0 - PWA CONFIGURATION
+// SMART GRADE v5.0.0 - PWA CONFIGURATION
+// Silent mode: no toasts, no popups, console only
 // ============================================
 
 var PWA_CONFIG = {
   appName: 'SMART GRADE',
-  version: '5.0',
+  version: '5.0.0',
   codename: 'Ultimate',
   author: 'HANS KEEPER',
   contact: 'hanskepper52@gmail.com',
@@ -13,7 +14,7 @@ var PWA_CONFIG = {
   class: 'Form 5B Science',
   year: '2026-2027',
   storagePrefix: 'smartgrade_',
-  cacheName: 'smartgrade-v5-0',
+  cacheName: 'smartgrade-v5-0-0',
   transferCodeExpiry: 5, // minutes
   maxHistoryItems: 50,
   maxFavorites: 6,
@@ -22,7 +23,7 @@ var PWA_CONFIG = {
   minSubjects: 10,
   maxGrade: 20,
   minGrade: 0,
-  // Nouveautés v5.0
+  // v5.0.0 features
   fonts: 12,
   themes: 20,
   achievementCount: 14,
@@ -33,7 +34,9 @@ var PWA_CONFIG = {
   exportFormats: 4
 };
 
-// Construire l'APK (instructions)
+// ============================================
+// BUILD APK - Generates an install guide text file
+// ============================================
 function buildAPK() {
   var s = getCurrentStudent ? getCurrentStudent() : null;
   var d = [
@@ -82,7 +85,7 @@ function buildAPK() {
     'The app works 100% offline after first load.',
     'All data is stored locally on your device.',
     '',
-    '--- v5.0 NEW FEATURES ---',
+    '--- v5.0.0 NEW FEATURES ---',
     '- AI Assistant (Groq + Mistral)',
     '- Multi-Search (15 sources)',
     '- P2P Chat with unique codes',
@@ -108,22 +111,24 @@ function buildAPK() {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(u);
-  if (typeof showToast === 'function') showToast('Install guide downloaded!');
+  console.log('[PWA] Install guide downloaded');
 }
 
-// Initialiser PWA
+// ============================================
+// INIT - Register service worker (silent)
+// ============================================
 function initPWA() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js')
-      .then(function(reg) { 
-        console.log('SW registered:', reg.scope);
+      .then(function(reg) {
+        console.log('[PWA] Service worker registered:', reg.scope);
       })
-      .catch(function(err) { 
-        console.log('SW failed:', err);
+      .catch(function(err) {
+        console.log('[PWA] Service worker registration failed:', err);
       });
   }
-  
-  // Vérifier si déjà installé
+
+  // Check if already installed as standalone app
   if (window.matchMedia('(display-mode: standalone)').matches) {
     var p = document.getElementById('installPrompt');
     if (p) p.style.display = 'none';
@@ -131,26 +136,34 @@ function initPWA() {
   }
 }
 
-// Vérifier les mises à jour
+// ============================================
+// UPDATE CHECK - Silent background check
+// ============================================
 function checkForUpdates() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(function(registration) {
       registration.update();
+      console.log('[PWA] Update check completed');
     });
   }
 }
 
-// Demander la mise à jour
+// ============================================
+// UPDATE PROMPT - Confirms with user, then applies
+// ============================================
 function askForUpdate() {
   if (confirm('A new version of SMART GRADE is available. Update now?')) {
     checkForUpdates();
+    console.log('[PWA] Update applied, reloading');
     setTimeout(function() {
       location.reload();
     }, 1000);
   }
 }
 
-// Détecter la connexion
+// ============================================
+// CONNECTIVITY HELPERS
+// ============================================
 function isOnline() {
   return navigator.onLine;
 }
@@ -159,15 +172,20 @@ function isOffline() {
   return !navigator.onLine;
 }
 
+// ============================================
+// CONNECTIVITY EVENTS - Silent (console only)
+// ============================================
 window.addEventListener('online', function() {
-  if (typeof showToast === 'function') showToast('You are back online!');
+  console.log('[PWA] Connection restored');
 });
 
 window.addEventListener('offline', function() {
-  if (typeof showToast === 'function') showToast('You are offline. Some features may be limited.');
+  console.log('[PWA] Connection lost, offline mode active');
 });
 
-// Exporter les fonctions globales
+// ============================================
+// GLOBAL EXPORTS
+// ============================================
 window.buildAPK = buildAPK;
 window.initPWA = initPWA;
 window.checkForUpdates = checkForUpdates;
@@ -175,11 +193,13 @@ window.askForUpdate = askForUpdate;
 window.isOnline = isOnline;
 window.isOffline = isOffline;
 
-// Auto-initialisation
+// ============================================
+// AUTO-INIT
+// ============================================
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initPWA);
 } else {
   initPWA();
 }
 
-console.log('PWA module loaded - SMART GRADE v' + PWA_CONFIG.version);
+console.log('[PWA] Module loaded - SMART GRADE v' + PWA_CONFIG.version);

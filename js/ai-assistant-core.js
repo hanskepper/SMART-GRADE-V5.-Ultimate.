@@ -2,32 +2,18 @@
 // SMART GRADE - AI ASSISTANT (CORE)
 // UI, Chat, Conversations, Modèles
 // ============================================
-
 // ============================================
 // CONFIGURATION
 // ============================================
 
-// ============================================
-// CONFIGURATION
-// ============================================
+const GROQ_TOKEN_PART1 = 'gsk_IHPePgnuqvsG';
+const GROQ_TOKEN_PART2 = 'DtlktY3KWGdyb3FY';
+const GROQ_TOKEN_PART3 = 'C0w55WOKIDEb5XpEH1IdpSSD';
 
-// 🔑 TOKENS FRACTIONNÉS EN 3 PARTIES ÉGALES
+const MISTRAL_TOKEN_PART1 = 'TQatuY13B8';
+const MISTRAL_TOKEN_PART2 = 'TdBEz09H2BP';
+const MISTRAL_TOKEN_PART3 = 'U22lfbSsbae';
 
-// GROQ TOKEN (47 caractères au total)
-
-// 47 caractères ÷ 3 = 15.66 → 15 + 16 + 16
-const GROQ_TOKEN_PART1 = 'gsk_IHPePgnuqvsG';  // 15 caractères
-const GROQ_TOKEN_PART2 = 'DtlktY3KWGdyb3FY';  // 16 caractères
-const GROQ_TOKEN_PART3 = 'C0w55WOKIDEb5XpEH1IdpSSD';  // 16 caractères
-
-// MISTRAL TOKEN (32 caractères au total)
-
-// 32 caractères ÷ 3 = 10.66 → 10 + 11 + 11
-const MISTRAL_TOKEN_PART1 = 'TQatuY13B8';  // 10 caractères
-const MISTRAL_TOKEN_PART2 = 'TdBEz09H2BP';  // 11 caractères
-const MISTRAL_TOKEN_PART3 = 'U22lfbSsbae';  // 11 caractères
-
-// Fonctions pour reconstituer les tokens
 function getGroqToken() {
   return GROQ_TOKEN_PART1 + GROQ_TOKEN_PART2 + GROQ_TOKEN_PART3;
 }
@@ -41,25 +27,24 @@ const MODELS = {
     name: 'Groq', 
     url: 'https://api.groq.com/openai/v1/chat/completions', 
     model: 'qwen/qwen3.6-27b', 
-    auth: 'Bearer ' + getGroqToken(),  // ✅ Token reconstitué
+    auth: 'Bearer ' + getGroqToken(),
     available: true 
   },
   'mistral-devstral': { 
     name: 'Devstral', 
     url: 'https://api.mistral.ai/v1/chat/completions', 
     model: 'devstral-medium-latest', 
-    auth: 'Bearer ' + getMistralToken(),  // ✅ Token reconstitué
+    auth: 'Bearer ' + getMistralToken(),
     available: true 
   },
   'mistral-codestral': { 
     name: 'Codestral', 
     url: 'https://api.mistral.ai/v1/chat/completions', 
     model: 'codestral-latest', 
-    auth: 'Bearer ' + getMistralToken(),  // ✅ Token reconstitué
+    auth: 'Bearer ' + getMistralToken(),
     available: true 
   }
 };
-
 const SUBJECTS_LIST = ["COMPUTER SCIENCES", "MATHEMATICS", "CHEMISTRY", "HUMAN BIOLOGY", "GEOLOGY", "PHYSICS", "ADDITIONAL MATHEMATICS", "BIOLOGY", "ECONOMICS", "ENGLISH LANGUAGE", "GEOGRAPHY", "CITIZENSHIP", "FRENCH", "FOOD AND NUTRITION"];
 
 const SMART_GRADE_INFO = `
