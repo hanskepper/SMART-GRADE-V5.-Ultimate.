@@ -9,7 +9,7 @@
   "display": "standalone",
   "display_override": ["standalone", "fullscreen", "minimal-ui"],
   "orientation": "portrait",
-  "background_color": "#000000",
+  "background_color": "#053242",
   "theme_color": "#0f3b48",
   "lang": "en",
   "id": "smart-grade-v5",
