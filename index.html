@@ -1,57 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
   <!-- ============================================
-     SEO BILINGUE - ENGLISH + FRANÇAIS
-  ============================================ -->
-
-  <title>SMART GRADE - Grade Management System | Système de gestion de notes pour GBHS Foumban</title>
+       TITRE & DESCRIPTION - BILINGUE
+       ============================================ -->
+  <title>SMART GRADE - Grade Management System | GBHS Foumban</title>
   <meta name="description" content="SMART GRADE is a complete grade management system for students at GBHS Foumban, Form 5B Science. Track your grades, averages, goals and achievements. | SMART GRADE est un système complet de gestion de notes pour les élèves de la Form 5B Science du GBHS Foumban. Suivez vos notes, moyennes, objectifs et succès.">
-  <meta name="keywords" content="SMART GRADE, grade management, GBHS Foumban, Cameroon, education, student grades, school app, gestion de notes, Cameroun, éducation, notes élèves, application scolaire, Form 5B Science, SIN GBHS, Foumban, West Region, moyenne, calcul de notes, badges, objectifs, flashcards, emploi du temps">
+  <meta name="keywords" content="SMART GRADE, grade management, GBHS Foumban, Cameroon, education, student grades, school app, gestion de notes, Cameroun, éducation, notes élèves, application scolaire, moyenne, calcul de notes, badges, objectifs, flashcards, emploi du temps">
   <meta name="author" content="HANS KEPPER">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 
-  <!-- LANGUAGE ALTERNATIVES -->
+  <!-- ============================================
+       FAVICONS (pour le logo dans Google Search)
+       ============================================ -->
+  <!-- Favicon .ico (prioritaire pour Google) -->
+  <link rel="icon" type="image/x-icon" href="./icons/favicon.ico">
+  <link rel="shortcut icon" href="./icons/favicon.ico">
+
+  <!-- Favicon PNG (navigateurs modernes) -->
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512x512.png">
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+
+  <!-- Apple Touch Icon (iOS / Safari) -->
+  <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
+
+  <!-- Microsoft / Windows -->
+  <meta name="msapplication-TileImage" content="./icons/icon-192x192.png">
+  <meta name="msapplication-TileColor" content="#0f3b48">
+
+  <!-- ============================================
+       OPEN GRAPH - BILINGUE (Google Search + Réseaux sociaux)
+       ============================================ -->
+  <meta property="og:title" content="SMART GRADE - Grade Management System | GBHS Foumban">
+  <meta property="og:description" content="SMART GRADE is a complete grade management system for students at GBHS Foumban, Form 5B Science. Track your grades, averages, goals and achievements. | SMART GRADE est un système complet de gestion de notes pour les élèves de la Form 5B Science du GBHS Foumban. Suivez vos notes, moyennes, objectifs et succès.">
+  <meta property="og:url" content="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SMART GRADE">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- IMAGE OG (LOGO) - ESSENTIEL POUR GOOGLE -->
+  <meta property="og:image" content="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon-512x512.png">
+  <meta property="og:image:secure_url" content="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon-512x512.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:type" content="image/png">
+
+  <!-- ============================================
+       TWITTER CARD - BILINGUE (Twitter / X)
+       ============================================ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SMART GRADE - Grade Management System | GBHS Foumban">
+  <meta name="twitter:description" content="Track your grades, averages, goals and achievements. | Suivez vos notes, moyennes, objectifs et succès.">
+  <meta name="twitter:image" content="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon-512x512.png">
+  <meta name="twitter:site" content="@hanskepper">
+
+  <!-- ============================================
+       GOOGLE SEARCH CONSOLE - MÉTHODE 1 : BALISE META ✅
+       ============================================ -->
+  <meta name="google-site-verification" content="RdTDw57hL3QY04hK_LOn8xPHH0niWJX0L_CbUxpru3E">
+
+  <!-- ============================================
+       MÉTHODE 2 : FICHIER HTML À LA RACINE
+       google6523d76523928963.html ✅
+       ============================================ -->
+
+  <!-- ============================================
+       ALTERNATIVES LINGUISTIQUES (hreflang)
+       ============================================ -->
   <link rel="alternate" hreflang="en" href="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
   <link rel="alternate" hreflang="fr" href="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
   <link rel="alternate" hreflang="x-default" href="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
 
   <!-- ============================================
-     OPEN GRAPH (Réseaux sociaux)
-  ============================================ -->
-  <meta property="og:title" content="SMART GRADE - Grade Management System | GBHS Foumban">
-  <meta property="og:description" content="Track your grades, averages, goals and achievements. | Suivez vos notes, moyennes, objectifs et succès.">
-  <meta property="og:url" content="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_FR">
-  <meta property="og:locale:alternate" content="en_US">
-  <meta property="og:image" content="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon.png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta property="og:site_name" content="SMART GRADE">
-
-  <!-- ============================================
-     TWITTER CARDS
-  ============================================ -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="SMART GRADE - Grade Management System">
-  <meta name="twitter:description" content="Track your grades, averages, goals and achievements. | Suivez vos notes, moyennes, objectifs et succès.">
-  <meta name="twitter:image" content="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon.png">
-  <meta name="twitter:site" content="@hanskepper">
-
-  <!-- ============================================
-     STRUCTURED DATA (JSON-LD) - GOOGLE RICH RESULTS
-  ============================================ -->
+       STRUCTURED DATA (JSON-LD) - BILINGUE
+       ============================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "SMART GRADE",
     "alternateName": "Système de gestion de notes GBHS Foumban",
-    "description": "Complete grade management system for students at GBHS Foumban, Form 5B Science. Track your grades, averages, goals and achievements.",
+    "description": "Complete grade management system for students at GBHS Foumban, Form 5B Science. Track your grades, averages, goals and achievements. | Système complet de gestion de notes pour les élèves de la Form 5B Science du GBHS Foumban. Suivez vos notes, moyennes, objectifs et succès.",
     "applicationCategory": "EducationApplication",
     "operatingSystem": "Android, iOS, Web",
     "browserRequirements": "Requires JavaScript",
@@ -70,53 +106,26 @@
     "isAccessibleForFree": true,
     "keywords": "grade management, education, GBHS Foumban, Cameroon, student grades, school app, gestion de notes, Cameroun, éducation",
     "url": "https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./",
-    "thumbnailUrl": "https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon.png"
+    "logo": "https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon-512x512.png",
+    "image": "https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon-512x512.png",
+    "thumbnailUrl": "https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon-512x512.png"
   }
   </script>
 
-  <meta name="theme-color" content="#0f3b48">
+  <!-- ============================================
+       CANONICAL URL
+       ============================================ -->
   <link rel="canonical" href="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
-  <meta name="google-site-verification" content="RdTDw57hL3QY04hK_LOn8xPHH0niWJX0L_CbUxpru3E" />
-
-  <!-- PWA META TAGS -->
-  <meta name="theme-color" content="#073442">
-  <meta name="msapplication-navbutton-color" content="#073442">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="SMART GRADE">
 
   <!-- ============================================
-     PWA ICONS - ANDROID (Chrome)
-  ============================================ -->
-  <link rel="icon" type="image/png" sizes="48x48" href="./icons/icon-48x48.png">
-  <link rel="icon" type="image/png" sizes="72x72" href="./icons/icon-72x72.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="./icons/icon-96x96.png">
-  <link rel="icon" type="image/png" sizes="128x128" href="./icons/icon-128x128.png">
-  <link rel="icon" type="image/png" sizes="144x144" href="./icons/icon-144x144.png">
-  <link rel="icon" type="image/png" sizes="152x152" href="./icons/icon-152x152.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="256x256" href="./icons/icon-256x256.png">
-  <link rel="icon" type="image/png" sizes="384x384" href="./icons/icon-384x384.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512x512.png">
+       PWA
+       ============================================ -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f3b48">
 
   <!-- ============================================
-     PWA ICONS - APPLE TOUCH (iOS)
-  ============================================ -->
-  <link rel="apple-touch-icon" sizes="57x57" href="./icons/icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="./icons/icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="./icons/icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="./icons/icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="./icons/icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="./icons/icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="./icons/icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="./icons/icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="167x167" href="./icons/icon-167x167.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="./icons/icon-180x180.png">
-  <link rel="apple-touch-icon" sizes="1024x1024" href="./icons/icon-1024x1024.png">
-
-  <!-- ============================================
-     FONTS & STYLES
-  ============================================ -->
+       FONTS & STYLES
+       ============================================ -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/base.css">
@@ -124,10 +133,8 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/themes.css">
   <link rel="stylesheet" href="css/night-mode.css">
-  <link rel="manifest" href="manifest.json">
-
-  <style>
-    .hero-card {
+  
+   .hero-card {
       text-align: center;
       padding: 20px;
       border-radius: 20px;
