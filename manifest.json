@@ -54,6 +54,19 @@
           "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "Achievements",
+      "short_name": "Badges",
+      "description": "View your unlocked badges",
+      "url": "./achievements.html",
+      "icons": [
+        {
+          "src": "./icons/icon-achievements.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ],
 
