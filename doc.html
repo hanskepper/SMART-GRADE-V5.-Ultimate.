@@ -14,6 +14,9 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f3b48">
   <style>
+    /* ============================================
+       DOC HERO
+       ============================================ */
     .doc-hero {
       text-align: center;
       padding: 40px 20px;
@@ -50,14 +53,17 @@
       font-size: 0.7rem;
       margin-top: 16px;
     }
-    
+
+    /* ============================================
+       DOC CONTENT
+       ============================================ */
     .doc-content {
       background: var(--card-bg);
       border-radius: 24px;
       padding: 24px;
       border: 1px solid var(--border);
     }
-    
+
     .doc-section {
       margin-bottom: 32px;
       scroll-margin-top: 80px;
@@ -78,6 +84,12 @@
       width: 28px;
       color: var(--secondary);
     }
+    .doc-section h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 16px 0 10px 0;
+    }
     .doc-section p {
       font-size: 0.8rem;
       color: var(--text-light);
@@ -94,18 +106,65 @@
       line-height: 1.6;
       margin-bottom: 8px;
     }
+    .doc-section li i {
+      width: 20px;
+      color: var(--primary);
+    }
+
+    /* ============================================
+       CODE BLOCKS - SCROLL HORIZONTAL
+       ============================================ */
     .doc-section .code-block {
       background: rgba(0,0,0,0.05);
       border-radius: 12px;
-      padding: 14px;
+      padding: 14px 16px;
       font-family: 'Courier Prime', monospace;
       font-size: 0.7rem;
       overflow-x: auto;
-      white-space: pre-wrap;
-      word-break: break-word;
+      overflow-y: hidden;
+      white-space: pre;
+      word-break: normal;
+      word-wrap: normal;
       border: 1px solid var(--border);
       margin: 12px 0;
+      -webkit-overflow-scrolling: touch;
+      line-height: 1.8;
+      max-width: 100%;
     }
+
+    .doc-section .code-block code {
+      display: block;
+      white-space: pre;
+      word-break: normal;
+      word-wrap: normal;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.7rem;
+      color: var(--text);
+    }
+
+    .doc-section .code-block::-webkit-scrollbar {
+      height: 4px;
+    }
+    .doc-section .code-block::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 4px;
+    }
+    .doc-section .code-block::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    body.night-mode .doc-section .code-block {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.08);
+    }
+    body.night-mode .doc-section .code-block::-webkit-scrollbar-thumb {
+      background: var(--secondary);
+    }
+
+    /* ============================================
+       HIGHLIGHT, WARNING, INFO
+       ============================================ */
     .doc-section .highlight {
       background: rgba(46,204,113,0.1);
       padding: 12px 16px;
@@ -127,7 +186,10 @@
       border-left: 3px solid #3498db;
       margin: 16px 0;
     }
-    
+
+    /* ============================================
+       API GRID
+       ============================================ */
     .api-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -165,53 +227,132 @@
       padding: 4px 8px;
       border-radius: 6px;
       display: inline-block;
+      overflow-x: auto;
+      white-space: nowrap;
+      max-width: 100%;
     }
-    
-    /* FILE STRUCTURE VISUAL - CSS GRID STYLE */
+
+    /* ============================================
+       FILE TREE
+       ============================================ */
     .file-tree-visual {
       background: var(--card-bg);
       border-radius: 20px;
       padding: 20px;
       border: 1px solid var(--border);
       margin: 16px 0;
+      font-family: 'Inter', sans-serif;
     }
-    .file-grid-root {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+
+    .tree-root {
+      margin-bottom: 8px;
     }
-    .file-folder {
-      border-left: 2px solid var(--primary);
-      margin-left: 16px;
-      padding-left: 16px;
-      margin-top: 8px;
-    }
-    .file-folder-header {
+
+    .tree-root-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 0;
+      gap: 12px;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 16px;
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .tree-root-header i {
+      font-size: 1.3rem;
+    }
+
+    .tree-root-name {
       font-weight: 700;
-      color: var(--primary);
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s;
+      font-size: 1rem;
     }
-    .file-folder-header:hover {
-      transform: translateX(5px);
+
+    .tree-root-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      margin-left: auto;
     }
-    .file-folder-header i {
-      width: 28px;
-      font-size: 1.1rem;
+
+    .tree-children {
+      margin-left: 16px;
+      border-left: 2px dashed var(--border);
+      padding-left: 16px;
     }
-    .file-items-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 8px;
-      margin-top: 8px;
+
+    .tree-folder {
       margin-bottom: 12px;
     }
-    .file-item {
+
+    .tree-folder-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .tree-folder-header:hover {
+      background: rgba(0,0,0,0.04);
+      border-color: var(--border);
+      transform: translateX(4px);
+    }
+
+    .tree-arrow {
+      font-size: 0.7rem;
+      color: var(--primary);
+      transition: transform 0.2s ease;
+      width: 16px;
+    }
+
+    .tree-folder-header.open .tree-arrow {
+      transform: rotate(90deg);
+    }
+
+    .tree-folder-icon {
+      color: #f39c12;
+      font-size: 1rem;
+    }
+
+    .tree-folder-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .tree-folder-count {
+      font-size: 0.6rem;
+      background: rgba(0,0,0,0.05);
+      padding: 2px 8px;
+      border-radius: 20px;
+      color: var(--text-light);
+      margin-left: auto;
+    }
+
+    .tree-folder-content {
+      display: none;
+      margin-left: 28px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .tree-folder-content.show {
+      display: block;
+    }
+
+    .tree-files-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 6px;
+    }
+
+    .tree-file {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -220,66 +361,32 @@
       border-radius: 10px;
       border: 1px solid var(--border);
       font-size: 0.7rem;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }
-    .file-item:hover {
+
+    .tree-file:hover {
       border-color: var(--primary);
-      transform: translateX(3px);
+      transform: translateX(4px);
       background: rgba(0,0,0,0.04);
     }
-    .file-item i {
+
+    .tree-file i {
       width: 24px;
       font-size: 1rem;
       color: var(--primary);
     }
-    .file-item .file-name {
-      flex: 1;
-      font-family: monospace;
-      font-size: 0.65rem;
-      font-weight: 500;
-    }
-    .file-item .file-badge {
-      font-size: 0.55rem;
-      background: rgba(0,0,0,0.05);
-      padding: 2px 8px;
-      border-radius: 20px;
-      color: var(--text-light);
-    }
-    .root-file {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      background: rgba(0,0,0,0.02);
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      font-size: 0.7rem;
-      transition: all 0.2s;
-      margin-bottom: 6px;
-    }
-    .root-file:hover {
-      border-color: var(--primary);
-      transform: translateX(3px);
-    }
-    .root-file i {
-      width: 24px;
-      font-size: 1rem;
-      color: var(--primary);
-    }
-    .root-file .file-name {
+
+    .tree-file span {
       flex: 1;
       font-family: monospace;
       font-size: 0.7rem;
       font-weight: 500;
+      color: var(--text);
     }
-    .root-file .file-badge {
-      font-size: 0.55rem;
-      background: rgba(0,0,0,0.05);
-      padding: 2px 8px;
-      border-radius: 20px;
-      color: var(--text-light);
-    }
-    
+
+    /* ============================================
+       BADGE LIST
+       ============================================ */
     .badge-list {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -298,7 +405,10 @@
       color: #f39c12;
       margin-right: 4px;
     }
-    
+
+    /* ============================================
+       TOC
+       ============================================ */
     .toc {
       background: rgba(0,0,0,0.02);
       border-radius: 16px;
@@ -329,7 +439,10 @@
     .toc a:hover {
       color: var(--primary);
     }
-    
+
+    /* ============================================
+       LEGAL DATE
+       ============================================ */
     .legal-date {
       text-align: center;
       font-size: 0.65rem;
@@ -338,7 +451,10 @@
       padding-top: 16px;
       border-top: 1px solid var(--border);
     }
-    
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
     @media (max-width: 550px) {
       .doc-hero h1 { font-size: 1.4rem; }
       .doc-content { padding: 16px; }
@@ -346,7 +462,10 @@
       .toc-grid { grid-template-columns: repeat(2, 1fr); }
       .api-grid { grid-template-columns: 1fr; }
       .badge-list { grid-template-columns: repeat(2, 1fr); }
-      .file-items-grid { grid-template-columns: 1fr; }
+      .tree-files-grid { grid-template-columns: 1fr; }
+      .tree-root-header { flex-wrap: wrap; }
+      .tree-root-badge { margin-left: 0; }
+      .tree-file { flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -398,8 +517,8 @@
         <h1>Developer Documentation</h1>
         <p>Complete technical reference for SMART GRADE v5.0</p>
         <div class="version-badge">
-        <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
-          </div>
+          <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
+        </div>
       </div>
       
       <div class="doc-content">
@@ -424,6 +543,9 @@
             <a href="#transfer"><i class="fas fa-chevron-right"></i> Cloud Transfer</a>
             <a href="#export-import"><i class="fas fa-chevron-right"></i> Export/Import</a>
             <a href="#badges"><i class="fas fa-chevron-right"></i> Badges List</a>
+            <a href="#ai-assistant"><i class="fas fa-chevron-right"></i> AI Assistant</a>
+            <a href="#transfer-system"><i class="fas fa-chevron-right"></i> Transfer System</a>
+            <a href="#homework-manager"><i class="fas fa-chevron-right"></i> Homework Manager</a>
             <a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a>
           </div>
         </div>
@@ -482,394 +604,40 @@
             <li><strong>confirm-dialog.js</strong> - Custom confirmation dialogs</li>
             <li><strong>install-handler.js</strong> - PWA installation across browsers</li>
             <li><strong>cloud-sync.js</strong> - Automatic cloud backup</li>
+            <li><strong>ai-assistant-core.js</strong> - AI chat and model management</li>
+            <li><strong>ai-assistant-ui.js</strong> - Mermaid diagrams and zoom</li>
           </ul>
           <div class="code-block">
-// Example: Getting current user
+<code>// Example: Getting current user
 var user = getCurrentStudent();
 
 // Example: Calculating term average
 var term1Avg = calculateStudentTermAverage(user.id, 1);
 
 // Example: Exporting all user data
-var data = exportCompleteUserData(user.id);
+var data = exportCompleteUserData(user.id);</code>
           </div>
         </div>
         
         <!-- ============================================ -->
-        <!-- SECTION 4: FILE STRUCTURE (UPDATED) -->
+        <!-- SECTION 4: FILE STRUCTURE -->
         <!-- ============================================ -->
         <div id="file-structure" class="doc-section">
           <h3><i class="fas fa-folder-tree"></i> 4. File Structure</h3>
-          
-          <div class="file-tree-visual">
-            
-            <!-- Dossier Racine -->
+          <p>Loading structure from GitHub API...</p>
+          <div class="file-tree-visual" id="fileTreeContainer">
             <div class="tree-root">
               <div class="tree-root-header">
                 <i class="fas fa-folder-open"></i>
                 <span class="tree-root-name">SMART GRADE v5.0</span>
-                <span class="tree-root-badge">Root Directory</span>
+                <span class="tree-root-badge">Loading...</span>
               </div>
-              
-              <div class="tree-children">
-                
-                <!-- ========== HTML FILES ========== -->
-                <div class="tree-folder">
-                  <div class="tree-folder-header" onclick="toggleFolder(this)">
-                    <i class="fas fa-chevron-right tree-arrow"></i>
-                    <i class="fas fa-folder tree-folder-icon"></i>
-                    <span class="tree-folder-name">Pages (HTML)</span>
-                    <span class="tree-folder-count">28 files</span>
-                  </div>
-                  <div class="tree-folder-content">
-                    <div class="tree-files-grid">
-                      <div class="tree-file"><i class="fas fa-home"></i><span>index.html</span><span class="tree-file-badge">Home</span></div>
-                      <div class="tree-file"><i class="fas fa-sign-in-alt"></i><span>login.html</span><span class="tree-file-badge">Login</span></div>
-                      <div class="tree-file"><i class="fas fa-user-plus"></i><span>register.html</span><span class="tree-file-badge">Register</span></div>
-                      <div class="tree-file"><i class="fas fa-chalkboard-user"></i><span>dashboard.html</span><span class="tree-file-badge">Main</span></div>
-                      <div class="tree-file"><i class="fas fa-pen-fancy"></i><span>add-grade.html</span><span class="tree-file-badge">Grades</span></div>
-                      <div class="tree-file"><i class="fas fa-layer-group"></i><span>subjects.html</span><span class="tree-file-badge">Subjects</span></div>
-                      <div class="tree-file"><i class="fas fa-1"></i><span>term1.html</span><span class="tree-file-badge">Term 1</span></div>
-                      <div class="tree-file"><i class="fas fa-2"></i><span>term2.html</span><span class="tree-file-badge">Term 2</span></div>
-                      <div class="tree-file"><i class="fas fa-3"></i><span>term3.html</span><span class="tree-file-badge">Term 3</span></div>
-                      <div class="tree-file"><i class="fas fa-chart-line"></i><span>yearly.html</span><span class="tree-file-badge">Yearly</span></div>
-                      <div class="tree-file"><i class="fas fa-chart-pie"></i><span>statistics.html</span><span class="tree-file-badge">Stats</span></div>
-                      <div class="tree-file"><i class="fas fa-medal"></i><span>achievements.html</span><span class="tree-file-badge">Badges</span></div>
-                      <div class="tree-file"><i class="fas fa-clone"></i><span>flashcards.html</span><span class="tree-file-badge">Flashcards</span></div>
-                      <div class="tree-file"><i class="fas fa-bullseye"></i><span>goals.html</span><span class="tree-file-badge">Goals</span></div>
-                      <div class="tree-file"><i class="fas fa-calendar-alt"></i><span>timetable.html</span><span class="tree-file-badge">Schedule</span></div>
-                      <div class="tree-file"><i class="fas fa-user"></i><span>profile.html</span><span class="tree-file-badge">Profile</span></div>
-                      <div class="tree-file"><i class="fas fa-sliders-h"></i><span>settings.html</span><span class="tree-file-badge">Settings</span></div>
-                      <div class="tree-file"><i class="fas fa-exchange-alt"></i><span>transfer.html</span><span class="tree-file-badge">Transfer</span></div>
-                      <div class="tree-file"><i class="fas fa-file-export"></i><span>export.html</span><span class="tree-file-badge">Export</span></div>
-                      <div class="tree-file"><i class="fas fa-database"></i><span>backup.html</span><span class="tree-file-badge">Backup</span></div>
-                      <div class="tree-file"><i class="fas fa-history"></i><span>history.html</span><span class="tree-file-badge">History</span></div>
-                      <div class="tree-file"><i class="fas fa-bell"></i><span>notifications.html</span><span class="tree-file-badge">Alerts</span></div>
-                      <div class="tree-file"><i class="fas fa-question-circle"></i><span>guide.html</span><span class="tree-file-badge">Public Guide</span></div>
-                      <div class="tree-file"><i class="fas fa-question-circle"></i><span>guide-user.html</span><span class="tree-file-badge">Private Guide</span></div>
-                      <div class="tree-file"><i class="fas fa-info-circle"></i><span>about.html</span><span class="tree-file-badge">Public About</span></div>
-                      <div class="tree-file"><i class="fas fa-info-circle"></i><span>about-user.html</span><span class="tree-file-badge">Private About</span></div>
-                      <div class="tree-file"><i class="fas fa-file-alt"></i><span>doc.html</span><span class="tree-file-badge">Documentation</span></div>
-                      <div class="tree-file"><i class="fas fa-headset"></i><span>support.html</span><span class="tree-file-badge">Support</span></div>
-                      <!-- Legal Pages -->
-                      <div class="tree-file"><i class="fas fa-file-contract"></i><span>terms.html</span><span class="tree-file-badge">Terms</span></div>
-                      <div class="tree-file"><i class="fas fa-shield-alt"></i><span>privacy.html</span><span class="tree-file-badge">Privacy</span></div>
-                      <div class="tree-file"><i class="fas fa-cookie-bite"></i><span>cookies.html</span><span class="tree-file-badge">Cookies</span></div>
-                      <div class="tree-file"><i class="fas fa-balance-scale"></i><span>license.html</span><span class="tree-file-badge">License</span></div>
-                      <div class="tree-file"><i class="fas fa-file-signature"></i><span>eula.html</span><span class="tree-file-badge">EULA</span></div>
-                      <!-- Error Pages -->
-                      <div class="tree-file"><i class="fas fa-exclamation-triangle"></i><span>400.html</span><span class="tree-file-badge error">Error</span></div>
-                      <div class="tree-file"><i class="fas fa-exclamation-triangle"></i><span>401.html</span><span class="tree-file-badge error">Error</span></div>
-                      <div class="tree-file"><i class="fas fa-exclamation-triangle"></i><span>403.html</span><span class="tree-file-badge error">Error</span></div>
-                      <div class="tree-file"><i class="fas fa-exclamation-triangle"></i><span>404.html</span><span class="tree-file-badge error">Error</span></div>
-                      <div class="tree-file"><i class="fas fa-exclamation-triangle"></i><span>500.html</span><span class="tree-file-badge error">Error</span></div>
-                      <div class="tree-file"><i class="fas fa-exclamation-triangle"></i><span>502.html</span><span class="tree-file-badge error">Error</span></div>
-                      <div class="tree-file"><i class="fas fa-exclamation-triangle"></i><span>503.html</span><span class="tree-file-badge error">Error</span></div>
-                      <!-- Splash & Welcome -->
-                      <div class="tree-file"><i class="fas fa-rocket"></i><span>splash.html</span><span class="tree-file-badge">Splash</span></div>
-                      <div class="tree-file"><i class="fas fa-rocket"></i><span>welcome.html</span><span class="tree-file-badge">Welcome</span></div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- ========== CSS FILES ========== -->
-                <div class="tree-folder">
-                  <div class="tree-folder-header" onclick="toggleFolder(this)">
-                    <i class="fas fa-chevron-right tree-arrow"></i>
-                    <i class="fas fa-folder tree-folder-icon"></i>
-                    <span class="tree-folder-name">Styles (CSS)</span>
-                    <span class="tree-folder-count">5 files</span>
-                  </div>
-                  <div class="tree-folder-content">
-                    <div class="tree-files-grid">
-                      <div class="tree-file"><i class="fab fa-css3-alt"></i><span>base.css</span><span class="tree-file-badge">Reset & Variables</span></div>
-                      <div class="tree-file"><i class="fab fa-css3-alt"></i><span>layout.css</span><span class="tree-file-badge">Header & Sidebar</span></div>
-                      <div class="tree-file"><i class="fab fa-css3-alt"></i><span>components.css</span><span class="tree-file-badge">UI Components</span></div>
-                      <div class="tree-file"><i class="fab fa-css3-alt"></i><span>themes.css</span><span class="tree-file-badge">20 Themes</span></div>
-                      <div class="tree-file"><i class="fab fa-css3-alt"></i><span>night-mode.css</span><span class="tree-file-badge">Dark Mode</span></div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- ========== JS FILES ========== -->
-                <div class="tree-folder">
-                  <div class="tree-folder-header" onclick="toggleFolder(this)">
-                    <i class="fas fa-chevron-right tree-arrow"></i>
-                    <i class="fas fa-folder tree-folder-icon"></i>
-                    <span class="tree-folder-name">Scripts (JS)</span>
-                    <span class="tree-folder-count">12 files</span>
-                  </div>
-                  <div class="tree-folder-content">
-                    <div class="tree-files-grid">
-                      <div class="tree-file"><i class="fab fa-js"></i><span>utils.js</span><span class="tree-file-badge">Core Utilities</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>database.js</span><span class="tree-file-badge">Storage Manager</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>auth.js</span><span class="tree-file-badge">Authentication</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>app.js</span><span class="tree-file-badge">App Init</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>transfer.js</span><span class="tree-file-badge">Data Transfer</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>confirm-dialog.js</span><span class="tree-file-badge">Dialogs</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>install-handler.js</span><span class="tree-file-badge">PWA Install</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>cloud-sync.js</span><span class="tree-file-badge">Cloud Backup</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>storage.js</span><span class="tree-file-badge">Storage Manager</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>pwa.js</span><span class="tree-file-badge">PWA Features</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>auto-save.js</span><span class="tree-file-badge">Auto Save</span></div>
-                      <div class="tree-file"><i class="fab fa-js"></i><span>auto-updater.js</span><span class="tree-file-badge">Auto Update</span></div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- ========== PWA FILES ========== -->
-                <div class="tree-folder">
-                  <div class="tree-folder-header" onclick="toggleFolder(this)">
-                    <i class="fas fa-chevron-right tree-arrow"></i>
-                    <i class="fas fa-folder tree-folder-icon"></i>
-                    <span class="tree-folder-name">PWA Configuration</span>
-                    <span class="tree-folder-count">2 files</span>
-                  </div>
-                  <div class="tree-folder-content">
-                    <div class="tree-files-grid">
-                      <div class="tree-file"><i class="fas fa-file-code"></i><span>manifest.json</span><span class="tree-file-badge">App Manifest</span></div>
-                      <div class="tree-file"><i class="fas fa-cogs"></i><span>sw.js</span><span class="tree-file-badge">Service Worker</span></div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- ========== ASSETS ========== -->
-                <div class="tree-folder">
-                  <div class="tree-folder-header" onclick="toggleFolder(this)">
-                    <i class="fas fa-chevron-right tree-arrow"></i>
-                    <i class="fas fa-folder tree-folder-icon"></i>
-                    <span class="tree-folder-name">Assets</span>
-                    <span class="tree-folder-count">1 file</span>
-                  </div>
-                  <div class="tree-folder-content">
-                    <div class="tree-files-grid">
-                      <div class="tree-file"><i class="fas fa-image"></i><span>icon.svg</span><span class="tree-file-badge">App Icon</span></div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- ========== DEV TOOLS ========== -->
-                <div class="tree-folder">
-                  <div class="tree-folder-header" onclick="toggleFolder(this)">
-                    <i class="fas fa-chevron-right tree-arrow"></i>
-                    <i class="fas fa-folder tree-folder-icon"></i>
-                    <span class="tree-folder-name">Developer Tools</span>
-                    <span class="tree-folder-count">6 files</span>
-                  </div>
-                  <div class="tree-folder-content">
-                    <div class="tree-files-grid">
-                      <div class="tree-file"><i class="fas fa-calculator"></i><span>dev-calculator.html</span><span class="tree-file-badge">Calculator</span></div>
-                      <div class="tree-file"><i class="fas fa-database"></i><span>dev-database.html</span><span class="tree-file-badge">Database</span></div>
-                      <div class="tree-file"><i class="fas fa-chart-pie"></i><span>dev-stats.html</span><span class="tree-file-badge">Stats</span></div>
-                      <div class="tree-file"><i class="fas fa-history"></i><span>dev-logs.html</span><span class="tree-file-badge">Logs</span></div>
-                      <div class="tree-file"><i class="fas fa-cloud-upload-alt"></i><span>dev-backup.html</span><span class="tree-file-badge">Cloud Backup</span></div>
-                      <div class="tree-file"><i class="fas fa-cog"></i><span>dev-config.html</span><span class="tree-file-badge">Config</span></div>
-                    </div>
-                  </div>
-                </div>
-                
+              <div style="text-align:center;padding:20px;color:var(--text-light);">
+                <i class="fas fa-spinner fa-spin"></i> Fetching structure from GitHub...
               </div>
             </div>
-            
           </div>
         </div>
-        
-        <style>
-        /* ============================================ */
-        /* BEAUTIFUL FILE TREE STYLES */
-        /* ============================================ */
-        
-        .file-tree-visual {
-          background: var(--card-bg);
-          border-radius: 20px;
-          padding: 20px;
-          border: 1px solid var(--border);
-          margin: 16px 0;
-          font-family: 'Inter', sans-serif;
-        }
-        
-        .tree-root {
-          margin-bottom: 8px;
-        }
-        
-        .tree-root-header {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 12px 16px;
-          background: linear-gradient(135deg, var(--primary), var(--secondary));
-          border-radius: 16px;
-          color: white;
-          margin-bottom: 16px;
-        }
-        
-        .tree-root-header i {
-          font-size: 1.3rem;
-        }
-        
-        .tree-root-name {
-          font-weight: 700;
-          font-size: 1rem;
-        }
-        
-        .tree-root-badge {
-          background: rgba(255,255,255,0.2);
-          padding: 4px 12px;
-          border-radius: 20px;
-          font-size: 0.65rem;
-          margin-left: auto;
-        }
-        
-        .tree-children {
-          margin-left: 16px;
-          border-left: 2px dashed var(--border);
-          padding-left: 16px;
-        }
-        
-        .tree-folder {
-          margin-bottom: 12px;
-        }
-        
-        .tree-folder-header {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 10px 12px;
-          background: rgba(0,0,0,0.02);
-          border-radius: 12px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          border: 1px solid transparent;
-        }
-        
-        .tree-folder-header:hover {
-          background: rgba(0,0,0,0.04);
-          border-color: var(--border);
-          transform: translateX(4px);
-        }
-        
-        .tree-arrow {
-          font-size: 0.7rem;
-          color: var(--primary);
-          transition: transform 0.2s ease;
-          width: 16px;
-        }
-        
-        .tree-folder-header.open .tree-arrow {
-          transform: rotate(90deg);
-        }
-        
-        .tree-folder-icon {
-          color: #f39c12;
-          font-size: 1rem;
-        }
-        
-        .tree-folder-name {
-          font-weight: 600;
-          font-size: 0.85rem;
-          color: var(--text);
-        }
-        
-        .tree-folder-count {
-          font-size: 0.6rem;
-          background: rgba(0,0,0,0.05);
-          padding: 2px 8px;
-          border-radius: 20px;
-          color: var(--text-light);
-          margin-left: auto;
-        }
-        
-        .tree-folder-content {
-          display: none;
-          margin-left: 28px;
-          margin-top: 8px;
-          margin-bottom: 8px;
-        }
-        
-        .tree-folder-content.show {
-          display: block;
-        }
-        
-        .tree-files-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-          gap: 6px;
-        }
-        
-        .tree-file {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 8px 12px;
-          background: rgba(0,0,0,0.02);
-          border-radius: 10px;
-          border: 1px solid var(--border);
-          font-size: 0.7rem;
-          transition: all 0.2s ease;
-        }
-        
-        .tree-file:hover {
-          border-color: var(--primary);
-          transform: translateX(4px);
-          background: rgba(0,0,0,0.04);
-        }
-        
-        .tree-file i {
-          width: 24px;
-          font-size: 1rem;
-          color: var(--primary);
-        }
-        
-        .tree-file span {
-          flex: 1;
-          font-family: monospace;
-          font-size: 0.7rem;
-          font-weight: 500;
-          color: var(--text);
-        }
-        
-        .tree-file-badge {
-          font-size: 0.55rem;
-          background: rgba(0,0,0,0.05);
-          padding: 2px 8px;
-          border-radius: 20px;
-          color: var(--text-light);
-          white-space: nowrap;
-        }
-        
-        .tree-file-badge.error {
-          background: rgba(231,76,60,0.12);
-          color: #e74c3c;
-        }
-        
-        @media (max-width: 550px) {
-          .tree-files-grid {
-            grid-template-columns: 1fr;
-          }
-          .tree-file {
-            flex-wrap: wrap;
-          }
-          .tree-file-badge {
-            margin-left: 34px;
-          }
-          .tree-root-header {
-            flex-wrap: wrap;
-          }
-          .tree-root-badge {
-            margin-left: 0;
-          }
-        }
-        </style>
-        
-        <script>
-        function toggleFolder(header) {
-          header.classList.toggle('open');
-          var content = header.nextElementSibling;
-          if (content) {
-            content.classList.toggle('show');
-          }
-        }
-        </script>
         
         <!-- ============================================ -->
         <!-- SECTION 5: STORAGE SYSTEM -->
@@ -949,49 +717,49 @@ var data = exportCompleteUserData(user.id);
           
           <h4>Student Management</h4>
           <div class="code-block">
-getCurrentStudent()        // Returns current logged in student object
+<code>getCurrentStudent()        // Returns current logged in student object
 getAllStudents()           // Returns array of all students
 getStudentById(id)         // Returns student by ID
 createStudentAccount(name, number, className, pin)  // Creates new account
-deleteStudent(id)          // Deletes student and all associated data
+deleteStudent(id)          // Deletes student and all associated data</code>
           </div>
           
           <h4>Grade Management</h4>
           <div class="code-block">
-getStudentGrades(id)                    // Returns all grades for a student
+<code>getStudentGrades(id)                    // Returns all grades for a student
 saveStudentGrades(id, grades)           // Saves grades array
 calculateStudentTermAverage(id, term)   // Returns term average (0-20)
 calculateYearlyAverage(id)              // Returns yearly average (0-20)
 calculateSubjectTermAverage(subjectId, term, grades)  // Subject average
 getGradeLetter(avg)                     // Returns A+, A, B+, B, C, D, F
-getStatusText(avg)                      // Excellent, Very Good, Good, etc.
+getStatusText(avg)                      // Excellent, Very Good, Good, etc.</code>
           </div>
           
           <h4>Subject Management</h4>
           <div class="code-block">
-getStudentSelectedSubjects(id, term)        // Returns selected subject IDs
+<code>getStudentSelectedSubjects(id, term)        // Returns selected subject IDs
 saveStudentSelectedSubjects(id, term, subjects)  // Saves subject selection
 getSubjectCoefficients(id)                  // Returns coefficients object
 getSubjectCoefficient(id, subjectId)        // Returns coefficient for subject
-getActiveSubjectsWithCoefficients(id, term) // Returns subjects with coeffs
+getActiveSubjectsWithCoefficients(id, term) // Returns subjects with coeffs</code>
           </div>
           
           <h4>Achievements & Streaks</h4>
           <div class="code-block">
-getStudentAchievements(id)     // Returns achievements array
+<code>getStudentAchievements(id)     // Returns achievements array
 unlockBadgeById(id, badgeId)   // Unlocks specific badge
 updateStreakOnVisit(id)        // Updates daily streak
 getStudentStreak(id)           // Returns streak object {days, lastLogin}
-checkAndUnlockAllNewBadges(id) // Checks and unlocks all available badges
+checkAndUnlockAllNewBadges(id) // Checks and unlocks all available badges</code>
           </div>
           
           <h4>Profile & Settings</h4>
           <div class="code-block">
-getProfile(id)                 // Returns {avatarBase64, bio, favorites}
+<code>getProfile(id)                 // Returns {avatarBase64, bio, favorites}
 saveProfile(id, profile)       // Saves profile data
 getSavedTheme()                // Returns current theme name
 saveTheme(theme)               // Saves theme preference
-getSavedFontSize()             // Returns 'small', 'medium', or 'large'
+getSavedFontSize()             // Returns 'small', 'medium', or 'large'</code>
           </div>
         </div>
         
@@ -1003,7 +771,7 @@ getSavedFontSize()             // Returns 'small', 'medium', or 'large'
           <p>The authentication system supports both PIN (4-digit) and fingerprint (WebAuthn) login methods.</p>
           
           <div class="code-block">
-// PIN Authentication
+<code>// PIN Authentication
 var result = authenticateWithPin(studentId, pin);
 if (result.success) {
   // User is logged in as result.student
@@ -1029,7 +797,7 @@ registerFingerprint(studentId, studentName, function(result) {
 removeFingerprint(studentId);
 
 // Logout
-logout();  // Redirects to index.html
+logout();  // Redirects to index.html</code>
           </div>
           
           <div class="info">
@@ -1044,7 +812,7 @@ logout();  // Redirects to index.html
           <h3><i class="fas fa-book"></i> 8. Subjects & Grades Configuration</h3>
           <p>The application supports 14 subjects, each with customizable coefficients (1-10).</p>
           <div class="code-block">
-var DEFAULT_SUBJECTS = [
+<code>var DEFAULT_SUBJECTS = [
   { id: 1, name: "COMPUTER SCIENCES", icon: "fa-laptop-code" },
   { id: 2, name: "MATHEMATICS", icon: "fa-square-root-variable" },
   { id: 3, name: "CHEMISTRY", icon: "fa-flask" },
@@ -1059,7 +827,7 @@ var DEFAULT_SUBJECTS = [
   { id: 12, name: "CITIZENSHIP", icon: "fa-landmark" },
   { id: 13, name: "FRENCH", icon: "fa-flag" },
   { id: 14, name: "FOOD AND NUTRITION", icon: "fa-apple-whole" }
-];
+];</code>
           </div>
           <p><strong>Grading System:</strong> 0-20 scale with letter grades:</p>
           <ul>
@@ -1088,7 +856,7 @@ var DEFAULT_SUBJECTS = [
             <li><strong>Legendary Streak</strong> - Use the app for 30 consecutive days</li>
           </ul>
           
-          <h4>Achievement Badges (Manual unlock via code)</h4>
+          <h4>Achievement Badges</h4>
           <div class="badge-list">
             <div class="badge-item"><i class="fas fa-pen"></i> First Grade</div>
             <div class="badge-item"><i class="fas fa-star"></i> Perfect Score</div>
@@ -1115,14 +883,14 @@ var DEFAULT_SUBJECTS = [
           </div>
           
           <div class="code-block">
-// Unlock a badge programmatically
+<code>// Unlock a badge programmatically
 unlockBadgeById(studentId, 1);  // Unlocks "First Grade"
 
 // Check all badges for a student
 checkAndUnlockAllNewBadges(studentId);
 
 // Get all achievements for a student
-var achievements = getStudentAchievements(studentId);
+var achievements = getStudentAchievements(studentId);</code>
           </div>
         </div>
         
@@ -1172,13 +940,13 @@ var achievements = getStudentAchievements(studentId);
           </div>
           
           <div class="code-block">
-// Set theme programmatically
+<code>// Set theme programmatically
 document.body.classList.add('theme-crimson');
 localStorage.setItem('smartgrade_theme', 'crimson');
 
 // Set font family
 localStorage.setItem('smartgrade_font_family', 'roboto');
-initFontFamily();  // Apply the font
+initFontFamily();  // Apply the font</code>
           </div>
           
           <div class="highlight">
@@ -1194,7 +962,7 @@ initFontFamily();  // Apply the font
           <p>The application is a fully functional PWA that works offline after first installation.</p>
           
           <div class="code-block">
-// Service Worker registration (in sw.js)
+<code>// Service Worker registration (in sw.js)
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
@@ -1210,7 +978,7 @@ if (typeof InstallHandler !== 'undefined') {
 }
 
 // Auto-update (in auto-updater.js)
-AutoUpdate.start();  // Checks GitHub every 10 minutes
+AutoUpdate.start();  // Checks GitHub every 10 minutes</code>
           </div>
           
           <div class="info">
@@ -1226,7 +994,7 @@ AutoUpdate.start();  // Checks GitHub every 10 minutes
           <p>The cloud transfer system uses GitHub Gist API (free, unlimited) to store temporary transfer data.</p>
           
           <div class="code-block">
-// Generate cloud transfer code
+<code>// Generate cloud transfer code
 CloudTransfer.generateCode(userId, userName, function(result) {
   if (result.success) {
     var code = result.code;  // 6-character code
@@ -1246,7 +1014,7 @@ CloudTransfer.importWithCode(code, function(result) {
 QRTransfer.generateQR(code, 'containerId');
 
 // Local transfer (same device/network)
-var localCode = generateLocalCode();
+var localCode = generateLocalCode();</code>
           </div>
           
           <div class="warning">
@@ -1262,7 +1030,7 @@ var localCode = generateLocalCode();
           <p>The application supports multiple export formats: JSON (complete backup), CSV (spreadsheet), HTML (bulletin), PDF (report).</p>
           
           <div class="code-block">
-// Export all user data as JSON
+<code>// Export all user data as JSON
 var jsonData = exportCompleteUserData(userId);
 // Download as file
 downloadJSON(jsonData, 'backup.json');
@@ -1275,7 +1043,7 @@ if (result.success) {
 
 // CSV export format
 // Subject, Code, Sequence, Value, Date, Term
-// COMPUTER SCIENCES, CS, 1, 15.50, 2025-01-15, 1
+// COMPUTER SCIENCES, CS, 1, 15.50, 2025-01-15, 1</code>
           </div>
           
           <div class="info">
@@ -1316,20 +1084,130 @@ if (result.success) {
           </ul>
           
           <div class="code-block">
-// Force unlock a badge (for testing)
+<code>// Force unlock a badge (for testing)
 unlockBadgeById(studentId, 1);
 
 // Get badge by ID
 var badge = ACHIEVEMENTS.find(function(b) { return b.id === 1; });
-console.log(badge.name);  // "First Grade"
+console.log(badge.name);  // "First Grade"</code>
           </div>
         </div>
         
         <!-- ============================================ -->
-        <!-- SECTION 15: CONTACT (same style as terms.html) -->
+        <!-- SECTION 15: AI ASSISTANT -->
+        <!-- ============================================ -->
+        <div id="ai-assistant" class="doc-section">
+          <h3><i class="fas fa-robot"></i> 15. AI Assistant</h3>
+          <p>SMART GRADE includes an AI Assistant powered by Groq and Mistral models to help students with homework, explanations, and problem-solving.</p>
+          
+          <div class="highlight">
+            <i class="fas fa-check-circle"></i> <strong>Available Models:</strong> Groq (ultra fast), Devstral (medium), Codestral (code-focused)
+          </div>
+          
+          <h4>Features</h4>
+          <ul>
+            <li><i class="fas fa-square-root-variable"></i> <strong>LaTeX Support:</strong> Write mathematical equations using $...$ or $$...$$ syntax</li>
+            <li><i class="fas fa-code"></i> <strong>Code Highlighting:</strong> Supports JavaScript, Python, Bash, JSON, HTML, CSS, and more</li>
+            <li><i class="fas fa-chart-simple"></i> <strong>Mermaid Diagrams:</strong> Generate flowcharts, sequence diagrams, and more using ```mermaid syntax</li>
+            <li><i class="fas fa-history"></i> <strong>Conversation History:</strong> All conversations are saved locally</li>
+            <li><i class="fas fa-download"></i> <strong>Export:</strong> Export conversations as JSON files</li>
+            <li><i class="fas fa-sync-alt"></i> <strong>Auto-fallback:</strong> If one model fails, the system automatically switches to another</li>
+          </ul>
+          
+          <h4>How to Use</h4>
+          <ul>
+            <li>Open the AI Assistant page from the sidebar</li>
+            <li>Choose a model (Groq, Devstral, or Codestral)</li>
+            <li>Type your question in the chat input</li>
+            <li>Press Ctrl+Enter or click the send button</li>
+            <li>The AI will respond with formatted text, code, or diagrams</li>
+          </ul>
+          
+          <div class="info">
+            <i class="fas fa-info-circle"></i> <strong>Tip:</strong> Use the AI Assistant for homework help, concept explanations, and problem-solving in any subject.
+          </div>
+        </div>
+        
+        <!-- ============================================ -->
+        <!-- SECTION 16: TRANSFER SYSTEM -->
+        <!-- ============================================ -->
+        <div id="transfer-system" class="doc-section">
+          <h3><i class="fas fa-exchange-alt"></i> 16. Transfer System</h3>
+          <p>The transfer system allows users to move their data between devices using three different methods.</p>
+          
+          <h4>Transfer Methods</h4>
+          
+          <div class="api-grid">
+            <div class="api-card">
+              <h4><i class="fas fa-server"></i> Local Transfer</h4>
+              <p>Generate a 6-character code valid for 10 minutes. Data is stored locally on the device.</p>
+              <p><code class="api-path">smartgrade_local_transfers</code></p>
+            </div>
+            <div class="api-card">
+              <h4><i class="fas fa-cloud-upload-alt"></i> Cloud Transfer</h4>
+              <p>Upload data to GitHub Gist. Generates a 6-character code valid for 10 minutes.</p>
+              <p><code class="api-path">transfer.json (GitHub Gist)</code></p>
+            </div>
+            <div class="api-card">
+              <h4><i class="fas fa-qrcode"></i> QR Code Transfer</h4>
+              <p>Generate a QR code containing the transfer data. Scan with the destination device.</p>
+              <p><code class="api-path">QRCode.js + html5-qrcode</code></p>
+            </div>
+          </div>
+          
+          <h4>How to Use</h4>
+          <ul>
+            <li><strong>Export:</strong> Go to Transfer page > Choose method > Generate code/QR</li>
+            <li><strong>Import:</strong> Go to Transfer page > Choose method > Enter code or scan QR</li>
+            <li>All codes expire after 10 minutes for security</li>
+            <li>Data is automatically deleted after import</li>
+          </ul>
+          
+          <div class="warning">
+            <i class="fas fa-exclamation-triangle"></i> <strong>Important:</strong> Transfer codes are valid for 10 minutes only. QR codes also expire after 10 minutes.
+          </div>
+        </div>
+        
+        <!-- ============================================ -->
+        <!-- SECTION 17: HOMEWORK MANAGER -->
+        <!-- ============================================ -->
+        <div id="homework-manager" class="doc-section">
+          <h3><i class="fas fa-tasks"></i> 17. Homework Manager</h3>
+          <p>The Homework Manager allows teachers to create and manage assignments, and students to view them.</p>
+          
+          <h4>Features</h4>
+          <ul>
+            <li><i class="fas fa-plus-circle"></i> <strong>Add Homework:</strong> Teachers can create assignments with title, subject, due date, and description</li>
+            <li><i class="fas fa-paperclip"></i> <strong>File Attachments:</strong> Support for images, videos, audio, PDFs, Word documents, and text files</li>
+            <li><i class="fas fa-cloud-upload-alt"></i> <strong>Cloud Sync:</strong> All homework data is stored and synced via GitHub Gist</li>
+            <li><i class="fas fa-filter"></i> <strong>Filter by Subject:</strong> Students can filter homework by subject</li>
+            <li><i class="fas fa-edit"></i> <strong>Edit/Delete:</strong> Teachers can edit or delete assignments</li>
+          </ul>
+          
+          <h4>Admin Access</h4>
+          <ul>
+            <li>Teachers access the admin panel via <code>admin-homework.html</code></li>
+            <li>Admin password is required for security</li>
+            <li>Homework is stored in <code>homeworks.json</code> on GitHub Gist</li>
+          </ul>
+          
+          <h4>Student View</h4>
+          <ul>
+            <li>Students view homework on the <code>homeworks.html</code> page</li>
+            <li>Click on any homework card to see full details</li>
+            <li>Attachments can be downloaded directly</li>
+          </ul>
+          
+          <div class="info">
+            <i class="fas fa-info-circle"></i> <strong>Note:</strong> The Homework Manager uses GitHub Gist for cloud storage. All data is synced automatically.
+          </div>
+        </div>
+        
+        <!-- ============================================ -->
+        <!-- SECTION 18: CONTACT -->
         <!-- ============================================ -->
         <div id="contact" class="doc-section">
-          <h3><i class="fas fa-envelope"></i> 15. Developer Contact</h3>
+          <h3><i class="fas fa-envelope"></i> 18. Developer Contact</h3>
           <p>If you have any questions about this documentation or the software, please contact the developer:</p>
           <ul>
             <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
@@ -1355,12 +1233,206 @@ console.log(badge.name);  // "First Grade"
   
   <div id="toastContainer" class="toast-container"></div>
   
+  <!-- ============================================ -->
+  <!-- SCRIPTS -->
+  <!-- ============================================ -->
   <script src="js/utils.js"></script>
   <script src="js/database.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/app.js"></script>
   
   <script>
+    // ============================================
+    // DYNAMIC FILE STRUCTURE - GITHUB API
+    // ============================================
+
+    const REPO_OWNER = 'hanskepper';
+    const REPO_NAME = 'SMART-GRADE-V5.-Ultimate.';
+    const BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/`;
+
+    async function getFolderContents(path = '') {
+      const url = path ? `${BASE_URL}${path}` : BASE_URL;
+      try {
+        const response = await fetch(url, {
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
+        if (!response.ok) return null;
+        return await response.json();
+      } catch(e) {
+        console.error('Error fetching folder:', path, e);
+        return null;
+      }
+    }
+
+    function getIconForFile(filename) {
+      const ext = filename.split('.').pop().toLowerCase();
+      const icons = {
+        'html': 'fa-html5',
+        'css': 'fa-css3-alt',
+        'js': 'fa-js',
+        'json': 'fa-file-code',
+        'png': 'fa-image',
+        'jpg': 'fa-image',
+        'jpeg': 'fa-image',
+        'svg': 'fa-image',
+        'ico': 'fa-image',
+        'webp': 'fa-image',
+        'md': 'fa-file-alt',
+        'txt': 'fa-file-alt',
+        'xml': 'fa-sitemap',
+        'pdf': 'fa-file-pdf',
+        'zip': 'fa-file-archive',
+        'gz': 'fa-file-archive',
+        'map': 'fa-sitemap',
+        'webmanifest': 'fa-file-code',
+        'gitignore': 'fa-code'
+      };
+      return icons[ext] || 'fa-file';
+    }
+
+    async function buildFileTree() {
+      const container = document.getElementById('fileTreeContainer');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="tree-root">
+          <div class="tree-root-header">
+            <i class="fas fa-folder-open"></i>
+            <span class="tree-root-name">SMART GRADE v5.0</span>
+            <span class="tree-root-badge">Loading...</span>
+          </div>
+          <div style="text-align:center;padding:20px;color:var(--text-light);">
+            <i class="fas fa-spinner fa-spin"></i> Fetching structure from GitHub...
+          </div>
+        </div>
+      `;
+
+      try {
+        const rootItems = await getFolderContents('');
+        if (!rootItems) throw new Error('Could not fetch root');
+
+        const folders = [];
+        const rootFiles = [];
+
+        for (const item of rootItems) {
+          if (item.type === 'dir') folders.push(item.name);
+          else if (item.type === 'file') rootFiles.push(item.name);
+        }
+
+        folders.sort((a, b) => a.localeCompare(b));
+        rootFiles.sort();
+
+        let html = `
+          <div class="tree-root">
+            <div class="tree-root-header">
+              <i class="fas fa-folder-open"></i>
+              <span class="tree-root-name">SMART GRADE v5.0</span>
+              <span class="tree-root-badge">GitHub</span>
+            </div>
+            <div class="tree-children">
+        `;
+
+        for (const folder of folders) {
+          const subItems = await getFolderContents(folder);
+          const files = subItems ? subItems.filter(f => f.type === 'file').map(f => f.name).sort() : [];
+
+          html += `
+            <div class="tree-folder">
+              <div class="tree-folder-header" onclick="toggleFolder(this)">
+                <i class="fas fa-chevron-right tree-arrow"></i>
+                <i class="fas fa-folder tree-folder-icon"></i>
+                <span class="tree-folder-name">${folder}</span>
+                <span class="tree-folder-count">${files.length}</span>
+              </div>
+              <div class="tree-folder-content">
+                <div class="tree-files-grid">
+          `;
+
+          for (const file of files) {
+            const icon = getIconForFile(file);
+            html += `
+              <div class="tree-file">
+                <i class="fas ${icon}"></i>
+                <span>${file}</span>
+              </div>
+            `;
+          }
+
+          html += `
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        if (rootFiles.length > 0) {
+          html += `
+            <div class="tree-folder">
+              <div class="tree-folder-header" onclick="toggleFolder(this)">
+                <i class="fas fa-chevron-right tree-arrow"></i>
+                <i class="fas fa-folder tree-folder-icon"></i>
+                <span class="tree-folder-name">Root</span>
+                <span class="tree-folder-count">${rootFiles.length}</span>
+              </div>
+              <div class="tree-folder-content">
+                <div class="tree-files-grid">
+          `;
+
+          for (const file of rootFiles) {
+            const icon = getIconForFile(file);
+            html += `
+              <div class="tree-file">
+                <i class="fas ${icon}"></i>
+                <span>${file}</span>
+              </div>
+            `;
+          }
+
+          html += `
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        html += `
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = html;
+
+      } catch(error) {
+        console.error('Error building file tree:', error);
+        container.innerHTML = `
+          <div class="tree-root">
+            <div class="tree-root-header" style="background: #e74c3c;">
+              <i class="fas fa-exclamation-triangle"></i>
+              <span class="tree-root-name">Error</span>
+              <span class="tree-root-badge">GitHub API</span>
+            </div>
+            <div style="text-align:center;padding:20px;color:var(--text-light);">
+              <i class="fas fa-sync-alt"></i> 
+              Could not load structure from GitHub.<br>
+              <span style="font-size:0.7rem;">Please refresh the page or try again later.</span>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function toggleFolder(header) {
+      header.classList.toggle('open');
+      const content = header.nextElementSibling;
+      if (content) {
+        content.classList.toggle('show');
+      }
+    }
+
+    // ============================================
+    // AVATAR, FONT, MENU
+    // ============================================
+
     function updateHeaderAvatar() {
       try {
         var stored = localStorage.getItem('smartgrade_current');
@@ -1374,7 +1446,7 @@ console.log(badge.name);  // "First Grade"
         }
       } catch(e) {}
     }
-    
+
     function applyGlobalFont() {
       var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
       var fontMap = {
@@ -1386,21 +1458,30 @@ console.log(badge.name);  // "First Grade"
       };
       document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
     }
-    
-    updateHeaderAvatar();
-    initMobileMenu();
-    initThemeSelector();
-    applyGlobalFont();
-    
+
+    // ============================================
+    // INIT
+    // ============================================
+
+    document.addEventListener('DOMContentLoaded', function() {
+      updateHeaderAvatar();
+      initMobileMenu();
+      initThemeSelector();
+      applyGlobalFont();
+      setTimeout(buildFileTree, 500);
+    });
+
     var fontObserver = new MutationObserver(function() { applyGlobalFont(); });
     fontObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    
+
     function logout() {
       localStorage.removeItem('smartgrade_current');
       window.location.href = 'index.html';
     }
-    
+
     window.logout = logout;
+    window.toggleFolder = toggleFolder;
+    window.buildFileTree = buildFileTree;
   </script>
   <!-- PWA Manager -->
   <script src="js/pwa.js" defer></script>
