@@ -1,10 +1,9 @@
 <!-- ============================================ -->
-<!-- HEADER COMPACT AVEC LOGO ET ALIGNEMENT 2 PAR LIGNE -->
+<!-- BANNIÈRE HEADER - PLEINE LARGEUR -->
 <!-- ============================================ -->
 
-
 <p align="center">
-  <img src="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/header_bg.png" width="80" height="80" alt="SMART GRADE Logo">
+  <img src="./icons/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
 </p>
 
 <p align="center">
@@ -12,7 +11,7 @@
 </p>
 
 <!-- ============================================ -->
-<!-- BANNIÈRE DU PROJET -->
+<!-- BANNIÈRE DU PROJET (optionnelle, tu peux la garder ou l'enlever) -->
 <!-- ============================================ -->
 <p align="center">
   <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
