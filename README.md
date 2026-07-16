@@ -82,58 +82,14 @@
 
 ### Key Numbers
 
-<div align="center" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:700px;margin:0 auto;">
-
-<div style="background:#0f3b48;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-  <div style="font-size:1.8rem;">📚</div>
-  <div style="font-size:2rem;font-weight:800;">14</div>
-  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Subjects</div>
-</div>
-
-<div style="background:#2ecc71;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-  <div style="font-size:1.8rem;">📊</div>
-  <div style="font-size:2rem;font-weight:800;">6</div>
-  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Sequences</div>
-</div>
-
-<div style="background:#e74c3c;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-  <div style="font-size:1.8rem;">🗓️</div>
-  <div style="font-size:2rem;font-weight:800;">3</div>
-  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Terms</div>
-</div>
-
-<div style="background:#f39c12;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-  <div style="font-size:1.8rem;">🏆</div>
-  <div style="font-size:2rem;font-weight:800;">23</div>
-  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Badges</div>
-</div>
-
-<div style="background:#9b59b6;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-  <div style="font-size:1.8rem;">🎨</div>
-  <div style="font-size:2rem;font-weight:800;">20</div>
-  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Themes</div>
-</div>
-
-<div style="background:#1abc9c;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-  <div style="font-size:1.8rem;">🔤</div>
-  <div style="font-size:2rem;font-weight:800;">12</div>
-  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Fonts</div>
-</div>
-
-<div style="background:#00b4d8;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-  <div style="font-size:1.8rem;">🔍</div>
-  <div style="font-size:2rem;font-weight:800;">15</div>
-  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Search Sources</div>
-</div>
-
-<div style="background:#e67e22;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-  <div style="font-size:1.8rem;">🤖</div>
-  <div style="font-size:2rem;font-weight:800;">3</div>
-  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">AI Models</div>
-</div>
-
-</div>
-
+- 📚 **14** Subjects
+- 📊 **6** Sequences
+- 🗓️ **3** Terms
+- 🏆 **23** Badges
+- 🎨 **20** Themes
+- 🔤 **12** Fonts
+- 🔍 **15** Search Sources
+- 🤖 **3** AI Models
 ---
 
 <!-- ============================================ -->
