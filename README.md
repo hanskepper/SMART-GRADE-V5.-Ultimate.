@@ -82,39 +82,55 @@
 
 ### Key Numbers
 
-<div align="center" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:500px;margin:0 auto;">
+<div align="center" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:700px;margin:0 auto;">
 
-  <div>
-    <img src="https://img.shields.io/badge/14-Subjects-3498db?style=for-the-badge&logo=book&logoColor=white" width="180">
-  </div>
+<div style="background:#0f3b48;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  <div style="font-size:1.8rem;">📚</div>
+  <div style="font-size:2rem;font-weight:800;">14</div>
+  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Subjects</div>
+</div>
 
-  <div>
-    <img src="https://img.shields.io/badge/6-Sequences-2ecc71?style=for-the-badge&logo=chart-line&logoColor=white" width="180">
-  </div>
+<div style="background:#2ecc71;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  <div style="font-size:1.8rem;">📊</div>
+  <div style="font-size:2rem;font-weight:800;">6</div>
+  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Sequences</div>
+</div>
 
-  <div>
-    <img src="https://img.shields.io/badge/3-Terms-e74c3c?style=for-the-badge&logo=calendar&logoColor=white" width="180">
-  </div>
+<div style="background:#e74c3c;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  <div style="font-size:1.8rem;">🗓️</div>
+  <div style="font-size:2rem;font-weight:800;">3</div>
+  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Terms</div>
+</div>
 
-  <div>
-    <img src="https://img.shields.io/badge/23-Badges-f39c12?style=for-the-badge&logo=trophy&logoColor=white" width="180">
-  </div>
+<div style="background:#f39c12;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  <div style="font-size:1.8rem;">🏆</div>
+  <div style="font-size:2rem;font-weight:800;">23</div>
+  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Badges</div>
+</div>
 
-  <div>
-    <img src="https://img.shields.io/badge/20-Themes-9b59b6?style=for-the-badge&logo=paintbrush&logoColor=white" width="180">
-  </div>
+<div style="background:#9b59b6;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  <div style="font-size:1.8rem;">🎨</div>
+  <div style="font-size:2rem;font-weight:800;">20</div>
+  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Themes</div>
+</div>
 
-  <div>
-    <img src="https://img.shields.io/badge/12-Fonts-1abc9c?style=for-the-badge&logo=font-awesome&logoColor=white" width="180">
-  </div>
+<div style="background:#1abc9c;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  <div style="font-size:1.8rem;">🔤</div>
+  <div style="font-size:2rem;font-weight:800;">12</div>
+  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Fonts</div>
+</div>
 
-  <div>
-    <img src="https://img.shields.io/badge/15-Search_Sources-00b4d8?style=for-the-badge&logo=google&logoColor=white" width="180">
-  </div>
+<div style="background:#00b4d8;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  <div style="font-size:1.8rem;">🔍</div>
+  <div style="font-size:2rem;font-weight:800;">15</div>
+  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">Search Sources</div>
+</div>
 
-  <div>
-    <img src="https://img.shields.io/badge/3-AI_Models-e67e22?style=for-the-badge&logo=robot&logoColor=white" width="180">
-  </div>
+<div style="background:#e67e22;border-radius:16px;padding:18px 12px;text-align:center;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+  <div style="font-size:1.8rem;">🤖</div>
+  <div style="font-size:2rem;font-weight:800;">3</div>
+  <div style="font-size:0.65rem;opacity:0.8;text-transform:uppercase;letter-spacing:1px;">AI Models</div>
+</div>
 
 </div>
 
