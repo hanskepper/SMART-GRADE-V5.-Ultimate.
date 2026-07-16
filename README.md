@@ -82,16 +82,18 @@
 
 ### Key Numbers
 
-- 📚 **14** Subjects
-- 📊 **6** Sequences
-- 🗓️ **3** Terms
-- 🏆 **23** Badges
-- 🎨 **20** Themes
-- 🔤 **12** Fonts
-- 🔍 **15** Search Sources
-- 🤖 **3** AI Models
----
+<div align="center" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:600px;margin:0 auto;">
 
+<div><strong>📚 14</strong><br><span style="font-size:0.7rem;color:var(--text-light);">Subjects</span></div>
+<div><strong>📊 6</strong><br><span style="font-size:0.7rem;color:var(--text-light);">Sequences</span></div>
+<div><strong>🗓️ 3</strong><br><span style="font-size:0.7rem;color:var(--text-light);">Terms</span></div>
+<div><strong>🏆 23</strong><br><span style="font-size:0.7rem;color:var(--text-light);">Badges</span></div>
+<div><strong>🎨 20</strong><br><span style="font-size:0.7rem;color:var(--text-light);">Themes</span></div>
+<div><strong>🔤 12</strong><br><span style="font-size:0.7rem;color:var(--text-light);">Fonts</span></div>
+<div><strong>🔍 15</strong><br><span style="font-size:0.7rem;color:var(--text-light);">Search Sources</span></div>
+<div><strong>🤖 3</strong><br><span style="font-size:0.7rem;color:var(--text-light);">AI Models</span></div>
+
+</div>
 <!-- ============================================ -->
 <!-- SECTION 2: FEATURES -->
 <!-- ============================================ -->
