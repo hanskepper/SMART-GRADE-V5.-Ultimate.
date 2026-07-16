@@ -3,7 +3,7 @@
 <!-- ============================================ -->
 
 <p align="center">
-  <img src="./icons/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
+  <img src="./icons/header_bg1.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
 </p>
 
 <p align="center">
