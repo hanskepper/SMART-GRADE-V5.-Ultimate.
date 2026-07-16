@@ -4,7 +4,7 @@
 
 
 <p align="center">
-  <img src="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon.png" width="80" height="80" alt="SMART GRADE Logo">
+  <img src="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/header_bg.png" width="80" height="80" alt="SMART GRADE Logo">
 </p>
 
 <p align="center">
