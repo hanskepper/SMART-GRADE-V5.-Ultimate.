@@ -10,6 +10,13 @@
   <img src="https://img.shields.io/badge/SMART_GRADE-v5.0_Ultimate-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="380">
 </p>
 
+<!-- ============================================ -->
+<!-- BANNIÈRE DU PROJET -->
+<!-- ============================================ -->
+<p align="center">
+  <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
+</p>
+
 <p align="center">
   <strong style="font-size:1.1rem;color:#0f3b48;">SIN GBHS FOUMBAN - Form 5B Science</strong><br>
   <span style="font-size:0.9rem;color:#4a627a;">Academic Year 2026-2027</span>
@@ -23,11 +30,17 @@
   <img src="https://img.shields.io/badge/📄-MIT_License-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white" width="160">
 </p>
 
-<!-- SÉPARATEUR -->
+<!-- ============================================ -->
+<!-- SÉPARATEUR - SUR TOUTE LA LIGNE -->
+<!-- ============================================ -->
+
 <p align="center">
-  <img src="https://img.shields.io/badge/─────────────────────-0f3b48?style=for-the-badge" width="400">
+  ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦
 </p>
 
+<!-- ============================================ -->
+<!-- TABLE OF CONTENTS -->
+<!-- ============================================ -->
 <!-- ============================================ -->
 <!-- TABLE OF CONTENTS -->
 <!-- ============================================ -->
