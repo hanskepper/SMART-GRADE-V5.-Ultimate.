@@ -149,12 +149,142 @@
     .toc a:hover {
       color: var(--primary);
     }
+
+    /* ============================================
+       LIEN GITHUB - NE DÉBORDE PAS
+       ============================================ */
+    .github-link {
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      padding: 2px 6px;
+      background: rgba(0,0,0,0.04);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: monospace;
+    }
+
+    .github-link a {
+      color: var(--primary);
+      text-decoration: none;
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+    }
+
+    .github-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 550px) {
+      .github-link {
+        white-space: normal;
+        word-break: break-all;
+        font-size: 0.65rem;
+      }
+      .github-link a {
+        white-space: normal;
+        word-break: break-all;
+      }
+    }
+
+    /* ============================================
+       CONSENTEMENT BANNER
+       ============================================ */
+    #licenseConsentBanner {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 480px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px 24px;
+      border: 2px solid var(--primary);
+      z-index: 1000;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      animation: slideUpBanner 0.4s ease;
+    }
+
+    @keyframes slideUpBanner {
+      from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+
+    #licenseConsentBanner h4 {
+      margin: 0 0 8px 0;
+      color: var(--primary);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #licenseConsentBanner p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    #licenseConsentBanner .banner-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    #licenseConsentBanner .btn-decline {
+      flex: 1;
+      padding: 10px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    #licenseConsentBanner .btn-decline:hover {
+      background: rgba(0,0,0,0.05);
+    }
+
+    #licenseConsentBanner .btn-accept {
+      flex: 1;
+      padding: 10px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    #licenseConsentBanner .btn-accept:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(15,59,72,0.3);
+    }
+
+    body.night-mode #licenseConsentBanner {
+      background: #1a1a2e;
+      border-color: var(--secondary);
+    }
+
     @media (max-width: 550px) {
       .legal-hero h1 { font-size: 1.5rem; }
       .legal-content { padding: 20px; }
       .legal-section h3 { font-size: 0.95rem; }
       .legal-section p, .legal-section li { font-size: 0.75rem; }
       .toc-grid { grid-template-columns: 1fr; }
+      #licenseConsentBanner { padding: 16px 18px; }
+      #licenseConsentBanner .banner-buttons { flex-direction: column; }
     }
   </style>
 </head>
@@ -354,11 +484,17 @@ SOFTWARE.
             <li><i class="fas fa-globe"></i> Translating the application</li>
           </ul>
           <div class="highlight" style="background: rgba(52,152,219,0.1); border-left-color: #3498db; margin-top: 16px;">
-            <i class="fab fa-github"></i> <strong>Repository:</strong> <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate." target="_blank" style="color:var(--primary);">https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate.</a>
+            <i class="fab fa-github"></i> 
+            <strong>Repository:</strong> 
+            <span class="github-link">
+              <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate." target="_blank" rel="noopener noreferrer">
+                https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate.
+              </a>
+            </span>
           </div>
         </div>
         
-        <!-- CONTACT INFORMATION (same style as terms.html) -->
+        <!-- CONTACT INFORMATION -->
         <div id="contact" class="legal-section">
           <h3><i class="fas fa-envelope"></i> Contact Information</h3>
           <p>If you have any questions about this license or the software, please contact the developer:</p>
@@ -392,6 +528,81 @@ SOFTWARE.
   <script src="js/app.js"></script>
   
   <script>
+    // ============================================
+    // CONSENTEMENT INDIVIDUEL PAR COMPTE
+    // ============================================
+
+    function checkLicenseConsent() {
+      var user = getCurrentStudent();
+      if (!user) return;
+
+      var consentKey = 'smartgrade_license_consent_' + user.id;
+      var hasConsented = localStorage.getItem(consentKey);
+
+      if (!hasConsented) {
+        showConsentBanner(user);
+      }
+    }
+
+    function showConsentBanner(user) {
+      var existingBanner = document.getElementById('licenseConsentBanner');
+      if (existingBanner) existingBanner.remove();
+
+      var banner = document.createElement('div');
+      banner.id = 'licenseConsentBanner';
+      
+      banner.innerHTML = `
+        <h4><i class="fas fa-balance-scale"></i> License Agreement</h4>
+        <p>
+          <strong>${user.name}</strong>, please accept the MIT License terms to continue using SMART GRADE.
+          <br><br>
+          <span style="font-size:0.65rem;opacity:0.7;">You only need to accept once per account.</span>
+        </p>
+        <div class="banner-buttons">
+          <button class="btn-decline" onclick="declineLicense()">
+            <i class="fas fa-times"></i> Decline
+          </button>
+          <button class="btn-accept" onclick="acceptLicense()">
+            <i class="fas fa-check"></i> Accept & Continue
+          </button>
+        </div>
+      `;
+
+      document.body.appendChild(banner);
+    }
+
+    function acceptLicense() {
+      var user = getCurrentStudent();
+      if (!user) return;
+
+      var consentKey = 'smartgrade_license_consent_' + user.id;
+      localStorage.setItem(consentKey, 'true');
+
+      var banner = document.getElementById('licenseConsentBanner');
+      if (banner) banner.remove();
+
+      showToast('License accepted!');
+      
+      if (typeof addNotification === 'function') {
+        addNotification('account', 'License Accepted', 'You have accepted the MIT License for SMART GRADE.');
+      }
+    }
+
+    function declineLicense() {
+      var banner = document.getElementById('licenseConsentBanner');
+      if (banner) banner.remove();
+
+      showToast('You must accept the license to use SMART GRADE.');
+      
+      setTimeout(function() {
+        window.location.href = 'index.html';
+      }, 2000);
+    }
+
+    // ============================================
+    // AVATAR, FONT, MENU
+    // ============================================
+
     function updateHeaderAvatar() {
       try {
         var stored = localStorage.getItem('smartgrade_current');
@@ -405,7 +616,7 @@ SOFTWARE.
         }
       } catch(e) {}
     }
-    
+
     function applyGlobalFont() {
       var savedFont = localStorage.getItem('smartgrade_font_family') || 'inter';
       var fontMap = {
@@ -417,14 +628,43 @@ SOFTWARE.
       };
       document.body.style.fontFamily = fontMap[savedFont] || 'Inter, sans-serif';
     }
-    
-    updateHeaderAvatar();
-    initMobileMenu();
-    initThemeSelector();
-    applyGlobalFont();
-    
+
+    function showToast(message) {
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+      container.appendChild(toast);
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        setTimeout(function() { if (toast.parentNode) toast.remove(); }, 300);
+      }, 3000);
+    }
+
+    // ============================================
+    // INIT
+    // ============================================
+
+    document.addEventListener('DOMContentLoaded', function() {
+      updateHeaderAvatar();
+      initMobileMenu();
+      initThemeSelector();
+      applyGlobalFont();
+      
+      setTimeout(checkLicenseConsent, 500);
+    });
+
     var fontObserver = new MutationObserver(function() { applyGlobalFont(); });
     fontObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    function logout() {
+      localStorage.removeItem('smartgrade_current');
+      window.location.href = 'index.html';
+    }
+
+    window.logout = logout;
+    window.acceptLicense = acceptLicense;
+    window.declineLicense = declineLicense;
   </script>
   <!-- PWA Manager -->
   <script src="js/pwa.js" defer></script>
