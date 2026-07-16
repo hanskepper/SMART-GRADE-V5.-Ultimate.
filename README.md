@@ -23,13 +23,6 @@
   <img src="https://img.shields.io/badge/📄-MIT_License-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white" width="160">
 </p>
 
-<!-- LIVE DEMO CENTRÉ -->
-<p align="center">
-  <a href="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
-    <img src="https://img.shields.io/badge/🌐-Live_Demo-0f3b48?style=for-the-badge&logo=githubpages&logoColor=white" width="220">
-  </a>
-</p>
-
 <!-- SÉPARATEUR -->
 <p align="center">
   <img src="https://img.shields.io/badge/─────────────────────-0f3b48?style=for-the-badge" width="400">
