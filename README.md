@@ -2,6 +2,7 @@
 <!-- HEADER COMPACT AVEC LOGO ET ALIGNEMENT 2 PAR LIGNE -->
 <!-- ============================================ -->
 
+
 <p align="center">
   <img src="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./icons/icon.png" width="80" height="80" alt="SMART GRADE Logo">
 </p>
