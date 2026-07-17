@@ -7,6 +7,9 @@
   <img src="./icons/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
 </p>
 
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0f3b48&height=150&section=header&text=SMART%20GRADE&fontSize=50&fontColor=ffffff&animation=twinkling" width="100%">
+</div>
 
 <p align="center">
   <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
