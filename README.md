@@ -12,10 +12,6 @@
 </div>
 
 <p align="center">
-  <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
-</p>
-
-<p align="center">
   <strong style="font-size:1.1rem;color:#0f3b48;">SIN GBHS FOUMBAN - Form 5B Science</strong><br>
   <span style="font-size:0.9rem;color:#4a627a;">Academic Year 2026-2027</span>
 </p>
@@ -35,6 +31,11 @@
   <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate./stargazers">
     <img src="https://img.shields.io/badge/Stars-2-0f3b48?style=flat-square&logo=github&logoColor=white">
   </a>
+<p align="center">
+  <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
+</p>
+
+
 <!-- ============================================ -->
 <!-- STATISTIQUES SMART GRADE -->
 <!-- ============================================ -->
