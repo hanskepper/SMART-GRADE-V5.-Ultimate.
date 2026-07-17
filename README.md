@@ -1,19 +1,21 @@
-
 <!-- ============================================ -->
-<!-- BANNIÈRE HEADER - PLEINE LARGEUR -->
+<!-- HEADER SMART GRADE - BANNIÈRE + ANIMATION -->
 <!-- ============================================ -->
 
+<!-- Bannière -->
 <p align="center">
   <img src="./icons/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
 </p>
 
+<!-- Titre animé -->
 <p align="center">
-  <img src="https://img.shields.io/badge/SMART_GRADE-v5.0_Ultimate-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="380">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=3000&pause=500&color=00B4D8&center=true&vCenter=true&width=500&height=60&lines=SMART+GRADE" alt="SMART GRADE">
 </p>
 
-<!-- ============================================ -->
-<!-- BANNIÈRE DU PROJET (optionnelle, tu peux la garder ou l'enlever) -->
-<!-- ============================================ -->
+<!-- Slogan animé -->
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&duration=3000&pause=1000&color=8AB4D8&center=true&vCenter=true&width=500&height=40&lines=Study+Smart.+Achieve+More.+Be+The+Best." alt="SMART GRADE Slogan">
+</p>
 <p align="center">
   <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
 </p>
