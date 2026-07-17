@@ -58,6 +58,32 @@
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=hanskepper&bg_color=0f3b48&color=00b4d8&line=00ffff&point=ffffff&area=true&hide_border=false" width="100%" height="auto" style="border-radius: 10px; margin-top: 5px;"/>
 
 </div>
+## 📊 GitHub Statistics
+
+<div align="center">
+
+<!-- Carte des contributions -->
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=hanskepper&theme=prussian" width="96%" height="auto">
+
+<!-- Langues par repo -->
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=hanskepper&theme=prussian" width="48%" height="auto" style="display: inline;"/>
+
+<!-- Langues par commit -->
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=hanskepper&theme=prussian" width="48%" height="auto" style="display: inline;"/>
+
+<!-- Statistiques générales -->
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=hanskepper&theme=prussian" width="48%" height="auto" style="display: inline;"/>
+
+<!-- Heures de productivité -->
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=hanskepper&theme=prussian&utcOffset=+1" width="48%" height="auto" style="display: inline;"/>
+
+<!-- Graphique d'activité -->
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=hanskepper&bg_color=0f3b48&color=00b4d8&line=00ffff&point=ffffff&area=true&hide_border=false" width="96%" height="auto">
+
+</div>
+
+---
+
 <!-- TABLE OF CONTENTS -->
 <!-- ============================================ -->
 
