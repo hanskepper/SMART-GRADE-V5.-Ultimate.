@@ -40,7 +40,7 @@
 <!-- STATISTIQUES SMART GRADE -->
 <!-- ============================================ -->
 
-## 📊 SMART GRADE Statistics
+## 📊 SMART GRADE Developer Statistics
 
 <div align="center" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
 
