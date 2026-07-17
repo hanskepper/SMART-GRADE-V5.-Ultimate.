@@ -6,13 +6,7 @@
 <p align="center">
   <img src="./icons/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
 </p>
-<!-- ============================================ -->
-<!-- HEADER SMART GRADE - VAGUE + SOUS-TITRE -->
-<!-- ============================================ -->
 
-<div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0f3b48&height=220&section=header&text=SMART%20GRADE&fontSize=50&fontColor=ffffff&animation=fadeIn&desc=V5.0%20Ultimate&descSize=20&descAlignY=60" width="100%">
-</div>
 
 <p align="center">
   <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
