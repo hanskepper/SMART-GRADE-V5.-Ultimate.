@@ -24,14 +24,20 @@
 </p>
 
 <!-- BADGES 2 PAR LIGNE -->
+<!-- ============================================ -->
+<!-- BADGES SMART GRADE -->
+<!-- ============================================ -->
+
 <p align="center">
-  <img src="https://img.shields.io/badge/📦-PWA_Enabled-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" width="160">
-  <img src="https://img.shields.io/badge/📱-Offline_Ready-2ecc71?style=for-the-badge&logo=googlechrome&logoColor=white" width="160"><br>
-  <img src="https://img.shields.io/badge/⭐-Stars-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="160">
-  <img src="https://img.shields.io/badge/📄-MIT_License-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white" width="160">
-</p>
-
-
+  <a href="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
+    <img src="https://img.shields.io/badge/PWA_Enabled-5A0FC8?style=flat-square&logo=pwa&logoColor=white">
+  </a>
+  <a href="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
+    <img src="https://img.shields.io/badge/Offline_Ready-2ecc71?style=flat-square&logo=googlechrome&logoColor=white">
+  </a>
+  <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate./stargazers">
+    <img src="https://img.shields.io/badge/Stars-2-0f3b48?style=flat-square&logo=github&logoColor=white">
+  </a>
 <!-- ============================================ -->
 <!-- STATISTIQUES SMART GRADE -->
 <!-- ============================================ -->
