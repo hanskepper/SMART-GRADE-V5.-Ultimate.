@@ -6,16 +6,14 @@
 <p align="center">
   <img src="./icons/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
 </p>
+<!-- ============================================ -->
+<!-- HEADER SMART GRADE - VAGUE + SOUS-TITRE -->
+<!-- ============================================ -->
 
-<!-- Titre animé -->
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=3000&pause=500&color=00B4D8&center=true&vCenter=true&width=500&height=60&lines=SMART+GRADE" alt="SMART GRADE">
-</p>
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0f3b48&height=220&section=header&text=SMART%20GRADE&fontSize=50&fontColor=ffffff&animation=fadeIn&desc=V5.0%20Ultimate&descSize=20&descAlignY=60" width="100%">
+</div>
 
-<!-- Slogan animé -->
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&duration=3000&pause=1000&color=8AB4D8&center=true&vCenter=true&width=500&height=40&lines=Study+Smart.+Achieve+More.+Be+The+Best." alt="SMART GRADE Slogan">
-</p>
 <p align="center">
   <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
 </p>
