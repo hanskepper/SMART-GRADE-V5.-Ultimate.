@@ -1,45 +1,34 @@
 // ============================================
 // SMART GRADE v5.0 - CONFIGURATION
 // ============================================
+// ⚠️ Les tokens sont injectés par GitHub Actions
+// Ne pas modifier cette section manuellement
+// ============================================
 
 var APP_CONFIG = {
-  // 🔑 TOKEN GITHUB (fractionné)
-  githubTokenPart1: 'ghp_RKHqkcc2T5CNnzH1D3Svt8iYFuI0ld1',
-  githubTokenPart2: '1HSRw',
+  // Ces valeurs sont remplacées par GitHub Actions au moment du build
+  githubToken: '',
+  groqToken: '',
+  mistralToken: '',
   
-  // 📦 GISTS SÉPARÉS
-  gists: {
-    transfer: 'cee23be9d46c872a81061f3b2b986fa1',
-    homeworks: null,
-    chat: 'c5aecf9b63facc6fa6af50eee3dd4b1b',
-    universal: '63e5bc65589c1ce622459ab48c167a1b'
-  },
-  
-  // 📱 VERSION
+  // Informations statiques
   version: '5.0',
   codename: 'Ultimate',
-  buildDate: '2026-07-08',
-  
-  // 🏫 ÉCOLE
   school: 'SIN GBHS FOUMBAN',
   className: 'Form 5B Science',
   academicYear: '2026-2027',
-  
-  // 👨‍💻 DÉVELOPPEUR
   developer: 'HANS KEPPER',
   email: 'hanskepper52@gmail.com',
   phone: '+237 698 640 885',
   country: 'Cameroon',
   github: 'hanskepper',
   
-  // 📚 TRIMESTRES
   terms: [
     { id: 1, name: 'Term 1', sequences: [1, 2], months: 'Sep-Dec' },
     { id: 2, name: 'Term 2', sequences: [3, 4], months: 'Jan-Mar' },
     { id: 3, name: 'Term 3', sequences: [5, 6], months: 'Apr-Jun' }
   ],
   
-  // 📊 NOTES
   grading: {
     max: 20,
     min: 0,
@@ -56,7 +45,6 @@ var APP_CONFIG = {
     ]
   },
   
-  // ⏱️ LIMITES
   limits: {
     maxSubjectsPerTerm: 14,
     minSubjectsPerTerm: 10,
@@ -73,13 +61,11 @@ var APP_CONFIG = {
     maxBackups: 20
   },
   
-  // 🔥 STREAKS
   streaks: {
     milestones: [3, 7, 15, 30],
     names: ['Beginner', 'Regular', 'Dedicated', 'Legendary']
   },
   
-  // 🎨 THÈMES (20)
   themes: [
     { name: 'default', color: '#0f3b48', label: 'Deep Teal' },
     { name: 'crimson', color: '#c0392b', label: 'Crimson' },
@@ -103,7 +89,6 @@ var APP_CONFIG = {
     { name: 'lime', color: '#558b2f', label: 'Lime' }
   ],
   
-  // 🔤 POLICES (12)
   fonts: [
     { id: 'inter', name: 'Inter', google: 'Inter' },
     { id: 'roboto', name: 'Roboto', google: 'Roboto' },
@@ -119,7 +104,6 @@ var APP_CONFIG = {
     { id: 'righteous', name: 'Righteous', google: 'Righteous' }
   ],
   
-  // 🌙 MODE NUIT
   nightMode: {
     active: true,
     startHour: 20,
@@ -127,7 +111,6 @@ var APP_CONFIG = {
     autoMode: true
   },
   
-  // 🛠️ FONCTIONNALITÉS
   features: {
     pwa: true,
     offline: true,
@@ -155,52 +138,4 @@ var APP_CONFIG = {
   }
 };
 
-// ============================================
-// FONCTIONS UTILITAIRES
-// ============================================
-
-function getGithubToken() {
-  return APP_CONFIG.githubTokenPart1 + APP_CONFIG.githubTokenPart2;
-}
-
-function getGistId(type) {
-  if (type && APP_CONFIG.gists[type]) {
-    return APP_CONFIG.gists[type];
-  }
-  return APP_CONFIG.gists.universal || APP_CONFIG.gistId;
-}
-
-function getConfig() {
-  return APP_CONFIG;
-}
-
-function getVersion() {
-  return APP_CONFIG.version + ' ' + APP_CONFIG.codename;
-}
-
-function getSchoolInfo() {
-  return APP_CONFIG.school + ' - ' + APP_CONFIG.className;
-}
-
-function isFeatureEnabled(feature) {
-  return APP_CONFIG.features[feature] === true;
-}
-
-function getThemes() {
-  return APP_CONFIG.themes;
-}
-
-function getFonts() {
-  return APP_CONFIG.fonts;
-}
-
-// ============================================
-// EXPORT (pour Node.js)
-// ============================================
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = APP_CONFIG;
-}
-
-console.log('[Config] SMART GRADE v' + APP_CONFIG.version);
-console.log('[Config] Gist Chat:', APP_CONFIG.gists.chat || 'Non configuré');
+console.log('[Config] SMART GRADE v' + APP_CONFIG.version + ' loaded');
