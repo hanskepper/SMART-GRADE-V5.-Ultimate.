@@ -1,0 +1,41 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create config file
+        run: |
+          echo "// ============================================" > congfig.js
+          echo "// SMART GRADE v5.0 - CONFIGURATION" >> congfig.js
+          echo "// Généré automatiquement par GitHub Actions" >> congfig.js
+          echo "// ============================================" >> congfig.js
+          echo "" >> congfig.js
+          echo "var APP_CONFIG = {" >> congfig.js
+          echo "  githubToken: '${{ secrets.GH_TOKEN }}'," >> congfig.js
+          echo "  groqToken: '${{ secrets.GROQ_TOKEN }}'," >> congfig.js
+          echo "  mistralToken: '${{ secrets.MISTRAL_TOKEN }}'," >> congfig.js
+          echo "  version: '5.0'," >> congfig.js
+          echo "  codename: 'Ultimate'," >> congfig.js
+          echo "  school: 'SIN GBHS FOUMBAN'," >> congfig.js
+          echo "  className: 'Form 5B Science'," >> congfig.js
+          echo "  academicYear: '2026-2027'" >> congfig.js
+          echo "};" >> congfig.js
+          echo "" >> congfig.js
+          echo "console.log('[Config] SMART GRADE v' + APP_CONFIG.version);" >> congfig.js
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
