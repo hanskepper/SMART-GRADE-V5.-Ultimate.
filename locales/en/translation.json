@@ -49,8 +49,15 @@
     "password": "Password",
     "remember_me": "Remember me",
     "fingerprint": "Fingerprint login",
+    "fingerprint_available": "Fingerprint available",
     "or": "or",
-    "continue": "Continue"
+    "or_use_pin": "OR USE PIN",
+    "continue": "Continue",
+    "select_account": "Select Account",
+    "enter_pin": "Enter PIN",
+    "no_account": "Don't have an account?",
+    "create_account": "Create one",
+    "no_accounts_html": "No accounts found. <a href=\"register.html\">Create one</a>"
   },
   "common": {
     "save": "Save",
@@ -71,7 +78,11 @@
     "theme": "Theme",
     "settings": "Settings",
     "loading": "Loading...",
-    "no_data": "No data available"
+    "no_data": "No data available",
+    "install": "Install",
+    "install_button": "Install",
+    "show_all": "Show all",
+    "show_less": "Show less"
   },
   "errors": {
     "401_title": "401 - Unauthorized",
@@ -110,7 +121,19 @@
     "login_error": "Login failed. Check credentials.",
     "logout_success": "Logged out.",
     "no_internet": "No internet connection.",
-    "sync_complete": "Sync complete."
+    "sync_complete": "Sync complete.",
+    "welcome_name": "Welcome back, {name}!",
+    "welcome_short": "Welcome {name}!",
+    "select_account_first": "Please select an account first",
+    "invalid_pin": "Please enter a valid 4-digit PIN",
+    "no_fingerprint_account": "No fingerprint account available"
+  },
+  "notifications": {
+    "login_success_title": "Login Successful",
+    "login_success_body": "Welcome back, {name}!"
+  },
+  "history": {
+    "login_success": "Login successful"
   },
   "legal": {
     "last_updated": "Last updated",

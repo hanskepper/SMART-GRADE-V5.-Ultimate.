@@ -49,8 +49,15 @@
     "password": "Mot de passe",
     "remember_me": "Se souvenir de moi",
     "fingerprint": "Connexion par empreinte",
+    "fingerprint_available": "Empreinte disponible",
     "or": "ou",
-    "continue": "Continuer"
+    "or_use_pin": "OU UTILISER LE PIN",
+    "continue": "Continuer",
+    "select_account": "Sélectionner un compte",
+    "enter_pin": "Saisir le PIN",
+    "no_account": "Vous n'avez pas de compte ?",
+    "create_account": "Créez-en un",
+    "no_accounts_html": "Aucun compte trouvé. <a href=\"register.html\">Créez-en un</a>"
   },
   "common": {
     "save": "Enregistrer",
@@ -71,7 +78,11 @@
     "theme": "Thème",
     "settings": "Paramètres",
     "loading": "Chargement...",
-    "no_data": "Aucune donnée disponible"
+    "no_data": "Aucune donnée disponible",
+    "install": "Installer",
+    "install_button": "Installer",
+    "show_all": "Voir tout",
+    "show_less": "Voir moins"
   },
   "errors": {
     "401_title": "401 - Non autorisé",
@@ -110,7 +121,19 @@
     "login_error": "Échec de la connexion. Vérifiez vos identifiants.",
     "logout_success": "Déconnecté.",
     "no_internet": "Pas de connexion internet.",
-    "sync_complete": "Synchronisation terminée."
+    "sync_complete": "Synchronisation terminée.",
+    "welcome_name": "Bon retour, {name}!",
+    "welcome_short": "Bienvenue {name}!",
+    "select_account_first": "Veuillez d'abord sélectionner un compte",
+    "invalid_pin": "Veuillez entrer un code PIN valide à 4 chiffres",
+    "no_fingerprint_account": "Aucun compte avec empreinte disponible"
+  },
+  "notifications": {
+    "login_success_title": "Connexion réussie",
+    "login_success_body": "Bon retour, {name}!"
+  },
+  "history": {
+    "login_success": "Connexion réussie"
   },
   "legal": {
     "last_updated": "Dernière mise à jour",
