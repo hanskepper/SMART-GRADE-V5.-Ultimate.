@@ -95,18 +95,27 @@
 
 > **SMART GRADE** is a complete **Progressive Web Application (PWA)** for grade management, designed specifically for **SIN GBHS FOUMBAN Form 5B Science** students. The application works **100% offline** after first installation and stores all data locally on the user's device.
 
-### 📱 App Screenshots
+<!-- ============================================ -->
+<!-- CAPTURES D'ÉCRAN - VERSION CORRIGÉE -->
+<!-- ============================================ -->
+
+## 📸 App Screenshots
 
 <div align="center">
 
-| | | |
-|---|---|---|
-| **Home** | **Login** | **Register** |
-| <img src="./images/home.png" width="200"> | <img src="./images/login.png" width="200"> | <img src="./images/register.png" width="200"> |
-| **Dashboard** | | |
-| <img src="./images/dashboard.png" width="200"> | | |
+| Home | Login | Register |
+|:---:|:---:|:---:|
+| <img src="./images/home.png" alt="Home" width="200"> | <img src="./images/login.png" alt="Login" width="200"> | <img src="./images/register.png" alt="Register" width="200"> |
+
+| Dashboard |
+|:---:|
+| <img src="./images/dashboard.png" alt="Dashboard" width="600"> |
 
 </div>
+
+<p align="center">
+  <em>SMART GRADE - Available on all devices</em>
+</p>
 
 ### School Information
 
