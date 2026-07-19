@@ -232,8 +232,7 @@
         var displayStudents=showAllFlag?sorted:sorted.slice(0,3);
         var html=displayStudents.map(function(x){
           var avatarHtml = getStudentAvatarHtml(x.id);
-          var fpIcon=x.hasFingerprint?' <span class="sa-fp"><i class="fas fa-fingerprint"></i></span>':'
-';
+          var fpIcon=x.hasFingerprint?' <span class="sa-fp"><i class="fas fa-fingerprint"></i></span>':'\n';
           var isSelected=selectedUserId===x.id;
           return'<div class="student-item-row'+(isSelected?' selected':'')+'" data-id="'+x.id+'" onclick="selectStudent('+x.id+',this)">'+
             '<div class="sa-avatar">'+avatarHtml+'</div>'+
