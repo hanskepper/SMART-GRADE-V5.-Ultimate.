@@ -1243,14 +1243,18 @@ console.log(badge.name);  // "First Grade"</code>
   
   <script>
     // ============================================
-    // DYNAMIC FILE STRUCTURE - GITHUB API
+    // DYNAMIC FILE STRUCTURE - GITHUB API (RÉCURSIF)
     // ============================================
 
     const REPO_OWNER = 'hanskepper';
     const REPO_NAME = 'SMART-GRADE-V5.-Ultimate.';
     const BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/`;
 
-    async function getFolderContents(path = '') {
+    // ============================================
+    // RÉCUPÉRER LE CONTENU D'UN DOSSIER
+    // ============================================
+
+    async function getFolderContentsRecursive(path = '') {
       const url = path ? `${BASE_URL}${path}` : BASE_URL;
       try {
         const response = await fetch(url, {
@@ -1263,6 +1267,42 @@ console.log(badge.name);  // "First Grade"</code>
         return null;
       }
     }
+
+    // ============================================
+    // EXPLORER UN DOSSIER (récursif)
+    // ============================================
+
+    async function exploreFolder(path, name) {
+      const items = await getFolderContentsRecursive(path);
+      if (!items) return { name: name, path: path, type: 'dir', children: [], subFolders: [] };
+
+      const children = [];
+      const subFolders = [];
+
+      for (const item of items) {
+        if (item.type === 'dir') {
+          const subTree = await exploreFolder(item.path, item.name);
+          subFolders.push(subTree);
+        } else if (item.type === 'file') {
+          children.push(item.name);
+        }
+      }
+
+      subFolders.sort((a, b) => a.name.localeCompare(b.name));
+      children.sort();
+
+      return {
+        name: name,
+        path: path,
+        type: 'dir',
+        children: children,
+        subFolders: subFolders
+      };
+    }
+
+    // ============================================
+    // ICÔNES PAR EXTENSION
+    // ============================================
 
     function getIconForFile(filename) {
       const ext = filename.split('.').pop().toLowerCase();
@@ -1285,10 +1325,65 @@ console.log(badge.name);  // "First Grade"</code>
         'gz': 'fa-file-archive',
         'map': 'fa-sitemap',
         'webmanifest': 'fa-file-code',
-        'gitignore': 'fa-code'
+        'gitignore': 'fa-code',
+        'yml': 'fa-code',
+        'yaml': 'fa-code'
       };
       return icons[ext] || 'fa-file';
     }
+
+    // ============================================
+    // AFFICHER UN DOSSIER (récursif)
+    // ============================================
+
+    function renderFolder(folder) {
+      let totalFiles = folder.children.length;
+      for (const sub of folder.subFolders) {
+        totalFiles += sub.children.length;
+      }
+
+      let html = `
+        <div class="tree-folder">
+          <div class="tree-folder-header" onclick="toggleFolder(this)">
+            <i class="fas fa-chevron-right tree-arrow"></i>
+            <i class="fas fa-folder tree-folder-icon"></i>
+            <span class="tree-folder-name">${folder.name}</span>
+            <span class="tree-folder-count">${totalFiles}</span>
+          </div>
+          <div class="tree-folder-content">
+      `;
+
+      // Sous-dossiers
+      for (const sub of folder.subFolders) {
+        html += renderFolder(sub);
+      }
+
+      // Fichiers
+      if (folder.children.length > 0) {
+        html += `<div class="tree-files-grid">`;
+        for (const file of folder.children) {
+          const icon = getIconForFile(file);
+          html += `
+            <div class="tree-file">
+              <i class="fas ${icon}"></i>
+              <span>${file}</span>
+            </div>
+          `;
+        }
+        html += `</div>`;
+      }
+
+      html += `
+          </div>
+        </div>
+      `;
+
+      return html;
+    }
+
+    // ============================================
+    // CONSTRUIRE L'ARBRE COMPLET
+    // ============================================
 
     async function buildFileTree() {
       const container = document.getElementById('fileTreeContainer');
@@ -1308,18 +1403,22 @@ console.log(badge.name);  // "First Grade"</code>
       `;
 
       try {
-        const rootItems = await getFolderContents('');
+        const rootItems = await getFolderContentsRecursive('');
         if (!rootItems) throw new Error('Could not fetch root');
 
         const folders = [];
         const rootFiles = [];
 
         for (const item of rootItems) {
-          if (item.type === 'dir') folders.push(item.name);
-          else if (item.type === 'file') rootFiles.push(item.name);
+          if (item.type === 'dir') {
+            const folderTree = await exploreFolder(item.path, item.name);
+            folders.push(folderTree);
+          } else if (item.type === 'file') {
+            rootFiles.push(item.name);
+          }
         }
 
-        folders.sort((a, b) => a.localeCompare(b));
+        folders.sort((a, b) => a.name.localeCompare(b.name));
         rootFiles.sort();
 
         let html = `
@@ -1333,38 +1432,10 @@ console.log(badge.name);  // "First Grade"</code>
         `;
 
         for (const folder of folders) {
-          const subItems = await getFolderContents(folder);
-          const files = subItems ? subItems.filter(f => f.type === 'file').map(f => f.name).sort() : [];
-
-          html += `
-            <div class="tree-folder">
-              <div class="tree-folder-header" onclick="toggleFolder(this)">
-                <i class="fas fa-chevron-right tree-arrow"></i>
-                <i class="fas fa-folder tree-folder-icon"></i>
-                <span class="tree-folder-name">${folder}</span>
-                <span class="tree-folder-count">${files.length}</span>
-              </div>
-              <div class="tree-folder-content">
-                <div class="tree-files-grid">
-          `;
-
-          for (const file of files) {
-            const icon = getIconForFile(file);
-            html += `
-              <div class="tree-file">
-                <i class="fas ${icon}"></i>
-                <span>${file}</span>
-              </div>
-            `;
-          }
-
-          html += `
-                </div>
-              </div>
-            </div>
-          `;
+          html += renderFolder(folder);
         }
 
+        // Fichiers racine
         if (rootFiles.length > 0) {
           html += `
             <div class="tree-folder">
@@ -1420,6 +1491,10 @@ console.log(badge.name);  // "First Grade"</code>
         `;
       }
     }
+
+    // ============================================
+    // FONCTION TOGGLE
+    // ============================================
 
     function toggleFolder(header) {
       header.classList.toggle('open');
@@ -1482,6 +1557,8 @@ console.log(badge.name);  // "First Grade"</code>
     window.logout = logout;
     window.toggleFolder = toggleFolder;
     window.buildFileTree = buildFileTree;
+    window.exploreFolder = exploreFolder;
+    window.getFolderContentsRecursive = getFolderContentsRecursive;
   </script>
   <!-- PWA Manager -->
   <script src="js/pwa.js" defer></script>
