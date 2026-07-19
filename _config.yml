@@ -1,3 +1,93 @@
-theme: jekyll-theme-cayman
+# ============================================
+# SMART GRADE - Jekyll Configuration
+# ============================================
+
+# Informations du site
 title: SMART GRADE
-description: PWA pour SIN GBHS FOUMBAN Form 5B Science
+description: Ultimate Grade Management System for SIN GBHS FOUMBAN - Form 5B Science
+url: https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate.
+baseurl: /SMART-GRADE-V5.-Ultimate.
+
+# ============================================
+# THÈME JEKYLL
+# ============================================
+
+# Thème officiel GitHub Pages
+remote_theme: pages-themes/cayman@v0.2.0
+
+# Plugins
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# ============================================
+# PARAMÈTRES DU THÈME
+# ============================================
+
+# Personnalisation du thème Cayman
+show_downloads: false
+google_analytics: 
+
+# ============================================
+# PARAMÈTRES GÉNÉRAUX
+# ============================================
+
+# Permalink
+permalink: pretty
+
+# Exclure certains fichiers du build
+exclude:
+  - node_modules
+  - .git
+  - .github
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE.md
+  - SECURITY.md
+  - CODE_OF_CONDUCT.md
+  - CONTRIBUTING.md
+  - .gitignore
+  - .gitattributes
+
+# Inclure ces fichiers
+include:
+  - _pages
+  - .htaccess
+
+# Marqueurs
+markdown: kramdown
+highlighter: rouge
+
+# ============================================
+# MÉTADONNÉES
+# ============================================
+
+# SEO
+lang: en
+author: HANS KEPPER
+email: hanskepper52@gmail.com
+
+social:
+  name: SMART GRADE
+  links:
+    - https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate.
+    - https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./
+
+# ============================================
+# COLLECTIONS (pour organiser les pages)
+# ============================================
+
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "docs"
+    values:
+      layout: "default"
