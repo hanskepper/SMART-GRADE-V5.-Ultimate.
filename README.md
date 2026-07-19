@@ -95,6 +95,19 @@
 
 > **SMART GRADE** is a complete **Progressive Web Application (PWA)** for grade management, designed specifically for **SIN GBHS FOUMBAN Form 5B Science** students. The application works **100% offline** after first installation and stores all data locally on the user's device.
 
+### 📱 App Screenshots
+
+<div align="center">
+
+| | | |
+|---|---|---|
+| **Home** | **Login** | **Register** |
+| <img src="./images/home.png" width="200"> | <img src="./images/login.png" width="200"> | <img src="./images/register.png" width="200"> |
+| **Dashboard** | | |
+| <img src="./images/dashboard.png" width="200"> | | |
+
+</div>
+
 ### School Information
 
 | Field | Value |
@@ -103,7 +116,6 @@
 | **Class** | Form 5B Science |
 | **Academic Year** | 2026-2027 |
 | **Location** | Foumban, West Region, Cameroon |
-
 ### Key Numbers
 
 - 📚 **14** Subjects
