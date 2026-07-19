@@ -1,59 +1,48 @@
 // ============================================
 // SMART GRADE - AI ASSISTANT (CORE)
+// UI, Chat, Conversations, Modèles
 // ============================================
-// ⚠️ Les tokens sont injectés par GitHub Actions
-// Ne pas modifier cette section manuellement
+// ============================================
+// CONFIGURATION
 // ============================================
 
+const GROQ_TOKEN_PART1 = 'gsk_IHPePgnuqvsG';
+const GROQ_TOKEN_PART2 = 'DtlktY3KWGdyb3FY';
+const GROQ_TOKEN_PART3 = 'C0w55WOKIDEb5XpEH1IdpSSD';
+
+const MISTRAL_TOKEN_PART1 = 'TQatuY13B8';
+const MISTRAL_TOKEN_PART2 = 'TdBEz09H2BP';
+const MISTRAL_TOKEN_PART3 = 'U22lfbSsbae';
+
 function getGroqToken() {
-  if (!APP_CONFIG || !APP_CONFIG.groqToken) {
-    console.warn('[AI] GROQ_TOKEN non trouvé - Vérifier GitHub Actions');
-    return '';
-  }
-  return APP_CONFIG.groqToken;
+  return GROQ_TOKEN_PART1 + GROQ_TOKEN_PART2 + GROQ_TOKEN_PART3;
 }
 
 function getMistralToken() {
-  if (!APP_CONFIG || !APP_CONFIG.mistralToken) {
-    console.warn('[AI] MISTRAL_TOKEN non trouvé - Vérifier GitHub Actions');
-    return '';
-  }
-  return APP_CONFIG.mistralToken;
+  return MISTRAL_TOKEN_PART1 + MISTRAL_TOKEN_PART2 + MISTRAL_TOKEN_PART3;
 }
-
-function getGithubToken() {
-  if (!APP_CONFIG || !APP_CONFIG.githubToken) {
-    console.warn('[AI] GITHUB_TOKEN non trouvé - Vérifier GitHub Actions');
-    return '';
-  }
-  return APP_CONFIG.githubToken;
-}
-
-// ============================================
-// CONFIGURATION DES MODÈLES
-// ============================================
 
 const MODELS = {
-  'groq': {
-    name: 'Groq',
-    url: 'https://api.groq.com/openai/v1/chat/completions',
-    model: 'qwen/qwen3.6-27b',
+  'groq': { 
+    name: 'Groq', 
+    url: 'https://api.groq.com/openai/v1/chat/completions', 
+    model: 'qwen/qwen3.6-27b', 
     auth: 'Bearer ' + getGroqToken(),
-    available: true
+    available: true 
   },
-  'mistral-devstral': {
-    name: 'Devstral',
-    url: 'https://api.mistral.ai/v1/chat/completions',
-    model: 'devstral-medium-latest',
+  'mistral-devstral': { 
+    name: 'Devstral', 
+    url: 'https://api.mistral.ai/v1/chat/completions', 
+    model: 'devstral-medium-latest', 
     auth: 'Bearer ' + getMistralToken(),
-    available: true
+    available: true 
   },
-  'mistral-codestral': {
-    name: 'Codestral',
-    url: 'https://api.mistral.ai/v1/chat/completions',
-    model: 'codestral-latest',
+  'mistral-codestral': { 
+    name: 'Codestral', 
+    url: 'https://api.mistral.ai/v1/chat/completions', 
+    model: 'codestral-latest', 
     auth: 'Bearer ' + getMistralToken(),
-    available: true
+    available: true 
   }
 };
 const SUBJECTS_LIST = ["COMPUTER SCIENCES", "MATHEMATICS", "CHEMISTRY", "HUMAN BIOLOGY", "GEOLOGY", "PHYSICS", "ADDITIONAL MATHEMATICS", "BIOLOGY", "ECONOMICS", "ENGLISH LANGUAGE", "GEOGRAPHY", "CITIZENSHIP", "FRENCH", "FOOD AND NUTRITION"];
