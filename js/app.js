@@ -132,11 +132,11 @@ function toggleDarkLightMode() {
   if (manualThemeFlag === 'dark') {
     manualThemeFlag = 'light';
     document.body.classList.remove('night-mode');
-    if (btn) btn.innerHTML = '<i class="fas fa-moon"></i> Switch to Dark Mode';
+    if (btn) btn.innerHTML = '<i class="fas fa-moon"></i> ' + t('messages.switch_to_dark_mode', 'Switch to Dark Mode');
   } else {
     manualThemeFlag = 'dark';
     document.body.classList.add('night-mode');
-    if (btn) btn.innerHTML = '<i class="fas fa-sun"></i> Switch to Light Mode';
+    if (btn) btn.innerHTML = '<i class="fas fa-sun"></i> ' + t('messages.switch_to_light_mode', 'Switch to Light Mode');
   }
   
   localStorage.setItem('smartgrade_manual_theme', manualThemeFlag);
@@ -232,7 +232,7 @@ function initThemeSelector() {
     
     var isDarkMode = document.body.classList.contains('night-mode');
     var btnIcon = isDarkMode ? 'fa-sun' : 'fa-moon';
-    var btnText = isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+    var btnText = isDarkMode ? t('messages.switch_to_light_mode', 'Switch to Light Mode') : t('messages.switch_to_dark_mode', 'Switch to Dark Mode');
     
     modeBtn.innerHTML = `
       <button id="darkLightBtn" style="width:100%; padding:12px; border-radius:30px; background:linear-gradient(135deg, var(--primary), var(--secondary)); color:white; border:none; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
@@ -251,15 +251,15 @@ function initThemeSelector() {
         var span = btn.querySelector('span');
         if (manualThemeFlag === 'dark') {
           icon.className = 'fas fa-sun';
-          span.textContent = 'Switch to Light Mode';
+          span.textContent = t('messages.switch_to_light_mode', 'Switch to Light Mode');
         } else if (manualThemeFlag === 'light') {
           icon.className = 'fas fa-moon';
-          span.textContent = 'Switch to Dark Mode';
+          span.textContent = t('messages.switch_to_dark_mode', 'Switch to Dark Mode');
         } else {
           var hours = new Date().getHours();
           var isNight = (hours >= 20 || hours < 6);
           icon.className = isNight ? 'fas fa-sun' : 'fas fa-moon';
-          span.textContent = isNight ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+          span.textContent = isNight ? t('messages.switch_to_light_mode', 'Switch to Light Mode') : t('messages.switch_to_dark_mode', 'Switch to Dark Mode');
         }
         setTimeout(function() { closeBottomSheet(); }, 300);
       };
@@ -410,7 +410,7 @@ function installApp() {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(function(r) { if (r.outcome === 'accepted'); deferredPrompt = null; });
     var p = document.getElementById('installPrompt'); if (p) p.classList.remove('show');
-  } else { alert('Menu > Add to Home Screen'); }
+  } else { alert(t('messages.add_to_home_screen_menu', 'Menu > Add to Home Screen')); }
 }
 
 function autoUpdateCurrentUserStreak() { var u = getCurrentStudent(); if (u) updateStreakOnVisit(u.id); }
@@ -845,93 +845,257 @@ document.addEventListener('visibilitychange', function() {
   checkMaintenance();
 })();
 
-
-
 // ============================================
-// SERVICE WORKER - FORCE REGISTRATION
+// SÉLECTEUR DE MODE + LANGUE - STYLE ORIGINAL
+// 2 BOUTONS SUR LA MÊME LIGNE
 // ============================================
-(function forceSWRegistration() {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('./sw.js', { scope: './' })
-        .then(function(registration) {
-          console.log('[SW] Registered successfully');
-          registration.update();
-          if (navigator.serviceWorker.controller) {
-            console.log('[SW] Controls this page');
-          } else {
-            console.log('[SW] Waiting to control page...');
-            setTimeout(function() {
-              if (!navigator.serviceWorker.controller) {
-                window.location.reload();
-              }
-            }, 2000);
-          }
-        })
-        .catch(function(error) {
-          console.error('[SW] Registration failed:', error);
-        });
-    });
-  } else {
-    console.warn('[SW] Not supported');
+
+function addModeLanguageSelector() {
+  var bottomSheetContent = document.querySelector('.bottom-sheet-content');
+  if (!bottomSheetContent) return;
+
+  // Vérifier si déjà présent
+  if (document.getElementById('modeLangSection')) return;
+
+  // ============================================
+  // 1. SUPPRIMER L'ANCIEN BOUTON
+  // ============================================
+  var oldModeBtn = document.getElementById('darkLightBtn');
+  if (oldModeBtn) {
+    var oldParent = oldModeBtn.parentNode;
+    if (oldParent) oldParent.remove();
   }
-})();
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.addEventListener('message', function(event) {
-    console.log('[SW] Message received:', event.data);
-  });
+  // ============================================
+  // 2. CRÉER LA SECTION AVEC 2 BOUTONS
+  // ============================================
+
+  var section = document.createElement('div');
+  section.id = 'modeLangSection';
+  section.style.cssText = 'margin-bottom: 16px; padding: 0 4px; display: flex; gap: 10px;';
+
+  // ---- BOUTON 1: MODE (Dark/Light) ----
+  var isDark = document.body.classList.contains('night-mode');
+  var modeBtn = document.createElement('button');
+  modeBtn.id = 'modeBtn';
+  modeBtn.style.cssText = `
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  `;
+  modeBtn.innerHTML = isDark 
+    ? '<i class="fas fa-sun"></i> Switch to Light' 
+    : '<i class="fas fa-moon"></i> Switch to Dark';
+  modeBtn.onclick = function(e) {
+    e.stopPropagation();
+    toggleMode();
+    closeBottomSheet();
+  };
+  section.appendChild(modeBtn);
+
+  // ---- BOUTON 2: LANGUE (EN/FR) ----
+  var currentLang = localStorage.getItem('smartgrade_language') || 'en';
+  var langBtn = document.createElement('button');
+  langBtn.id = 'langBtn';
+  langBtn.style.cssText = `
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  `;
+  langBtn.innerHTML = currentLang === 'en' 
+    ? '<i class="fas fa-globe"></i> Switch to FR' 
+    : '<i class="fas fa-globe"></i> Switch to EN';
+  langBtn.onclick = function(e) {
+    e.stopPropagation();
+    toggleLanguage();
+    closeBottomSheet();
+  };
+  section.appendChild(langBtn);
+
+  // ============================================
+  // 3. INSÉRER AU BON ENDROIT
+  // ============================================
+
+  var themeGrid = document.getElementById('themeGrid');
+  if (themeGrid) {
+    themeGrid.parentNode.insertBefore(section, themeGrid);
+  } else {
+    bottomSheetContent.insertBefore(section, bottomSheetContent.firstChild);
+  }
+
+  // Ajouter les styles
+  var style = document.getElementById('modeLangStyles');
+  if (!style) {
+    style = document.createElement('style');
+    style.id = 'modeLangStyles';
+    style.textContent = `
+      #modeLangSection button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      }
+      #modeLangSection button:active {
+        transform: scale(0.95);
+      }
+      body.night-mode #modeLangSection button {
+        box-shadow: 0 2px 8px rgba(0,255,255,0.2);
+      }
+    `;
+    document.head.appendChild(style);
+  }
 }
 
 // ============================================
-// FIX MENU TITLE - VERSION ULTIMATE
-// SMART-GRADE MENU → SMART GRADE (TOUTES LES PAGES)
+// FONCTION POUR CHANGER LE MODE
 // ============================================
 
-(function fixMenuTitle() {
-  
-  // Fonction principale
-  function replaceMenuTitle() {
-    var elements = document.querySelectorAll('.sidebar-header h3');
-    var count = 0;
-    
-    elements.forEach(function(el) {
-      if (el.innerHTML && el.innerHTML.includes('SMART-GRADE MENU')) {
-        el.innerHTML = el.innerHTML.replace('SMART-GRADE MENU', 'SMART GRADE');
-        count++;
-      }
-    });
-    
-    if (count > 0) {
-      console.log('[Menu] ✅ ' + count + ' modification(s) effectuée(s)');
-    }
-    return count;
-  }
-  
-  // Exécuter immédiatement si le DOM est prêt
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', replaceMenuTitle);
-  } else {
-    replaceMenuTitle();
-  }
-  
-  // Exécuter également après chargement complet (pour sécurité)
-  window.addEventListener('load', function() {
-    setTimeout(replaceMenuTitle, 200);
-  });
-  
-  // Observer les changements dynamiques
-  var observer = new MutationObserver(function() {
-    replaceMenuTitle();
-  });
-  
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-  
-})();
+function toggleMode() {
+  var isDark = document.body.classList.contains('night-mode');
+  var modeBtn = document.getElementById('modeBtn');
 
+  if (isDark) {
+    document.body.classList.remove('night-mode');
+    localStorage.setItem('smartgrade_manual_theme', 'light');
+    if (modeBtn) {
+      modeBtn.innerHTML = '<i class="fas fa-moon"></i> Switch to Dark';
+    }
+    showToast('Light mode activated');
+  } else {
+    document.body.classList.add('night-mode');
+    localStorage.setItem('smartgrade_manual_theme', 'dark');
+    if (modeBtn) {
+      modeBtn.innerHTML = '<i class="fas fa-sun"></i> Switch to Light';
+    }
+    showToast('Dark mode activated');
+  }
+}
+
+// ============================================
+// FONCTION POUR CHANGER LA LANGUE
+// ============================================
+
+function toggleLanguage() {
+  var currentLang = localStorage.getItem('smartgrade_language') || 'en';
+  var langBtn = document.getElementById('langBtn');
+  var newLang = currentLang === 'en' ? 'fr' : 'en';
+
+  localStorage.setItem('smartgrade_language', newLang);
+
+  if (langBtn) {
+    langBtn.innerHTML = newLang === 'en' 
+      ? '<i class="fas fa-globe"></i> Switch to FR' 
+      : '<i class="fas fa-globe"></i> Switch to EN';
+  }
+
+  // Mettre à jour les boutons EN/FR si présents
+  var enBtn = document.getElementById('langEnBtn');
+  var frBtn = document.getElementById('langFrBtn');
+  if (enBtn) {
+    enBtn.style.borderColor = newLang === 'en' ? 'var(--primary)' : 'var(--border)';
+    enBtn.style.background = newLang === 'en' ? 'rgba(15,59,72,0.08)' : 'transparent';
+  }
+  if (frBtn) {
+    frBtn.style.borderColor = newLang === 'fr' ? 'var(--primary)' : 'var(--border)';
+    frBtn.style.background = newLang === 'fr' ? 'rgba(15,59,72,0.08)' : 'transparent';
+  }
+
+  // Appliquer les traductions
+  if (typeof applyTranslations === 'function') {
+    applyTranslations();
+  }
+
+  showToast('Language: ' + (newLang === 'en' ? 'English' : 'Français'));
+}
+
+// ============================================
+// METTRE À JOUR LE BOUTON DE LANGUE
+// ============================================
+
+function updateLanguageButton() {
+  var langBtn = document.getElementById('langBtn');
+  if (!langBtn) return;
+  var currentLang = localStorage.getItem('smartgrade_language') || 'en';
+  langBtn.innerHTML = currentLang === 'en' 
+    ? '<i class="fas fa-globe"></i> Switch to FR' 
+    : '<i class="fas fa-globe"></i> Switch to EN';
+}
+
+// ============================================
+// INITIALISATION
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(addModeLanguageSelector, 500);
+});
+
+document.addEventListener('click', function(e) {
+  if (e.target.closest('#themeBtn')) {
+    setTimeout(addModeLanguageSelector, 100);
+  }
+});
+
+// Exposer les fonctions globalement
+window.toggleMode = toggleMode;
+window.toggleLanguage = toggleLanguage;
+window.updateLanguageButton = updateLanguageButton;
+
+// ============================================
+// INJECTION AUTOMATIQUE DE TRANSLATOR.JS
+// ============================================
+
+(function autoInjectTranslator() {
+  // Vérifier si déjà chargé
+  if (typeof t === 'function') {
+    console.log('[Translator] Already loaded');
+    return;
+  }
+
+  // Vérifier si le script est déjà dans le DOM
+  var scripts = document.getElementsByTagName('script');
+  for (var i = 0; i < scripts.length; i++) {
+    if (scripts[i].src && scripts[i].src.indexOf('translator.js') !== -1) {
+      return;
+    }
+  }
+
+  // Injecter le script
+  var script = document.createElement('script');
+  script.src = 'js/translator.js';
+  script.defer = true;
+  script.onload = function() {
+    console.log('[Translator] Auto-injected successfully');
+  };
+  script.onerror = function() {
+    console.warn('[Translator] Auto-injection failed');
+  };
+  document.head.appendChild(script);
+})();
+// =
 // FIN DE APP.JS
 // ============================================
 window.updateHeaderAvatar = refreshAvatarInHeader;

@@ -340,7 +340,7 @@ function copyMessage(messageId) {
   var content = msg.role === 'user' ? msg.content : cleanAIResponse(msg.content);
 
   navigator.clipboard.writeText(content).then(function() {
-    showToast('Message copied');
+    showToast(t('messages.message_copied', 'Message copied'));
   }).catch(function() {
     var textarea = document.createElement('textarea');
     textarea.value = content;
@@ -348,7 +348,7 @@ function copyMessage(messageId) {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-    showToast('Message copied');
+    showToast(t('messages.message_copied', 'Message copied'));
   });
 }
 
@@ -406,7 +406,7 @@ async function sendMessageFromEdit() {
   if (result.success) {
     var response = cleanAIResponse(result.response);
     conv.messages.push({ id: assistantId, role: 'assistant', content: response, timestamp: new Date().toISOString() });
-    if (result.model !== currentModel) showToast('Used fallback: ' + MODELS[result.model].name);
+    if (result.model !== currentModel) showToast(t('messages.used_fallback', 'Used fallback: ') + MODELS[result.model].name);
   } else {
     conv.messages.push({ id: assistantId, role: 'assistant', content: '[ERROR] ' + result.error + '\n\nPlease try again later.', timestamp: new Date().toISOString() });
     showToast(result.error);
@@ -433,7 +433,7 @@ function deleteMessage(messageId) {
       saveConversations();
       renderCurrentChat();
       renderConvListSettings();
-      showToast('Message deleted');
+      showToast(t('messages.message_deleted', 'Message deleted'));
     }
   });
 }
@@ -466,7 +466,7 @@ function exportConversation() {
       a.download = 'chat_' + conv.title.replace(/\s/g, '_') + '.json';
       a.click();
       URL.revokeObjectURL(url);
-      showToast('Conversation exported');
+      showToast(t('messages.conversation_exported', 'Conversation exported'));
     }
   });
 }
@@ -559,8 +559,8 @@ async function sendMessageWithFallback(messages) {
 async function sendMessage() {
   var input = document.getElementById('messageInput');
   var message = input.value.trim();
-  if (!message) { showToast('Enter a message'); return; }
-  if (isLoading) { showToast('Please wait...'); return; }
+  if (!message) { showToast(t('messages.enter_a_message', 'Enter a message')); return; }
+  if (isLoading) { showToast(t('messages.please_wait', 'Please wait...')); return; }
 
   var conv = conversations.find(function(c) { return c.id === currentConvId; });
   if (!conv) return;
@@ -593,7 +593,7 @@ async function sendMessage() {
   if (result.success) {
     var response = cleanAIResponse(result.response);
     conv.messages.push({ id: assistantId, role: 'assistant', content: response, timestamp: new Date().toISOString() });
-    if (result.model !== currentModel) showToast('Used fallback: ' + MODELS[result.model].name);
+    if (result.model !== currentModel) showToast(t('messages.used_fallback', 'Used fallback: ') + MODELS[result.model].name);
   } else {
     conv.messages.push({ id: assistantId, role: 'assistant', content: '[ERROR] ' + result.error + '\n\nPlease try again later.', timestamp: new Date().toISOString() });
     showToast(result.error);
@@ -647,7 +647,7 @@ function createNewConversation() {
   saveConversations();
   renderCurrentChat();
   renderConvListSettings();
-  showToast('New conversation created');
+  showToast(t('messages.new_conversation_created', 'New conversation created'));
 }
 
 function clearAllConversations() {
@@ -661,7 +661,7 @@ function clearAllConversations() {
     onConfirm: function() {
       conversations = [];
       createNewConversation();
-      showToast('All conversations cleared');
+      showToast(t('messages.all_conversations_cleared', 'All conversations cleared'));
     }
   });
 }
@@ -674,7 +674,7 @@ function selectConversation(convId) {
 }
 
 function deleteConversation(convId) {
-  if (conversations.length === 1) { showToast('Cannot delete last conversation'); return; }
+  if (conversations.length === 1) { showToast(t('messages.cannot_delete_last_conversation', 'Cannot delete last conversation')); return; }
 
   showConfirmDialog({
     title: 'Delete Conversation',
@@ -688,7 +688,7 @@ function deleteConversation(convId) {
       saveConversations();
       renderCurrentChat();
       renderConvListSettings();
-      showToast('Conversation deleted');
+      showToast(t('messages.conversation_deleted', 'Conversation deleted'));
     }
   });
 }
@@ -733,7 +733,7 @@ function selectModel(model) {
 
   var conv = conversations.find(function(c) { return c.id === currentConvId; });
   if (conv && conv.messages && conv.messages.length > 0) {
-    showToast('Cannot change model after conversation started. Create a new chat.');
+    showToast(t('messages.cannot_change_model', 'Cannot change model after conversation started. Create a new chat.'));
     return;
   }
 
@@ -748,7 +748,7 @@ function selectModel(model) {
   if (modelStatus) modelStatus.innerHTML = MODELS[model].name + ' - Ready';
   if (modelInfo) modelInfo.innerHTML = MODELS[model].name;
 
-  showToast('Switched to ' + MODELS[model].name);
+  showToast(t('messages.switched_to', 'Switched to ') + MODELS[model].name);
 }
 
 // ============================================
@@ -775,7 +775,7 @@ function copyCode(btn) {
   navigator.clipboard.writeText(code).then(function() {
     btn.innerHTML = '<i class="fas fa-check"></i> Copied';
     setTimeout(function() { btn.innerHTML = '<i class="fas fa-copy"></i> Copy'; }, 1500);
-    showToast('Code copied');
+    showToast(t('messages.code_copied', 'Code copied'));
   });
 }
 

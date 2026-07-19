@@ -379,7 +379,7 @@
 
   window.exportJSON = function() {
     if (!currentUser) {
-      showToast('Please login first');
+      showToast(t('messages.please_login_first', 'Please login first'));
       return;
     }
     
@@ -413,11 +413,11 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       
-      showToast('JSON exported (' + Math.round(jsonStr.length / 1024) + ' KB)');
+      showToast(t('messages.json_exported_prefix', 'JSON exported (') + Math.round(jsonStr.length / 1024) + t('messages.kb_suffix', ' KB)'));
       
     } catch(e) {
       console.error('[Export] JSON error:', e);
-      showToast('Export failed: ' + e.message);
+      showToast(t('messages.export_failed', 'Export failed: ') + e.message);
     }
   };
 
@@ -430,7 +430,7 @@
     if (!file) return;
     
     if (!currentUser) {
-      showToast('Please login first');
+      showToast(t('messages.please_login_first', 'Please login first'));
       event.target.value = '';
       return;
     }
@@ -452,12 +452,12 @@
             }
           });
         } else {
-          if (confirm('Import JSON backup? This will overwrite your current data.')) {
+          if (confirm(t('messages.confirm_import_json', 'Import JSON backup? This will overwrite your current data.'))) {
             importData(data);
           }
         }
       } catch(err) {
-        showToast('Invalid JSON file');
+        showToast(t('messages.invalid_json_file', 'Invalid JSON file'));
       }
       event.target.value = '';
     };
@@ -478,11 +478,11 @@
       if (data.streak) localStorage.setItem('smartgrade_streak_' + currentUser.id, JSON.stringify(data.streak));
       if (data.profile) localStorage.setItem('smartgrade_profile_' + currentUser.id, JSON.stringify(data.profile));
       
-      showToast('Import successful! Reloading...');
+      showToast(t('messages.import_successful_reloading', 'Import successful! Reloading...'));
       setTimeout(function() { location.reload(); }, 1500);
       
     } catch(err) {
-      showToast('Import failed: ' + err.message);
+      showToast(t('messages.import_failed', 'Import failed: ') + err.message);
     }
   }
 
@@ -765,33 +765,33 @@
     window.closeTermModal();
     
     if (!currentUser) {
-      showToast('Please login first');
+      showToast(t('messages.please_login_first', 'Please login first'));
       return;
     }
     
     var html = generateBulletinHTML();
     if (!html) {
-      showToast('No data to export');
+      showToast(t('messages.no_data_to_export', 'No data to export'));
       return;
     }
     
     var blob = new Blob([html], { type: 'text/html' });
     var url = URL.createObjectURL(blob);
     window.open(url, '_blank');
-    showToast('Bulletin opened');
+    showToast(t('messages.bulletin_opened', 'Bulletin opened'));
   };
 
   window.downloadHTML = function() {
     window.closeTermModal();
     
     if (!currentUser) {
-      showToast('Please login first');
+      showToast(t('messages.please_login_first', 'Please login first'));
       return;
     }
     
     var html = generateBulletinHTML();
     if (!html) {
-      showToast('No data to export');
+      showToast(t('messages.no_data_to_export', 'No data to export'));
       return;
     }
     
@@ -805,20 +805,20 @@
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast('HTML downloaded');
+    showToast(t('messages.html_downloaded', 'HTML downloaded'));
   };
 
   window.downloadPDF = function() {
     window.closeTermModal();
     
     if (!currentUser) {
-      showToast('Please login first');
+      showToast(t('messages.please_login_first', 'Please login first'));
       return;
     }
     
     var html = generateBulletinHTML();
     if (!html) {
-      showToast('No data to export');
+      showToast(t('messages.no_data_to_export', 'No data to export'));
       return;
     }
     
@@ -846,16 +846,16 @@
       html2pdf().set(opt).from(container).save().then(function() {
         if (container.parentNode) container.parentNode.removeChild(container);
         if (loadingEl) loadingEl.style.display = 'none';
-        showToast('PDF downloaded');
+        showToast(t('messages.pdf_downloaded', 'PDF downloaded'));
       }).catch(function(err) {
         if (container.parentNode) container.parentNode.removeChild(container);
         if (loadingEl) loadingEl.style.display = 'none';
-        showToast('PDF error: ' + err.message);
+        showToast(t('messages.pdf_error', 'PDF error: ') + err.message);
       });
     } else {
       if (container.parentNode) container.parentNode.removeChild(container);
       if (loadingEl) loadingEl.style.display = 'none';
-      showToast('PDF library not loaded');
+      showToast(t('messages.pdf_library_not_loaded', 'PDF library not loaded'));
     }
   };
 
@@ -863,13 +863,13 @@
     window.closeTermModal();
     
     if (!currentUser) {
-      showToast('Please login first');
+      showToast(t('messages.please_login_first', 'Please login first'));
       return;
     }
     
     var csvContent = generateCSVContent();
     if (!csvContent) {
-      showToast('No data to export');
+      showToast(t('messages.no_data_to_export', 'No data to export'));
       return;
     }
     
@@ -883,7 +883,7 @@
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast('CSV downloaded');
+    showToast(t('messages.csv_downloaded', 'CSV downloaded'));
   };
 
   // ============================================

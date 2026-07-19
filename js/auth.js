@@ -196,7 +196,7 @@ function notifyLoginSuccess(userName) {
   if (typeof addNotification === 'function') {
     addNotification('account', 'Login Successful', 'Welcome back, ' + userName + '!');
   } else {
-    showToast('Welcome back, ' + userName + '!');
+    showToast(t('messages.welcome_back', 'Welcome back, ') + userName + '!');
   }
 }
 
@@ -204,7 +204,7 @@ function notifyPinChanged() {
   if (typeof addNotification === 'function') {
     addNotification('account', 'PIN Changed', 'Your security PIN has been updated successfully');
   } else {
-    showToast('PIN changed successfully');
+    showToast(t('messages.pin_changed_successfully', 'PIN changed successfully'));
   }
 }
 
@@ -212,7 +212,7 @@ function notifyFingerprintEnabled() {
   if (typeof addNotification === 'function') {
     addNotification('account', 'Fingerprint Enabled', 'You can now login using your fingerprint');
   } else {
-    showToast('Fingerprint enabled');
+    showToast(t('messages.fingerprint_enabled', 'Fingerprint enabled'));
   }
 }
 
@@ -220,7 +220,7 @@ function notifyFingerprintRemoved() {
   if (typeof addNotification === 'function') {
     addNotification('account', 'Fingerprint Removed', 'Fingerprint login has been disabled');
   } else {
-    showToast('Fingerprint removed');
+    showToast(t('messages.fingerprint_removed', 'Fingerprint removed'));
   }
 }
 
@@ -228,7 +228,7 @@ function notifyAccountCreated(userId, userName) {
   if (typeof addNotification === 'function') {
     addNotification('account', 'Account Created', 'Welcome ' + userName + '! Your account has been created');
   } else {
-    showToast('Account created successfully!');
+    showToast(t('messages.account_created_successfully', 'Account created successfully!'));
   }
 }
 

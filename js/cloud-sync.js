@@ -183,14 +183,14 @@ var CloudSync = {
       
       document.getElementById('cloudBackupNowBtn').onclick = function() {
         var user = getCurrentStudent();
-        if (!user) { showToast('Veuillez vous connecter d\'abord'); return; }
+        if (!user) { showToast(t('messages.please_login_first', 'Please login first')); return; }
         var data = exportAllData(user.id);
         CloudSync.backupUser(user.id, user.name, data, false);
       };
       
       document.getElementById('cloudRestoreNowBtn').onclick = function() {
         var user = getCurrentStudent();
-        if (!user) { showToast('Veuillez vous connecter d\'abord'); return; }
+        if (!user) { showToast(t('messages.please_login_first', 'Please login first')); return; }
         
         showConfirmDialog({
           title: 'Restaurer depuis le cloud',

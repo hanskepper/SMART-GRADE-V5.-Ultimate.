@@ -28,8 +28,8 @@ function showConfirmDialog(options) {
       <p style="font-size:0.75rem;color:var(--text-light);margin-bottom:8px;">${options.message}</p>
       ${detailHtml}
       <div style="display:flex;gap:12px;">
-        <button class="confirm-cancel-btn" style="flex:1;padding:12px;border-radius:40px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;">${options.cancelText || 'Cancel'}</button>
-        <button class="confirm-ok-btn" style="flex:1;padding:12px;border-radius:40px;background:${options.confirmColor || '#e74c3c'};color:white;border:none;cursor:pointer;">${options.confirmText || 'Confirm'}</button>
+        <button class="confirm-cancel-btn" style="flex:1;padding:12px;border-radius:40px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;">${options.cancelText || t('common.cancel', 'Cancel')}</button>
+        <button class="confirm-ok-btn" style="flex:1;padding:12px;border-radius:40px;background:${options.confirmColor || '#e74c3c'};color:white;border:none;cursor:pointer;">${options.confirmText || t('register.confirm', 'Confirm')}</button>
       </div>
     </div>
   `;

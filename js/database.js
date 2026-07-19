@@ -661,7 +661,7 @@ function unlockWelcomeBadge(studentId) {
     notified: false
   });
   saveStudentAchievements(studentId, achievements);
-  showToast('Badge unlocked: Welcome Aboard!');
+  showToast(t('messages.badge_unlocked_welcome', 'Badge unlocked: Welcome Aboard!'));
   return true;
 }
 

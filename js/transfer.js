@@ -136,7 +136,7 @@ function importAllData(id, json) {
 function copyToClipboard(text) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(function() {
-      showToast('Code copied! Paste it on the other device.');
+      showToast(t('messages.code_copied_paste', 'Code copied! Paste it on the other device.'));
     }).catch(function() {
       fallbackCopy(text);
     });
@@ -154,7 +154,7 @@ function fallbackCopy(text) {
   textarea.select();
   try {
     document.execCommand('copy');
-    showToast('Code copied! Paste it on the other device.');
+    showToast(t('messages.code_copied_paste', 'Code copied! Paste it on the other device.'));
   } catch (e) {
     prompt('Copy this code manually:', text);
   }
@@ -183,7 +183,7 @@ function exportData(id) {
   var data = exportAllData(id);
   var filename = 'SMART_GRADE_Backup_' + new Date().toISOString().split('T')[0] + '.json';
   downloadJSON(data, filename);
-  showToast('Backup downloaded successfully!');
+  showToast(t('messages.backup_downloaded_successfully', 'Backup downloaded successfully!'));
 }
 
 // ============================================
@@ -264,7 +264,7 @@ var COMMANDS = {
     return 'Theme: ' + t.label;
   },
   reset: function(id) {
-    if (confirm('Delete ALL grades? This cannot be undone.')) {
+    if (confirm(t('messages.confirm_delete_all_grades', 'Delete ALL grades? This cannot be undone.'))) {
       saveStudentGrades(id, []);
       return 'All grades deleted';
     }

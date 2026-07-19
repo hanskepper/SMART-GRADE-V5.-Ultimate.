@@ -101,7 +101,7 @@ function showAutoSaveNotification() {
   var toast = document.createElement('div');
   toast.className = 'autosave-notification';
   toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#27ae60;color:white;padding:8px 16px;border-radius:30px;font-size:0.7rem;z-index:1000;animation:fadeInUp 0.3s ease;box-shadow:0 2px 10px rgba(0,0,0,0.2);';
-  toast.innerHTML = '<i class="fas fa-save"></i> Auto-saved';
+  toast.innerHTML = '<i class="fas fa-save"></i> ' + t('messages.auto_saved', 'Auto-saved');
   document.body.appendChild(toast);
   
   setTimeout(function() {
@@ -117,13 +117,13 @@ function toggleAutoSave() {
   
   if (AutoSaveManager.enabled) {
     startAutoSaveInterval();
-    showToast('Auto-save enabled');
+    showToast(t('messages.autosave_enabled', 'Auto-save enabled'));
   } else {
     if (AutoSaveManager.intervalId) {
       clearInterval(AutoSaveManager.intervalId);
       AutoSaveManager.intervalId = null;
     }
-    showToast('Auto-save disabled');
+    showToast(t('messages.autosave_disabled', 'Auto-save disabled'));
   }
 }
 
@@ -160,7 +160,7 @@ function addAutoSaveToSettings() {
         AutoSaveManager.enabled = true;
         localStorage.setItem('smartgrade_autosave', 'true');
         startAutoSaveInterval();
-        showToast('Auto-save enabled');
+        showToast(t('messages.autosave_enabled', 'Auto-save enabled'));
       } else {
         AutoSaveManager.enabled = false;
         localStorage.setItem('smartgrade_autosave', 'false');
@@ -168,7 +168,7 @@ function addAutoSaveToSettings() {
           clearInterval(AutoSaveManager.intervalId);
           AutoSaveManager.intervalId = null;
         }
-        showToast('Auto-save disabled');
+        showToast(t('messages.autosave_disabled', 'Auto-save disabled'));
       }
     };
   }

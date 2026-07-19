@@ -37,7 +37,7 @@ var StorageManager = {
       localStorage.setItem(key, value);
       return { success: true };
     } catch (e) {
-      return { success: false, error: 'Storage full', message: 'Please free up space or export your data.' };
+      return { success: false, error: t('messages.storage_full', 'Storage full'), message: t('messages.free_up_space', 'Please free up space or export your data.') };
     }
   },
   
@@ -137,7 +137,7 @@ var StorageManager = {
   // Restaurer depuis une copie
   restore: function(backupKey) {
     var backup = this.getJSON(backupKey);
-    if (!backup) return { success: false, message: 'Backup not found' };
+    if (!backup) return { success: false, message: t('messages.backup_not_found', 'Backup not found') };
     return this.importAll(backup.data);
   },
   
