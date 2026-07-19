@@ -15,6 +15,33 @@
   "id": "smart-grade-v5",
   "categories": ["education", "productivity"],
   
+  "screenshots": [
+    {
+      "src": "./images/home.png",
+      "type": "image/png",
+      "platform": "android",
+      "label": "SMART GRADE Home Page"
+    },
+    {
+      "src": "./images/login.png",
+      "type": "image/png",
+      "platform": "android",
+      "label": "SMART GRADE Login Page"
+    },
+    {
+      "src": "./images/register.png",
+      "type": "image/png",
+      "platform": "android",
+      "label": "SMART GRADE Register Page"
+    },
+    {
+      "src": "./images/dashboard.png",
+      "type": "image/png",
+      "platform": "android",
+      "label": "SMART GRADE Dashboard"
+    }
+  ],
+
   "shortcuts": [
     {
       "name": "Dashboard",
@@ -23,7 +50,7 @@
       "url": "./dashboard.html",
       "icons": [
         {
-          "src": "./icons/icon-dashboard.png",
+          "src": "./icons/ion-dashboard.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -36,7 +63,7 @@
       "url": "./add-grade.html",
       "icons": [
         {
-          "src": "./icons/icon-addgrade.png",
+          "src": "./icons/ion-addgrade.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -49,7 +76,7 @@
       "url": "./statistics.html",
       "icons": [
         {
-          "src": "./icons/icon-stats.png",
+          "src": "./icons/ion-stats.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -62,7 +89,7 @@
       "url": "./achievements.html",
       "icons": [
         {
-          "src": "./icons/icon-achievements.png",
+          "src": "./icons/ion-achievements.png",
           "sizes": "192x192",
           "type": "image/png"
         }
