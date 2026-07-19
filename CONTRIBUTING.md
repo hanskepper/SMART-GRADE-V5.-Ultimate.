@@ -30,7 +30,7 @@ Have an idea for a new feature? Open an issue and explain:
 ## 📝 Making Changes
 
 1. **Fork the repository** - Click the "Fork" button on GitHub
-2. **Clone your fork** - `git clone https://github.com/your-username/SMART-GRADE-V5.-Ultimate..git`
+2. **Clone your fork** - `git clone https://github.com/your-username/SMART-GRADE.git`
 3. **Create a branch** - `git checkout -b feature/your-feature-name`
 4. **Make your changes**
 5. **Commit your changes** - `git commit -m "Description of changes"`

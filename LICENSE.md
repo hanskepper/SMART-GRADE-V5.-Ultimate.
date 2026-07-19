@@ -216,7 +216,7 @@ SMART GRADE is an open source project. You can contribute by:
 | 📚 **Documentation** | Help improve the docs |
 | 🌍 **Translation** | Translate the application |
 
-🔗 **Repository:** [https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate.](https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate.)
+🔗 **Repository:** [https://github.com/hanskepper/SMART-GRADE](https://github.com/hanskepper/SMART-GRADE)
 
 ---
 
@@ -249,10 +249,10 @@ SMART GRADE is an open source project. You can contribute by:
 </p>
 
 <p align="center">
-  <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate./stargazers">
+  <a href="https://github.com/hanskepper/SMART-GRADE/stargazers">
     <img src="https://img.shields.io/badge/⭐-Star_this_Repository-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="250">
   </a>
-  <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate./issues">
+  <a href="https://github.com/hanskepper/SMART-GRADE/issues">
     <img src="https://img.shields.io/badge/🐛-Report_Issues-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="250">
   </a>
 </p>

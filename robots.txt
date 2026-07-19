@@ -40,4 +40,4 @@ Disallow: /maintenance.html
 Disallow: /dev-*.html
 
 # Sitemap
-Sitemap: https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./sitemap.xml
+Sitemap: https://hanskepper.github.io/SMART-GRADE/sitemap.xml

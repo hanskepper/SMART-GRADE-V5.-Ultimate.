@@ -22,13 +22,13 @@
 <!-- ============================================ -->
 
 <p align="center">
-  <a href="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
+  <a href="https://hanskepper.github.io/SMART-GRADE/">
     <img src="https://img.shields.io/badge/PWA_Enabled-5A0FC8?style=flat-square&logo=pwa&logoColor=white">
   </a>
-  <a href="https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./">
+  <a href="https://hanskepper.github.io/SMART-GRADE/">
     <img src="https://img.shields.io/badge/Offline_Ready-2ecc71?style=flat-square&logo=googlechrome&logoColor=white">
   </a>
-  <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate./stargazers">
+  <a href="https://github.com/hanskepper/SMART-GRADE/stargazers">
     <img src="https://img.shields.io/badge/Stars-2-0f3b48?style=flat-square&logo=github&logoColor=white">
   </a>
 <p align="center">
@@ -292,7 +292,7 @@
 ### File Structure
 
 ```
-SMART-GRADE-V5.-Ultimate./
+SMART-GRADE/
 ├── index.html                 Home page with account list
 ├── login.html                 PIN + Fingerprint authentication
 ├── register.html              Account creation
@@ -737,14 +737,14 @@ SOFTWARE.
 
 | Type | URL |
 |------|-----|
-| **Repository** | https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate. |
-| **Live Demo** | https://hanskepper.github.io/SMART-GRADE-V5.-Ultimate./ |
+| **Repository** | https://github.com/hanskepper/SMART-GRADE |
+| **Live Demo** | https://hanskepper.github.io/SMART-GRADE/ |
 
 ### Clone Command
 
 ```bash
-git clone https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate..git
-cd SMART-GRADE-V5.-Ultimate.
+git clone https://github.com/hanskepper/SMART-GRADE.git
+cd SMART-GRADE
 open index.html
 ```
 
@@ -762,13 +762,13 @@ open index.html
 </p>
 
 <p align="center">
-  <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate./stargazers">
+  <a href="https://github.com/hanskepper/SMART-GRADE/stargazers">
     <img src="https://img.shields.io/badge/Star_this_repository-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="220">
   </a>
-  <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate./issues">
+  <a href="https://github.com/hanskepper/SMART-GRADE/issues">
     <img src="https://img.shields.io/badge/Report_Issues-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="220"><br>
   </a>
-  <a href="https://github.com/hanskepper/SMART-GRADE-V5.-Ultimate./discussions">
+  <a href="https://github.com/hanskepper/SMART-GRADE/discussions">
     <img src="https://img.shields.io/badge/Discussions-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="220">
   </a>
 </p>
