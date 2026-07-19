@@ -8,7 +8,7 @@
   
   // Configuration - À MODIFIER UNE SEULE FOIS
   const GITHUB_USER = 'hanskepper';
-  const GITHUB_REPO = 'SMART-GRADE-V5.-Ultimate.';
+  const GITHUB_REPO = 'SMART-GRADE';
   const REPO_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?per_page=1`;
   
   let currentHash = null;
