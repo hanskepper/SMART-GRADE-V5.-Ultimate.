@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>SMART GRADE - License</title>
+  <title>SMART GRADE - Cookies Policy</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Cinzel:wght@400;700&family=Quicksand:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Bangers&family=Lobster&family=Permanent+Marker&family=Comfortaa:wght@300;400;700&family=Righteous&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/base.css">
@@ -42,7 +42,7 @@
     .legal-hero > * { position: relative; z-index: 1; }
     .legal-hero h1 { font-size: 2rem; margin: 12px 0; letter-spacing: -0.5px; }
     .legal-hero p { opacity: 0.9; font-size: 0.85rem; }
-    .legal-hero .version-badge {
+    .legal-hero .last-updated {
       display: inline-block;
       background: rgba(255,255,255,0.2);
       padding: 6px 16px;
@@ -58,20 +58,9 @@
       border: 1px solid var(--border);
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
-    .license-box {
-      background: rgba(0,0,0,0.03);
-      border-radius: 16px;
-      padding: 24px;
-      font-family: 'Courier Prime', monospace;
-      font-size: 0.7rem;
-      white-space: pre-wrap;
-      word-break: break-word;
-      margin-bottom: 24px;
-      border: 1px solid var(--border);
-      overflow-x: auto;
-    }
     .legal-section {
       margin-bottom: 32px;
+      scroll-margin-top: 80px;
     }
     .legal-section h3 {
       font-size: 1.1rem;
@@ -95,7 +84,7 @@
       line-height: 1.6;
       margin-bottom: 16px;
     }
-    .legal-section ul {
+    .legal-section ul, .legal-section ol {
       margin-left: 24px;
       margin-bottom: 16px;
     }
@@ -149,53 +138,46 @@
     .toc a:hover {
       color: var(--primary);
     }
-
-    /* ============================================
-       LIEN GITHUB - NE DÉBORDE PAS
-       ============================================ */
-    .github-link {
-      display: inline-block;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-break: break-all;
-      padding: 2px 6px;
-      background: rgba(0,0,0,0.04);
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-family: monospace;
+    .badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
     }
-
-    .github-link a {
-      color: var(--primary);
-      text-decoration: none;
-      display: inline-block;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-break: break-all;
+    .badge-item {
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--border);
     }
-
-    .github-link a:hover {
-      text-decoration: underline;
+    .badge-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: var(--primary);
+      color: white;
     }
-
-    @media (max-width: 550px) {
-      .github-link {
-        white-space: normal;
-        word-break: break-all;
-        font-size: 0.65rem;
-      }
-      .github-link a {
-        white-space: normal;
-        word-break: break-all;
-      }
+    .badge-info h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .badge-info p {
+      font-size: 0.6rem;
+      margin: 0;
     }
 
     /* ============================================
-       CONSENTEMENT BANNER
+       CONSENTEMENT BANNER - INDIVIDUEL
        ============================================ */
-    #licenseConsentBanner {
+    #cookiesConsentBanner {
       position: fixed;
       bottom: 20px;
       left: 50%;
@@ -216,7 +198,7 @@
       to { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
 
-    #licenseConsentBanner h4 {
+    #cookiesConsentBanner h4 {
       margin: 0 0 8px 0;
       color: var(--primary);
       font-size: 1rem;
@@ -225,19 +207,19 @@
       gap: 8px;
     }
 
-    #licenseConsentBanner p {
+    #cookiesConsentBanner p {
       font-size: 0.75rem;
       color: var(--text-light);
       margin-bottom: 16px;
       line-height: 1.5;
     }
 
-    #licenseConsentBanner .banner-buttons {
+    #cookiesConsentBanner .banner-buttons {
       display: flex;
       gap: 12px;
     }
 
-    #licenseConsentBanner .btn-decline {
+    #cookiesConsentBanner .btn-decline {
       flex: 1;
       padding: 10px;
       border-radius: 30px;
@@ -250,11 +232,11 @@
       transition: all 0.2s;
     }
 
-    #licenseConsentBanner .btn-decline:hover {
+    #cookiesConsentBanner .btn-decline:hover {
       background: rgba(0,0,0,0.05);
     }
 
-    #licenseConsentBanner .btn-accept {
+    #cookiesConsentBanner .btn-accept {
       flex: 1;
       padding: 10px;
       border-radius: 30px;
@@ -267,12 +249,12 @@
       transition: all 0.2s;
     }
 
-    #licenseConsentBanner .btn-accept:hover {
+    #cookiesConsentBanner .btn-accept:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 12px rgba(15,59,72,0.3);
     }
 
-    body.night-mode #licenseConsentBanner {
+    body.night-mode #cookiesConsentBanner {
       background: #1a1a2e;
       border-color: var(--secondary);
     }
@@ -283,8 +265,9 @@
       .legal-section h3 { font-size: 0.95rem; }
       .legal-section p, .legal-section li { font-size: 0.75rem; }
       .toc-grid { grid-template-columns: 1fr; }
-      #licenseConsentBanner { padding: 16px 18px; }
-      #licenseConsentBanner .banner-buttons { flex-direction: column; }
+      .badge-grid { grid-template-columns: 1fr; }
+      #cookiesConsentBanner { padding: 16px 18px; }
+      #cookiesConsentBanner .banner-buttons { flex-direction: column; }
     }
   </style>
 </head>
@@ -294,7 +277,7 @@
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-balance-scale"></i><span>LICENSE</span></div>
+      <div class="header-logo"><i class="fas fa-cookie-bite"></i><span>COOKIES</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
         <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
@@ -314,10 +297,10 @@
       <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
         <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="license.html" class="nav-item active"><i class="fas fa-balance-scale"></i> License</a>
-        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="cookies.html" class="nav-item active"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
         <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
         <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
         <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
         <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
@@ -331,10 +314,10 @@
     
     <main class="main-content">
       <div class="legal-hero">
-        <i class="fas fa-balance-scale" style="font-size:55px;opacity:0.5;"></i>
-        <h1>MIT License</h1>
-        <p>Open Source Software License for SMART GRADE</p>
-        <div class="version-badge">
+        <i class="fas fa-cookie-bite" style="font-size:55px;opacity:0.5;"></i>
+        <h1>Cookies Policy</h1>
+        <p>SIN GBHS FOUMBAN - Form 5B Science</p>
+        <div class="last-updated">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
         </div>
       </div>
@@ -343,177 +326,215 @@
         <div class="toc">
           <h4><i class="fas fa-list"></i> Table of Contents</h4>
           <div class="toc-grid">
-            <a href="#license-text"><i class="fas fa-chevron-right"></i> MIT License Text</a>
-            <a href="#what-it-means"><i class="fas fa-chevron-right"></i> What This Means For You</a>
-            <a href="#permissions"><i class="fas fa-chevron-right"></i> Permissions</a>
-            <a href="#limitations"><i class="fas fa-chevron-right"></i> Limitations</a>
-            <a href="#conditions"><i class="fas fa-chevron-right"></i> Conditions</a>
-            <a href="#disclaimer"><i class="fas fa-chevron-right"></i> Disclaimer of Warranty</a>
-            <a href="#liability"><i class="fas fa-chevron-right"></i> Limitation of Liability</a>
-            <a href="#third-party"><i class="fas fa-chevron-right"></i> Third-Party Libraries</a>
-            <a href="#open-source"><i class="fas fa-chevron-right"></i> Open Source Contributions</a>
-            <a href="#contact"><i class="fas fa-chevron-right"></i> Contact Information</a>
+            <a href="#section1"><i class="fas fa-chevron-right"></i> 1. What Are Cookies?</a>
+            <a href="#section2"><i class="fas fa-chevron-right"></i> 2. How We Use Cookies</a>
+            <a href="#section3"><i class="fas fa-chevron-right"></i> 3. Types of Cookies We Use</a>
+            <a href="#section4"><i class="fas fa-chevron-right"></i> 4. LocalStorage vs Cookies</a>
+            <a href="#section5"><i class="fas fa-chevron-right"></i> 5. Third-Party Cookies</a>
+            <a href="#section6"><i class="fas fa-chevron-right"></i> 6. Managing Cookies</a>
+            <a href="#section7"><i class="fas fa-chevron-right"></i> 7. Cookie Duration</a>
+            <a href="#section8"><i class="fas fa-chevron-right"></i> 8. Changes to This Policy</a>
+            <a href="#section9"><i class="fas fa-chevron-right"></i> 9. Contact Information</a>
           </div>
         </div>
         
-        <!-- MIT LICENSE TEXT -->
-        <div id="license-text" class="legal-section">
-          <h3><i class="fas fa-file-code"></i> MIT License Text</h3>
-          <div class="license-box">
-MIT License
-
-Copyright (c) 2026-2027 HANS KEPPER
-
-SIN GBHS FOUMBAN - Form 5B Science
-Academic Year 2026-2027
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+        <div id="section1" class="legal-section">
+          <h3><i class="fas fa-question-circle"></i> 1. What Are Cookies?</h3>
+          <p>Cookies are small text files that are placed on your device (computer, smartphone, tablet) when you visit a website. They are widely used to make websites work more efficiently and provide information to the website owners.</p>
+          <p>However, <strong>SMART GRADE does NOT use traditional browser cookies</strong>. Instead, we use the browser's localStorage API for storing your data. This is a more modern and secure approach.</p>
+          <div class="highlight">
+            <i class="fas fa-info-circle"></i> <strong>Important:</strong> SMART GRADE does not use tracking cookies, advertising cookies, or any third-party cookies that follow you across websites.
           </div>
         </div>
         
-        <!-- WHAT THIS MEANS FOR YOU -->
-        <div id="what-it-means" class="legal-section">
-          <h3><i class="fas fa-info-circle"></i> What This Means For You</h3>
+        <div id="section2" class="legal-section">
+          <h3><i class="fas fa-database"></i> 2. How We Use localStorage</h3>
+          <p>SMART GRADE uses localStorage instead of traditional cookies. localStorage is a web storage mechanism that allows websites to store data directly in your browser. Here's what we store:</p>
+          <div class="badge-grid">
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-user"></i></div>
+              <div class="badge-info">
+                <h4>User Authentication</h4>
+                <p>Your login session and preferences</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-chart-line"></i></div>
+              <div class="badge-info">
+                <h4>Academic Data</h4>
+                <p>Grades, subjects, coefficients, goals</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-palette"></i></div>
+              <div class="badge-info">
+                <h4>App Preferences</h4>
+                <p>Theme, font, language settings</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon"><i class="fas fa-history"></i></div>
+              <div class="badge-info">
+                <h4>Activity Data</h4>
+                <p>History, notifications, achievements</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="section3" class="legal-section">
+          <h3><i class="fas fa-tag"></i> 3. Types of Storage We Use</h3>
+          <p><strong>SMART GRADE uses the following storage mechanisms:</strong></p>
           <ul>
-            <li><i class="fas fa-check-circle"></i> <strong>Use:</strong> You can use SMART GRADE for any purpose, personal or educational</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Study:</strong> You can study how the application works and learn from the code</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Modify:</strong> You can adapt and modify the code to suit your needs</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Share:</strong> You can distribute copies of the application to others</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Sublicense:</strong> You can distribute modified versions under the same license</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Commercial Use:</strong> You can use the software for commercial purposes (with attribution)</li>
+            <li><i class="fas fa-database"></i> <strong>localStorage:</strong> Stores all your application data permanently until you delete it or clear your browser data.</li>
+            <li><i class="fas fa-sync-alt"></i> <strong>sessionStorage:</strong> Temporarily stores transfer codes (expire after 10 minutes).</li>
+            <li><i class="fas fa-cookie-bite"></i> <strong>No traditional cookies:</strong> We do not use HTTP cookies for tracking or advertising.</li>
           </ul>
           <div class="highlight">
-            <i class="fas fa-check-circle" style="color:#2ecc71;"></i> <strong>Attribution required:</strong> You must include the original copyright notice and license text in all copies or substantial portions of the Software.
+            <i class="fas fa-check-circle"></i> <strong>No Tracking:</strong> We do not use analytics cookies, marketing cookies, or any form of cross-site tracking.
           </div>
         </div>
         
-        <!-- PERMISSIONS -->
-        <div id="permissions" class="legal-section">
-          <h3><i class="fas fa-check-circle"></i> Permissions</h3>
-          <ul>
-            <li><i class="fas fa-check"></i> <strong>Commercial Use:</strong> The software can be used commercially</li>
-            <li><i class="fas fa-check"></i> <strong>Modification:</strong> The software can be modified</li>
-            <li><i class="fas fa-check"></i> <strong>Distribution:</strong> The software can be distributed</li>
-            <li><i class="fas fa-check"></i> <strong>Private Use:</strong> The software can be used privately</li>
-            <li><i class="fas fa-check"></i> <strong>Sublicensing:</strong> Modified versions can be sublicensed under the same terms</li>
-            <li><i class="fas fa-check"></i> <strong>Patent Grant:</strong> Contributors grant patent rights for contributions</li>
-          </ul>
-        </div>
-        
-        <!-- LIMITATIONS -->
-        <div id="limitations" class="legal-section">
-          <h3><i class="fas fa-exclamation-triangle"></i> Limitations</h3>
-          <ul>
-            <li><i class="fas fa-ban"></i> <strong>No Warranty:</strong> The software is provided "AS IS" without any warranty of any kind</li>
-            <li><i class="fas fa-ban"></i> <strong>No Liability:</strong> The authors are not liable for any damages arising from use</li>
-            <li><i class="fas fa-ban"></i> <strong>No Trademark Rights:</strong> The license does not grant trademark rights</li>
-            <li><i class="fas fa-ban"></i> <strong>No Support Obligation:</strong> The authors are not obligated to provide support</li>
-          </ul>
-        </div>
-        
-        <!-- CONDITIONS -->
-        <div id="conditions" class="legal-section">
-          <h3><i class="fas fa-clipboard-list"></i> Conditions</h3>
-          <ul>
-            <li><i class="fas fa-copyright"></i> <strong>Copyright Notice:</strong> Must be retained in all copies</li>
-            <li><i class="fas fa-file-signature"></i> <strong>License Text:</strong> Must be included in all copies or substantial portions</li>
-            <li><i class="fas fa-user-check"></i> <strong>Attribution:</strong> Original authors must be credited</li>
-          </ul>
-        </div>
-        
-        <!-- DISCLAIMER OF WARRANTY -->
-        <div id="disclaimer" class="legal-section">
-          <h3><i class="fas fa-scale-balanced"></i> Disclaimer of Warranty</h3>
-          <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH YOU.</p>
-          <p>Grade calculations are for informational purposes only. The official grades from SIN GBHS FOUMBAN take precedence over any calculations in this software.</p>
-        </div>
-        
-        <!-- LIMITATION OF LIABILITY -->
-        <div id="liability" class="legal-section">
-          <h3><i class="fas fa-shield"></i> Limitation of Liability</h3>
-          <p>IN NO EVENT SHALL THE DEVELOPER (HANS KEPPER) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-          <p>This includes, but is not limited to:</p>
-          <ul>
-            <li>Loss of data or grades</li>
-            <li>Academic consequences resulting from use</li>
-            <li>Errors or inaccuracies in calculations</li>
-            <li>Unauthorized access to your account</li>
-            <li>Third-party services (GitHub, JSONBin.io, etc.)</li>
-          </ul>
-        </div>
-        
-        <!-- THIRD-PARTY LIBRARIES -->
-        <div id="third-party" class="legal-section">
-          <h3><i class="fas fa-code"></i> Third-Party Libraries</h3>
-          <p>SMART GRADE uses the following open source libraries and resources. Each library is distributed under its own license:</p>
-          <ul>
-            <li><i class="fas fa-chart-line"></i> <strong>Chart.js</strong> - MIT License - Interactive charts and graphs</li>
-            <li><i class="fas fa-qrcode"></i> <strong>QRCode.js</strong> - MIT License - QR code generation</li>
-            <li><i class="fas fa-camera"></i> <strong>html5-qrcode</strong> - Apache License 2.0 - QR code scanning</li>
-            <li><i class="fab fa-font-awesome"></i> <strong>Font Awesome</strong> - CC BY 4.0 / SIL OFL 1.1 - Icons</li>
-            <li><i class="fab fa-google"></i> <strong>Google Fonts</strong> - Open Font License - Web fonts</li>
-            <li><i class="fas fa-file-pdf"></i> <strong>html2pdf.js</strong> - MIT License - PDF generation</li>
-          </ul>
-        </div>
-        
-        <!-- OPEN SOURCE CONTRIBUTIONS -->
-        <div id="open-source" class="legal-section">
-          <h3><i class="fab fa-github"></i> Open Source Contributions</h3>
-          <p>SMART GRADE is an open source project. You can contribute by:</p>
-          <ul>
-            <li><i class="fab fa-github"></i> Reporting bugs on GitHub</li>
-            <li><i class="fas fa-code-branch"></i> Submitting pull requests with improvements</li>
-            <li><i class="fas fa-lightbulb"></i> Suggesting new features</li>
-            <li><i class="fas fa-language"></i> Helping with documentation</li>
-            <li><i class="fas fa-globe"></i> Translating the application</li>
-          </ul>
-          <div class="highlight" style="background: rgba(52,152,219,0.1); border-left-color: #3498db; margin-top: 16px;">
-            <i class="fab fa-github"></i> 
-            <strong>Repository:</strong> 
-            <span class="github-link">
-              <a href="https://github.com/hanskepper/SMART-GRADE" target="_blank" rel="noopener noreferrer">
-                https://github.com/hanskepper/SMART-GRADE
-              </a>
-            </span>
+        <div id="section4" class="legal-section">
+          <h3><i class="fas fa-exchange-alt"></i> 4. LocalStorage vs Cookies</h3>
+          <div class="badge-grid">
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-check"></i></div>
+              <div class="badge-info">
+                <h4>More Secure</h4>
+                <p>localStorage is not sent to servers with every request</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-check"></i></div>
+              <div class="badge-info">
+                <h4>Larger Storage</h4>
+                <p>Up to 10MB per domain (vs 4KB for cookies)</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-check"></i></div>
+              <div class="badge-info">
+                <h4>No Expiry</h4>
+                <p>Data persists until manually cleared</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-check"></i></div>
+              <div class="badge-info">
+                <h4>No Tracking</h4>
+                <p>Cannot be read by third parties</p>
+              </div>
+            </div>
           </div>
         </div>
         
-        <!-- CONTACT INFORMATION -->
-        <div id="contact" class="legal-section">
-          <h3><i class="fas fa-envelope"></i> Contact Information</h3>
-          <p>If you have any questions about this license or the software, please contact the developer:</p>
+        <div id="section5" class="legal-section">
+          <h3><i class="fas fa-plug"></i> 5. Third-Party Services</h3>
+          <p>SMART GRADE uses the following third-party services that may set their own storage:</p>
+          <div class="badge-grid">
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#24292e;"><i class="fab fa-github"></i></div>
+              <div class="badge-info">
+                <h4>GitHub Gist</h4>
+                <p>Used for cloud transfer (optional). May set its own authentication cookies.</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#f1c40f;"><i class="fab fa-google"></i></div>
+              <div class="badge-info">
+                <h4>Google Fonts</h4>
+                <p>Used for displaying custom fonts. May collect IP addresses.</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#9b59b6;"><i class="fab fa-font-awesome"></i></div>
+              <div class="badge-info">
+                <h4>Font Awesome</h4>
+                <p>Used for icons. May set cookies for CDN optimization.</p>
+              </div>
+            </div>
+          </div>
+          <p>These services are used only when you explicitly use the corresponding features (cloud transfer, etc.).</p>
+        </div>
+        
+        <div id="section6" class="legal-section">
+          <h3><i class="fas fa-cog"></i> 6. Managing Your Storage</h3>
+          <p>You have full control over your data stored by SMART GRADE:</p>
+          <ul>
+            <li><i class="fas fa-trash-alt"></i> <strong>Clear localStorage:</strong> You can delete all your data by deleting your account or clearing browser storage.</li>
+            <li><i class="fas fa-download"></i> <strong>Export Data:</strong> Use the Export feature to save a backup before clearing.</li>
+            <li><i class="fas fa-ban"></i> <strong>Disable Cloud Features:</strong> You can choose not to use cloud transfer/backup features.</li>
+            <li><i class="fas fa-database"></i> <strong>Browser Settings:</strong> Most browsers allow you to clear localStorage through privacy settings.</li>
+          </ul>
+          <div class="highlight">
+            <i class="fas fa-download"></i> <strong>Recommendation:</strong> Before clearing your browser data, use the Export feature to save a backup of your grades and achievements.
+          </div>
+        </div>
+        
+        <div id="section7" class="legal-section">
+          <h3><i class="fas fa-clock"></i> 7. Storage Duration</h3>
+          <p>Different types of data have different retention periods:</p>
+          <div class="badge-grid">
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#3498db;"><i class="fas fa-user"></i></div>
+              <div class="badge-info">
+                <h4>Account Data</h4>
+                <p>Until account deletion or manual clearing</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#e74c3c;"><i class="fas fa-key"></i></div>
+              <div class="badge-info">
+                <h4>Transfer Codes</h4>
+                <p>10 minutes (automatically deleted)</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#f39c12;"><i class="fas fa-cloud-upload-alt"></i></div>
+              <div class="badge-info">
+                <h4>Cloud Backups</h4>
+                <p>24 hours (optional feature)</p>
+              </div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-palette"></i></div>
+              <div class="badge-info">
+                <h4>Preferences</h4>
+                <p>Until manually changed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="section8" class="legal-section">
+          <h3><i class="fas fa-edit"></i> 8. Changes to This Policy</h3>
+          <p>We may update this Cookies Policy from time to time. When we make changes:</p>
+          <ul>
+            <li>The "Last updated" date at the top of this document will be modified</li>
+            <li>Users will be notified via in-app notification of significant changes</li>
+            <li>Continued use of SMART GRADE after changes constitutes acceptance of the new policy</li>
+          </ul>
+        </div>
+        
+        <div id="section9" class="legal-section">
+          <h3><i class="fas fa-envelope"></i> 9. Contact Information</h3>
+          <p>If you have any questions about this Cookies Policy, please contact the developer:</p>
           <ul>
             <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
             <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
             <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
             <li><i class="fab fa-github"></i> <strong>GitHub:</strong> hanskepper</li>
             <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
-            <li><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Foumban, West Region, Cameroon</li>
           </ul>
         </div>
         
         <div class="legal-date">
-          <i class="fas fa-calendar-alt"></i> License effective: July 08, 2026<br>
+          <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026<br>
           <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
           <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>
-          <i class="fas fa-copyright"></i> 2026-2027 HANS KEPPER. Open Source Software<br>
-          <i class="fab fa-osi"></i> OSI Approved - MIT License
+          <i class="fas fa-copyright"></i> 2026-2027 HANS KEPPER. All rights reserved.<br>
+          <i class="fas fa-check-circle"></i> GDPR Compliant | ePrivacy Directive Compliant
         </div>
       </div>
       
@@ -532,37 +553,38 @@ SOFTWARE.
     // CONSENTEMENT INDIVIDUEL PAR COMPTE
     // ============================================
 
-    function checkLicenseConsent() {
+    function checkCookiesConsent() {
       var user = getCurrentStudent();
       if (!user) return;
 
-      var consentKey = 'smartgrade_license_consent_' + user.id;
+      var consentKey = 'smartgrade_cookies_consent_' + user.id;
       var hasConsented = localStorage.getItem(consentKey);
 
       if (!hasConsented) {
-        showConsentBanner(user);
+        showCookiesBanner(user);
       }
     }
 
-    function showConsentBanner(user) {
-      var existingBanner = document.getElementById('licenseConsentBanner');
+    function showCookiesBanner(user) {
+      var existingBanner = document.getElementById('cookiesConsentBanner');
       if (existingBanner) existingBanner.remove();
 
       var banner = document.createElement('div');
-      banner.id = 'licenseConsentBanner';
+      banner.id = 'cookiesConsentBanner';
       
       banner.innerHTML = `
-        <h4><i class="fas fa-balance-scale"></i> License Agreement</h4>
+        <h4><i class="fas fa-cookie-bite"></i> Cookies Consent</h4>
         <p>
-          <strong>${user.name}</strong>, please accept the MIT License terms to continue using SMART GRADE.
+          <strong>${user.name}</strong>, SMART GRADE uses localStorage to store your grades and preferences. 
+          No tracking cookies are used. By using this application, you consent to this local storage.
           <br><br>
           <span style="font-size:0.65rem;opacity:0.7;">You only need to accept once per account.</span>
         </p>
         <div class="banner-buttons">
-          <button class="btn-decline" onclick="declineLicense()">
+          <button class="btn-decline" onclick="declineCookies()">
             <i class="fas fa-times"></i> Decline
           </button>
-          <button class="btn-accept" onclick="acceptLicense()">
+          <button class="btn-accept" onclick="acceptCookies()">
             <i class="fas fa-check"></i> Accept & Continue
           </button>
         </div>
@@ -571,32 +593,32 @@ SOFTWARE.
       document.body.appendChild(banner);
     }
 
-    function acceptLicense() {
+    function acceptCookies() {
       var user = getCurrentStudent();
       if (!user) return;
 
-      var consentKey = 'smartgrade_license_consent_' + user.id;
+      var consentKey = 'smartgrade_cookies_consent_' + user.id;
       localStorage.setItem(consentKey, 'true');
 
-      var banner = document.getElementById('licenseConsentBanner');
+      var banner = document.getElementById('cookiesConsentBanner');
       if (banner) banner.remove();
 
-      showToast('License accepted!');
+      showToast('Cookies preferences saved!');
       
       if (typeof addNotification === 'function') {
-        addNotification('account', 'License Accepted', 'You have accepted the MIT License for SMART GRADE.');
+        addNotification('account', 'Cookies Accepted', 'You have accepted the cookies policy for SMART GRADE.');
       }
     }
 
-    function declineLicense() {
-      var banner = document.getElementById('licenseConsentBanner');
+    function declineCookies() {
+      var banner = document.getElementById('cookiesConsentBanner');
       if (banner) banner.remove();
 
-      showToast('You must accept the license to use SMART GRADE.');
+      showToast('You can still use the app. Data is stored locally.');
       
-      setTimeout(function() {
-        window.location.href = 'index.html';
-      }, 2000);
+      if (typeof addNotification === 'function') {
+        addNotification('account', 'Cookies Declined', 'You have declined the cookies policy. Data is still stored locally.');
+      }
     }
 
     // ============================================
@@ -651,7 +673,7 @@ SOFTWARE.
       initThemeSelector();
       applyGlobalFont();
       
-      setTimeout(checkLicenseConsent, 500);
+      setTimeout(checkCookiesConsent, 500);
     });
 
     var fontObserver = new MutationObserver(function() { applyGlobalFont(); });
@@ -663,8 +685,8 @@ SOFTWARE.
     }
 
     window.logout = logout;
-    window.acceptLicense = acceptLicense;
-    window.declineLicense = declineLicense;
+    window.acceptCookies = acceptCookies;
+    window.declineCookies = declineCookies;
   </script>
   <!-- PWA Manager -->
   <script src="js/pwa.js" defer></script>
