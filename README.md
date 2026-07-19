@@ -4,7 +4,7 @@
 
 <!-- Bannière -->
 <p align="center">
-  <img src="./images/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
+  <img src="./icons/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
 </p>
 
 <div align="center">
@@ -32,7 +32,7 @@
     <img src="https://img.shields.io/badge/Stars-2-0f3b48?style=flat-square&logo=github&logoColor=white">
   </a>
 <p align="center">
-  <img src="./images/banner.png" alt="SMART GRADE Banner" width="100%">
+  <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
 </p>
 
 
@@ -95,28 +95,6 @@
 
 > **SMART GRADE** is a complete **Progressive Web Application (PWA)** for grade management, designed specifically for **SIN GBHS FOUMBAN Form 5B Science** students. The application works **100% offline** after first installation and stores all data locally on the user's device.
 
-<!-- ============================================ -->
-<!-- CAPTURES D'ÉCRAN - VERSION CORRIGÉE -->
-<!-- ============================================ -->
-
-## 📸 App Screenshots
-
-<div align="center">
-
-| Home | Login | Register |
-|:---:|:---:|:---:|
-| <img src="./images/home.png" alt="Home" width="200"> | <img src="./images/login.png" alt="Login" width="200"> | <img src="./images/register.png" alt="Register" width="200"> |
-
-| Dashboard |
-|:---:|
-| <img src="./images/dashboard.png" alt="Dashboard" width="600"> |
-
-</div>
-
-<p align="center">
-  <em>SMART GRADE - Available on all devices</em>
-</p>
-
 ### School Information
 
 | Field | Value |
@@ -125,6 +103,7 @@
 | **Class** | Form 5B Science |
 | **Academic Year** | 2026-2027 |
 | **Location** | Foumban, West Region, Cameroon |
+
 ### Key Numbers
 
 - 📚 **14** Subjects

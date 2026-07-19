@@ -254,21 +254,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-cog"></i><span>DEV TOOLS</span></div>
+      <div class="header-logo"><i class="fas fa-cog"></i><span data-i18n="common.dev_tools">DEV TOOLS</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -276,25 +277,25 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="profile.html" class="nav-item" data-i18n="common.profile"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
         
         <div class="dev-sidebar" id="devSidebar" style="display:none;">
-          <div class="dev-sidebar-title"><i class="fas fa-code"></i> Developer Tools</div>
+          <div class="dev-sidebar-title" data-i18n="common.developer_tools"><i class="fas fa-code"></i> Developer Tools</div>
           <div class="dev-nav-links">
-            <a href="dev-calculator.html" class="dev-nav-link"><i class="fas fa-calculator"></i> Calculator</a>
-            <a href="dev-database.html" class="dev-nav-link"><i class="fas fa-database"></i> Database</a>
-            <a href="dev-stats.html" class="dev-nav-link"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
-            <a href="dev-logs.html" class="dev-nav-link"><i class="fas fa-history"></i> System Logs</a>
-            <a href="dev-backup.html" class="dev-nav-link"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
-            <a href="dev-config.html" class="dev-nav-link active"><i class="fas fa-cog"></i> System Config</a>
+            <a href="dev-calculator.html" class="dev-nav-link" data-i18n="common.calculator"><i class="fas fa-calculator"></i> Calculator</a>
+            <a href="dev-database.html" class="dev-nav-link" data-i18n="common.database"><i class="fas fa-database"></i> Database</a>
+            <a href="dev-stats.html" class="dev-nav-link" data-i18n="common.advanced_stats"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
+            <a href="dev-logs.html" class="dev-nav-link" data-i18n="common.system_logs"><i class="fas fa-history"></i> System Logs</a>
+            <a href="dev-backup.html" class="dev-nav-link" data-i18n="common.cloud_backup"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
+            <a href="dev-config.html" class="dev-nav-link active" data-i18n="common.system_config"><i class="fas fa-cog"></i> System Config</a>
           </div>
         </div>
         
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -302,35 +303,35 @@
     <main class="main-content">
       <div class="dev-hero">
         <i class="fas fa-cog" style="font-size:45px;opacity:0.5;"></i>
-        <h1>System Configuration</h1>
-        <p>View and modify application settings</p>
+        <h1 data-i18n="dev_config.system_configuration">System Configuration</h1>
+        <p data-i18n="dev_config.view_and_modify_application">View and modify application settings</p>
       </div>
       
       <!-- CONFIGURATION -->
       <div class="dev-card">
-        <div class="section-title"><i class="fas fa-sliders-h"></i> System Limits</div>
+        <div class="section-title" data-i18n="dev_config.system_limits"><i class="fas fa-sliders-h"></i> System Limits</div>
         <div class="config-grid" id="limitsConfig"></div>
       </div>
       
       <!-- ACTIONS -->
       <div class="dev-card">
-        <div class="section-title"><i class="fas fa-tools"></i> Actions</div>
+        <div class="section-title" data-i18n="dev_config.actions"><i class="fas fa-tools"></i> Actions</div>
         <div class="btn-group">
-          <button class="btn-action" onclick="saveConfig()"><i class="fas fa-save"></i> Save Settings</button>
-          <button class="btn-action secondary" onclick="exportConfig()"><i class="fas fa-download"></i> Export Config</button>
+          <button class="btn-action" onclick="saveConfig()" data-i18n="dev_config.save_settings"><i class="fas fa-save"></i> Save Settings</button>
+          <button class="btn-action secondary" onclick="exportConfig()" data-i18n="dev_config.export_config"><i class="fas fa-download"></i> Export Config</button>
           <input type="file" id="importConfigFile" accept=".json" style="display:none;" onchange="importConfig(event)">
-          <button class="btn-action secondary" onclick="document.getElementById('importConfigFile').click()"><i class="fas fa-upload"></i> Import Config</button>
-          <button class="btn-action danger" onclick="showResetModal()"><i class="fas fa-undo-alt"></i> Reset to Default</button>
+          <button class="btn-action secondary" onclick="document.getElementById('importConfigFile').click()" data-i18n="dev_config.import_config"><i class="fas fa-upload"></i> Import Config</button>
+          <button class="btn-action danger" onclick="showResetModal()" data-i18n="dev_config.reset_to_default"><i class="fas fa-undo-alt"></i> Reset to Default</button>
         </div>
       </div>
       
       <!-- FICHIER REMEND -->
       <div class="dev-card">
-        <div class="section-title"><i class="fas fa-file-alt"></i> REMEND Configuration</div>
+        <div class="section-title" data-i18n="dev_config.remend_configuration"><i class="fas fa-file-alt"></i> REMEND Configuration</div>
         <div class="remend-box" id="remendContent"></div>
         <div class="btn-group" style="margin-top:12px;">
-          <button class="btn-action secondary" onclick="copyRemend()"><i class="fas fa-copy"></i> Copy REMEND</button>
-          <button class="btn-action secondary" onclick="downloadRemend()"><i class="fas fa-download"></i> Download REMEND</button>
+          <button class="btn-action secondary" onclick="copyRemend()" data-i18n="dev_config.copy_remend"><i class="fas fa-copy"></i> Copy REMEND</button>
+          <button class="btn-action secondary" onclick="downloadRemend()" data-i18n="dev_config.download_remend"><i class="fas fa-download"></i> Download REMEND</button>
         </div>
       </div>
       
@@ -341,11 +342,11 @@
   <div id="resetModal" class="config-modal">
     <div class="config-modal-content">
       <i class="fas fa-exclamation-triangle"></i>
-      <h3>Reset Configuration</h3>
-      <p>Reset all configuration to default values?</p>
+      <h3 data-i18n="dev_config.reset_configuration">Reset Configuration</h3>
+      <p data-i18n="dev_config.reset_all_configuration_to">Reset all configuration to default values?</p>
       <div class="config-modal-buttons">
-        <button class="btn-cancel" onclick="closeResetModal()">Cancel</button>
-        <button class="btn-danger" onclick="confirmReset()">Reset</button>
+        <button class="btn-cancel" onclick="closeResetModal()" data-i18n="common.cancel">Cancel</button>
+        <button class="btn-danger" onclick="confirmReset()" data-i18n="dashboard.reset">Reset</button>
       </div>
     </div>
   </div>

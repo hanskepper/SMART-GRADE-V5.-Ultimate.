@@ -458,21 +458,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-headset"></i><span>SUPPORT</span></div>
+      <div class="header-logo"><i class="fas fa-headset"></i><span data-i18n="support.support">SUPPORT</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -480,20 +481,20 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="support.html" class="nav-item active"><i class="fas fa-headset"></i> Support</a>
-        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
-        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
-        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
-        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
-        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
-        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="support.html" class="nav-item active" data-i18n="common.support"><i class="fas fa-headset"></i> Support</a>
+        <a href="terms.html" class="nav-item" data-i18n="common.terms_of_use"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="privacy.html" class="nav-item" data-i18n="common.privacy_policy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="cookies.html" class="nav-item" data-i18n="common.cookies_policy"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="license.html" class="nav-item" data-i18n="common.license"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="eula.html" class="nav-item" data-i18n="common.eula"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="doc.html" class="nav-item" data-i18n="common.documentation"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="guide-user.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -503,12 +504,12 @@
       <!-- HERO -->
       <div class="support-hero">
         <i class="fas fa-headset" style="font-size:45px;opacity:0.5;"></i>
-        <h1>Help & Support</h1>
-        <p>We are here to help you with any questions or issues</p>
+        <h1 data-i18n="support.help_support">Help & Support</h1>
+        <p data-i18n="support.we_are_here_to">We are here to help you with any questions or issues</p>
         <div class="stats-badge">
-          <div class="stat"><i class="fas fa-question-circle"></i> 20+ FAQ</div>
-          <div class="stat"><i class="fas fa-clock"></i> Response: 24-48h</div>
-          <div class="stat"><i class="fab fa-whatsapp"></i> Fast response</div>
+          <div class="stat" data-i18n="support.20_faq"><i class="fas fa-question-circle"></i> 20+ FAQ</div>
+          <div class="stat" data-i18n="support.response_2448h"><i class="fas fa-clock"></i> Response: 24-48h</div>
+          <div class="stat" data-i18n="support.fast_response"><i class="fab fa-whatsapp"></i> Fast response</div>
         </div>
       </div>
       
@@ -518,29 +519,29 @@
       <div class="support-section">
         <div class="section-header">
           <i class="fas fa-bolt"></i>
-          <h3>Quick Contact</h3>
-          <span class="badge">Click to open</span>
+          <h3 data-i18n="support.quick_contact">Quick Contact</h3>
+          <span class="badge" data-i18n="support.click_to_open">Click to open</span>
         </div>
         <div class="contact-grid">
           <div class="contact-card" onclick="window.open('mailto:hanskepper52@gmail.com')">
             <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-            <div class="contact-title">Email</div>
-            <div class="contact-value">hanskepper52@gmail.com</div>
+            <div class="contact-title" data-i18n="support.email">Email</div>
+            <div class="contact-value" data-i18n="common.hanskepper52gmailcom">hanskepper52@gmail.com</div>
           </div>
           <div class="contact-card" onclick="window.open('https://wa.me/237698640885', '_blank')">
             <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
-            <div class="contact-title">WhatsApp</div>
+            <div class="contact-title" data-i18n="support.whatsapp">WhatsApp</div>
             <div class="contact-value">+237 698 640 885</div>
           </div>
           <div class="contact-card" onclick="window.open('https://github.com/hanskepper', '_blank')">
             <div class="contact-icon"><i class="fab fa-github"></i></div>
-            <div class="contact-title">GitHub</div>
-            <div class="contact-value">@hanskepper</div>
+            <div class="contact-title" data-i18n="search.github">GitHub</div>
+            <div class="contact-value" data-i18n="support.hanskepper">@hanskepper</div>
           </div>
           <div class="contact-card" onclick="window.open('https://github.com/hanskepper/SMART-GRADE', '_blank')">
             <div class="contact-icon"><i class="fab fa-github"></i></div>
-            <div class="contact-title">Repository</div>
-            <div class="contact-value">SMART-GRADE-V5</div>
+            <div class="contact-title" data-i18n="support.repository">Repository</div>
+            <div class="contact-value" data-i18n="support.smartgradev5">SMART-GRADE-V5</div>
           </div>
         </div>
       </div>
@@ -551,50 +552,50 @@
       <div class="support-section">
         <div class="section-header">
           <i class="fas fa-paper-plane"></i>
-          <h3>Send us a message</h3>
-          <span class="badge">Choose method</span>
+          <h3 data-i18n="support.send_us_a_message">Send us a message</h3>
+          <span class="badge" data-i18n="support.choose_method">Choose method</span>
         </div>
-        <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+        <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;" data-i18n="support.choose_how_you_want">
           <i class="fas fa-info-circle"></i> Choose how you want to send your message
         </p>
         
         <div class="form-group">
-          <label><i class="fas fa-tag"></i> Message Type</label>
+          <label data-i18n="support.message_type"><i class="fas fa-tag"></i> Message Type</label>
           <div class="custom-select-wrapper">
             <div class="custom-select-trigger" onclick="toggleCustomSelect()">
-              <span id="selectedMessageType">❓ Question / Help</span>
+              <span id="selectedMessageType" data-i18n="support.question_help">❓ Question / Help</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="custom-select-options" id="customSelectOptions">
-              <div class="custom-select-option selected" data-value="question" onclick="selectMessageType('question', '❓ Question / Help')">❓ Question / Help</div>
-              <div class="custom-select-option" data-value="bug" onclick="selectMessageType('bug', '🐛 Bug Report')">🐛 Bug Report</div>
-              <div class="custom-select-option" data-value="feature" onclick="selectMessageType('feature', '💡 Feature Request')">💡 Feature Request</div>
-              <div class="custom-select-option" data-value="feedback" onclick="selectMessageType('feedback', '👍 Feedback')">👍 Feedback</div>
+              <div class="custom-select-option selected" data-value="question" onclick="selectMessageType('question', '❓ Question / Help')" data-i18n="support.question_help">❓ Question / Help</div>
+              <div class="custom-select-option" data-value="bug" onclick="selectMessageType('bug', '🐛 Bug Report')" data-i18n="support.bug_report">🐛 Bug Report</div>
+              <div class="custom-select-option" data-value="feature" onclick="selectMessageType('feature', '💡 Feature Request')" data-i18n="support.feature_request">💡 Feature Request</div>
+              <div class="custom-select-option" data-value="feedback" onclick="selectMessageType('feedback', '👍 Feedback')" data-i18n="support.feedback">👍 Feedback</div>
             </div>
           </div>
           <input type="hidden" id="messageTypeValue" value="question">
         </div>
         
         <div class="form-group">
-          <label><i class="fas fa-user"></i> Your Name</label>
-          <input type="text" id="userName" readonly placeholder="Auto-detected from account">
+          <label data-i18n="support.your_name"><i class="fas fa-user"></i> Your Name</label>
+          <input type="text" id="userName" readonly placeholder="Auto-detected from account" data-i18n-placeholder="support.autodetected_from_account">
         </div>
         
         <div class="form-group">
-          <label><i class="fas fa-heading"></i> Subject</label>
-          <input type="text" id="messageSubject" placeholder="Brief description">
+          <label data-i18n="common.subject"><i class="fas fa-heading"></i> Subject</label>
+          <input type="text" id="messageSubject" placeholder="Brief description" data-i18n-placeholder="support.brief_description">
         </div>
         
         <div class="form-group">
-          <label><i class="fas fa-align-left"></i> Message</label>
-          <textarea id="messageBody" rows="4" placeholder="Describe your issue in detail..."></textarea>
+          <label data-i18n="support.message"><i class="fas fa-align-left"></i> Message</label>
+          <textarea id="messageBody" rows="4" placeholder="Describe your issue in detail..." data-i18n-placeholder="support.describe_your_issue_in"></textarea>
         </div>
         
         <div class="send-options">
-          <button class="btn-send btn-email" onclick="sendViaEmail()">
+          <button class="btn-send btn-email" onclick="sendViaEmail()" data-i18n="support.send_via_email">
             <i class="fas fa-envelope"></i> Send via Email
           </button>
-          <button class="btn-send btn-whatsapp" onclick="sendViaWhatsApp()">
+          <button class="btn-send btn-whatsapp" onclick="sendViaWhatsApp()" data-i18n="support.send_via_whatsapp">
             <i class="fab fa-whatsapp"></i> Send via WhatsApp
           </button>
         </div>
@@ -607,53 +608,53 @@
       <div class="support-section">
         <div class="section-header">
           <i class="fas fa-question-circle"></i>
-          <h3>Frequently Asked Questions</h3>
-          <span class="badge">20+ answers</span>
+          <h3 data-i18n="support.frequently_asked_questions">Frequently Asked Questions</h3>
+          <span class="badge" data-i18n="support.20_answers">20+ answers</span>
         </div>
         
         <!-- CATEGORY 1: ACCOUNT & LOGIN -->
         <div class="faq-category">
-          <div class="faq-category-title"><i class="fas fa-user-circle"></i> Account & Login</div>
+          <div class="faq-category-title" data-i18n="support.account_login"><i class="fas fa-user-circle"></i> Account & Login</div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-key" style="color:var(--primary);margin-right:8px;"></i> How do I recover my PIN?</span>
+              <span data-i18n="support.how_do_i_recover"><i class="fas fa-key" style="color:var(--primary);margin-right:8px;"></i> How do I recover my PIN?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="faq-answer">
+            <div class="faq-answer" data-i18n="support.for_security_reasons_pins">
               For security reasons, PINs cannot be recovered. Your PIN is stored encrypted locally on your device. If you forget your PIN:
               <ul>
-                <li>You will need to create a new account</li>
-                <li>You can restore your data from a backup if you have one</li>
-                <li>We strongly recommend saving your PIN in a secure place</li>
+                <li data-i18n="support.you_will_need_to">You will need to create a new account</li>
+                <li data-i18n="support.you_can_restore_your">You can restore your data from a backup if you have one</li>
+                <li data-i18n="support.we_strongly_recommend_saving">We strongly recommend saving your PIN in a secure place</li>
               </ul>
-              <div class="tip"><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Write down your PIN somewhere safe or use a password manager!</div>
+              <div class="tip" data-i18n="support.write_down_your_pin"><i class="fas fa-lightbulb"></i> <strong data-i18n="common.tip">Tip:</strong> Write down your PIN somewhere safe or use a password manager!</div>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-fingerprint" style="color:var(--primary);margin-right:8px;"></i> Fingerprint login not working?</span>
+              <span data-i18n="support.fingerprint_login_not_workin"><i class="fas fa-fingerprint" style="color:var(--primary);margin-right:8px;"></i> Fingerprint login not working?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="faq-answer">
               <ul>
-                <li>Make sure your device has fingerprint hardware</li>
-                <li>You must first register your fingerprint in Settings</li>
-                <li>Check that you have granted fingerprint permission to your browser</li>
-                <li>Try re-registering your fingerprint in Settings</li>
-                <li>Use PIN login as an alternative</li>
+                <li data-i18n="support.make_sure_your_device">Make sure your device has fingerprint hardware</li>
+                <li data-i18n="support.you_must_first_register">You must first register your fingerprint in Settings</li>
+                <li data-i18n="support.check_that_you_have">Check that you have granted fingerprint permission to your browser</li>
+                <li data-i18n="support.try_reregistering_your_finge">Try re-registering your fingerprint in Settings</li>
+                <li data-i18n="support.use_pin_login_as">Use PIN login as an alternative</li>
               </ul>
-              <div class="tip"><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Fingerprint works best on Chrome and Edge browsers on Android.</div>
+              <div class="tip" data-i18n="support.fingerprint_works_best_on"><i class="fas fa-lightbulb"></i> <strong data-i18n="common.tip">Tip:</strong> Fingerprint works best on Chrome and Edge browsers on Android.</div>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-user-plus" style="color:var(--primary);margin-right:8px;"></i> Can I have multiple accounts?</span>
+              <span data-i18n="support.can_i_have_multiple"><i class="fas fa-user-plus" style="color:var(--primary);margin-right:8px;"></i> Can I have multiple accounts?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="faq-answer">
+            <div class="faq-answer" data-i18n="support.yes_you_can_create">
               Yes, you can create multiple accounts on the same device. Each student needs their own unique number within their class. The Home page displays all accounts for easy selection.
             </div>
           </div>
@@ -661,51 +662,51 @@
         
         <!-- CATEGORY 2: DATA & TRANSFER -->
         <div class="faq-category">
-          <div class="faq-category-title"><i class="fas fa-database"></i> Data & Transfer</div>
+          <div class="faq-category-title" data-i18n="support.data_transfer"><i class="fas fa-database"></i> Data & Transfer</div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-exchange-alt" style="color:var(--primary);margin-right:8px;"></i> How do I transfer my data between devices?</span>
+              <span data-i18n="support.how_do_i_transfer"><i class="fas fa-exchange-alt" style="color:var(--primary);margin-right:8px;"></i> How do I transfer my data between devices?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="faq-answer">
-              <strong>Three methods available:</strong>
+              <strong data-i18n="support.three_methods_available">Three methods available:</strong>
               <ul>
-                <li><strong>Cloud Transfer:</strong> Generate a cloud code, enter it on the other device</li>
-                <li><strong>QR Code:</strong> Generate a QR code on source device, scan it on the destination</li>
-                <li><strong>JSON File:</strong> Export as JSON file, transfer via USB/cloud</li>
+                <li data-i18n="support.generate_a_cloud_code"><strong data-i18n="support.cloud_transfer">Cloud Transfer:</strong> Generate a cloud code, enter it on the other device</li>
+                <li data-i18n="support.generate_a_qr_code"><strong data-i18n="support.qr_code">QR Code:</strong> Generate a QR code on source device, scan it on the destination</li>
+                <li data-i18n="support.export_as_json_file"><strong data-i18n="support.json_file">JSON File:</strong> Export as JSON file, transfer via USB/cloud</li>
               </ul>
-              <div class="tip"><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Cloud Transfer works between Chrome, Firefox, Safari, and Edge!</div>
+              <div class="tip" data-i18n="support.cloud_transfer_works_between"><i class="fas fa-lightbulb"></i> <strong data-i18n="common.tip">Tip:</strong> Cloud Transfer works between Chrome, Firefox, Safari, and Edge!</div>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-database" style="color:var(--primary);margin-right:8px;"></i> How do backups work?</span>
+              <span data-i18n="support.how_do_backups_work"><i class="fas fa-database" style="color:var(--primary);margin-right:8px;"></i> How do backups work?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="faq-answer">
               <ul>
-                <li><strong>Manual Backup:</strong> Click "Create Backup" in Backup page</li>
-                <li><strong>Auto-Save:</strong> Grades are automatically saved every 30 seconds</li>
-                <li><strong>Cloud Backup:</strong> Optional backup to JSONBin.io</li>
-                <li>All backups are stored locally and can be exported as JSON files</li>
+                <li data-i18n="support.click_create_backup_in"><strong data-i18n="support.manual_backup">Manual Backup:</strong> Click "Create Backup" in Backup page</li>
+                <li data-i18n="support.grades_are_automatically_sav"><strong data-i18n="support.autosave">Auto-Save:</strong> Grades are automatically saved every 30 seconds</li>
+                <li data-i18n="support.optional_backup_to_jsonbinio"><strong data-i18n="privacy.cloud_backup">Cloud Backup:</strong> Optional backup to JSONBin.io</li>
+                <li data-i18n="support.all_backups_are_stored">All backups are stored locally and can be exported as JSON files</li>
               </ul>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-file-export" style="color:var(--primary);margin-right:8px;"></i> What data can I export?</span>
+              <span data-i18n="support.what_data_can_i"><i class="fas fa-file-export" style="color:var(--primary);margin-right:8px;"></i> What data can I export?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="faq-answer">
+            <div class="faq-answer" data-i18n="support.you_can_export">
               You can export:
               <ul>
-                <li><strong>JSON:</strong> Complete backup (grades, badges, history, etc.)</li>
-                <li><strong>CSV:</strong> Spreadsheet format for Excel</li>
-                <li><strong>HTML Bulletin:</strong> Printable report card</li>
-                <li><strong>PDF Bulletin:</strong> Professional PDF document</li>
+                <li data-i18n="support.complete_backup_grades_badge"><strong data-i18n="support.json">JSON:</strong> Complete backup (grades, badges, history, etc.)</li>
+                <li data-i18n="support.spreadsheet_format_for_excel"><strong data-i18n="support.csv">CSV:</strong> Spreadsheet format for Excel</li>
+                <li data-i18n="support.printable_report_card"><strong data-i18n="support.html_bulletin">HTML Bulletin:</strong> Printable report card</li>
+                <li data-i18n="support.professional_pdf_document"><strong data-i18n="support.pdf_bulletin">PDF Bulletin:</strong> Professional PDF document</li>
               </ul>
             </div>
           </div>
@@ -713,53 +714,53 @@
         
         <!-- CATEGORY 3: TECHNICAL -->
         <div class="faq-category">
-          <div class="faq-category-title"><i class="fas fa-microchip"></i> Technical Issues</div>
+          <div class="faq-category-title" data-i18n="support.technical_issues"><i class="fas fa-microchip"></i> Technical Issues</div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-sync-alt" style="color:var(--primary);margin-right:8px;"></i> App not loading / stuck?</span>
+              <span data-i18n="support.app_not_loading_stuck"><i class="fas fa-sync-alt" style="color:var(--primary);margin-right:8px;"></i> App not loading / stuck?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="faq-answer">
               <ul>
-                <li>Clear your browser cache and reload the page</li>
-                <li>Try reopening the app from home screen</li>
-                <li>Check if you have internet connection (first load requires internet)</li>
-                <li>Update your browser to the latest version</li>
-                <li>If problem persists, try reinstalling the PWA</li>
+                <li data-i18n="support.clear_your_browser_cache">Clear your browser cache and reload the page</li>
+                <li data-i18n="support.try_reopening_the_app">Try reopening the app from home screen</li>
+                <li data-i18n="support.check_if_you_have">Check if you have internet connection (first load requires internet)</li>
+                <li data-i18n="support.update_your_browser_to">Update your browser to the latest version</li>
+                <li data-i18n="support.if_problem_persists_try">If problem persists, try reinstalling the PWA</li>
               </ul>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-database" style="color:var(--primary);margin-right:8px;"></i> Data not saving?</span>
+              <span data-i18n="support.data_not_saving"><i class="fas fa-database" style="color:var(--primary);margin-right:8px;"></i> Data not saving?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="faq-answer">
               <ul>
-                <li>Check if localStorage is enabled in your browser</li>
-                <li>Make sure you have enough storage space on your device</li>
-                <li>Clear some space if localStorage is full (usually 5-10MB limit)</li>
-                <li>Try exporting your data as backup before clearing</li>
-                <li>Use the "Export JSON" feature to save your data</li>
+                <li data-i18n="support.check_if_localstorage_is">Check if localStorage is enabled in your browser</li>
+                <li data-i18n="support.make_sure_you_have">Make sure you have enough storage space on your device</li>
+                <li data-i18n="support.clear_some_space_if">Clear some space if localStorage is full (usually 5-10MB limit)</li>
+                <li data-i18n="support.try_exporting_your_data">Try exporting your data as backup before clearing</li>
+                <li data-i18n="support.use_the_export_json">Use the "Export JSON" feature to save your data</li>
               </ul>
-              <div class="tip"><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> You can check storage usage in Developer Tools > Application > Storage.</div>
+              <div class="tip" data-i18n="support.you_can_check_storage"><i class="fas fa-lightbulb"></i> <strong data-i18n="common.tip">Tip:</strong> You can check storage usage in Developer Tools > Application > Storage.</div>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-camera" style="color:var(--primary);margin-right:8px;"></i> QR code not scanning?</span>
+              <span data-i18n="support.qr_code_not_scanning"><i class="fas fa-camera" style="color:var(--primary);margin-right:8px;"></i> QR code not scanning?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="faq-answer">
               <ul>
-                <li>Allow camera permissions when prompted</li>
-                <li>Make sure you're in a well-lit environment</li>
-                <li>Hold the phone steady about 15-20cm from the QR code</li>
-                <li>Try using the alternative code entry method</li>
-                <li>Check that the QR code hasn't expired (10 minute validity)</li>
+                <li data-i18n="support.allow_camera_permissions_whe">Allow camera permissions when prompted</li>
+                <li data-i18n="support.make_sure_youre_in">Make sure you're in a well-lit environment</li>
+                <li data-i18n="support.hold_the_phone_steady">Hold the phone steady about 15-20cm from the QR code</li>
+                <li data-i18n="support.try_using_the_alternative">Try using the alternative code entry method</li>
+                <li data-i18n="support.check_that_the_qr">Check that the QR code hasn't expired (10 minute validity)</li>
               </ul>
             </div>
           </div>
@@ -767,68 +768,68 @@
         
         <!-- CATEGORY 4: FEATURES -->
         <div class="faq-category">
-          <div class="faq-category-title"><i class="fas fa-star"></i> Features</div>
+          <div class="faq-category-title" data-i18n="common.features"><i class="fas fa-star"></i> Features</div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-palette" style="color:var(--primary);margin-right:8px;"></i> How to change theme or font?</span>
+              <span data-i18n="support.how_to_change_theme"><i class="fas fa-palette" style="color:var(--primary);margin-right:8px;"></i> How to change theme or font?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="faq-answer">
-              Tap the <strong>Theme button</strong> in the top right corner. A bottom sheet will show:
+            <div class="faq-answer" data-i18n="support.tap_the">
+              Tap the <strong data-i18n="support.theme_button">Theme button</strong> in the top right corner. A bottom sheet will show:
               <ul>
-                <li><strong>20 color themes</strong> - tap any to apply instantly</li>
-                <li><strong>12 font families</strong> - Inter, Roboto, Cinzel, and more</li>
-                <li><strong>Night mode</strong> - automatic from 8 PM to 6 AM</li>
-                <li>Theme changes are saved automatically</li>
+                <li data-i18n="support.tap_any_to_apply"><strong data-i18n="support.20_color_themes">20 color themes</strong> - tap any to apply instantly</li>
+                <li data-i18n="support.inter_roboto_cinzel_and"><strong data-i18n="support.12_font_families">12 font families</strong> - Inter, Roboto, Cinzel, and more</li>
+                <li data-i18n="support.automatic_from_8_pm"><strong data-i18n="support.night_mode">Night mode</strong> - automatic from 8 PM to 6 AM</li>
+                <li data-i18n="support.theme_changes_are_saved">Theme changes are saved automatically</li>
               </ul>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-medal" style="color:var(--primary);margin-right:8px;"></i> How do I unlock badges?</span>
+              <span data-i18n="support.how_do_i_unlock"><i class="fas fa-medal" style="color:var(--primary);margin-right:8px;"></i> How do I unlock badges?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="faq-answer">
-              <strong>23 badges available:</strong>
+              <strong data-i18n="support.23_badges_available">23 badges available:</strong>
               <ul>
-                <li><strong>Streak badges:</strong> Use the app for 3, 7, 15, 30 consecutive days</li>
-                <li><strong>Achievement badges:</strong> First Grade, Perfect Score, High Average, etc.</li>
-                <li><strong>Special badges:</strong> Theme Collector, Font Collector, Photo Uploader</li>
+                <li data-i18n="support.use_the_app_for"><strong data-i18n="support.streak_badges">Streak badges:</strong> Use the app for 3, 7, 15, 30 consecutive days</li>
+                <li data-i18n="support.first_grade_perfect_score"><strong data-i18n="support.achievement_badges">Achievement badges:</strong> First Grade, Perfect Score, High Average, etc.</li>
+                <li data-i18n="support.theme_collector_font_collect"><strong data-i18n="support.special_badges">Special badges:</strong> Theme Collector, Font Collector, Photo Uploader</li>
               </ul>
-              <div class="tip"><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Check Achievements page to see your progress!</div>
+              <div class="tip" data-i18n="support.check_achievements_page_to"><i class="fas fa-lightbulb"></i> <strong data-i18n="common.tip">Tip:</strong> Check Achievements page to see your progress!</div>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-bullseye" style="color:var(--primary);margin-right:8px;"></i> How do I set a goal?</span>
+              <span data-i18n="support.how_do_i_set"><i class="fas fa-bullseye" style="color:var(--primary);margin-right:8px;"></i> How do I set a goal?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="faq-answer">
               <ul>
-                <li>On the Dashboard, use the Goal slider to set your target yearly average</li>
-                <li>In Goals page, you can set subject-specific targets using sliders</li>
-                <li>A progress bar shows how close you are to your target</li>
-                <li>You get a notification when you achieve your goal!</li>
+                <li data-i18n="support.on_the_dashboard_use">On the Dashboard, use the Goal slider to set your target yearly average</li>
+                <li data-i18n="support.in_goals_page_you">In Goals page, you can set subject-specific targets using sliders</li>
+                <li data-i18n="support.a_progress_bar_shows">A progress bar shows how close you are to your target</li>
+                <li data-i18n="support.you_get_a_notification">You get a notification when you achieve your goal!</li>
               </ul>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-clone" style="color:var(--primary);margin-right:8px;"></i> What are flashcards?</span>
+              <span data-i18n="support.what_are_flashcards"><i class="fas fa-clone" style="color:var(--primary);margin-right:8px;"></i> What are flashcards?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="faq-answer">
+            <div class="faq-answer" data-i18n="support.flashcards_help_you_study">
               Flashcards help you study and memorize information:
               <ul>
-                <li>Each subject has default flashcards (3-5 cards)</li>
-                <li>You can add your own custom flashcards</li>
-                <li>Tap the card to flip between question and answer</li>
-                <li>Navigate between cards with Prev/Next buttons</li>
-                <li>Unlock badges by creating 5 and 10 custom flashcards</li>
+                <li data-i18n="support.each_subject_has_default">Each subject has default flashcards (3-5 cards)</li>
+                <li data-i18n="support.you_can_add_your">You can add your own custom flashcards</li>
+                <li data-i18n="support.tap_the_card_to">Tap the card to flip between question and answer</li>
+                <li data-i18n="support.navigate_between_cards_with">Navigate between cards with Prev/Next buttons</li>
+                <li data-i18n="support.unlock_badges_by_creating">Unlock badges by creating 5 and 10 custom flashcards</li>
               </ul>
             </div>
           </div>
@@ -836,44 +837,44 @@
         
         <!-- CATEGORY 5: INSTALLATION -->
         <div class="faq-category">
-          <div class="faq-category-title"><i class="fas fa-mobile-alt"></i> Installation & PWA</div>
+          <div class="faq-category-title" data-i18n="support.installation_pwa"><i class="fas fa-mobile-alt"></i> Installation & PWA</div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-download" style="color:var(--primary);margin-right:8px;"></i> How do I install the app?</span>
+              <span data-i18n="support.how_do_i_install"><i class="fas fa-download" style="color:var(--primary);margin-right:8px;"></i> How do I install the app?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <div class="faq-answer">
-              <strong>Android (Chrome):</strong>
+              <strong data-i18n="support.android_chrome">Android (Chrome):</strong>
               <ul>
-                <li>Open SMART GRADE in Chrome</li>
-                <li>Tap the menu button (3 dots) at top right</li>
-                <li>Select "Add to Home Screen" or "Install App"</li>
-                <li>Tap Install to add SMART GRADE to your home screen</li>
+                <li data-i18n="support.open_smart_grade_in">Open SMART GRADE in Chrome</li>
+                <li data-i18n="support.tap_the_menu_button">Tap the menu button (3 dots) at top right</li>
+                <li data-i18n="support.select_add_to_home">Select "Add to Home Screen" or "Install App"</li>
+                <li data-i18n="support.tap_install_to_add">Tap Install to add SMART GRADE to your home screen</li>
               </ul>
-              <strong>iOS (Safari):</strong>
+              <strong data-i18n="support.ios_safari">iOS (Safari):</strong>
               <ul>
-                <li>Open SMART GRADE in Safari</li>
-                <li>Tap the Share button at bottom</li>
-                <li>Scroll down and tap "Add to Home Screen"</li>
-                <li>Tap Add to install</li>
+                <li data-i18n="support.open_smart_grade_in_2">Open SMART GRADE in Safari</li>
+                <li data-i18n="support.tap_the_share_button">Tap the Share button at bottom</li>
+                <li data-i18n="support.scroll_down_and_tap">Scroll down and tap "Add to Home Screen"</li>
+                <li data-i18n="support.tap_add_to_install">Tap Add to install</li>
               </ul>
-              <div class="tip"><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Once installed, the app works 100% offline!</div>
+              <div class="tip" data-i18n="support.once_installed_the_app"><i class="fas fa-lightbulb"></i> <strong data-i18n="common.tip">Tip:</strong> Once installed, the app works 100% offline!</div>
             </div>
           </div>
           
           <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
-              <span><i class="fas fa-cloud-upload-alt" style="color:var(--primary);margin-right:8px;"></i> Does the app work offline?</span>
+              <span data-i18n="support.does_the_app_work"><i class="fas fa-cloud-upload-alt" style="color:var(--primary);margin-right:8px;"></i> Does the app work offline?</span>
               <i class="fas fa-chevron-down"></i>
             </div>
-            <div class="faq-answer">
+            <div class="faq-answer" data-i18n="support.yes_smart_grade_is">
               Yes! SMART GRADE is a Progressive Web App (PWA) that works 100% offline after first installation:
               <ul>
-                <li>All your data is stored locally on your device</li>
-                <li>You can add grades, view statistics, and use flashcards without internet</li>
-                <li>Only cloud backup and update checking require internet</li>
-                <li>The app will automatically sync when you're back online</li>
+                <li data-i18n="support.all_your_data_is">All your data is stored locally on your device</li>
+                <li data-i18n="support.you_can_add_grades">You can add grades, view statistics, and use flashcards without internet</li>
+                <li data-i18n="support.only_cloud_backup_and">Only cloud backup and update checking require internet</li>
+                <li data-i18n="support.the_app_will_automatically">The app will automatically sync when you're back online</li>
               </ul>
             </div>
           </div>
@@ -886,36 +887,36 @@
       <div class="support-section">
         <div class="section-header">
           <i class="fas fa-wrench"></i>
-          <h3>Quick Troubleshooting</h3>
-          <span class="badge">Click to go</span>
+          <h3 data-i18n="support.quick_troubleshooting">Quick Troubleshooting</h3>
+          <span class="badge" data-i18n="support.click_to_go">Click to go</span>
         </div>
         <div class="troubleshoot-grid">
           <div class="troubleshoot-card" onclick="window.location.href='settings.html'">
             <div class="troubleshoot-icon"><i class="fas fa-sliders-h"></i></div>
             <div class="troubleshoot-info">
-              <div class="troubleshoot-title">Check Subject Selection</div>
-              <div class="troubleshoot-desc">Go to Settings → Subjects by Term</div>
+              <div class="troubleshoot-title" data-i18n="support.check_subject_selection">Check Subject Selection</div>
+              <div class="troubleshoot-desc" data-i18n="support.go_to_settings_subjects">Go to Settings → Subjects by Term</div>
             </div>
           </div>
           <div class="troubleshoot-card" onclick="window.location.href='backup.html'">
             <div class="troubleshoot-icon"><i class="fas fa-database"></i></div>
             <div class="troubleshoot-info">
-              <div class="troubleshoot-title">Restore from Backup</div>
-              <div class="troubleshoot-desc">If data is corrupted, restore a backup</div>
+              <div class="troubleshoot-title" data-i18n="support.restore_from_backup">Restore from Backup</div>
+              <div class="troubleshoot-desc" data-i18n="support.if_data_is_corrupted">If data is corrupted, restore a backup</div>
             </div>
           </div>
           <div class="troubleshoot-card" onclick="clearCacheAndReload()">
             <div class="troubleshoot-icon"><i class="fas fa-trash-alt"></i></div>
             <div class="troubleshoot-info">
-              <div class="troubleshoot-title">Clear Cache</div>
-              <div class="troubleshoot-desc">Clear browser cache and reload</div>
+              <div class="troubleshoot-title" data-i18n="support.clear_cache">Clear Cache</div>
+              <div class="troubleshoot-desc" data-i18n="support.clear_browser_cache_and">Clear browser cache and reload</div>
             </div>
           </div>
           <div class="troubleshoot-card" onclick="window.location.href='export.html'">
             <div class="troubleshoot-icon"><i class="fas fa-file-export"></i></div>
             <div class="troubleshoot-info">
-              <div class="troubleshoot-title">Export Data</div>
-              <div class="troubleshoot-desc">Save your data before troubleshooting</div>
+              <div class="troubleshoot-title" data-i18n="support.export_data">Export Data</div>
+              <div class="troubleshoot-desc" data-i18n="support.save_your_data_before">Save your data before troubleshooting</div>
             </div>
           </div>
         </div>
@@ -927,39 +928,39 @@
       <div class="support-section">
         <div class="section-header">
           <i class="fas fa-book"></i>
-          <h3>Helpful Resources</h3>
-          <span class="badge">Quick links</span>
+          <h3 data-i18n="support.helpful_resources">Helpful Resources</h3>
+          <span class="badge" data-i18n="support.quick_links">Quick links</span>
         </div>
         <div class="resources-list">
           <div class="resource-item" onclick="window.location.href='guide-user.html'">
             <div class="resource-icon"><i class="fas fa-question-circle"></i></div>
             <div class="resource-info">
-              <div class="resource-title">User Guide</div>
-              <div class="resource-desc">Complete interactive audio guide (16 chapters)</div>
+              <div class="resource-title" data-i18n="support.user_guide">User Guide</div>
+              <div class="resource-desc" data-i18n="support.complete_interactive_audio_g">Complete interactive audio guide (16 chapters)</div>
             </div>
             <i class="fas fa-chevron-right resource-arrow"></i>
           </div>
           <div class="resource-item" onclick="window.location.href='about-user.html'">
             <div class="resource-icon"><i class="fas fa-info-circle"></i></div>
             <div class="resource-info">
-              <div class="resource-title">About SMART GRADE</div>
-              <div class="resource-desc">Features, technologies, and version history</div>
+              <div class="resource-title" data-i18n="support.about_smart_grade">About SMART GRADE</div>
+              <div class="resource-desc" data-i18n="support.features_technologies_and_ve">Features, technologies, and version history</div>
             </div>
             <i class="fas fa-chevron-right resource-arrow"></i>
           </div>
           <div class="resource-item" onclick="window.location.href='terms.html'">
             <div class="resource-icon"><i class="fas fa-file-contract"></i></div>
             <div class="resource-info">
-              <div class="resource-title">Terms of Use</div>
-              <div class="resource-desc">Legal terms and conditions</div>
+              <div class="resource-title" data-i18n="common.terms_of_use">Terms of Use</div>
+              <div class="resource-desc" data-i18n="support.legal_terms_and_conditions">Legal terms and conditions</div>
             </div>
             <i class="fas fa-chevron-right resource-arrow"></i>
           </div>
           <div class="resource-item" onclick="window.open('https://github.com/hanskepper/SMART-GRADE', '_blank')">
             <div class="resource-icon"><i class="fab fa-github"></i></div>
             <div class="resource-info">
-              <div class="resource-title">GitHub Repository</div>
-              <div class="resource-desc">Source code, issues, and contributions</div>
+              <div class="resource-title" data-i18n="support.github_repository">GitHub Repository</div>
+              <div class="resource-desc" data-i18n="support.source_code_issues_and">Source code, issues, and contributions</div>
             </div>
             <i class="fas fa-external-link-alt resource-arrow"></i>
           </div>
@@ -972,17 +973,17 @@
       <div class="support-section">
         <div class="section-header">
           <i class="fas fa-envelope"></i>
-          <h3>Contact Information</h3>
-          <span class="badge">Developer</span>
+          <h3 data-i18n="license.contact_information">Contact Information</h3>
+          <span class="badge" data-i18n="common.developer_2">Developer</span>
         </div>
         <ul style="list-style:none;padding:0;margin:0;">
           <li style="display:flex;align-items:center;gap:10px;padding:6px 0;font-size:0.75rem;border-bottom:1px solid var(--border);">
             <i class="fas fa-user" style="width:20px;color:var(--primary);"></i>
-            <strong>HANS KEPPER</strong>
+            <strong data-i18n="common.hans_kepper">HANS KEPPER</strong>
           </li>
           <li style="display:flex;align-items:center;gap:10px;padding:6px 0;font-size:0.75rem;border-bottom:1px solid var(--border);">
             <i class="fas fa-envelope" style="width:20px;color:var(--primary);"></i>
-            <span>hanskepper52@gmail.com</span>
+            <span data-i18n="common.hanskepper52gmailcom">hanskepper52@gmail.com</span>
           </li>
           <li style="display:flex;align-items:center;gap:10px;padding:6px 0;font-size:0.75rem;border-bottom:1px solid var(--border);">
             <i class="fab fa-whatsapp" style="width:20px;color:#25D366;"></i>
@@ -990,11 +991,11 @@
           </li>
           <li style="display:flex;align-items:center;gap:10px;padding:6px 0;font-size:0.75rem;border-bottom:1px solid var(--border);">
             <i class="fas fa-school" style="width:20px;color:var(--primary);"></i>
-            <span>SIN GBHS FOUMBAN - Form 5B Science</span>
+            <span data-i18n="common.sin_gbhs_foumban_form">SIN GBHS FOUMBAN - Form 5B Science</span>
           </li>
           <li style="display:flex;align-items:center;gap:10px;padding:6px 0;font-size:0.75rem;">
             <i class="fas fa-map-marker-alt" style="width:20px;color:var(--primary);"></i>
-            <span>Foumban, West Region, Cameroon</span>
+            <span data-i18n="common.foumban_west_region_cameroon">Foumban, West Region, Cameroon</span>
           </li>
         </ul>
       </div>
@@ -1004,11 +1005,11 @@
       ============================================ -->
       <div class="support-section text-center">
         <i class="fas fa-clock" style="font-size:30px;color:var(--primary);margin-bottom:8px;display:block;"></i>
-        <p style="font-size:0.7rem; font-weight:600;margin-bottom:6px;">Response Times</p>
+        <p style="font-size:0.7rem; font-weight:600;margin-bottom:6px;" data-i18n="support.response_times">Response Times</p>
         <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; font-size:0.65rem;">
-          <div><i class="fas fa-envelope" style="color:#e74c3c;"></i> Email: 24-48 hours</div>
-          <div><i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp: Fast response</div>
-          <div><i class="fab fa-github"></i> GitHub Issues: 24-72 hours</div>
+          <div data-i18n="support.email_2448_hours"><i class="fas fa-envelope" style="color:#e74c3c;"></i> Email: 24-48 hours</div>
+          <div data-i18n="support.whatsapp_fast_response"><i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp: Fast response</div>
+          <div data-i18n="support.github_issues_2472_hours"><i class="fab fa-github"></i> GitHub Issues: 24-72 hours</div>
         </div>
       </div>
       

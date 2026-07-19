@@ -148,21 +148,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-file-contract"></i><span>TERMS</span></div>
+      <div class="header-logo"><i class="fas fa-file-contract"></i><span data-i18n="terms.terms">TERMS</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -170,20 +171,20 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="terms.html" class="nav-item active"><i class="fas fa-file-contract"></i> Terms of Use</a>
-        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
-        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
-        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
-        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
-        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="terms.html" class="nav-item active" data-i18n="common.terms_of_use"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="privacy.html" class="nav-item" data-i18n="common.privacy_policy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="cookies.html" class="nav-item" data-i18n="common.cookies_policy"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="license.html" class="nav-item" data-i18n="common.license"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="eula.html" class="nav-item" data-i18n="common.eula"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="doc.html" class="nav-item" data-i18n="common.documentation"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="guide-user.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="support.html" class="nav-item" data-i18n="common.support"><i class="fas fa-headset"></i> Support</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -191,9 +192,9 @@
     <main class="main-content">
       <div class="legal-hero">
         <i class="fas fa-file-contract" style="font-size:55px;opacity:0.5;"></i>
-        <h1>Terms of Use</h1>
-        <p>SIN GBHS FOUMBAN - Form 5B Science</p>
-        <div class="last-updated">
+        <h1 data-i18n="common.terms_of_use">Terms of Use</h1>
+        <p data-i18n="common.sin_gbhs_foumban_form">SIN GBHS FOUMBAN - Form 5B Science</p>
+        <div class="last-updated" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
           
         </div>
@@ -201,184 +202,184 @@
       
       <div class="legal-content">
         <div class="toc">
-          <h4><i class="fas fa-list"></i> Table of Contents</h4>
+          <h4 data-i18n="common.table_of_contents"><i class="fas fa-list"></i> Table of Contents</h4>
           <div class="toc-grid">
-            <a href="#section1"><i class="fas fa-chevron-right"></i> 1. Acceptance of Terms</a>
-            <a href="#section2"><i class="fas fa-chevron-right"></i> 2. User Account</a>
-            <a href="#section3"><i class="fas fa-chevron-right"></i> 3. School-Specific Rules</a>
-            <a href="#section4"><i class="fas fa-chevron-right"></i> 4. Data Storage & Privacy</a>
-            <a href="#section5"><i class="fas fa-chevron-right"></i> 5. Academic Integrity</a>
-            <a href="#section6"><i class="fas fa-chevron-right"></i> 6. Prohibited Uses</a>
-            <a href="#section7"><i class="fas fa-chevron-right"></i> 7. Account Deletion</a>
-            <a href="#section8"><i class="fas fa-chevron-right"></i> 8. Termination</a>
-            <a href="#section9"><i class="fas fa-chevron-right"></i> 9. Disclaimer of Warranties</a>
-            <a href="#section10"><i class="fas fa-chevron-right"></i> 10. Limitation of Liability</a>
-            <a href="#section11"><i class="fas fa-chevron-right"></i> 11. Modifications</a>
-            <a href="#section12"><i class="fas fa-chevron-right"></i> 12. Governing Law</a>
-            <a href="#section13"><i class="fas fa-chevron-right"></i> 13. Contact Information</a>
+            <a href="#section1" data-i18n="terms.1_acceptance_of_terms"><i class="fas fa-chevron-right"></i> 1. Acceptance of Terms</a>
+            <a href="#section2" data-i18n="terms.2_user_account"><i class="fas fa-chevron-right"></i> 2. User Account</a>
+            <a href="#section3" data-i18n="terms.3_schoolspecific_rules"><i class="fas fa-chevron-right"></i> 3. School-Specific Rules</a>
+            <a href="#section4" data-i18n="terms.4_data_storage_privacy"><i class="fas fa-chevron-right"></i> 4. Data Storage & Privacy</a>
+            <a href="#section5" data-i18n="terms.5_academic_integrity"><i class="fas fa-chevron-right"></i> 5. Academic Integrity</a>
+            <a href="#section6" data-i18n="terms.6_prohibited_uses"><i class="fas fa-chevron-right"></i> 6. Prohibited Uses</a>
+            <a href="#section7" data-i18n="terms.7_account_deletion"><i class="fas fa-chevron-right"></i> 7. Account Deletion</a>
+            <a href="#section8" data-i18n="eula.8_termination"><i class="fas fa-chevron-right"></i> 8. Termination</a>
+            <a href="#section9" data-i18n="terms.9_disclaimer_of_warranties"><i class="fas fa-chevron-right"></i> 9. Disclaimer of Warranties</a>
+            <a href="#section10" data-i18n="terms.10_limitation_of_liability"><i class="fas fa-chevron-right"></i> 10. Limitation of Liability</a>
+            <a href="#section11" data-i18n="terms.11_modifications"><i class="fas fa-chevron-right"></i> 11. Modifications</a>
+            <a href="#section12" data-i18n="terms.12_governing_law"><i class="fas fa-chevron-right"></i> 12. Governing Law</a>
+            <a href="#section13" data-i18n="terms.13_contact_information"><i class="fas fa-chevron-right"></i> 13. Contact Information</a>
           </div>
         </div>
         
         <div id="section1" class="legal-section">
-          <h3><i class="fas fa-gavel"></i> 1. Acceptance of Terms</h3>
-          <p>By accessing and using SMART GRADE ("the Application"), developed for SIN GBHS FOUMBAN Form 5B Science, you accept and agree to be bound by the terms and provisions of this agreement. These Terms of Use constitute a legally binding agreement between you ("Student", "User", "You") and the developer HANS KEPPER. If you do not agree to these terms, please do not use the Application.</p>
-          <div class="highlight">
-            <i class="fas fa-info-circle"></i> <strong>Important:</strong> This application is intended exclusively for students of SIN GBHS FOUMBAN, Form 5B Science, academic year 2026-2027.
+          <h3 data-i18n="terms.1_acceptance_of_terms"><i class="fas fa-gavel"></i> 1. Acceptance of Terms</h3>
+          <p data-i18n="terms.by_accessing_and_using">By accessing and using SMART GRADE ("the Application"), developed for SIN GBHS FOUMBAN Form 5B Science, you accept and agree to be bound by the terms and provisions of this agreement. These Terms of Use constitute a legally binding agreement between you ("Student", "User", "You") and the developer HANS KEPPER. If you do not agree to these terms, please do not use the Application.</p>
+          <div class="highlight" data-i18n="terms.this_application_is_intended">
+            <i class="fas fa-info-circle"></i> <strong data-i18n="common.important">Important:</strong> This application is intended exclusively for students of SIN GBHS FOUMBAN, Form 5B Science, academic year 2026-2027.
           </div>
         </div>
         
         <div id="section2" class="legal-section">
-          <h3><i class="fas fa-user-check"></i> 2. User Account</h3>
-          <p>To use SMART GRADE, you must create a student account with accurate information. You are solely responsible for:</p>
+          <h3 data-i18n="terms.2_user_account"><i class="fas fa-user-check"></i> 2. User Account</h3>
+          <p data-i18n="terms.to_use_smart_grade">To use SMART GRADE, you must create a student account with accurate information. You are solely responsible for:</p>
           <ul>
-            <li><i class="fas fa-key"></i> Keeping your 4-digit PIN confidential and secure at all times</li>
-            <li><i class="fas fa-history"></i> All activities that occur under your account</li>
-            <li><i class="fas fa-bell"></i> Notifying the developer immediately of any unauthorized use</li>
-            <li><i class="fas fa-fingerprint"></i> Managing your fingerprint authentication settings</li>
+            <li data-i18n="terms.keeping_your_4digit_pin"><i class="fas fa-key"></i> Keeping your 4-digit PIN confidential and secure at all times</li>
+            <li data-i18n="terms.all_activities_that_occur"><i class="fas fa-history"></i> All activities that occur under your account</li>
+            <li data-i18n="terms.notifying_the_developer_imme"><i class="fas fa-bell"></i> Notifying the developer immediately of any unauthorized use</li>
+            <li data-i18n="terms.managing_your_fingerprint_au"><i class="fas fa-fingerprint"></i> Managing your fingerprint authentication settings</li>
           </ul>
-          <p>Each student may create only ONE account. Duplicate accounts may be subject to termination.</p>
+          <p data-i18n="terms.each_student_may_create">Each student may create only ONE account. Duplicate accounts may be subject to termination.</p>
         </div>
         
         <div id="section3" class="legal-section">
-          <h3><i class="fas fa-school"></i> 3. School-Specific Rules</h3>
-          <p>As a user of SMART GRADE at SIN GBHS FOUMBAN, you agree to:</p>
+          <h3 data-i18n="terms.3_schoolspecific_rules"><i class="fas fa-school"></i> 3. School-Specific Rules</h3>
+          <p data-i18n="terms.as_a_user_of">As a user of SMART GRADE at SIN GBHS FOUMBAN, you agree to:</p>
           <ul>
-            <li><i class="fas fa-chart-line"></i> Enter grades truthfully and accurately</li>
-            <li><i class="fas fa-users"></i> Not share your account credentials with other students</li>
-            <li><i class="fas fa-medal"></i> Use the application only for academic purposes</li>
-            <li><i class="fas fa-mobile-alt"></i> Use the application responsibly during school hours</li>
-            <li><i class="fas fa-database"></i> Not manipulate or falsify grade data</li>
+            <li data-i18n="terms.enter_grades_truthfully_and"><i class="fas fa-chart-line"></i> Enter grades truthfully and accurately</li>
+            <li data-i18n="terms.not_share_your_account"><i class="fas fa-users"></i> Not share your account credentials with other students</li>
+            <li data-i18n="terms.use_the_application_only"><i class="fas fa-medal"></i> Use the application only for academic purposes</li>
+            <li data-i18n="terms.use_the_application_responsi"><i class="fas fa-mobile-alt"></i> Use the application responsibly during school hours</li>
+            <li data-i18n="terms.not_manipulate_or_falsify"><i class="fas fa-database"></i> Not manipulate or falsify grade data</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-exclamation-triangle"></i> <strong>Academic Honesty:</strong> Any attempt to falsify grades or manipulate the system may result in disciplinary action by the school administration.
+          <div class="highlight" data-i18n="terms.any_attempt_to_falsify">
+            <i class="fas fa-exclamation-triangle"></i> <strong data-i18n="terms.academic_honesty">Academic Honesty:</strong> Any attempt to falsify grades or manipulate the system may result in disciplinary action by the school administration.
           </div>
         </div>
         
         <div id="section4" class="legal-section">
-          <h3><i class="fas fa-database"></i> 4. Data Storage & Privacy</h3>
-          <p>All your data (grades, subjects, achievements, profile information, flashcards, etc.) is stored locally on your device using localStorage technology. SMART GRADE does NOT store your data on external servers unless you explicitly use the cloud backup feature (JSONBin.io) or GitHub Gist transfer feature.</p>
-          <p><strong>Your rights regarding your data:</strong></p>
+          <h3 data-i18n="terms.4_data_storage_privacy"><i class="fas fa-database"></i> 4. Data Storage & Privacy</h3>
+          <p data-i18n="terms.all_your_data_grades">All your data (grades, subjects, achievements, profile information, flashcards, etc.) is stored locally on your device using localStorage technology. SMART GRADE does NOT store your data on external servers unless you explicitly use the cloud backup feature (JSONBin.io) or GitHub Gist transfer feature.</p>
+          <p><strong data-i18n="terms.your_rights_regarding_your">Your rights regarding your data:</strong></p>
           <ul>
-            <li><i class="fas fa-file-export"></i> Export your data at any time (JSON, CSV, HTML, PDF formats)</li>
-            <li><i class="fas fa-trash-alt"></i> Delete your account and all associated data permanently</li>
-            <li><i class="fas fa-cloud-upload-alt"></i> Create local or cloud backups of your data</li>
-            <li><i class="fas fa-sync-alt"></i> Transfer your data between devices</li>
-            <li><i class="fas fa-eye"></i> Access and review all your stored information</li>
+            <li data-i18n="terms.export_your_data_at"><i class="fas fa-file-export"></i> Export your data at any time (JSON, CSV, HTML, PDF formats)</li>
+            <li data-i18n="terms.delete_your_account_and"><i class="fas fa-trash-alt"></i> Delete your account and all associated data permanently</li>
+            <li data-i18n="terms.create_local_or_cloud"><i class="fas fa-cloud-upload-alt"></i> Create local or cloud backups of your data</li>
+            <li data-i18n="terms.transfer_your_data_between"><i class="fas fa-sync-alt"></i> Transfer your data between devices</li>
+            <li data-i18n="terms.access_and_review_all"><i class="fas fa-eye"></i> Access and review all your stored information</li>
           </ul>
-          <p><strong>What data we collect:</strong></p>
+          <p><strong data-i18n="terms.what_data_we_collect">What data we collect:</strong></p>
           <ul>
-            <li>Student name, class, number</li>
-            <li>Academic grades and subject selections</li>
-            <li>Profile photo (Base64 encoded)</li>
-            <li>Flashcards created</li>
-            <li>App usage history and achievements</li>
-            <li>Biometric authentication data (stored locally only)</li>
+            <li data-i18n="terms.student_name_class_number">Student name, class, number</li>
+            <li data-i18n="terms.academic_grades_and_subject">Academic grades and subject selections</li>
+            <li data-i18n="terms.profile_photo_base64_encoded">Profile photo (Base64 encoded)</li>
+            <li data-i18n="terms.flashcards_created">Flashcards created</li>
+            <li data-i18n="terms.app_usage_history_and">App usage history and achievements</li>
+            <li data-i18n="terms.biometric_authentication_dat">Biometric authentication data (stored locally only)</li>
           </ul>
         </div>
         
         <div id="section5" class="legal-section">
-          <h3><i class="fas fa-medal"></i> 5. Academic Integrity</h3>
-          <p>SMART GRADE is designed to help you track your academic performance. You agree to:</p>
+          <h3 data-i18n="terms.5_academic_integrity"><i class="fas fa-medal"></i> 5. Academic Integrity</h3>
+          <p data-i18n="terms.smart_grade_is_designed">SMART GRADE is designed to help you track your academic performance. You agree to:</p>
           <ul>
-            <li>Enter only genuine grades received from teachers</li>
-            <li>Not use the application to cheat or misrepresent your academic standing</li>
-            <li>Understand that grade calculations are for informational purposes only</li>
-            <li>Report any bugs or inaccuracies to the developer</li>
+            <li data-i18n="terms.enter_only_genuine_grades">Enter only genuine grades received from teachers</li>
+            <li data-i18n="terms.not_use_the_application">Not use the application to cheat or misrepresent your academic standing</li>
+            <li data-i18n="terms.understand_that_grade_calcul">Understand that grade calculations are for informational purposes only</li>
+            <li data-i18n="terms.report_any_bugs_or">Report any bugs or inaccuracies to the developer</li>
           </ul>
         </div>
         
         <div id="section6" class="legal-section">
-          <h3><i class="fas fa-exclamation-triangle"></i> 6. Prohibited Uses</h3>
-          <p>You agree NOT to:</p>
+          <h3 data-i18n="terms.6_prohibited_uses"><i class="fas fa-exclamation-triangle"></i> 6. Prohibited Uses</h3>
+          <p data-i18n="eula.you_agree_not_to">You agree NOT to:</p>
           <ul>
-            <li><i class="fas fa-code"></i> Modify, reverse engineer, decompile, or disassemble the Application</li>
-            <li><i class="fas fa-gavel"></i> Use the Application for any illegal purpose under Cameroonian law</li>
-            <li><i class="fas fa-user-secret"></i> Attempt to gain unauthorized access to other users' accounts</li>
-            <li><i class="fas fa-bug"></i> Introduce malware, viruses, or harmful code</li>
-            <li><i class="fas fa-ddos"></i> Interfere with or disrupt the operation of the Application</li>
-            <li><i class="fas fa-copy"></i> Copy or distribute the Application without permission</li>
+            <li data-i18n="terms.modify_reverse_engineer_deco"><i class="fas fa-code"></i> Modify, reverse engineer, decompile, or disassemble the Application</li>
+            <li data-i18n="terms.use_the_application_for"><i class="fas fa-gavel"></i> Use the Application for any illegal purpose under Cameroonian law</li>
+            <li data-i18n="terms.attempt_to_gain_unauthorized"><i class="fas fa-user-secret"></i> Attempt to gain unauthorized access to other users' accounts</li>
+            <li data-i18n="eula.introduce_malware_viruses_or"><i class="fas fa-bug"></i> Introduce malware, viruses, or harmful code</li>
+            <li data-i18n="terms.interfere_with_or_disrupt"><i class="fas fa-ddos"></i> Interfere with or disrupt the operation of the Application</li>
+            <li data-i18n="terms.copy_or_distribute_the"><i class="fas fa-copy"></i> Copy or distribute the Application without permission</li>
           </ul>
         </div>
         
         <div id="section7" class="legal-section">
-          <h3><i class="fas fa-trash-alt"></i> 7. Account Deletion</h3>
-          <p>You may delete your account at any time from the Settings page. Account deletion is:</p>
+          <h3 data-i18n="terms.7_account_deletion"><i class="fas fa-trash-alt"></i> 7. Account Deletion</h3>
+          <p data-i18n="terms.you_may_delete_your">You may delete your account at any time from the Settings page. Account deletion is:</p>
           <ul>
-            <li><i class="fas fa-permanent"></i> <strong>Permanent</strong> - All data will be erased and cannot be recovered</li>
-            <li><i class="fas fa-clock"></i> <strong>Immediate</strong> - No waiting period</li>
-            <li><i class="fas fa-download"></i> <strong>Export recommended</strong> - We strongly recommend exporting your data before deletion</li>
+            <li data-i18n="terms.all_data_will_be"><i class="fas fa-permanent"></i> <strong data-i18n="terms.permanent">Permanent</strong> - All data will be erased and cannot be recovered</li>
+            <li data-i18n="terms.no_waiting_period"><i class="fas fa-clock"></i> <strong data-i18n="terms.immediate">Immediate</strong> - No waiting period</li>
+            <li data-i18n="terms.we_strongly_recommend_export"><i class="fas fa-download"></i> <strong data-i18n="terms.export_recommended">Export recommended</strong> - We strongly recommend exporting your data before deletion</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-download"></i> <strong>Tip:</strong> Before deleting your account, go to Settings > JSON Backup > Export JSON to save a copy of your data.
+          <div class="highlight" data-i18n="terms.before_deleting_your_account">
+            <i class="fas fa-download"></i> <strong data-i18n="common.tip">Tip:</strong> Before deleting your account, go to Settings > JSON Backup > Export JSON to save a copy of your data.
           </div>
         </div>
         
         <div id="section8" class="legal-section">
-          <h3><i class="fas fa-ban"></i> 8. Termination</h3>
-          <p>We reserve the right to suspend or terminate your access to the Application at any time, without prior notice, for conduct that we believe violates these Terms of Use or is harmful to other users. Grounds for termination include:</p>
+          <h3 data-i18n="eula.8_termination"><i class="fas fa-ban"></i> 8. Termination</h3>
+          <p data-i18n="terms.we_reserve_the_right">We reserve the right to suspend or terminate your access to the Application at any time, without prior notice, for conduct that we believe violates these Terms of Use or is harmful to other users. Grounds for termination include:</p>
           <ul>
-            <li>Violation of any term of this agreement</li>
-            <li>Falsification of grade data</li>
-            <li>Harassment of other users</li>
-            <li>Attempted security breaches</li>
+            <li data-i18n="terms.violation_of_any_term">Violation of any term of this agreement</li>
+            <li data-i18n="terms.falsification_of_grade_data">Falsification of grade data</li>
+            <li data-i18n="terms.harassment_of_other_users">Harassment of other users</li>
+            <li data-i18n="terms.attempted_security_breaches">Attempted security breaches</li>
           </ul>
         </div>
         
         <div id="section9" class="legal-section">
-          <h3><i class="fas fa-scale-balanced"></i> 9. Disclaimer of Warranties</h3>
-          <p>SMART GRADE is provided "AS IS" and "AS AVAILABLE" without any warranties, expressed or implied. We do not guarantee that:</p>
+          <h3 data-i18n="terms.9_disclaimer_of_warranties"><i class="fas fa-scale-balanced"></i> 9. Disclaimer of Warranties</h3>
+          <p data-i18n="terms.smart_grade_is_provided">SMART GRADE is provided "AS IS" and "AS AVAILABLE" without any warranties, expressed or implied. We do not guarantee that:</p>
           <ul>
-            <li>The Application will be error-free or uninterrupted</li>
-            <li>Grade calculations are 100% accurate (always verify with official school records)</li>
-            <li>The Application will meet your specific requirements</li>
-            <li>Any errors will be corrected</li>
+            <li data-i18n="terms.the_application_will_be">The Application will be error-free or uninterrupted</li>
+            <li data-i18n="eula.grade_calculations_are_100">Grade calculations are 100% accurate (always verify with official school records)</li>
+            <li data-i18n="terms.the_application_will_meet">The Application will meet your specific requirements</li>
+            <li data-i18n="eula.any_errors_will_be">Any errors will be corrected</li>
           </ul>
-          <p>Grade calculations are for informational purposes only. The official grades from SIN GBHS FOUMBAN take precedence over any calculations in this application.</p>
+          <p data-i18n="terms.grade_calculations_are_for">Grade calculations are for informational purposes only. The official grades from SIN GBHS FOUMBAN take precedence over any calculations in this application.</p>
         </div>
         
         <div id="section10" class="legal-section">
-          <h3><i class="fas fa-shield"></i> 10. Limitation of Liability</h3>
-          <p>To the maximum extent permitted by law, in no event shall the developer, HANS KEPPER, be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising out of or relating to:</p>
+          <h3 data-i18n="terms.10_limitation_of_liability"><i class="fas fa-shield"></i> 10. Limitation of Liability</h3>
+          <p data-i18n="terms.to_the_maximum_extent">To the maximum extent permitted by law, in no event shall the developer, HANS KEPPER, be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising out of or relating to:</p>
           <ul>
-            <li>Your use or inability to use the Application</li>
-            <li>Any errors or inaccuracies in grade calculations</li>
-            <li>Loss of data (always maintain backups)</li>
-            <li>Unauthorized access to your account due to weak PIN</li>
-            <li>Third-party services (JSONBin.io, GitHub, etc.)</li>
+            <li data-i18n="terms.your_use_or_inability">Your use or inability to use the Application</li>
+            <li data-i18n="eula.any_errors_or_inaccuracies">Any errors or inaccuracies in grade calculations</li>
+            <li data-i18n="eula.loss_of_data_always">Loss of data (always maintain backups)</li>
+            <li data-i18n="eula.unauthorized_access_to_your">Unauthorized access to your account due to weak PIN</li>
+            <li data-i18n="terms.thirdparty_services_jsonbini">Third-party services (JSONBin.io, GitHub, etc.)</li>
           </ul>
         </div>
         
         <div id="section11" class="legal-section">
-          <h3><i class="fas fa-edit"></i> 11. Modifications to Terms</h3>
-          <p>We reserve the right to modify these Terms of Use at any time. When we make changes, we will:</p>
+          <h3 data-i18n="terms.11_modifications_to_terms"><i class="fas fa-edit"></i> 11. Modifications to Terms</h3>
+          <p data-i18n="terms.we_reserve_the_right_2">We reserve the right to modify these Terms of Use at any time. When we make changes, we will:</p>
           <ul>
-            <li>Update the "Last updated" date at the top of this document</li>
-            <li>Notify users via in-app notification of significant changes</li>
-            <li>Require acceptance of new terms for continued use</li>
+            <li data-i18n="terms.update_the_last_updated">Update the "Last updated" date at the top of this document</li>
+            <li data-i18n="terms.notify_users_via_inapp">Notify users via in-app notification of significant changes</li>
+            <li data-i18n="terms.require_acceptance_of_new">Require acceptance of new terms for continued use</li>
           </ul>
-          <p>Your continued use of SMART GRADE after any changes constitutes acceptance of the new Terms of Use.</p>
+          <p data-i18n="terms.your_continued_use_of">Your continued use of SMART GRADE after any changes constitutes acceptance of the new Terms of Use.</p>
         </div>
         
         <div id="section12" class="legal-section">
-          <h3><i class="fas fa-flag-checkered"></i> 12. Governing Law</h3>
-          <p>These Terms of Use shall be governed by and construed in accordance with the laws of the Republic of Cameroon, without regard to its conflict of law provisions. Any disputes arising from these terms shall be resolved in the courts of Foumban, West Region, Cameroon.</p>
+          <h3 data-i18n="terms.12_governing_law"><i class="fas fa-flag-checkered"></i> 12. Governing Law</h3>
+          <p data-i18n="terms.these_terms_of_use">These Terms of Use shall be governed by and construed in accordance with the laws of the Republic of Cameroon, without regard to its conflict of law provisions. Any disputes arising from these terms shall be resolved in the courts of Foumban, West Region, Cameroon.</p>
         </div>
         
         <div id="section13" class="legal-section">
-          <h3><i class="fas fa-envelope"></i> 13. Contact Information</h3>
-          <p>If you have any questions about these Terms of Use, please contact the developer:</p>
+          <h3 data-i18n="terms.13_contact_information"><i class="fas fa-envelope"></i> 13. Contact Information</h3>
+          <p data-i18n="terms.if_you_have_any">If you have any questions about these Terms of Use, please contact the developer:</p>
           <ul>
-            <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
-            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
-            <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
-            <li><i class="fab fa-github"></i> <strong>GitHub:</strong> hanskepper</li>
-            <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
-            <li><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Foumban, West Region, Cameroon</li>
+            <li data-i18n="common.hans_kepper"><i class="fas fa-user"></i> <strong data-i18n="common.developer">Developer:</strong> HANS KEPPER</li>
+            <li data-i18n="common.hanskepper52gmailcom"><i class="fas fa-envelope"></i> <strong data-i18n="common.email">Email:</strong> hanskepper52@gmail.com</li>
+            <li><i class="fab fa-whatsapp"></i> <strong data-i18n="common.whatsapp">WhatsApp:</strong> +237 698 640 885</li>
+            <li data-i18n="common.hanskepper"><i class="fab fa-github"></i> <strong data-i18n="common.github">GitHub:</strong> hanskepper</li>
+            <li data-i18n="common.sin_gbhs_foumban_form_2"><i class="fas fa-school"></i> <strong data-i18n="common.school">School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
+            <li data-i18n="common.foumban_west_region_cameroon"><i class="fas fa-map-marker-alt"></i> <strong data-i18n="privacy.address">Address:</strong> Foumban, West Region, Cameroon</li>
        
           </ul>
         </div>
         
-        <div class="legal-date">
+        <div class="legal-date" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026<br>
           <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
           <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>

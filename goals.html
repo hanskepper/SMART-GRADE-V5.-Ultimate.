@@ -293,20 +293,21 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-bullseye"></i><span>GOALS</span></div>
+      <div class="header-logo"><i class="fas fa-bullseye"></i><span data-i18n="goals.goals">GOALS</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -314,14 +315,14 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="goals.html" class="nav-item active"><i class="fas fa-bullseye"></i> Goals</a>
-        <a href="flashcards.html" class="nav-item"><i class="fas fa-clone"></i> Flashcards</a>
-        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="goals.html" class="nav-item active" data-i18n="common.goals"><i class="fas fa-bullseye"></i> Goals</a>
+        <a href="flashcards.html" class="nav-item" data-i18n="common.flashcards"><i class="fas fa-clone"></i> Flashcards</a>
+        <a href="profile.html" class="nav-item" data-i18n="common.profile"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -330,34 +331,34 @@
       
       <div class="goals-header">
         <i class="fas fa-bullseye" style="font-size:35px;opacity:0.5;"></i>
-        <h2>Academic Goals</h2>
-        <p>Set and track your targets for each subject</p>
+        <h2 data-i18n="goals.academic_goals">Academic Goals</h2>
+        <p data-i18n="goals.set_and_track_your">Set and track your targets for each subject</p>
       </div>
       
       <div class="stats-goals">
         <div class="stat-goal-card">
           <div class="stat-goal-value" id="totalGoals">0</div>
-          <div class="stat-goal-label">Goals Set</div>
+          <div class="stat-goal-label" data-i18n="goals.goals_set">Goals Set</div>
         </div>
         <div class="stat-goal-card">
           <div class="stat-goal-value" id="achievedGoals">0</div>
-          <div class="stat-goal-label">Achieved</div>
+          <div class="stat-goal-label" data-i18n="goals.achieved">Achieved</div>
         </div>
         <div class="stat-goal-card">
           <div class="stat-goal-value" id="successRate">0%</div>
-          <div class="stat-goal-label">Success Rate</div>
+          <div class="stat-goal-label" data-i18n="goals.success_rate">Success Rate</div>
         </div>
         <div class="stat-goal-card">
           <div class="stat-goal-value" id="avgTarget">0.0</div>
-          <div class="stat-goal-label">Avg Target</div>
+          <div class="stat-goal-label" data-i18n="goals.avg_target">Avg Target</div>
         </div>
       </div>
       
       <div class="glass-card">
         <div class="term-selector" id="termSelector">
-          <div class="term-option" data-term="1">Term 1</div>
-          <div class="term-option" data-term="2">Term 2</div>
-          <div class="term-option" data-term="3">Term 3</div>
+          <div class="term-option" data-term="1" data-i18n="common.term_1">Term 1</div>
+          <div class="term-option" data-term="2" data-i18n="common.term_2">Term 2</div>
+          <div class="term-option" data-term="3" data-i18n="common.term_3">Term 3</div>
         </div>
         
         <div id="goalsContainer" class="goals-list"></div>

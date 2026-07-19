@@ -389,22 +389,23 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <!-- HEADER -->
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-book"></i><span>NOTEBOOK</span></div>
+      <div class="header-logo"><i class="fas fa-book"></i><span data-i18n="notebook.notebook">NOTEBOOK</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div id="headerAvatar" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -412,15 +413,15 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="notebook.html" class="nav-item active"><i class="fas fa-book"></i> Notebook</a>
-        <a href="flashcards.html" class="nav-item"><i class="fas fa-clone"></i> Flashcards</a>
-        <a href="goals.html" class="nav-item"><i class="fas fa-bullseye"></i> Goals</a>
-        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="notebook.html" class="nav-item active" data-i18n="common.notebook"><i class="fas fa-book"></i> Notebook</a>
+        <a href="flashcards.html" class="nav-item" data-i18n="common.flashcards"><i class="fas fa-clone"></i> Flashcards</a>
+        <a href="goals.html" class="nav-item" data-i18n="common.goals"><i class="fas fa-bullseye"></i> Goals</a>
+        <a href="profile.html" class="nav-item" data-i18n="common.profile"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -429,29 +430,29 @@
       
       <div class="notebook-header">
         <i class="fas fa-book" style="font-size:35px;opacity:0.5;"></i>
-        <h1>My Notebook</h1>
-        <p>Write down your ideas, notes, and reminders</p>
+        <h1 data-i18n="notebook.my_notebook">My Notebook</h1>
+        <p data-i18n="notebook.write_down_your_ideas">Write down your ideas, notes, and reminders</p>
       </div>
       
       <!-- STATISTIQUES -->
       <div class="note-stats">
-        <div class="stat-card-note"><div class="stat-number" id="totalNotes">0</div><div class="stat-label">Total</div></div>
-        <div class="stat-card-note"><div class="stat-number" id="pinnedNotes">0</div><div class="stat-label">Pinned</div></div>
-        <div class="stat-card-note"><div class="stat-number" id="importantNotes">0</div><div class="stat-label">Important</div></div>
-        <div class="stat-card-note"><div class="stat-number" id="subjectsWithNotes">0</div><div class="stat-label">Subjects</div></div>
+        <div class="stat-card-note"><div class="stat-number" id="totalNotes">0</div><div class="stat-label" data-i18n="notebook.total">Total</div></div>
+        <div class="stat-card-note"><div class="stat-number" id="pinnedNotes">0</div><div class="stat-label" data-i18n="notebook.pinned">Pinned</div></div>
+        <div class="stat-card-note"><div class="stat-number" id="importantNotes">0</div><div class="stat-label" data-i18n="notebook.important">Important</div></div>
+        <div class="stat-card-note"><div class="stat-number" id="subjectsWithNotes">0</div><div class="stat-label" data-i18n="common.subjects">Subjects</div></div>
       </div>
       
       <!-- FILTRES -->
       <div class="filter-bar">
-        <div class="filter-chip active" data-filter="all" onclick="setNoteFilter('all')">All</div>
-        <div class="filter-chip" data-filter="pinned" onclick="setNoteFilter('pinned')"><i class="fas fa-thumbtack"></i> Pinned</div>
-        <div class="filter-chip" data-filter="important" onclick="setNoteFilter('important')"><i class="fas fa-star"></i> Important</div>
-        <div class="filter-chip" data-filter="subject" onclick="setNoteFilter('subject')"><i class="fas fa-book"></i> By Subject</div>
+        <div class="filter-chip active" data-filter="all" onclick="setNoteFilter('all')" data-i18n="common.all">All</div>
+        <div class="filter-chip" data-filter="pinned" onclick="setNoteFilter('pinned')" data-i18n="notebook.pinned"><i class="fas fa-thumbtack"></i> Pinned</div>
+        <div class="filter-chip" data-filter="important" onclick="setNoteFilter('important')" data-i18n="notebook.important"><i class="fas fa-star"></i> Important</div>
+        <div class="filter-chip" data-filter="subject" onclick="setNoteFilter('subject')" data-i18n="notebook.by_subject"><i class="fas fa-book"></i> By Subject</div>
       </div>
       
       <!-- BOUTON AJOUTER -->
       <div style="margin-bottom:14px;">
-        <button class="btn btn-primary" onclick="openNoteModal()">
+        <button class="btn btn-primary" onclick="openNoteModal()" data-i18n="notebook.add_new_note">
           <i class="fas fa-plus"></i> Add New Note
         </button>
       </div>
@@ -465,24 +466,24 @@
   <!-- MODALE NOTE -->
   <div class="modal-note" id="noteModal">
     <div class="modal-content-note">
-      <h3 id="noteModalTitle"><i class="fas fa-plus"></i> Add New Note</h3>
+      <h3 id="noteModalTitle" data-i18n="notebook.add_new_note"><i class="fas fa-plus"></i> Add New Note</h3>
       
-      <input type="text" id="noteTitle" placeholder="Note title...">
+      <input type="text" id="noteTitle" placeholder="Note title..." data-i18n-placeholder="notebook.note_title">
       
       <!-- SÉLECTEUR PERSONNALISÉ -->
       <div class="custom-select-wrapper">
         <div class="custom-select-trigger" onclick="toggleCustomSelect()">
-          <span id="selectedSubjectText">General</span>
+          <span id="selectedSubjectText" data-i18n="notebook.general">General</span>
           <i class="fas fa-chevron-down"></i>
         </div>
         <div class="custom-select-options" id="customSelectOptions"></div>
       </div>
       
-      <textarea id="noteContent" placeholder="Write your note here..."></textarea>
+      <textarea id="noteContent" placeholder="Write your note here..." data-i18n-placeholder="notebook.write_your_note_here"></textarea>
       
       <div class="note-options-row">
-        <label><input type="checkbox" id="notePinned"> 📌 Pinned</label>
-        <label><input type="checkbox" id="noteImportant"> ⭐ Important</label>
+        <label data-i18n="notebook.pinned_2"><input type="checkbox" id="notePinned"> 📌 Pinned</label>
+        <label data-i18n="notebook.important_2"><input type="checkbox" id="noteImportant"> ⭐ Important</label>
       </div>
       
       <!-- COULEURS -->
@@ -491,8 +492,8 @@
       <input type="hidden" id="editNoteId">
       
       <div class="modal-buttons-note">
-        <button class="btn-cancel" onclick="closeNoteModal()">Cancel</button>
-        <button class="btn-save" onclick="saveNote()">Save</button>
+        <button class="btn-cancel" onclick="closeNoteModal()" data-i18n="common.cancel">Cancel</button>
+        <button class="btn-save" onclick="saveNote()" data-i18n="common.save">Save</button>
       </div>
     </div>
   </div>

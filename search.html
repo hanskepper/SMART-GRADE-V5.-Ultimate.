@@ -410,21 +410,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-search"></i><span>SEARCH</span></div>
+      <div class="header-logo"><i class="fas fa-search"></i><span data-i18n="search.search">SEARCH</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div id="headerAvatar" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -432,13 +433,13 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="search.html" class="nav-item active"><i class="fas fa-search"></i> Search</a>
-        <a href="ai-assistant.html" class="nav-item"><i class="fas fa-robot"></i> AI Assistant</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="index.html" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="search.html" class="nav-item active" data-i18n="common.search"><i class="fas fa-search"></i> Search</a>
+        <a href="ai-assistant.html" class="nav-item" data-i18n="common.ai_assistant"><i class="fas fa-robot"></i> AI Assistant</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="index.html" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -447,82 +448,82 @@
       
       <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
         <i class="fas fa-search" style="font-size:35px;opacity:0.5;"></i>
-        <h2 style="color:white;margin:6px 0;">Multi-Search</h2>
-        <p style="opacity:0.8;font-size:0.65rem;">15 sources in parallel</p>
+        <h2 style="color:white;margin:6px 0;" data-i18n="common.multisearch">Multi-Search</h2>
+        <p style="opacity:0.8;font-size:0.65rem;" data-i18n="common.15_sources_in_parallel">15 sources in parallel</p>
       </div>
       
       <div class="search-container">
         
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Search the web..." autofocus>
-          <button onclick="performMultiSearch()">
+          <input type="text" id="searchInput" placeholder="Search the web..." autofocus data-i18n-placeholder="search.search_the_web">
+          <button onclick="performMultiSearch()" data-i18n="common.search">
             <i class="fas fa-search"></i> Search
           </button>
         </div>
         
         <div id="suggestionsBox" class="suggestions-box" style="display:none;">
-          <div class="title"><i class="fas fa-lightbulb"></i> Related searches</div>
+          <div class="title" data-i18n="search.related_searches"><i class="fas fa-lightbulb"></i> Related searches</div>
           <div class="suggestions-grid" id="suggestionsGrid"></div>
         </div>
         
-        <div id="searchStats" class="search-stats">
+        <div id="searchStats" class="search-stats" data-i18n="search.enter_a_search_term">
           <i class="fas fa-info-circle"></i> Enter a search term to begin
         </div>
         
         <div class="sources-tabs" id="sourcesTabs">
-          <span class="source-tab source-tab-all active" data-source="all" onclick="filterSource('all')">
+          <span class="source-tab source-tab-all active" data-source="all" onclick="filterSource('all')" data-i18n="common.all">
             <i class="fas fa-layer-group"></i> All <span class="count" id="countAll">0</span>
           </span>
-          <span class="source-tab" data-source="duckduckgo" onclick="filterSource('duckduckgo')">
+          <span class="source-tab" data-source="duckduckgo" onclick="filterSource('duckduckgo')" data-i18n="search.duckduckgo">
             <i class="fas fa-shield-alt"></i> DuckDuckGo <span class="count" id="countDuckduckgo">0</span>
           </span>
-          <span class="source-tab" data-source="wikipedia" onclick="filterSource('wikipedia')">
+          <span class="source-tab" data-source="wikipedia" onclick="filterSource('wikipedia')" data-i18n="search.wikipedia">
             <i class="fas fa-wikipedia-w"></i> Wikipedia <span class="count" id="countWikipedia">0</span>
           </span>
-          <span class="source-tab" data-source="wiktionary" onclick="filterSource('wiktionary')">
+          <span class="source-tab" data-source="wiktionary" onclick="filterSource('wiktionary')" data-i18n="search.wiktionary">
             <i class="fas fa-book"></i> Wiktionary <span class="count" id="countWiktionary">0</span>
           </span>
-          <span class="source-tab" data-source="openlibrary" onclick="filterSource('openlibrary')">
+          <span class="source-tab" data-source="openlibrary" onclick="filterSource('openlibrary')" data-i18n="search.books">
             <i class="fas fa-book-open"></i> Books <span class="count" id="countOpenlibrary">0</span>
           </span>
-          <span class="source-tab" data-source="wikimedia" onclick="filterSource('wikimedia')">
+          <span class="source-tab" data-source="wikimedia" onclick="filterSource('wikimedia')" data-i18n="search.images">
             <i class="fas fa-images"></i> Images <span class="count" id="countWikimedia">0</span>
           </span>
-          <span class="source-tab" data-source="wikidata" onclick="filterSource('wikidata')">
+          <span class="source-tab" data-source="wikidata" onclick="filterSource('wikidata')" data-i18n="search.wikidata">
             <i class="fas fa-database"></i> Wikidata <span class="count" id="countWikidata">0</span>
           </span>
-          <span class="source-tab" data-source="googlebooks" onclick="filterSource('googlebooks')">
+          <span class="source-tab" data-source="googlebooks" onclick="filterSource('googlebooks')" data-i18n="search.google_books">
             <i class="fas fa-google"></i> Google Books <span class="count" id="countGooglebooks">0</span>
           </span>
-          <span class="source-tab" data-source="internetarchive" onclick="filterSource('internetarchive')">
+          <span class="source-tab" data-source="internetarchive" onclick="filterSource('internetarchive')" data-i18n="search.archive">
             <i class="fas fa-archive"></i> Archive <span class="count" id="countInternetarchive">0</span>
           </span>
-          <span class="source-tab" data-source="jisho" onclick="filterSource('jisho')">
+          <span class="source-tab" data-source="jisho" onclick="filterSource('jisho')" data-i18n="search.jisho">
             <i class="fas fa-language"></i> Jisho <span class="count" id="countJisho">0</span>
           </span>
-          <span class="source-tab" data-source="theaudiodb" onclick="filterSource('theaudiodb')">
+          <span class="source-tab" data-source="theaudiodb" onclick="filterSource('theaudiodb')" data-i18n="search.music">
             <i class="fas fa-music"></i> Music <span class="count" id="countTheaudiodb">0</span>
           </span>
-          <span class="source-tab" data-source="omdb" onclick="filterSource('omdb')">
+          <span class="source-tab" data-source="omdb" onclick="filterSource('omdb')" data-i18n="search.movies">
             <i class="fas fa-film"></i> Movies <span class="count" id="countOmdb">0</span>
           </span>
-          <span class="source-tab" data-source="newsapi" onclick="filterSource('newsapi')">
+          <span class="source-tab" data-source="newsapi" onclick="filterSource('newsapi')" data-i18n="search.news">
             <i class="fas fa-newspaper"></i> News <span class="count" id="countNewsapi">0</span>
           </span>
-          <span class="source-tab" data-source="youtube" onclick="filterSource('youtube')">
+          <span class="source-tab" data-source="youtube" onclick="filterSource('youtube')" data-i18n="search.youtube">
             <i class="fab fa-youtube"></i> YouTube <span class="count" id="countYoutube">0</span>
           </span>
-          <span class="source-tab" data-source="reddit" onclick="filterSource('reddit')">
+          <span class="source-tab" data-source="reddit" onclick="filterSource('reddit')" data-i18n="search.reddit">
             <i class="fab fa-reddit"></i> Reddit <span class="count" id="countReddit">0</span>
           </span>
-          <span class="source-tab" data-source="github" onclick="filterSource('github')">
+          <span class="source-tab" data-source="github" onclick="filterSource('github')" data-i18n="search.github">
             <i class="fab fa-github"></i> GitHub <span class="count" id="countGithub">0</span>
           </span>
         </div>
         
         <div id="resultsGrid" class="results-grid"></div>
         
-        <div class="search-powered">
+        <div class="search-powered" data-i18n="search.powered_by_15_sources">
           <i class="fas fa-shield-alt"></i> Powered by 15 sources: DuckDuckGo · Wikipedia · Wiktionary · OpenLibrary · WikiMedia · Wikidata · Google Books · Internet Archive · Jisho · TheAudioDB · OMDb · NewsAPI · YouTube · Reddit · GitHub
         </div>
         

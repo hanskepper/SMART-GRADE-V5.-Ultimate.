@@ -184,21 +184,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-shield-alt"></i><span>PRIVACY</span></div>
+      <div class="header-logo"><i class="fas fa-shield-alt"></i><span data-i18n="privacy.privacy">PRIVACY</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -206,21 +207,21 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="privacy.html" class="nav-item active"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
-        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="privacy.html" class="nav-item active" data-i18n="common.privacy_policy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="terms.html" class="nav-item" data-i18n="common.terms_of_use"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="cookies.html" class="nav-item" data-i18n="common.cookies_policy"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
         
-        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
-        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
-        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
-        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="license.html" class="nav-item" data-i18n="common.license"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="eula.html" class="nav-item" data-i18n="common.eula"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="doc.html" class="nav-item" data-i18n="common.documentation"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="guide-user.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="support.html" class="nav-item" data-i18n="common.support"><i class="fas fa-headset"></i> Support</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -228,288 +229,288 @@
     <main class="main-content">
       <div class="legal-hero">
         <i class="fas fa-shield-alt" style="font-size:55px;opacity:0.5;"></i>
-        <h1>Privacy Policy</h1>
-        <p>SIN GBHS FOUMBAN - Form 5B Science</p>
-        <div class="last-updated">
+        <h1 data-i18n="common.privacy_policy">Privacy Policy</h1>
+        <p data-i18n="common.sin_gbhs_foumban_form">SIN GBHS FOUMBAN - Form 5B Science</p>
+        <div class="last-updated" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
         </div>
       </div>
       
       <div class="legal-content">
         <div class="toc">
-          <h4><i class="fas fa-list"></i> Table of Contents</h4>
+          <h4 data-i18n="common.table_of_contents"><i class="fas fa-list"></i> Table of Contents</h4>
           <div class="toc-grid">
-            <a href="#section1"><i class="fas fa-chevron-right"></i> 1. Information We Collect</a>
-            <a href="#section2"><i class="fas fa-chevron-right"></i> 2. How We Use Your Information</a>
-            <a href="#section3"><i class="fas fa-chevron-right"></i> 3. Data Storage Location</a>
-            <a href="#section4"><i class="fas fa-chevron-right"></i> 4. Data Security</a>
-            <a href="#section5"><i class="fas fa-chevron-right"></i> 5. Your Rights</a>
-            <a href="#section6"><i class="fas fa-chevron-right"></i> 6. Data Retention</a>
-            <a href="#section7"><i class="fas fa-chevron-right"></i> 7. Cookies and Local Storage</a>
-            <a href="#section8"><i class="fas fa-chevron-right"></i> 8. Third-Party Services</a>
-            <a href="#section9"><i class="fas fa-chevron-right"></i> 9. Children's Privacy</a>
-            <a href="#section10"><i class="fas fa-chevron-right"></i> 10. Changes to This Policy</a>
-            <a href="#section11"><i class="fas fa-chevron-right"></i> 11. Contact Information</a>
+            <a href="#section1" data-i18n="privacy.1_information_we_collect"><i class="fas fa-chevron-right"></i> 1. Information We Collect</a>
+            <a href="#section2" data-i18n="privacy.2_how_we_use"><i class="fas fa-chevron-right"></i> 2. How We Use Your Information</a>
+            <a href="#section3" data-i18n="privacy.3_data_storage_location"><i class="fas fa-chevron-right"></i> 3. Data Storage Location</a>
+            <a href="#section4" data-i18n="privacy.4_data_security"><i class="fas fa-chevron-right"></i> 4. Data Security</a>
+            <a href="#section5" data-i18n="privacy.5_your_rights"><i class="fas fa-chevron-right"></i> 5. Your Rights</a>
+            <a href="#section6" data-i18n="privacy.6_data_retention"><i class="fas fa-chevron-right"></i> 6. Data Retention</a>
+            <a href="#section7" data-i18n="privacy.7_cookies_and_local"><i class="fas fa-chevron-right"></i> 7. Cookies and Local Storage</a>
+            <a href="#section8" data-i18n="privacy.8_thirdparty_services"><i class="fas fa-chevron-right"></i> 8. Third-Party Services</a>
+            <a href="#section9" data-i18n="privacy.9_childrens_privacy"><i class="fas fa-chevron-right"></i> 9. Children's Privacy</a>
+            <a href="#section10" data-i18n="privacy.10_changes_to_this"><i class="fas fa-chevron-right"></i> 10. Changes to This Policy</a>
+            <a href="#section11" data-i18n="privacy.11_contact_information"><i class="fas fa-chevron-right"></i> 11. Contact Information</a>
           </div>
         </div>
         
         <div id="section1" class="legal-section">
-          <h3><i class="fas fa-database"></i> 1. Information We Collect</h3>
-          <p>SMART GRADE collects only the information necessary for the application to function properly. All data is stored locally on your device unless you explicitly use cloud backup features.</p>
-          <p><strong>We collect the following information:</strong></p>
+          <h3 data-i18n="privacy.1_information_we_collect"><i class="fas fa-database"></i> 1. Information We Collect</h3>
+          <p data-i18n="privacy.smart_grade_collects_only">SMART GRADE collects only the information necessary for the application to function properly. All data is stored locally on your device unless you explicitly use cloud backup features.</p>
+          <p><strong data-i18n="privacy.we_collect_the_following">We collect the following information:</strong></p>
           <div class="badge-grid">
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-user"></i></div>
               <div class="badge-info">
-                <h4>Student Information</h4>
-                <p>Name, class, student number, and PIN</p>
+                <h4 data-i18n="privacy.student_information">Student Information</h4>
+                <p data-i18n="privacy.name_class_student_number">Name, class, student number, and PIN</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-chart-line"></i></div>
               <div class="badge-info">
-                <h4>Academic Data</h4>
-                <p>Grades, subjects, coefficients, goals</p>
+                <h4 data-i18n="cookies.academic_data">Academic Data</h4>
+                <p data-i18n="cookies.grades_subjects_coefficients">Grades, subjects, coefficients, goals</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-medal"></i></div>
               <div class="badge-info">
-                <h4>Achievements</h4>
-                <p>Badges, streaks, and progress history</p>
+                <h4 data-i18n="common.achievements">Achievements</h4>
+                <p data-i18n="privacy.badges_streaks_and_progress">Badges, streaks, and progress history</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-fingerprint"></i></div>
               <div class="badge-info">
-                <h4>Biometric Data</h4>
-                <p>Fingerprint hash (stored locally only)</p>
+                <h4 data-i18n="privacy.biometric_data">Biometric Data</h4>
+                <p data-i18n="privacy.fingerprint_hash_stored_loca">Fingerprint hash (stored locally only)</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-image"></i></div>
               <div class="badge-info">
-                <h4>Profile Information</h4>
-                <p>Profile photo (Base64 encoded), biography</p>
+                <h4 data-i18n="privacy.profile_information">Profile Information</h4>
+                <p data-i18n="privacy.profile_photo_base64_encoded">Profile photo (Base64 encoded), biography</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-clone"></i></div>
               <div class="badge-info">
-                <h4>User Content</h4>
-                <p>Flashcards, notes, custom data</p>
+                <h4 data-i18n="privacy.user_content">User Content</h4>
+                <p data-i18n="privacy.flashcards_notes_custom_data">Flashcards, notes, custom data</p>
               </div>
             </div>
           </div>
-          <div class="highlight">
-            <i class="fas fa-info-circle"></i> <strong>Important:</strong> We do NOT collect email addresses, phone numbers, physical addresses, or any form of contact information unless voluntarily provided by you.
+          <div class="highlight" data-i18n="privacy.we_do_not_collect">
+            <i class="fas fa-info-circle"></i> <strong data-i18n="common.important">Important:</strong> We do NOT collect email addresses, phone numbers, physical addresses, or any form of contact information unless voluntarily provided by you.
           </div>
         </div>
         
         <div id="section2" class="legal-section">
-          <h3><i class="fas fa-chart-line"></i> 2. How We Use Your Information</h3>
-          <p>Your information is used exclusively for:</p>
+          <h3 data-i18n="privacy.2_how_we_use"><i class="fas fa-chart-line"></i> 2. How We Use Your Information</h3>
+          <p data-i18n="privacy.your_information_is_used">Your information is used exclusively for:</p>
           <ul>
-            <li><i class="fas fa-calculator"></i> Calculating academic averages and statistics</li>
-            <li><i class="fas fa-trophy"></i> Tracking achievements and streaks</li>
-            <li><i class="fas fa-chart-bar"></i> Generating performance reports and charts</li>
-            <li><i class="fas fa-exchange-alt"></i> Facilitating data transfer between devices</li>
-            <li><i class="fas fa-cloud-upload-alt"></i> Creating backups (local or cloud)</li>
-            <li><i class="fas fa-user-check"></i> Authenticating your identity (PIN and fingerprint)</li>
+            <li data-i18n="privacy.calculating_academic_average"><i class="fas fa-calculator"></i> Calculating academic averages and statistics</li>
+            <li data-i18n="privacy.tracking_achievements_and_st"><i class="fas fa-trophy"></i> Tracking achievements and streaks</li>
+            <li data-i18n="privacy.generating_performance_repor"><i class="fas fa-chart-bar"></i> Generating performance reports and charts</li>
+            <li data-i18n="privacy.facilitating_data_transfer_b"><i class="fas fa-exchange-alt"></i> Facilitating data transfer between devices</li>
+            <li data-i18n="privacy.creating_backups_local_or"><i class="fas fa-cloud-upload-alt"></i> Creating backups (local or cloud)</li>
+            <li data-i18n="privacy.authenticating_your_identity"><i class="fas fa-user-check"></i> Authenticating your identity (PIN and fingerprint)</li>
           </ul>
-          <p>We do not sell, rent, or share your personal information with third parties for marketing purposes.</p>
+          <p data-i18n="privacy.we_do_not_sell">We do not sell, rent, or share your personal information with third parties for marketing purposes.</p>
         </div>
         
         <div id="section3" class="legal-section">
-          <h3><i class="fas fa-database"></i> 3. Data Storage Location</h3>
-          <p><strong>By default, all your data is stored locally on your device using the browser's localStorage technology.</strong> This means:</p>
+          <h3 data-i18n="privacy.3_data_storage_location"><i class="fas fa-database"></i> 3. Data Storage Location</h3>
+          <p data-i18n="privacy.this_means"><strong data-i18n="privacy.by_default_all_your">By default, all your data is stored locally on your device using the browser's localStorage technology.</strong> This means:</p>
           <ul>
-            <li><i class="fas fa-check-circle"></i> Your data never leaves your device unless you explicitly use cloud features</li>
-            <li><i class="fas fa-check-circle"></i> You have full control over your data</li>
-            <li><i class="fas fa-check-circle"></i> No external servers have access to your information</li>
+            <li data-i18n="privacy.your_data_never_leaves"><i class="fas fa-check-circle"></i> Your data never leaves your device unless you explicitly use cloud features</li>
+            <li data-i18n="privacy.you_have_full_control"><i class="fas fa-check-circle"></i> You have full control over your data</li>
+            <li data-i18n="privacy.no_external_servers_have"><i class="fas fa-check-circle"></i> No external servers have access to your information</li>
           </ul>
-          <p><strong>Optional Cloud Features:</strong></p>
+          <p><strong data-i18n="privacy.optional_cloud_features">Optional Cloud Features:</strong></p>
           <ul>
-            <li><i class="fas fa-cloud-upload-alt"></i> <strong>Cloud Backup:</strong> When you use this feature, your encrypted data is stored on JSONBin.io or GitHub Gist servers.</li>
-            <li><i class="fas fa-exchange-alt"></i> <strong>Data Transfer:</strong> Temporary storage on GitHub Gist (expires after 10 minutes).</li>
+            <li data-i18n="privacy.when_you_use_this"><i class="fas fa-cloud-upload-alt"></i> <strong data-i18n="privacy.cloud_backup">Cloud Backup:</strong> When you use this feature, your encrypted data is stored on JSONBin.io or GitHub Gist servers.</li>
+            <li data-i18n="privacy.temporary_storage_on_github"><i class="fas fa-exchange-alt"></i> <strong data-i18n="privacy.data_transfer">Data Transfer:</strong> Temporary storage on GitHub Gist (expires after 10 minutes).</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-shield-alt"></i> <strong>Your Control:</strong> You can export, delete, or backup your data at any time from the Settings page.
+          <div class="highlight" data-i18n="privacy.you_can_export_delete">
+            <i class="fas fa-shield-alt"></i> <strong data-i18n="privacy.your_control">Your Control:</strong> You can export, delete, or backup your data at any time from the Settings page.
           </div>
         </div>
         
         <div id="section4" class="legal-section">
-          <h3><i class="fas fa-lock"></i> 4. Data Security</h3>
-          <p>We implement several security measures to protect your information:</p>
+          <h3 data-i18n="privacy.4_data_security"><i class="fas fa-lock"></i> 4. Data Security</h3>
+          <p data-i18n="privacy.we_implement_several_securit">We implement several security measures to protect your information:</p>
           <ul>
-            <li><i class="fas fa-fingerprint"></i> <strong>PIN Protection:</strong> Your account is protected by a 4-digit PIN</li>
-            <li><i class="fas fa-fingerprint"></i> <strong>Biometric Authentication:</strong> Optional fingerprint login (stored locally)</li>
-            <li><i class="fas fa-database"></i> <strong>Local Storage:</strong> Data never leaves your device by default</li>
-            <li><i class="fas fa-sync-alt"></i> <strong>Automatic Cleanup:</strong> Expired transfer codes are automatically deleted</li>
-            <li><i class="fas fa-trash-alt"></i> <strong>Account Deletion:</strong> You can permanently delete all your data</li>
+            <li data-i18n="privacy.your_account_is_protected"><i class="fas fa-fingerprint"></i> <strong data-i18n="privacy.pin_protection">PIN Protection:</strong> Your account is protected by a 4-digit PIN</li>
+            <li data-i18n="privacy.optional_fingerprint_login_s"><i class="fas fa-fingerprint"></i> <strong data-i18n="privacy.biometric_authentication">Biometric Authentication:</strong> Optional fingerprint login (stored locally)</li>
+            <li data-i18n="privacy.data_never_leaves_your"><i class="fas fa-database"></i> <strong data-i18n="privacy.local_storage">Local Storage:</strong> Data never leaves your device by default</li>
+            <li data-i18n="privacy.expired_transfer_codes_are"><i class="fas fa-sync-alt"></i> <strong data-i18n="privacy.automatic_cleanup">Automatic Cleanup:</strong> Expired transfer codes are automatically deleted</li>
+            <li data-i18n="privacy.you_can_permanently_delete"><i class="fas fa-trash-alt"></i> <strong data-i18n="privacy.account_deletion">Account Deletion:</strong> You can permanently delete all your data</li>
           </ul>
-          <p>However, no method of electronic storage is 100% secure. We recommend:</p>
+          <p data-i18n="privacy.however_no_method_of">However, no method of electronic storage is 100% secure. We recommend:</p>
           <ul>
-            <li>Keeping your PIN confidential</li>
-            <li>Exporting important backups regularly</li>
-            <li>Using a strong PIN (not sequential numbers like 1234)</li>
+            <li data-i18n="privacy.keeping_your_pin_confidentia">Keeping your PIN confidential</li>
+            <li data-i18n="privacy.exporting_important_backups">Exporting important backups regularly</li>
+            <li data-i18n="privacy.using_a_strong_pin">Using a strong PIN (not sequential numbers like 1234)</li>
           </ul>
         </div>
         
         <div id="section5" class="legal-section">
-          <h3><i class="fas fa-user-check"></i> 5. Your Rights</h3>
-          <p>As a user of SMART GRADE, you have the following rights regarding your data:</p>
+          <h3 data-i18n="privacy.5_your_rights"><i class="fas fa-user-check"></i> 5. Your Rights</h3>
+          <p data-i18n="privacy.as_a_user_of">As a user of SMART GRADE, you have the following rights regarding your data:</p>
           <div class="badge-grid">
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-eye"></i></div>
               <div class="badge-info">
-                <h4>Right to Access</h4>
-                <p>View all your stored data at any time</p>
+                <h4 data-i18n="privacy.right_to_access">Right to Access</h4>
+                <p data-i18n="privacy.view_all_your_stored">View all your stored data at any time</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-download"></i></div>
               <div class="badge-info">
-                <h4>Right to Export</h4>
-                <p>Download your data in JSON, CSV, HTML, or PDF format</p>
+                <h4 data-i18n="privacy.right_to_export">Right to Export</h4>
+                <p data-i18n="privacy.download_your_data_in">Download your data in JSON, CSV, HTML, or PDF format</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-trash-alt"></i></div>
               <div class="badge-info">
-                <h4>Right to Deletion</h4>
-                <p>Delete your account and all associated data</p>
+                <h4 data-i18n="privacy.right_to_deletion">Right to Deletion</h4>
+                <p data-i18n="privacy.delete_your_account_and">Delete your account and all associated data</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-undo-alt"></i></div>
               <div class="badge-info">
-                <h4>Right to Rectification</h4>
-                <p>Correct any inaccurate information</p>
+                <h4 data-i18n="privacy.right_to_rectification">Right to Rectification</h4>
+                <p data-i18n="privacy.correct_any_inaccurate_infor">Correct any inaccurate information</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-ban"></i></div>
               <div class="badge-info">
-                <h4>Right to Restrict Processing</h4>
-                <p>Stop using cloud features at any time</p>
+                <h4 data-i18n="privacy.right_to_restrict_processing">Right to Restrict Processing</h4>
+                <p data-i18n="privacy.stop_using_cloud_features">Stop using cloud features at any time</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-exchange-alt"></i></div>
               <div class="badge-info">
-                <h4>Right to Data Portability</h4>
-                <p>Transfer your data to another device</p>
+                <h4 data-i18n="privacy.right_to_data_portability">Right to Data Portability</h4>
+                <p data-i18n="privacy.transfer_your_data_to">Transfer your data to another device</p>
               </div>
             </div>
           </div>
         </div>
         
         <div id="section6" class="legal-section">
-          <h3><i class="fas fa-clock"></i> 6. Data Retention</h3>
-          <p>We retain your data for as long as you maintain an account. Specifically:</p>
+          <h3 data-i18n="privacy.6_data_retention"><i class="fas fa-clock"></i> 6. Data Retention</h3>
+          <p data-i18n="privacy.we_retain_your_data">We retain your data for as long as you maintain an account. Specifically:</p>
           <ul>
-            <li><strong>Active Account:</strong> All data is kept until you delete your account</li>
-            <li><strong>Transfer Codes:</strong> Automatically deleted after 10 minutes</li>
-            <li><strong>Cloud Backups:</strong> Deleted after 24 hours or when you delete them</li>
-            <li><strong>Deleted Account:</strong> All data is permanently removed from your device</li>
+            <li data-i18n="privacy.all_data_is_kept"><strong data-i18n="privacy.active_account">Active Account:</strong> All data is kept until you delete your account</li>
+            <li data-i18n="privacy.automatically_deleted_after"><strong data-i18n="privacy.transfer_codes">Transfer Codes:</strong> Automatically deleted after 10 minutes</li>
+            <li data-i18n="privacy.deleted_after_24_hours"><strong data-i18n="privacy.cloud_backups">Cloud Backups:</strong> Deleted after 24 hours or when you delete them</li>
+            <li data-i18n="privacy.all_data_is_permanently"><strong data-i18n="privacy.deleted_account">Deleted Account:</strong> All data is permanently removed from your device</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-download"></i> <strong>Recommendation:</strong> Before deleting your account, use the Export feature to save a backup of your data.
+          <div class="highlight" data-i18n="privacy.before_deleting_your_account">
+            <i class="fas fa-download"></i> <strong data-i18n="common.recommendation">Recommendation:</strong> Before deleting your account, use the Export feature to save a backup of your data.
           </div>
         </div>
         
         <div id="section7" class="legal-section">
-          <h3><i class="fas fa-cookie-bite"></i> 7. Cookies and Local Storage</h3>
-          <p>SMART GRADE does not use traditional cookies. Instead, we use the browser's localStorage API to store your data:</p>
+          <h3 data-i18n="privacy.7_cookies_and_local"><i class="fas fa-cookie-bite"></i> 7. Cookies and Local Storage</h3>
+          <p data-i18n="privacy.smart_grade_does_not">SMART GRADE does not use traditional cookies. Instead, we use the browser's localStorage API to store your data:</p>
           <ul>
-            <li><strong>What is localStorage?</strong> A web storage mechanism that allows websites to store data locally on your device.</li>
-            <li><strong>Is localStorage a cookie?</strong> No, localStorage is different from cookies and cannot be accessed by third parties.</li>
-            <li><strong>Can I clear it?</strong> Yes, you can clear localStorage through your browser settings or by deleting your account.</li>
-            <li><strong>How long does it stay?</strong> Until you manually delete it or clear your browser data.</li>
+            <li data-i18n="privacy.a_web_storage_mechanism"><strong data-i18n="privacy.what_is_localstorage">What is localStorage?</strong> A web storage mechanism that allows websites to store data locally on your device.</li>
+            <li data-i18n="privacy.no_localstorage_is_different"><strong data-i18n="privacy.is_localstorage_a_cookie">Is localStorage a cookie?</strong> No, localStorage is different from cookies and cannot be accessed by third parties.</li>
+            <li data-i18n="privacy.yes_you_can_clear"><strong data-i18n="privacy.can_i_clear_it">Can I clear it?</strong> Yes, you can clear localStorage through your browser settings or by deleting your account.</li>
+            <li data-i18n="privacy.until_you_manually_delete"><strong data-i18n="privacy.how_long_does_it">How long does it stay?</strong> Until you manually delete it or clear your browser data.</li>
           </ul>
-          <p>No tracking cookies, analytics cookies, or advertising cookies are used in SMART GRADE.</p>
+          <p data-i18n="privacy.no_tracking_cookies_analytic">No tracking cookies, analytics cookies, or advertising cookies are used in SMART GRADE.</p>
         </div>
         
         <div id="section8" class="legal-section">
-          <h3><i class="fas fa-plug"></i> 8. Third-Party Services</h3>
-          <p>SMART GRADE uses the following third-party services (all optional):</p>
+          <h3 data-i18n="privacy.8_thirdparty_services"><i class="fas fa-plug"></i> 8. Third-Party Services</h3>
+          <p data-i18n="privacy.smart_grade_uses_the">SMART GRADE uses the following third-party services (all optional):</p>
           <div class="badge-grid">
             <div class="badge-item">
               <div class="badge-icon" style="background:#24292e;"><i class="fab fa-github"></i></div>
               <div class="badge-info">
-                <h4>GitHub Gist</h4>
-                <p>Used for cloud transfer (optional). Your data is stored temporarily (10 minutes).</p>
+                <h4 data-i18n="cookies.github_gist">GitHub Gist</h4>
+                <p data-i18n="privacy.used_for_cloud_transfer">Used for cloud transfer (optional). Your data is stored temporarily (10 minutes).</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#3498db;"><i class="fas fa-chart-line"></i></div>
               <div class="badge-info">
-                <h4>Chart.js</h4>
-                <p>Used for displaying statistics charts. No data is sent to Chart.js servers.</p>
+                <h4 data-i18n="common.chartjs">Chart.js</h4>
+                <p data-i18n="privacy.used_for_displaying_statisti">Used for displaying statistics charts. No data is sent to Chart.js servers.</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-qrcode"></i></div>
               <div class="badge-info">
-                <h4>QR Code Libraries</h4>
-                <p>Used for generating and scanning QR codes. All processing is local.</p>
+                <h4 data-i18n="privacy.qr_code_libraries">QR Code Libraries</h4>
+                <p data-i18n="privacy.used_for_generating_and">Used for generating and scanning QR codes. All processing is local.</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#f1c40f;"><i class="fab fa-google"></i></div>
               <div class="badge-info">
-                <h4>Google Fonts</h4>
-                <p>Used for displaying custom fonts. May collect IP addresses.</p>
+                <h4 data-i18n="common.google_fonts">Google Fonts</h4>
+                <p data-i18n="cookies.used_for_displaying_custom">Used for displaying custom fonts. May collect IP addresses.</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#9b59b6;"><i class="fab fa-font-awesome"></i></div>
               <div class="badge-info">
-                <h4>Font Awesome</h4>
-                <p>Used for icons. No personal data is collected.</p>
+                <h4 data-i18n="common.font_awesome">Font Awesome</h4>
+                <p data-i18n="privacy.used_for_icons_no">Used for icons. No personal data is collected.</p>
               </div>
             </div>
           </div>
-          <p>These services are used only when you explicitly activate the corresponding features (cloud transfer, etc.).</p>
+          <p data-i18n="privacy.these_services_are_used">These services are used only when you explicitly activate the corresponding features (cloud transfer, etc.).</p>
         </div>
         
         <div id="section9" class="legal-section">
-          <h3><i class="fas fa-child"></i> 9. Children's Privacy</h3>
-          <p>SMART GRADE is designed for students typically aged 14-18 (Form 5B Science). We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us.</p>
-          <div class="highlight">
-            <i class="fas fa-envelope"></i> <strong>Parental Contact:</strong> If you have concerns about your child's data, please email hanskepper52@gmail.com.
+          <h3 data-i18n="privacy.9_childrens_privacy"><i class="fas fa-child"></i> 9. Children's Privacy</h3>
+          <p data-i18n="privacy.smart_grade_is_designed">SMART GRADE is designed for students typically aged 14-18 (Form 5B Science). We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us.</p>
+          <div class="highlight" data-i18n="privacy.if_you_have_concerns">
+            <i class="fas fa-envelope"></i> <strong data-i18n="privacy.parental_contact">Parental Contact:</strong> If you have concerns about your child's data, please email hanskepper52@gmail.com.
           </div>
         </div>
         
         <div id="section10" class="legal-section">
-          <h3><i class="fas fa-edit"></i> 10. Changes to This Policy</h3>
-          <p>We may update this Privacy Policy from time to time. When we make changes:</p>
+          <h3 data-i18n="privacy.10_changes_to_this"><i class="fas fa-edit"></i> 10. Changes to This Policy</h3>
+          <p data-i18n="privacy.we_may_update_this">We may update this Privacy Policy from time to time. When we make changes:</p>
           <ul>
-            <li>The "Last updated" date at the top of this document will be modified</li>
-            <li>Users will be notified via in-app notification of significant changes</li>
-            <li>Continued use of SMART GRADE after changes constitutes acceptance of the new policy</li>
+            <li data-i18n="cookies.the_last_updated_date">The "Last updated" date at the top of this document will be modified</li>
+            <li data-i18n="cookies.users_will_be_notified">Users will be notified via in-app notification of significant changes</li>
+            <li data-i18n="cookies.continued_use_of_smart">Continued use of SMART GRADE after changes constitutes acceptance of the new policy</li>
           </ul>
-          <p>We encourage you to review this Privacy Policy periodically to stay informed about how we protect your information.</p>
+          <p data-i18n="privacy.we_encourage_you_to">We encourage you to review this Privacy Policy periodically to stay informed about how we protect your information.</p>
         </div>
         
         <div id="section11" class="legal-section">
-          <h3><i class="fas fa-envelope"></i> 11. Contact Information</h3>
-          <p>If you have any questions about this Privacy Policy or your data, please contact the developer:</p>
+          <h3 data-i18n="privacy.11_contact_information"><i class="fas fa-envelope"></i> 11. Contact Information</h3>
+          <p data-i18n="privacy.if_you_have_any">If you have any questions about this Privacy Policy or your data, please contact the developer:</p>
           <ul>
-            <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
-            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
-            <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
-            <li><i class="fab fa-github"></i> <strong>GitHub:</strong> hanskepper</li>
-            <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
-            <li><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Foumban, West Region, Cameroon</li>
+            <li data-i18n="common.hans_kepper"><i class="fas fa-user"></i> <strong data-i18n="common.developer">Developer:</strong> HANS KEPPER</li>
+            <li data-i18n="common.hanskepper52gmailcom"><i class="fas fa-envelope"></i> <strong data-i18n="common.email">Email:</strong> hanskepper52@gmail.com</li>
+            <li><i class="fab fa-whatsapp"></i> <strong data-i18n="common.whatsapp">WhatsApp:</strong> +237 698 640 885</li>
+            <li data-i18n="common.hanskepper"><i class="fab fa-github"></i> <strong data-i18n="common.github">GitHub:</strong> hanskepper</li>
+            <li data-i18n="common.sin_gbhs_foumban_form_2"><i class="fas fa-school"></i> <strong data-i18n="common.school">School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
+            <li data-i18n="common.foumban_west_region_cameroon"><i class="fas fa-map-marker-alt"></i> <strong data-i18n="privacy.address">Address:</strong> Foumban, West Region, Cameroon</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-clock"></i> <strong>Response Time:</strong> We typically respond to privacy-related inquiries within 48 hours.
+          <div class="highlight" data-i18n="privacy.we_typically_respond_to">
+            <i class="fas fa-clock"></i> <strong data-i18n="privacy.response_time">Response Time:</strong> We typically respond to privacy-related inquiries within 48 hours.
           </div>
         </div>
         
-        <div class="legal-date">
+        <div class="legal-date" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026<br>
           <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
           <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>

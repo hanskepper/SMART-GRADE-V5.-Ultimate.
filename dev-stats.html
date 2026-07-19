@@ -199,21 +199,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-chart-pie"></i><span>DEV TOOLS</span></div>
+      <div class="header-logo"><i class="fas fa-chart-pie"></i><span data-i18n="common.dev_tools">DEV TOOLS</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -221,25 +222,25 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="profile.html" class="nav-item" data-i18n="common.profile"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
         
         <div class="dev-sidebar" id="devSidebar" style="display:none;">
-          <div class="dev-sidebar-title"><i class="fas fa-code"></i> Developer Tools</div>
+          <div class="dev-sidebar-title" data-i18n="common.developer_tools"><i class="fas fa-code"></i> Developer Tools</div>
           <div class="dev-nav-links">
-            <a href="dev-calculator.html" class="dev-nav-link" id="devCalculatorLink"><i class="fas fa-calculator"></i> Calculator</a>
-            <a href="dev-database.html" class="dev-nav-link" id="devDatabaseLink"><i class="fas fa-database"></i> Database</a>
-            <a href="dev-stats.html" class="dev-nav-link active" id="devStatsLink"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
-            <a href="dev-logs.html" class="dev-nav-link" id="devLogsLink"><i class="fas fa-history"></i> System Logs</a>
-            <a href="dev-backup.html" class="dev-nav-link" id="devBackupLink"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
-            <a href="dev-config.html" class="nav-item" id="devConfigLink"><i class="fas fa-cog"></i> System Config</a>
+            <a href="dev-calculator.html" class="dev-nav-link" id="devCalculatorLink" data-i18n="common.calculator"><i class="fas fa-calculator"></i> Calculator</a>
+            <a href="dev-database.html" class="dev-nav-link" id="devDatabaseLink" data-i18n="common.database"><i class="fas fa-database"></i> Database</a>
+            <a href="dev-stats.html" class="dev-nav-link active" id="devStatsLink" data-i18n="common.advanced_stats"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
+            <a href="dev-logs.html" class="dev-nav-link" id="devLogsLink" data-i18n="common.system_logs"><i class="fas fa-history"></i> System Logs</a>
+            <a href="dev-backup.html" class="dev-nav-link" id="devBackupLink" data-i18n="common.cloud_backup"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
+            <a href="dev-config.html" class="nav-item" id="devConfigLink" data-i18n="common.system_config"><i class="fas fa-cog"></i> System Config</a>
           </div>
         </div>
         
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -247,15 +248,15 @@
     <main class="main-content">
       <div class="dev-hero">
         <i class="fas fa-chart-pie" style="font-size:45px;opacity:0.5;"></i>
-        <h1>Advanced Statistics</h1>
-        <p>Detailed performance analysis - Developer Tool</p>
+        <h1 data-i18n="dev_stats.advanced_statistics">Advanced Statistics</h1>
+        <p data-i18n="dev_stats.detailed_performance_analysi">Detailed performance analysis - Developer Tool</p>
       </div>
       
       <div class="dev-card">
-        <div class="section-title"><i class="fas fa-user"></i> Select Student</div>
+        <div class="section-title" data-i18n="dev_calculator.select_student"><i class="fas fa-user"></i> Select Student</div>
         <div class="student-selector">
           <select id="statsStudentId"></select>
-          <button class="btn-calc" onclick="loadStudentStats()">
+          <button class="btn-calc" onclick="loadStudentStats()" data-i18n="dev_stats.load_statistics">
             <i class="fas fa-chart-line"></i> Load Statistics
           </button>
         </div>
@@ -263,26 +264,26 @@
         <div class="stats-grid" id="statsSummary">
           <div class="stat-card">
             <div class="stat-value" id="statTerm1">--</div>
-            <div class="stat-label">Term 1</div>
+            <div class="stat-label" data-i18n="common.term_1">Term 1</div>
           </div>
           <div class="stat-card">
             <div class="stat-value" id="statTerm2">--</div>
-            <div class="stat-label">Term 2</div>
+            <div class="stat-label" data-i18n="common.term_2">Term 2</div>
           </div>
           <div class="stat-card">
             <div class="stat-value" id="statTerm3">--</div>
-            <div class="stat-label">Term 3</div>
+            <div class="stat-label" data-i18n="common.term_3">Term 3</div>
           </div>
           <div class="stat-card">
             <div class="stat-value" id="statYearly">--</div>
-            <div class="stat-label">Yearly</div>
+            <div class="stat-label" data-i18n="common.yearly">Yearly</div>
           </div>
         </div>
         
         <div class="chart-container">
           <canvas id="subjectChart"></canvas>
         </div>
-        <p style="font-size:0.6rem; color:var(--text-light); text-align:center; margin-top:12px;">
+        <p style="font-size:0.6rem; color:var(--text-light); text-align:center; margin-top:12px;" data-i18n="dev_stats.yearly_average_per_subject">
           <i class="fas fa-chart-simple"></i> Yearly average per subject (0-20 scale)
         </p>
       </div>

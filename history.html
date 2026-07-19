@@ -170,21 +170,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-history"></i><span>ACTIVITY</span></div>
+      <div class="header-logo"><i class="fas fa-history"></i><span data-i18n="history.activity">ACTIVITY</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -192,13 +193,13 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="notifications.html" class="nav-item"><i class="fas fa-bell"></i> Notifications</a>
-        <a href="history.html" class="nav-item active"><i class="fas fa-history"></i> History</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="notifications.html" class="nav-item" data-i18n="common.notifications"><i class="fas fa-bell"></i> Notifications</a>
+        <a href="history.html" class="nav-item active" data-i18n="common.history"><i class="fas fa-history"></i> History</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -207,57 +208,57 @@
       
       <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
         <i class="fas fa-history" style="font-size:40px;opacity:0.5;"></i>
-        <h2 style="color:white;margin:8px 0;">Activity History</h2>
-        <p style="opacity:0.8;font-size:0.7rem;">Track all your actions and changes</p>
+        <h2 style="color:white;margin:8px 0;" data-i18n="common.activity_history">Activity History</h2>
+        <p style="opacity:0.8;font-size:0.7rem;" data-i18n="history.track_all_your_actions">Track all your actions and changes</p>
       </div>
       
       <div class="stats-row">
-        <div class="stat-badge-sm" id="totalCount"><i class="fas fa-database"></i> 0 total</div>
-        <div class="stat-badge-sm" id="gradeCount"><i class="fas fa-pen"></i> 0 grades</div>
-        <div class="stat-badge-sm" id="loginCount"><i class="fas fa-sign-in-alt"></i> 0 logins</div>
-        <div class="stat-badge-sm" id="exportCount"><i class="fas fa-download"></i> 0 exports</div>
+        <div class="stat-badge-sm" id="totalCount" data-i18n="history.0_total"><i class="fas fa-database"></i> 0 total</div>
+        <div class="stat-badge-sm" id="gradeCount" data-i18n="history.0_grades"><i class="fas fa-pen"></i> 0 grades</div>
+        <div class="stat-badge-sm" id="loginCount" data-i18n="history.0_logins"><i class="fas fa-sign-in-alt"></i> 0 logins</div>
+        <div class="stat-badge-sm" id="exportCount" data-i18n="history.0_exports"><i class="fas fa-download"></i> 0 exports</div>
       </div>
       
       <div class="glass-card">
         <div class="action-bar">
-          <div class="clear-btn" onclick="clearHistory()"><i class="fas fa-trash-alt"></i> Clear History</div>
+          <div class="clear-btn" onclick="clearHistory()" data-i18n="history.clear_history"><i class="fas fa-trash-alt"></i> Clear History</div>
         </div>
         
         <div class="filter-section">
-          <div class="filter-section-title"><i class="fas fa-star"></i> All Activities</div>
+          <div class="filter-section-title" data-i18n="history.all_activities"><i class="fas fa-star"></i> All Activities</div>
           <div class="filter-grid">
-            <div class="filter-chip active" data-filter="all" onclick="setFilter('all')"><i class="fas fa-list"></i> All</div>
+            <div class="filter-chip active" data-filter="all" onclick="setFilter('all')" data-i18n="common.all"><i class="fas fa-list"></i> All</div>
           </div>
         </div>
         
         <div class="filter-section">
-          <div class="filter-section-title"><i class="fas fa-graduation-cap"></i> Academic</div>
+          <div class="filter-section-title" data-i18n="history.academic"><i class="fas fa-graduation-cap"></i> Academic</div>
           <div class="filter-grid">
-            <div class="filter-chip" data-filter="grade" onclick="setFilter('grade')"><i class="fas fa-pen"></i> Grades</div>
-            <div class="filter-chip" data-filter="badge" onclick="setFilter('badge')"><i class="fas fa-medal"></i> Badges</div>
-            <div class="filter-chip" data-filter="streak" onclick="setFilter('streak')"><i class="fas fa-fire"></i> Streaks</div>
-            <div class="filter-chip" data-filter="goal" onclick="setFilter('goal')"><i class="fas fa-bullseye"></i> Goals</div>
-            <div class="filter-chip" data-filter="flashcard" onclick="setFilter('flashcard')"><i class="fas fa-clone"></i> Flashcards</div>
+            <div class="filter-chip" data-filter="grade" onclick="setFilter('grade')" data-i18n="common.grades"><i class="fas fa-pen"></i> Grades</div>
+            <div class="filter-chip" data-filter="badge" onclick="setFilter('badge')" data-i18n="common.badges"><i class="fas fa-medal"></i> Badges</div>
+            <div class="filter-chip" data-filter="streak" onclick="setFilter('streak')" data-i18n="history.streaks"><i class="fas fa-fire"></i> Streaks</div>
+            <div class="filter-chip" data-filter="goal" onclick="setFilter('goal')" data-i18n="common.goals"><i class="fas fa-bullseye"></i> Goals</div>
+            <div class="filter-chip" data-filter="flashcard" onclick="setFilter('flashcard')" data-i18n="common.flashcards"><i class="fas fa-clone"></i> Flashcards</div>
           </div>
         </div>
         
         <div class="filter-section">
-          <div class="filter-section-title"><i class="fas fa-database"></i> Data</div>
+          <div class="filter-section-title" data-i18n="history.data"><i class="fas fa-database"></i> Data</div>
           <div class="filter-grid">
-            <div class="filter-chip" data-filter="export" onclick="setFilter('export')"><i class="fas fa-upload"></i> Export</div>
-            <div class="filter-chip" data-filter="import" onclick="setFilter('import')"><i class="fas fa-download"></i> Import</div>
-            <div class="filter-chip" data-filter="backup" onclick="setFilter('backup')"><i class="fas fa-database"></i> Backup</div>
-            <div class="filter-chip" data-filter="transfer" onclick="setFilter('transfer')"><i class="fas fa-exchange-alt"></i> Transfer</div>
+            <div class="filter-chip" data-filter="export" onclick="setFilter('export')" data-i18n="common.export"><i class="fas fa-upload"></i> Export</div>
+            <div class="filter-chip" data-filter="import" onclick="setFilter('import')" data-i18n="common.import"><i class="fas fa-download"></i> Import</div>
+            <div class="filter-chip" data-filter="backup" onclick="setFilter('backup')" data-i18n="common.backup"><i class="fas fa-database"></i> Backup</div>
+            <div class="filter-chip" data-filter="transfer" onclick="setFilter('transfer')" data-i18n="common.transfer"><i class="fas fa-exchange-alt"></i> Transfer</div>
           </div>
         </div>
         
         <div class="filter-section">
-          <div class="filter-section-title"><i class="fas fa-user"></i> Account</div>
+          <div class="filter-section-title" data-i18n="history.account"><i class="fas fa-user"></i> Account</div>
           <div class="filter-grid">
-            <div class="filter-chip" data-filter="login" onclick="setFilter('login')"><i class="fas fa-sign-in-alt"></i> Login</div>
-            <div class="filter-chip" data-filter="profile" onclick="setFilter('profile')"><i class="fas fa-user"></i> Profile</div>
-            <div class="filter-chip" data-filter="settings" onclick="setFilter('settings')"><i class="fas fa-sliders-h"></i> Settings</div>
-            <div class="filter-chip" data-filter="delete" onclick="setFilter('delete')"><i class="fas fa-trash"></i> Delete</div>
+            <div class="filter-chip" data-filter="login" onclick="setFilter('login')" data-i18n="common.login"><i class="fas fa-sign-in-alt"></i> Login</div>
+            <div class="filter-chip" data-filter="profile" onclick="setFilter('profile')" data-i18n="common.profile"><i class="fas fa-user"></i> Profile</div>
+            <div class="filter-chip" data-filter="settings" onclick="setFilter('settings')" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</div>
+            <div class="filter-chip" data-filter="delete" onclick="setFilter('delete')" data-i18n="common.delete"><i class="fas fa-trash"></i> Delete</div>
           </div>
         </div>
         

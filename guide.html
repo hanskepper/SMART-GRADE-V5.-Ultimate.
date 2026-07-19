@@ -396,19 +396,20 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <!-- HEADER PUBLIC -->
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-question-circle"></i><span>GUIDE</span></div>
-      <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      <div class="header-logo"><i class="fas fa-question-circle"></i><span data-i18n="guide_user.guide">GUIDE</span></div>
+      <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet">
@@ -421,13 +422,13 @@
     
     <!-- SIDEBAR PUBLIC -->
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smartgrade_menu"><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="login.html" class="nav-item"><i class="fas fa-sign-in-alt"></i> Login</a>
-        <a href="register.html" class="nav-item"><i class="fas fa-user-plus"></i> Register</a>
-        <a href="guide.html" class="nav-item active"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+        <a href="index.html" class="nav-item" data-i18n="common.home"><i class="fas fa-home"></i> Home</a>
+        <a href="login.html" class="nav-item" data-i18n="common.login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="register.html" class="nav-item" data-i18n="common.register"><i class="fas fa-user-plus"></i> Register</a>
+        <a href="guide.html" class="nav-item active" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -436,36 +437,36 @@
       
       <div class="guide-hero" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
         <div class="hero-icon-circle"><i class="fas fa-headphones"></i></div>
-        <h2 style="color:white;margin-bottom:8px;">Interactive Audio Guide</h2>
-        <p style="opacity:0.8;font-size:0.85rem;">Listen to each chapter with synchronized text</p>
-        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);padding:8px 16px;border-radius:30px;margin-top:12px;font-size:0.7rem;">
+        <h2 style="color:white;margin-bottom:8px;" data-i18n="guide_user.interactive_audio_guide">Interactive Audio Guide</h2>
+        <p style="opacity:0.8;font-size:0.85rem;" data-i18n="guide_user.listen_to_each_chapter">Listen to each chapter with synchronized text</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);padding:8px 16px;border-radius:30px;margin-top:12px;font-size:0.7rem;" data-i18n="guide_user.15_chapters">
           <i class="fas fa-clock"></i> 15 chapters <i class="fas fa-volume-up" style="margin-left:8px;"></i> Text-to-Speech
         </div>
       </div>
       
       <div class="glass-card">
-        <h3><i class="fas fa-list-ol"></i> Tutorial Chapters</h3>
-        <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">Click any chapter to listen</p>
+        <h3 data-i18n="guide_user.tutorial_chapters"><i class="fas fa-list-ol"></i> Tutorial Chapters</h3>
+        <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;" data-i18n="guide_user.click_any_chapter_to">Click any chapter to listen</p>
         <div id="stepsList"></div>
       </div>
       
       <div class="glass-card">
-        <h3><i class="fas fa-lightbulb"></i> Quick Tips</h3>
+        <h3 data-i18n="guide_user.quick_tips"><i class="fas fa-lightbulb"></i> Quick Tips</h3>
         <div class="quick-tips-grid">
-          <div class="quick-tip"><i class="fas fa-key"></i><span>Your PIN is your password - keep it safe!</span></div>
-          <div class="quick-tip"><i class="fas fa-layer-group"></i><span>Select different subjects per term in Settings</span></div>
-          <div class="quick-tip"><i class="fas fa-save"></i><span>Grades save automatically when you click Save</span></div>
-          <div class="quick-tip"><i class="fas fa-palette"></i><span>20 themes available in top right corner</span></div>
-          <div class="quick-tip"><i class="fas fa-font"></i><span>12 fonts available in Theme selector</span></div>
-          <div class="quick-tip"><i class="fas fa-qrcode"></i><span>Use QR Code to transfer data between devices</span></div>
-          <div class="quick-tip"><i class="fas fa-fingerprint"></i><span>Enable fingerprint for faster login</span></div>
-          <div class="quick-tip"><i class="fas fa-image"></i><span>Add profile photo from your gallery</span></div>
-          <div class="quick-tip"><i class="fas fa-robot"></i><span>Use AI Assistant for homework help</span></div>
-          <div class="quick-tip"><i class="fas fa-search"></i><span>Multi-Search searches 15 sources at once</span></div>
-          <div class="quick-tip"><i class="fas fa-comment-dots"></i><span>Chat with classmates using unique codes</span></div>
-          <div class="quick-tip"><i class="fas fa-tasks"></i><span>Homework Manager shows all assignments</span></div>
-          <div class="quick-tip"><i class="fas fa-book"></i><span>Notebook lets you write notes with colors</span></div>
-          <div class="quick-tip"><i class="fas fa-save"></i><span>Auto-Save saves your grades every 30 seconds</span></div>
+          <div class="quick-tip"><i class="fas fa-key"></i><span data-i18n="guide_user.your_pin_is_your">Your PIN is your password - keep it safe!</span></div>
+          <div class="quick-tip"><i class="fas fa-layer-group"></i><span data-i18n="guide_user.select_different_subjects_pe">Select different subjects per term in Settings</span></div>
+          <div class="quick-tip"><i class="fas fa-save"></i><span data-i18n="guide_user.grades_save_automatically_wh">Grades save automatically when you click Save</span></div>
+          <div class="quick-tip"><i class="fas fa-palette"></i><span data-i18n="guide_user.20_themes_available_in">20 themes available in top right corner</span></div>
+          <div class="quick-tip"><i class="fas fa-font"></i><span data-i18n="guide_user.12_fonts_available_in">12 fonts available in Theme selector</span></div>
+          <div class="quick-tip"><i class="fas fa-qrcode"></i><span data-i18n="guide_user.use_qr_code_to">Use QR Code to transfer data between devices</span></div>
+          <div class="quick-tip"><i class="fas fa-fingerprint"></i><span data-i18n="guide_user.enable_fingerprint_for_faste">Enable fingerprint for faster login</span></div>
+          <div class="quick-tip"><i class="fas fa-image"></i><span data-i18n="guide_user.add_profile_photo_from">Add profile photo from your gallery</span></div>
+          <div class="quick-tip"><i class="fas fa-robot"></i><span data-i18n="guide_user.use_ai_assistant_for">Use AI Assistant for homework help</span></div>
+          <div class="quick-tip"><i class="fas fa-search"></i><span data-i18n="guide_user.multisearch_searches_15_sour">Multi-Search searches 15 sources at once</span></div>
+          <div class="quick-tip"><i class="fas fa-comment-dots"></i><span data-i18n="common.chat_with_classmates_using">Chat with classmates using unique codes</span></div>
+          <div class="quick-tip"><i class="fas fa-tasks"></i><span data-i18n="guide_user.homework_manager_shows_all">Homework Manager shows all assignments</span></div>
+          <div class="quick-tip"><i class="fas fa-book"></i><span data-i18n="guide_user.notebook_lets_you_write">Notebook lets you write notes with colors</span></div>
+          <div class="quick-tip"><i class="fas fa-save"></i><span data-i18n="guide_user.autosave_saves_your_grades">Auto-Save saves your grades every 30 seconds</span></div>
         </div>
       </div>
       
@@ -484,14 +485,14 @@
       <div class="video-screen">
         <div class="video-content">
           <div class="video-icon-anim"><i id="videoIcon" class="fas fa-play"></i></div>
-          <h3 class="video-step-title" id="stepTitle">Loading...</h3>
+          <h3 class="video-step-title" id="stepTitle" data-i18n="common.loading">Loading...</h3>
           <div class="lyrics-box" id="lyricsBox"></div>
-          <div class="video-tip-box"><i class="fas fa-lightbulb"></i> <span id="videoTip">Select a chapter to start</span></div>
+          <div class="video-tip-box"><i class="fas fa-lightbulb"></i> <span id="videoTip" data-i18n="guide_user.select_a_chapter_to">Select a chapter to start</span></div>
         </div>
       </div>
       <div class="audio-status" id="audioStatus">
         <i class="fas fa-circle" style="color:var(--primary);font-size:0.4rem;"></i>
-        <span class="ready">Ready</span>
+        <span class="ready" data-i18n="guide_user.ready">Ready</span>
       </div>
       <div class="video-controls">
         <button onclick="prevChapter()"><i class="fas fa-backward-step"></i></button>

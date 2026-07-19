@@ -379,18 +379,19 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
 
   <div class="particles" id="particles"></div>
   <div class="app-container">
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-home"></i><span>SMART GRADE</span></div>
-      <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      <div class="header-logo"><i class="fas fa-home"></i><span data-i18n="common.smart_grade">SMART GRADE</span></div>
+      <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
     </div>
 
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -398,13 +399,13 @@
     </div>
 
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smartgrade_menu"><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="index.html" class="nav-item active"><i class="fas fa-home"></i> Home</a>
-        <a href="login.html" class="nav-item"><i class="fas fa-sign-in-alt"></i> Login</a>
-        <a href="register.html" class="nav-item"><i class="fas fa-user-plus"></i> Register</a>
-        <a href="guide.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+        <a href="index.html" class="nav-item active" data-i18n="common.home"><i class="fas fa-home"></i> Home</a>
+        <a href="login.html" class="nav-item" data-i18n="common.login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="register.html" class="nav-item" data-i18n="common.register"><i class="fas fa-user-plus"></i> Register</a>
+        <a href="guide.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -413,26 +414,26 @@
 
       <div class="glass-card hero-card">
         <i class="fas fa-chalkboard-user hero-icon"></i>
-        <h1>SMART GRADE</h1>
-        <p class="school-info">SIN GBHS FOUMBAN Form 5B Science</p>
-        <p class="year-info">Academic Year 2026-2027</p>
+        <h1 data-i18n="common.smart_grade">SMART GRADE</h1>
+        <p class="school-info" data-i18n="index.sin_gbhs_foumban_form">SIN GBHS FOUMBAN Form 5B Science</p>
+        <p class="year-info" data-i18n="common.academic_year_20262027">Academic Year 2026-2027</p>
       </div>
 
       <div class="stats-banner">
-        <div class="stat-badge"><div class="num" id="totalStudents">0</div><div class="lbl">Students</div></div>
-        <div class="stat-badge"><div class="num">14</div><div class="lbl">Subjects</div></div>
-        <div class="stat-badge"><div class="num">20</div><div class="lbl">Themes</div></div>
+        <div class="stat-badge"><div class="num" id="totalStudents">0</div><div class="lbl" data-i18n="doc.students">Students</div></div>
+        <div class="stat-badge"><div class="num">14</div><div class="lbl" data-i18n="common.subjects">Subjects</div></div>
+        <div class="stat-badge"><div class="num">20</div><div class="lbl" data-i18n="common.themes">Themes</div></div>
       </div>
 
       <div class="glass-card">
-        <div class="student-selector-label"><i class="fas fa-users"></i> Select Account</div>
+        <div class="student-selector-label" data-i18n="common.select_account"><i class="fas fa-users"></i> Select Account</div>
         <div class="students-count-badge" id="studentsCount"></div>
         <div class="student-list-scroll" id="studentList"></div>
       </div>
 
       <div class="btn-group">
-        <a href="login.html" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</a>
-        <a href="register.html" class="btn btn-secondary"><i class="fas fa-user-plus"></i> Create Account</a>
+        <a href="login.html" class="btn btn-primary" data-i18n="common.login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="register.html" class="btn btn-secondary" data-i18n="index.create_account"><i class="fas fa-user-plus"></i> Create Account</a>
       </div>
 
     </main>
@@ -442,12 +443,12 @@
   <div id="deleteModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:400;align-items:center;justify-content:center;">
     <div style="background:var(--card-bg);border-radius:24px;padding:24px;width:85%;max-width:340px;text-align:center;">
       <i class="fas fa-exclamation-triangle" style="font-size:50px;color:#e74c3c;margin-bottom:12px;"></i>
-      <h3>Delete Account</h3>
-      <p style="font-size:0.7rem;color:var(--text-light);margin-bottom:16px;">Enter PIN to confirm</p>
-      <input type="password" id="deletePin" maxlength="4" placeholder="****" inputmode="numeric" pattern="\d*" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);text-align:center;font-size:1.2rem;background:var(--card-bg);color:var(--text);margin-bottom:16px;">
+      <h3 data-i18n="index.delete_account">Delete Account</h3>
+      <p style="font-size:0.7rem;color:var(--text-light);margin-bottom:16px;" data-i18n="index.enter_pin_to_confirm">Enter PIN to confirm</p>
+      <input type="password" id="deletePin" maxlength="4" placeholder="****" inputmode="numeric" pattern="\d*" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);text-align:center;font-size:1.2rem;background:var(--card-bg);color:var(--text);margin-bottom:16px;" data-i18n-placeholder="common.txt">
       <div style="display:flex;gap:10px;">
-        <button class="btn-cancel-modal" style="flex:1;padding:12px;border-radius:30px;border:1px solid var(--border);background:transparent;cursor:pointer;">Cancel</button>
-        <button class="btn-confirm-delete" style="flex:1;padding:12px;border-radius:30px;background:#e74c3c;color:white;border:none;cursor:pointer;">Delete</button>
+        <button class="btn-cancel-modal" style="flex:1;padding:12px;border-radius:30px;border:1px solid var(--border);background:transparent;cursor:pointer;" data-i18n="common.cancel">Cancel</button>
+        <button class="btn-confirm-delete" style="flex:1;padding:12px;border-radius:30px;background:#e74c3c;color:white;border:none;cursor:pointer;" data-i18n="common.delete">Delete</button>
       </div>
     </div>
   </div>
@@ -455,8 +456,8 @@
   <div id="toastContainer" class="toast-container"></div>
   <div class="install-prompt" id="installPrompt">
     <i class="fas fa-mobile-alt"></i>
-    <div class="install-prompt-text"><h4>Install SMART GRADE</h4><p>Add to home screen</p></div>
-    <button onclick="installApp()">Install</button>
+    <div class="install-prompt-text"><h4 data-i18n="index.install_smart_grade">Install SMART GRADE</h4><p data-i18n="index.add_to_home_screen">Add to home screen</p></div>
+    <button onclick="installApp()" data-i18n="index.install">Install</button>
   </div>
 
   <script src="js/utils.js"></script>

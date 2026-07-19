@@ -168,20 +168,21 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-user"></i><span>PROFILE</span></div>
+      <div class="header-logo"><i class="fas fa-user"></i><span data-i18n="profile.profile">PROFILE</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -189,12 +190,12 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="profile.html" class="nav-item active"><i class="fas fa-user"></i> Profile</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="profile.html" class="nav-item active" data-i18n="common.profile"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -207,27 +208,27 @@
           </div>
           <div class="btn-add-avatar" onclick="triggerFileUpload()"><i class="fas fa-camera"></i></div>
         </div>
-        <div class="upload-hint"><i class="fas fa-info-circle"></i> Tap camera to add photo | Tap photo to zoom | Max 5MB</div>
+        <div class="upload-hint" data-i18n="profile.tap_camera_to_add"><i class="fas fa-info-circle"></i> Tap camera to add photo | Tap photo to zoom | Max 5MB</div>
         <input type="file" id="avatarFileInput" accept="image/jpeg,image/png,image/jpg" style="display:none;">
         <h2 id="profileName" style="word-break:break-word; margin-top:12px; font-family:inherit;">--</h2>
         <p style="color:var(--text-light);font-size:0.75rem; font-family:inherit;" id="profileInfo"></p>
-        <button class="btn-remove-avatar" onclick="removeAvatar()" style="display:none;" id="removeAvatarBtn"><i class="fas fa-trash"></i> Remove Photo</button>
+        <button class="btn-remove-avatar" onclick="removeAvatar()" style="display:none;" id="removeAvatarBtn" data-i18n="profile.remove_photo"><i class="fas fa-trash"></i> Remove Photo</button>
       </div>
       
       <div class="glass-card">
-        <h3><i class="fas fa-edit"></i> Bio</h3>
-        <textarea id="profileBio" placeholder="Write something about yourself..."></textarea>
-        <button class="btn-primary" onclick="saveProfileData()"><i class="fas fa-save"></i> Save Profile</button>
+        <h3 data-i18n="profile.bio"><i class="fas fa-edit"></i> Bio</h3>
+        <textarea id="profileBio" placeholder="Write something about yourself..." data-i18n-placeholder="profile.write_something_about_yourse"></textarea>
+        <button class="btn-primary" onclick="saveProfileData()" data-i18n="profile.save_profile"><i class="fas fa-save"></i> Save Profile</button>
         
         <div class="suggested-bios-section">
-          <h3><i class="fas fa-lightbulb"></i> Suggested Bios</h3>
-          <p style="font-size:0.65rem; color:var(--text-light); margin-bottom:12px;">Click on any bio to use it</p>
+          <h3 data-i18n="profile.suggested_bios"><i class="fas fa-lightbulb"></i> Suggested Bios</h3>
+          <p style="font-size:0.65rem; color:var(--text-light); margin-bottom:12px;" data-i18n="profile.click_on_any_bio">Click on any bio to use it</p>
           <div class="suggested-bios-grid" id="suggestedBiosGrid"></div>
         </div>
       </div>
       
       <div class="glass-card badges-section">
-        <h3><i class="fas fa-medal"></i> Your Badges <span class="badge-count" id="badgeCount">0</span></h3>
+        <h3 data-i18n="profile.your_badges"><i class="fas fa-medal"></i> Your Badges <span class="badge-count" id="badgeCount">0</span></h3>
         <div id="profileBadges" class="badges-grid"></div>
       </div>
       

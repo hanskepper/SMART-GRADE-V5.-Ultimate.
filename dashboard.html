@@ -563,20 +563,21 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-chalkboard-user"></i><span>DASHBOARD</span></div>
+      <div class="header-logo"><i class="fas fa-chalkboard-user"></i><span data-i18n="dashboard.dashboard">DASHBOARD</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -584,62 +585,62 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item active"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="subjects.html" class="nav-item"><i class="fas fa-layer-group"></i> Subjects</a>
-        <a href="add-grade.html" class="nav-item"><i class="fas fa-pen-fancy"></i> Add Grade</a>
-        <a href="timetable.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Timetable</a>
-        <a href="flashcards.html" class="nav-item"><i class="fas fa-clone"></i> Flashcards</a>
-        <a href="goals.html" class="nav-item"><i class="fas fa-bullseye"></i> Goals</a>
-        <a href="term1.html" class="nav-item"><i class="fas fa-1"></i> Term 1</a>
-        <a href="term2.html" class="nav-item"><i class="fas fa-2"></i> Term 2</a>
-        <a href="term3.html" class="nav-item"><i class="fas fa-3"></i> Term 3</a>
-        <a href="yearly.html" class="nav-item"><i class="fas fa-chart-line"></i> Yearly</a>
-        <a href="statistics.html" class="nav-item"><i class="fas fa-chart-pie"></i> Statistics</a>
-        <a href="achievements.html" class="nav-item"><i class="fas fa-medal"></i> Achievements</a>
-        <a href="history.html" class="nav-item"><i class="fas fa-history"></i> History</a>
-        <a href="shortcuts.html" class="nav-item"><i class="fas fa-bolt"></i> Shortcuts</a>
-        <a href="export.html" class="nav-item"><i class="fas fa-file-export"></i> Export</a>
-        <a href="backup.html" class="nav-item"><i class="fas fa-database"></i> Backup</a>
-        <a href="transfer.html" class="nav-item"><i class="fas fa-exchange-alt"></i> Transfer</a>
-        <a href="notifications.html" class="nav-item"><i class="fas fa-bell"></i> Notifications</a>
-        <a href="homeworks.html" class="nav-item"><i class="fas fa-tasks"></i> Homework</a>
-        <a href="notebook.html" class="nav-item"><i class="fas fa-book"></i> Notebook</a>
-        <a href="ai-assistant.html" class="nav-item"><i class="fas fa-robot"></i> AI Assistant</a>
-        <a href="chat.html" class="nav-item"><i class="fas fa-comment-dots"></i> Chat</a>
-        <a href="search.html" class="nav-item"><i class="fas fa-search"></i> Search</a>
-        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
-        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms</a>
-        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
-        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
-        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
-        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="dashboard.html" class="nav-item active" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="subjects.html" class="nav-item" data-i18n="common.subjects"><i class="fas fa-layer-group"></i> Subjects</a>
+        <a href="add-grade.html" class="nav-item" data-i18n="common.add_grade"><i class="fas fa-pen-fancy"></i> Add Grade</a>
+        <a href="timetable.html" class="nav-item" data-i18n="dashboard.timetable"><i class="fas fa-calendar-alt"></i> Timetable</a>
+        <a href="flashcards.html" class="nav-item" data-i18n="common.flashcards"><i class="fas fa-clone"></i> Flashcards</a>
+        <a href="goals.html" class="nav-item" data-i18n="common.goals"><i class="fas fa-bullseye"></i> Goals</a>
+        <a href="term1.html" class="nav-item" data-i18n="common.term_1"><i class="fas fa-1"></i> Term 1</a>
+        <a href="term2.html" class="nav-item" data-i18n="common.term_2"><i class="fas fa-2"></i> Term 2</a>
+        <a href="term3.html" class="nav-item" data-i18n="common.term_3"><i class="fas fa-3"></i> Term 3</a>
+        <a href="yearly.html" class="nav-item" data-i18n="common.yearly"><i class="fas fa-chart-line"></i> Yearly</a>
+        <a href="statistics.html" class="nav-item" data-i18n="common.statistics"><i class="fas fa-chart-pie"></i> Statistics</a>
+        <a href="achievements.html" class="nav-item" data-i18n="common.achievements"><i class="fas fa-medal"></i> Achievements</a>
+        <a href="history.html" class="nav-item" data-i18n="common.history"><i class="fas fa-history"></i> History</a>
+        <a href="shortcuts.html" class="nav-item" data-i18n="dashboard.shortcuts"><i class="fas fa-bolt"></i> Shortcuts</a>
+        <a href="export.html" class="nav-item" data-i18n="common.export"><i class="fas fa-file-export"></i> Export</a>
+        <a href="backup.html" class="nav-item" data-i18n="common.backup"><i class="fas fa-database"></i> Backup</a>
+        <a href="transfer.html" class="nav-item" data-i18n="common.transfer"><i class="fas fa-exchange-alt"></i> Transfer</a>
+        <a href="notifications.html" class="nav-item" data-i18n="common.notifications"><i class="fas fa-bell"></i> Notifications</a>
+        <a href="homeworks.html" class="nav-item" data-i18n="dashboard.homework"><i class="fas fa-tasks"></i> Homework</a>
+        <a href="notebook.html" class="nav-item" data-i18n="common.notebook"><i class="fas fa-book"></i> Notebook</a>
+        <a href="ai-assistant.html" class="nav-item" data-i18n="common.ai_assistant"><i class="fas fa-robot"></i> AI Assistant</a>
+        <a href="chat.html" class="nav-item" data-i18n="common.chat"><i class="fas fa-comment-dots"></i> Chat</a>
+        <a href="search.html" class="nav-item" data-i18n="common.search"><i class="fas fa-search"></i> Search</a>
+        <a href="profile.html" class="nav-item" data-i18n="common.profile"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="support.html" class="nav-item" data-i18n="common.support"><i class="fas fa-headset"></i> Support</a>
+        <a href="guide-user.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="terms.html" class="nav-item" data-i18n="dashboard.terms"><i class="fas fa-file-contract"></i> Terms</a>
+        <a href="license.html" class="nav-item" data-i18n="common.license"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="privacy.html" class="nav-item" data-i18n="common.privacy_policy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="cookies.html" class="nav-item" data-i18n="common.cookies_policy"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="doc.html" class="nav-item" data-i18n="common.documentation"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="eula.html" class="nav-item" data-i18n="common.eula"><i class="fas fa-file-signature"></i> EULA</a>
         <div id="devSidebarContainer" style="display:none; margin-top:16px; padding-top:16px; border-top:2px solid var(--primary);">
-          <div style="font-size:0.7rem; font-weight:700; color:var(--primary); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+          <div style="font-size:0.7rem; font-weight:700; color:var(--primary); margin-bottom:8px; display:flex; align-items:center; gap:8px;" data-i18n="common.developer_tools">
             <i class="fas fa-code"></i> Developer Tools
           </div>
-          <a href="dev-calculator.html" class="nav-item"><i class="fas fa-calculator"></i> Calculator</a>
-          <a href="dev-database.html" class="nav-item"><i class="fas fa-database"></i> Database</a>
-          <a href="dev-stats.html" class="nav-item"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
-          <a href="dev-logs.html" class="nav-item"><i class="fas fa-history"></i> System Logs</a>
-          <a href="dev-backup.html" class="nav-item"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
-          <a href="admin-homework.html" class="nav-item"><i class="fas fa-layer-group"></i>Add Homeworks</a>
-          <a href="dev-config.html" class="nav-item"><i class="fas fa-cog"></i> System Config</a>
+          <a href="dev-calculator.html" class="nav-item" data-i18n="common.calculator"><i class="fas fa-calculator"></i> Calculator</a>
+          <a href="dev-database.html" class="nav-item" data-i18n="common.database"><i class="fas fa-database"></i> Database</a>
+          <a href="dev-stats.html" class="nav-item" data-i18n="common.advanced_stats"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
+          <a href="dev-logs.html" class="nav-item" data-i18n="common.system_logs"><i class="fas fa-history"></i> System Logs</a>
+          <a href="dev-backup.html" class="nav-item" data-i18n="common.cloud_backup"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
+          <a href="admin-homework.html" class="nav-item" data-i18n="dashboard.add_homeworks"><i class="fas fa-layer-group"></i>Add Homeworks</a>
+          <a href="dev-config.html" class="nav-item" data-i18n="common.system_config"><i class="fas fa-cog"></i> System Config</a>
         </div>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
     
     <main class="main-content">
       <div class="motivation-card">
-        <div class="motivation-quote" id="motivationQuote">Loading...</div>
+        <div class="motivation-quote" id="motivationQuote" data-i18n="common.loading">Loading...</div>
         <div class="motivation-author" id="motivationAuthor"></div>
       </div>
       
@@ -649,36 +650,36 @@
       </div>
       
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-value" id="overallAvg">0.00</div><div class="stat-label">OVERALL</div></div>
-        <div class="stat-card"><div class="stat-value" id="totalGrades">0</div><div class="stat-label">GRADES</div></div>
-        <div class="stat-card"><div class="stat-value" id="selectedCount">0</div><div class="stat-label">SUBJECTS</div></div>
-        <div class="stat-card"><div class="stat-value" id="achievementsCount">0</div><div class="stat-label">BADGES</div></div>
+        <div class="stat-card"><div class="stat-value" id="overallAvg">0.00</div><div class="stat-label" data-i18n="dashboard.overall">OVERALL</div></div>
+        <div class="stat-card"><div class="stat-value" id="totalGrades">0</div><div class="stat-label" data-i18n="dashboard.grades">GRADES</div></div>
+        <div class="stat-card"><div class="stat-value" id="selectedCount">0</div><div class="stat-label" data-i18n="dashboard.subjects">SUBJECTS</div></div>
+        <div class="stat-card"><div class="stat-value" id="achievementsCount">0</div><div class="stat-label" data-i18n="dashboard.badges">BADGES</div></div>
       </div>
       
     
       <div class="goal-card">
-        <h3 class="text-center"><i class="fas fa-bullseye"></i> Your Goal</h3>
+        <h3 class="text-center" data-i18n="dashboard.your_goal"><i class="fas fa-bullseye"></i> Your Goal</h3>
         <div class="goal-value" id="goalValue">12.00</div>
         <input type="range" class="goal-slider" id="goalSlider" min="10" max="20" step="0.5" value="12">
         <div class="goal-status" id="goalStatus"></div>
       </div>
       
       <div class="glass-card">
-        <h3><i class="fas fa-calendar-alt"></i> Term Averages</h3>
+        <h3 data-i18n="dashboard.term_averages"><i class="fas fa-calendar-alt"></i> Term Averages</h3>
         <div class="term-grid">
-          <div class="term-card" onclick="location='term1.html'"><div class="term-title">TERM 1</div><div class="term-value" id="term1Avg">0.00</div></div>
-          <div class="term-card" onclick="location='term2.html'"><div class="term-title">TERM 2</div><div class="term-value" id="term2Avg">0.00</div></div>
-          <div class="term-card" onclick="location='term3.html'"><div class="term-title">TERM 3</div><div class="term-value" id="term3Avg">0.00</div></div>
-          <div class="term-card" onclick="location='yearly.html'"><div class="term-title">YEARLY</div><div class="term-value" id="yearlyAvg">0.00</div></div>
+          <div class="term-card" onclick="location='term1.html'"><div class="term-title" data-i18n="dashboard.term_1">TERM 1</div><div class="term-value" id="term1Avg">0.00</div></div>
+          <div class="term-card" onclick="location='term2.html'"><div class="term-title" data-i18n="dashboard.term_2">TERM 2</div><div class="term-value" id="term2Avg">0.00</div></div>
+          <div class="term-card" onclick="location='term3.html'"><div class="term-title" data-i18n="dashboard.term_3">TERM 3</div><div class="term-value" id="term3Avg">0.00</div></div>
+          <div class="term-card" onclick="location='yearly.html'"><div class="term-title" data-i18n="dashboard.yearly">YEARLY</div><div class="term-value" id="yearlyAvg">0.00</div></div>
         </div>
       </div>
         <!-- GRAPHIQUE DE PROGRESSION AVEC COULEURS ADAPTATIVES -->
       <div class="progress-chart-container">
         <div class="progress-chart-header">
-          <h3><i class="fas fa-chart-line"></i> Academic Progress</h3>
+          <h3 data-i18n="dashboard.academic_progress"><i class="fas fa-chart-line"></i> Academic Progress</h3>
           <div class="chart-legend">
-            <div class="legend-item"><div class="legend-dot" id="legendDotTerm"></div> Term Average</div>
-            <div class="legend-item"><div class="legend-line" id="legendLineGoal"></div> Target Goal</div>
+            <div class="legend-item" data-i18n="dashboard.term_average"><div class="legend-dot" id="legendDotTerm"></div> Term Average</div>
+            <div class="legend-item" data-i18n="dashboard.target_goal"><div class="legend-line" id="legendLineGoal"></div> Target Goal</div>
           </div>
         </div>
         <div class="progress-chart">
@@ -686,48 +687,48 @@
         </div>
         <div class="chart-stats-overlay">
           <div class="chart-stat"><i class="fas fa-arrow-up" id="trendIcon"></i> <span id="trendValue">+0.00</span></div>
-          <div class="chart-stat"><i class="fas fa-chart-simple"></i> Best: <span id="bestTerm" class="chart-stat-value">T1</span></div>
+          <div class="chart-stat" data-i18n="common.best_2"><i class="fas fa-chart-simple"></i> Best: <span id="bestTerm" class="chart-stat-value" data-i18n="dashboard.t1">T1</span></div>
         </div>
       </div>
       
       <div class="glass-card">
         <div class="flex-between">
-          <h3><i class="fas fa-layer-group"></i> Top Subjects (Yearly)</h3>
-          <a href="subjects.html" style="color:var(--primary);">VIEW ALL</a>
+          <h3 data-i18n="dashboard.top_subjects_yearly"><i class="fas fa-layer-group"></i> Top Subjects (Yearly)</h3>
+          <a href="subjects.html" style="color:var(--primary);" data-i18n="dashboard.view_all">VIEW ALL</a>
         </div>
         <div id="subjectsPreview"></div>
       </div>
       
       <div class="glass-card">
-        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+        <h3 data-i18n="dashboard.recent_activity"><i class="fas fa-history"></i> Recent Activity</h3>
         <div id="historyList"></div>
       </div>
       
       <div class="btn-group">
-        <a href="add-grade.html" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Grade</a>
-        <a href="#" class="btn btn-secondary" onclick="openCmd()"><i class="fas fa-terminal"></i> Open Command</a>
-        <a href="statistics.html" class="btn btn-secondary"><i class="fas fa-chart-pie"></i> Statistics</a>
+        <a href="add-grade.html" class="btn btn-primary" data-i18n="common.add_grade"><i class="fas fa-plus-circle"></i> Add Grade</a>
+        <a href="#" class="btn btn-secondary" onclick="openCmd()" data-i18n="dashboard.open_command"><i class="fas fa-terminal"></i> Open Command</a>
+        <a href="statistics.html" class="btn btn-secondary" data-i18n="common.statistics"><i class="fas fa-chart-pie"></i> Statistics</a>
       </div>
     </main>
   </div>
 
   <div class="cmd-overlay" id="cmdOverlay">
     <div class="cmd-box">
-      <h3><i class="fas fa-terminal"></i> Commands</h3>
-      <input type="text" id="cmdInput" placeholder="Type command...">
+      <h3 data-i18n="dashboard.commands"><i class="fas fa-terminal"></i> Commands</h3>
+      <input type="text" id="cmdInput" placeholder="Type command..." data-i18n-placeholder="dashboard.type_command">
       <div class="cmd-grid">
-        <div class="cmd-chip" onclick="runCmd('export')"><i class="fas fa-download"></i><br>Export</div>
-        <div class="cmd-chip" onclick="runCmd('transfer')"><i class="fas fa-exchange-alt"></i><br>Transfer</div>
-        <div class="cmd-chip" onclick="runCmd('theme')"><i class="fas fa-palette"></i><br>Theme</div>
-        <div class="cmd-chip" onclick="runCmd('refresh')"><i class="fas fa-sync-alt"></i><br>Refresh</div>
-        <div class="cmd-chip" onclick="runCmd('reset')"><i class="fas fa-trash"></i><br>Reset</div>
-        <div class="cmd-chip" onclick="runCmd('help')"><i class="fas fa-question"></i><br>Help</div>
-        <div class="cmd-chip" onclick="runCmd('about')"><i class="fas fa-info"></i><br>About</div>
-        <div class="cmd-chip" onclick="runCmd('stats')"><i class="fas fa-chart-bar"></i><br>Stats</div>
-        <div class="cmd-chip" onclick="runCmd('random')"><i class="fas fa-random"></i><br>Random</div>
+        <div class="cmd-chip" onclick="runCmd('export')" data-i18n="common.export"><i class="fas fa-download"></i><br>Export</div>
+        <div class="cmd-chip" onclick="runCmd('transfer')" data-i18n="common.transfer"><i class="fas fa-exchange-alt"></i><br>Transfer</div>
+        <div class="cmd-chip" onclick="runCmd('theme')" data-i18n="common.theme"><i class="fas fa-palette"></i><br>Theme</div>
+        <div class="cmd-chip" onclick="runCmd('refresh')" data-i18n="common.refresh"><i class="fas fa-sync-alt"></i><br>Refresh</div>
+        <div class="cmd-chip" onclick="runCmd('reset')" data-i18n="dashboard.reset"><i class="fas fa-trash"></i><br>Reset</div>
+        <div class="cmd-chip" onclick="runCmd('help')" data-i18n="dashboard.help"><i class="fas fa-question"></i><br>Help</div>
+        <div class="cmd-chip" onclick="runCmd('about')" data-i18n="common.about"><i class="fas fa-info"></i><br>About</div>
+        <div class="cmd-chip" onclick="runCmd('stats')" data-i18n="dashboard.stats"><i class="fas fa-chart-bar"></i><br>Stats</div>
+        <div class="cmd-chip" onclick="runCmd('random')" data-i18n="dashboard.random"><i class="fas fa-random"></i><br>Random</div>
       </div>
       <div id="cmdResult" class="cmd-result"></div>
-      <button class="cmd-close" onclick="closeCmd()"><i class="fas fa-times"></i> Close</button>
+      <button class="cmd-close" onclick="closeCmd()" data-i18n="dashboard.close"><i class="fas fa-times"></i> Close</button>
     </div>
   </div>
   

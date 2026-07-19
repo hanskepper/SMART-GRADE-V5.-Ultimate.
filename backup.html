@@ -39,21 +39,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-database"></i><span>BACKUP</span></div>
+      <div class="header-logo"><i class="fas fa-database"></i><span data-i18n="backup.backup">BACKUP</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -61,12 +62,12 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="backup.html" class="nav-item active"><i class="fas fa-database"></i> Backup</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="backup.html" class="nav-item active" data-i18n="common.backup"><i class="fas fa-database"></i> Backup</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -75,45 +76,45 @@
       
       <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
         <i class="fas fa-shield-alt" style="font-size:40px;opacity:0.5;"></i>
-        <h2 style="color:white;margin:8px 0;">Backup Manager</h2>
-        <p style="opacity:0.8;font-size:0.7rem;">Save and restore your data</p>
+        <h2 style="color:white;margin:8px 0;" data-i18n="backup.backup_manager">Backup Manager</h2>
+        <p style="opacity:0.8;font-size:0.7rem;" data-i18n="backup.save_and_restore_your">Save and restore your data</p>
       </div>
       
-      <div class="info-card">
+      <div class="info-card" data-i18n="backup.your_data_is_saved">
         <i class="fas fa-info-circle"></i> 
-        <strong>How backups work:</strong> Your data is saved in your browser. Create manual backups regularly.
+        <strong data-i18n="backup.how_backups_work">How backups work:</strong> Your data is saved in your browser. Create manual backups regularly.
       </div>
       
       <div class="backup-card">
-        <div class="section-title"><i class="fas fa-actions"></i> Backup Actions</div>
+        <div class="section-title" data-i18n="backup.backup_actions"><i class="fas fa-actions"></i> Backup Actions</div>
         <div class="btn-group">
-          <button id="manualBackupBtn" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Create Backup</button>
-          <button id="exportJsonBtn" class="btn btn-secondary"><i class="fas fa-download"></i> Export JSON</button>
-          <button id="importJsonBtn" class="btn btn-secondary"><i class="fas fa-upload"></i> Import JSON</button>
-          <button id="refreshHistoryBtn" class="btn btn-secondary"><i class="fas fa-sync-alt"></i> Refresh</button>
+          <button id="manualBackupBtn" class="btn btn-primary" data-i18n="backup.create_backup"><i class="fas fa-plus-circle"></i> Create Backup</button>
+          <button id="exportJsonBtn" class="btn btn-secondary" data-i18n="common.export_json"><i class="fas fa-download"></i> Export JSON</button>
+          <button id="importJsonBtn" class="btn btn-secondary" data-i18n="common.import_json"><i class="fas fa-upload"></i> Import JSON</button>
+          <button id="refreshHistoryBtn" class="btn btn-secondary" data-i18n="common.refresh"><i class="fas fa-sync-alt"></i> Refresh</button>
         </div>
         <input type="file" id="jsonImportFile" accept=".json" style="display:none;">
         <div class="last-backup-info">
-          <span><i class="fas fa-history"></i> Last backup: <strong id="lastBackupTime">Never</strong></span>
+          <span data-i18n="backup.last_backup"><i class="fas fa-history"></i> Last backup: <strong id="lastBackupTime" data-i18n="backup.never">Never</strong></span>
         </div>
       </div>
       
       <div class="backup-card">
-        <div class="section-title"><i class="fas fa-history"></i> Backup History</div>
+        <div class="section-title" data-i18n="backup.backup_history"><i class="fas fa-history"></i> Backup History</div>
         
         <div class="filter-group">
-          <div class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</div>
-          <div class="filter-btn" data-filter="manual" onclick="setFilter('manual')"><i class="fas fa-user"></i> Manual</div>
+          <div class="filter-btn active" data-filter="all" onclick="setFilter('all')" data-i18n="common.all">All</div>
+          <div class="filter-btn" data-filter="manual" onclick="setFilter('manual')" data-i18n="backup.manual"><i class="fas fa-user"></i> Manual</div>
         </div>
         
         <div id="daysView">
           <div id="daysGrid" class="days-grid">
-            <div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-database"></i><p>No backups yet</p><p style="font-size:0.6rem;">Click "Create Backup" to save your data</p></div>
+            <div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-database"></i><p data-i18n="backup.no_backups_yet">No backups yet</p><p style="font-size:0.6rem;" data-i18n="backup.click_create_backup_to">Click "Create Backup" to save your data</p></div>
           </div>
         </div>
         
         <div id="hoursView" style="display:none;">
-          <button id="backToDaysBtn" class="back-button"><i class="fas fa-arrow-left"></i> Back to days</button>
+          <button id="backToDaysBtn" class="back-button" data-i18n="backup.back_to_days"><i class="fas fa-arrow-left"></i> Back to days</button>
           <div id="hoursList" class="hours-list"></div>
         </div>
       </div>

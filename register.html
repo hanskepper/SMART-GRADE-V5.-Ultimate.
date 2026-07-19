@@ -112,18 +112,19 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-user-plus"></i><span>REGISTER</span></div>
-      <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+      <div class="header-logo"><i class="fas fa-user-plus"></i><span data-i18n="register.register">REGISTER</span></div>
+      <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -135,15 +136,15 @@
     ============================================ -->
     <div class="sidebar-menu" id="sidebarMenu">
       <div class="sidebar-header">
-        <h3><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3>
+        <h3 data-i18n="common.smartgrade_menu"><i class="fas fa-graduation-cap"></i> SMART-GRADE MENU</h3>
         <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
       </div>
       <nav class="sidebar-nav">
-        <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-        <a href="login.html" class="nav-item"><i class="fas fa-sign-in-alt"></i> Login</a>
-        <a href="register.html" class="nav-item active"><i class="fas fa-user-plus"></i> Register</a>
-        <a href="guide.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
+        <a href="index.html" class="nav-item" data-i18n="common.home"><i class="fas fa-home"></i> Home</a>
+        <a href="login.html" class="nav-item" data-i18n="common.login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="register.html" class="nav-item active" data-i18n="common.register"><i class="fas fa-user-plus"></i> Register</a>
+        <a href="guide.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -152,8 +153,8 @@
       
       <div class="glass-card text-center" style="padding:12px 16px;">
         <i class="fas fa-user-graduate" style="font-size:35px;color:var(--primary);"></i>
-        <h2 style="margin:2px 0;font-size:1.2rem;">Create Account</h2>
-        <p style="font-size:0.55rem;color:var(--text-light);">SIN GBHS FOUMBAN - Form 5B Science</p>
+        <h2 style="margin:2px 0;font-size:1.2rem;" data-i18n="index.create_account">Create Account</h2>
+        <p style="font-size:0.55rem;color:var(--text-light);" data-i18n="common.sin_gbhs_foumban_form">SIN GBHS FOUMBAN - Form 5B Science</p>
       </div>
       
       <div class="glass-card" style="padding:12px 14px;">
@@ -163,31 +164,31 @@
         
         <!-- 1. NAME -->
         <div class="form-group">
-          <label><i class="fas fa-user"></i> Full Name</label>
-          <input type="text" id="userName" placeholder="Your full name">
+          <label data-i18n="register.full_name"><i class="fas fa-user"></i> Full Name</label>
+          <input type="text" id="userName" placeholder="Your full name" data-i18n-placeholder="register.your_full_name">
         </div>
         
         <!-- 2. CLASS -->
         <div class="form-group">
-          <label><i class="fas fa-school"></i> Class</label>
+          <label data-i18n="register.class"><i class="fas fa-school"></i> Class</label>
           <div class="flex-row">
-            <button type="button" id="classB1" class="btn-class active">B1</button>
-            <button type="button" id="classB2" class="btn-class">B2</button>
+            <button type="button" id="classB1" class="btn-class active" data-i18n="register.b1">B1</button>
+            <button type="button" id="classB2" class="btn-class" data-i18n="register.b2">B2</button>
           </div>
           <input type="hidden" id="userClass" value="B1">
         </div>
         
         <!-- 3. AVATAR -->
         <div class="form-group">
-          <label><i class="fas fa-venus-mars"></i> Avatar</label>
+          <label data-i18n="register.avatar"><i class="fas fa-venus-mars"></i> Avatar</label>
           <div class="gender-group">
             <div class="gender-card selected" data-gender="boy" onclick="selectGender('boy')">
-              <img src="./icons/avatar-boy.png" class="gender-avatar" alt="Boy">
-              <span class="gender-name">Boy</span>
+              <img src="./icons/avatar-boy.png" class="gender-avatar" alt="Boy" data-i18n-alt="register.boy">
+              <span class="gender-name" data-i18n="register.boy">Boy</span>
             </div>
             <div class="gender-card" data-gender="girl" onclick="selectGender('girl')">
-              <img src="./icons/avatar-girl.png" class="gender-avatar" alt="Girl">
-              <span class="gender-name">Girl</span>
+              <img src="./icons/avatar-girl.png" class="gender-avatar" alt="Girl" data-i18n-alt="register.girl">
+              <span class="gender-name" data-i18n="register.girl">Girl</span>
             </div>
           </div>
           <input type="hidden" id="userGender" value="boy">
@@ -195,27 +196,27 @@
         
         <!-- 4. NUMBER -->
         <div class="form-group">
-          <label><i class="fas fa-hashtag"></i> Number</label>
-          <input type="number" id="userNumber" placeholder="1 to 70" min="1" max="70">
-          <small class="number-hint"><i class="fas fa-info-circle"></i> Unique number between 1 and 70</small>
+          <label data-i18n="register.number"><i class="fas fa-hashtag"></i> Number</label>
+          <input type="number" id="userNumber" placeholder="1 to 70" min="1" max="70" data-i18n-placeholder="register.1_to_70">
+          <small class="number-hint" data-i18n="register.unique_number_between_1"><i class="fas fa-info-circle"></i> Unique number between 1 and 70</small>
         </div>
         
         <!-- 5. PIN + CONFIRM avec bouton Afficher -->
         <div class="pin-row">
           <div class="form-group">
-            <label><i class="fas fa-lock"></i> PIN</label>
+            <label data-i18n="register.pin"><i class="fas fa-lock"></i> PIN</label>
             <div class="pin-input-wrapper">
-              <input type="password" id="userPin" maxlength="4" placeholder="****" inputmode="numeric">
-              <button type="button" class="pin-toggle-btn" onclick="togglePin('userPin', this)" title="Show PIN">
+              <input type="password" id="userPin" maxlength="4" placeholder="****" inputmode="numeric" data-i18n-placeholder="common.txt">
+              <button type="button" class="pin-toggle-btn" onclick="togglePin('userPin', this)" title="Show PIN" data-i18n-title="login.show_pin">
                 <i class="fas fa-eye"></i>
               </button>
             </div>
           </div>
           <div class="form-group">
-            <label><i class="fas fa-check-circle"></i> Confirm</label>
+            <label data-i18n="register.confirm"><i class="fas fa-check-circle"></i> Confirm</label>
             <div class="pin-input-wrapper">
-              <input type="password" id="confirmPin" maxlength="4" placeholder="****" inputmode="numeric">
-              <button type="button" class="pin-toggle-btn" onclick="togglePin('confirmPin', this)" title="Show PIN">
+              <input type="password" id="confirmPin" maxlength="4" placeholder="****" inputmode="numeric" data-i18n-placeholder="common.txt">
+              <button type="button" class="pin-toggle-btn" onclick="togglePin('confirmPin', this)" title="Show PIN" data-i18n-title="login.show_pin">
                 <i class="fas fa-eye"></i>
               </button>
             </div>
@@ -226,23 +227,23 @@
         <div class="fp-row" id="fpRow">
           <div class="fp-icon"><i class="fas fa-fingerprint"></i></div>
           <div class="fp-info">
-            <div class="fp-title">Fingerprint</div>
-            <div class="fp-desc" id="fpDesc">Optional for faster login</div>
+            <div class="fp-title" data-i18n="register.fingerprint">Fingerprint</div>
+            <div class="fp-desc" id="fpDesc" data-i18n="register.optional_for_faster_login">Optional for faster login</div>
             <div class="fp-status" id="fpStatus"></div>
           </div>
           <button class="fp-btn" id="fpBtn" onclick="handleFingerprint()">
-            <i class="fas fa-fingerprint"></i> <span id="fpBtnText">Add</span>
+            <i class="fas fa-fingerprint"></i> <span id="fpBtnText" data-i18n="chat.add">Add</span>
           </button>
           <input type="hidden" id="fpRegistered" value="false">
         </div>
         
         <!-- Create Account -->
-        <button class="btn btn-primary" onclick="handleRegister()">
+        <button class="btn btn-primary" onclick="handleRegister()" data-i18n="index.create_account">
           <i class="fas fa-user-plus"></i> Create Account
         </button>
         
-        <div class="register-link">
-          Already have an account? <a href="login.html">Login</a>
+        <div class="register-link" data-i18n="register.already_have_an_account">
+          Already have an account? <a href="login.html" data-i18n="common.login">Login</a>
         </div>
         
       </div>

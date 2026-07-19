@@ -470,21 +470,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-file-alt"></i><span>DOCUMENTATION</span></div>
+      <div class="header-logo"><i class="fas fa-file-alt"></i><span data-i18n="doc.documentation">DOCUMENTATION</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -492,20 +493,20 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="doc.html" class="nav-item active"><i class="fas fa-file-alt"></i> Documentation</a>
-        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
-        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
-        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
-        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
-        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="doc.html" class="nav-item active" data-i18n="common.documentation"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="terms.html" class="nav-item" data-i18n="common.terms_of_use"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="privacy.html" class="nav-item" data-i18n="common.privacy_policy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="cookies.html" class="nav-item" data-i18n="common.cookies_policy"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="license.html" class="nav-item" data-i18n="common.license"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="eula.html" class="nav-item" data-i18n="common.eula"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="guide-user.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="support.html" class="nav-item" data-i18n="common.support"><i class="fas fa-headset"></i> Support</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -514,9 +515,9 @@
       
       <div class="doc-hero">
         <i class="fas fa-file-alt" style="font-size:55px;opacity:0.5;"></i>
-        <h1>Developer Documentation</h1>
-        <p>Complete technical reference for SMART GRADE v5.0</p>
-        <div class="version-badge">
+        <h1 data-i18n="doc.developer_documentation">Developer Documentation</h1>
+        <p data-i18n="doc.complete_technical_reference">Complete technical reference for SMART GRADE v5.0</p>
+        <div class="version-badge" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
         </div>
       </div>
@@ -527,26 +528,26 @@
         <!-- TABLE OF CONTENTS -->
         <!-- ============================================ -->
         <div class="toc">
-          <h4><i class="fas fa-list"></i> Table of Contents</h4>
+          <h4 data-i18n="common.table_of_contents"><i class="fas fa-list"></i> Table of Contents</h4>
           <div class="toc-grid">
-            <a href="#overview"><i class="fas fa-chevron-right"></i> Overview</a>
-            <a href="#tech-stack"><i class="fas fa-chevron-right"></i> Tech Stack</a>
-            <a href="#architecture"><i class="fas fa-chevron-right"></i> Architecture</a>
-            <a href="#file-structure"><i class="fas fa-chevron-right"></i> File Structure</a>
-            <a href="#storage"><i class="fas fa-chevron-right"></i> Storage System</a>
-            <a href="#api-functions"><i class="fas fa-chevron-right"></i> API Functions</a>
-            <a href="#authentication"><i class="fas fa-chevron-right"></i> Authentication</a>
-            <a href="#subjects"><i class="fas fa-chevron-right"></i> Subjects & Grades</a>
-            <a href="#achievements"><i class="fas fa-chevron-right"></i> Achievements</a>
-            <a href="#themes"><i class="fas fa-chevron-right"></i> Themes & Fonts</a>
-            <a href="#pwa"><i class="fas fa-chevron-right"></i> PWA Configuration</a>
-            <a href="#transfer"><i class="fas fa-chevron-right"></i> Cloud Transfer</a>
-            <a href="#export-import"><i class="fas fa-chevron-right"></i> Export/Import</a>
-            <a href="#badges"><i class="fas fa-chevron-right"></i> Badges List</a>
-            <a href="#ai-assistant"><i class="fas fa-chevron-right"></i> AI Assistant</a>
-            <a href="#transfer-system"><i class="fas fa-chevron-right"></i> Transfer System</a>
-            <a href="#homework-manager"><i class="fas fa-chevron-right"></i> Homework Manager</a>
-            <a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a>
+            <a href="#overview" data-i18n="common.overview"><i class="fas fa-chevron-right"></i> Overview</a>
+            <a href="#tech-stack" data-i18n="doc.tech_stack"><i class="fas fa-chevron-right"></i> Tech Stack</a>
+            <a href="#architecture" data-i18n="doc.architecture"><i class="fas fa-chevron-right"></i> Architecture</a>
+            <a href="#file-structure" data-i18n="doc.file_structure"><i class="fas fa-chevron-right"></i> File Structure</a>
+            <a href="#storage" data-i18n="doc.storage_system"><i class="fas fa-chevron-right"></i> Storage System</a>
+            <a href="#api-functions" data-i18n="doc.api_functions"><i class="fas fa-chevron-right"></i> API Functions</a>
+            <a href="#authentication" data-i18n="doc.authentication"><i class="fas fa-chevron-right"></i> Authentication</a>
+            <a href="#subjects" data-i18n="doc.subjects_grades"><i class="fas fa-chevron-right"></i> Subjects & Grades</a>
+            <a href="#achievements" data-i18n="common.achievements"><i class="fas fa-chevron-right"></i> Achievements</a>
+            <a href="#themes" data-i18n="doc.themes_fonts"><i class="fas fa-chevron-right"></i> Themes & Fonts</a>
+            <a href="#pwa" data-i18n="doc.pwa_configuration"><i class="fas fa-chevron-right"></i> PWA Configuration</a>
+            <a href="#transfer" data-i18n="doc.cloud_transfer"><i class="fas fa-chevron-right"></i> Cloud Transfer</a>
+            <a href="#export-import" data-i18n="doc.exportimport"><i class="fas fa-chevron-right"></i> Export/Import</a>
+            <a href="#badges" data-i18n="doc.badges_list"><i class="fas fa-chevron-right"></i> Badges List</a>
+            <a href="#ai-assistant" data-i18n="common.ai_assistant"><i class="fas fa-chevron-right"></i> AI Assistant</a>
+            <a href="#transfer-system" data-i18n="doc.transfer_system"><i class="fas fa-chevron-right"></i> Transfer System</a>
+            <a href="#homework-manager" data-i18n="common.homework_manager"><i class="fas fa-chevron-right"></i> Homework Manager</a>
+            <a href="#contact" data-i18n="doc.contact"><i class="fas fa-chevron-right"></i> Contact</a>
           </div>
         </div>
         
@@ -554,13 +555,13 @@
         <!-- SECTION 1: OVERVIEW -->
         <!-- ============================================ -->
         <div id="overview" class="doc-section">
-          <h3><i class="fas fa-info-circle"></i> 1. System Overview</h3>
-          <p>SMART GRADE is a Progressive Web Application (PWA) for grade management, designed for SIN GBHS FOUMBAN Form 5B Science. The application works 100% offline after first installation and stores all data locally on the user's device.</p>
-          <div class="highlight">
-            <i class="fas fa-check-circle"></i> <strong>Key Features:</strong> 14 subjects, 6 sequences, 3 terms, 23 badges, 20 themes, 12 fonts, biometric login, QR code transfer, cloud backup, PWA offline support.
+          <h3 data-i18n="doc.1_system_overview"><i class="fas fa-info-circle"></i> 1. System Overview</h3>
+          <p data-i18n="doc.smart_grade_is_a">SMART GRADE is a Progressive Web Application (PWA) for grade management, designed for SIN GBHS FOUMBAN Form 5B Science. The application works 100% offline after first installation and stores all data locally on the user's device.</p>
+          <div class="highlight" data-i18n="doc.14_subjects_6_sequences">
+            <i class="fas fa-check-circle"></i> <strong data-i18n="doc.key_features">Key Features:</strong> 14 subjects, 6 sequences, 3 terms, 23 badges, 20 themes, 12 fonts, biometric login, QR code transfer, cloud backup, PWA offline support.
           </div>
-          <div class="info">
-            <i class="fas fa-shield-alt"></i> <strong>Data Privacy:</strong> All data stays on the user's device. No external servers store personal data unless the user explicitly uses cloud backup.
+          <div class="info" data-i18n="doc.all_data_stays_on">
+            <i class="fas fa-shield-alt"></i> <strong data-i18n="doc.data_privacy">Data Privacy:</strong> All data stays on the user's device. No external servers store personal data unless the user explicitly uses cloud backup.
           </div>
         </div>
         
@@ -568,23 +569,23 @@
         <!-- SECTION 2: TECH STACK -->
         <!-- ============================================ -->
         <div id="tech-stack" class="doc-section">
-          <h3><i class="fas fa-microchip"></i> 2. Technology Stack</h3>
+          <h3 data-i18n="doc.2_technology_stack"><i class="fas fa-microchip"></i> 2. Technology Stack</h3>
           <div class="api-grid">
             <div class="api-card">
-              <h4><i class="fab fa-html5"></i> HTML5</h4>
-              <p>Semantic markup, localStorage API, Canvas API, MediaDevices API, Notification API, Vibration API, Clipboard API</p>
+              <h4 data-i18n="common.html5"><i class="fab fa-html5"></i> HTML5</h4>
+              <p data-i18n="doc.semantic_markup_localstorage">Semantic markup, localStorage API, Canvas API, MediaDevices API, Notification API, Vibration API, Clipboard API</p>
             </div>
             <div class="api-card">
-              <h4><i class="fab fa-css3-alt"></i> CSS3</h4>
-              <p>Flexbox, Grid Layout, CSS Animations, CSS Variables (Custom Properties), Glassmorphism (backdrop-filter), Media Queries, 20 Color Themes</p>
+              <h4 data-i18n="common.css3"><i class="fab fa-css3-alt"></i> CSS3</h4>
+              <p data-i18n="doc.flexbox_grid_layout_css">Flexbox, Grid Layout, CSS Animations, CSS Variables (Custom Properties), Glassmorphism (backdrop-filter), Media Queries, 20 Color Themes</p>
             </div>
             <div class="api-card">
-              <h4><i class="fab fa-js"></i> JavaScript ES6+</h4>
-              <p>Promises, Async/Await, localStorage Database Management, Chart.js Integration, WebAuthn API, Service Worker (PWA)</p>
+              <h4 data-i18n="common.javascript_es6"><i class="fab fa-js"></i> JavaScript ES6+</h4>
+              <p data-i18n="doc.promises_asyncawait_localsto">Promises, Async/Await, localStorage Database Management, Chart.js Integration, WebAuthn API, Service Worker (PWA)</p>
             </div>
             <div class="api-card">
-              <h4><i class="fas fa-cloud"></i> External APIs</h4>
-              <p>GitHub Gist API (cloud transfer), QR Code generation, Chart.js for graphs, Google Fonts, Font Awesome icons</p>
+              <h4 data-i18n="doc.external_apis"><i class="fas fa-cloud"></i> External APIs</h4>
+              <p data-i18n="doc.github_gist_api_cloud">GitHub Gist API (cloud transfer), QR Code generation, Chart.js for graphs, Google Fonts, Font Awesome icons</p>
             </div>
           </div>
         </div>
@@ -593,22 +594,22 @@
         <!-- SECTION 3: ARCHITECTURE -->
         <!-- ============================================ -->
         <div id="architecture" class="doc-section">
-          <h3><i class="fas fa-project-diagram"></i> 3. Application Architecture</h3>
-          <p>The application follows a modular architecture with separate JavaScript files for different concerns:</p>
+          <h3 data-i18n="doc.3_application_architecture"><i class="fas fa-project-diagram"></i> 3. Application Architecture</h3>
+          <p data-i18n="doc.the_application_follows_a">The application follows a modular architecture with separate JavaScript files for different concerns:</p>
           <ul>
-            <li><strong>utils.js</strong> - Core utility functions (formatting, calculations, export/import)</li>
-            <li><strong>database.js</strong> - All localStorage operations (CRUD for students, grades, subjects)</li>
-            <li><strong>auth.js</strong> - PIN and fingerprint authentication</li>
-            <li><strong>app.js</strong> - UI initialization (themes, menu, particles, notifications)</li>
-            <li><strong>transfer.js</strong> - Cloud and QR code data transfer</li>
-            <li><strong>confirm-dialog.js</strong> - Custom confirmation dialogs</li>
-            <li><strong>install-handler.js</strong> - PWA installation across browsers</li>
-            <li><strong>cloud-sync.js</strong> - Automatic cloud backup</li>
-            <li><strong>ai-assistant-core.js</strong> - AI chat and model management</li>
-            <li><strong>ai-assistant-ui.js</strong> - Mermaid diagrams and zoom</li>
+            <li data-i18n="doc.core_utility_functions_forma"><strong data-i18n="doc.utilsjs">utils.js</strong> - Core utility functions (formatting, calculations, export/import)</li>
+            <li data-i18n="doc.all_localstorage_operations"><strong data-i18n="doc.databasejs">database.js</strong> - All localStorage operations (CRUD for students, grades, subjects)</li>
+            <li data-i18n="doc.pin_and_fingerprint_authenti"><strong data-i18n="doc.authjs">auth.js</strong> - PIN and fingerprint authentication</li>
+            <li data-i18n="doc.ui_initialization_themes_men"><strong data-i18n="doc.appjs">app.js</strong> - UI initialization (themes, menu, particles, notifications)</li>
+            <li data-i18n="doc.cloud_and_qr_code"><strong data-i18n="doc.transferjs">transfer.js</strong> - Cloud and QR code data transfer</li>
+            <li data-i18n="doc.custom_confirmation_dialogs"><strong data-i18n="doc.confirmdialogjs">confirm-dialog.js</strong> - Custom confirmation dialogs</li>
+            <li data-i18n="doc.pwa_installation_across_brow"><strong data-i18n="doc.installhandlerjs">install-handler.js</strong> - PWA installation across browsers</li>
+            <li data-i18n="doc.automatic_cloud_backup"><strong data-i18n="doc.cloudsyncjs">cloud-sync.js</strong> - Automatic cloud backup</li>
+            <li data-i18n="doc.ai_chat_and_model"><strong data-i18n="doc.aiassistantcorejs">ai-assistant-core.js</strong> - AI chat and model management</li>
+            <li data-i18n="doc.mermaid_diagrams_and_zoom"><strong data-i18n="doc.aiassistantuijs">ai-assistant-ui.js</strong> - Mermaid diagrams and zoom</li>
           </ul>
           <div class="code-block">
-<code>// Example: Getting current user
+<code data-i18n="doc.example_getting_current_user">// Example: Getting current user
 var user = getCurrentStudent();
 
 // Example: Calculating term average
@@ -623,16 +624,16 @@ var data = exportCompleteUserData(user.id);</code>
         <!-- SECTION 4: FILE STRUCTURE -->
         <!-- ============================================ -->
         <div id="file-structure" class="doc-section">
-          <h3><i class="fas fa-folder-tree"></i> 4. File Structure</h3>
-          <p>Loading structure from GitHub API...</p>
+          <h3 data-i18n="doc.4_file_structure"><i class="fas fa-folder-tree"></i> 4. File Structure</h3>
+          <p data-i18n="doc.loading_structure_from_githu">Loading structure from GitHub API...</p>
           <div class="file-tree-visual" id="fileTreeContainer">
             <div class="tree-root">
               <div class="tree-root-header">
                 <i class="fas fa-folder-open"></i>
-                <span class="tree-root-name">SMART GRADE v5.0</span>
-                <span class="tree-root-badge">Loading...</span>
+                <span class="tree-root-name" data-i18n="doc.smart_grade_v50">SMART GRADE v5.0</span>
+                <span class="tree-root-badge" data-i18n="common.loading">Loading...</span>
               </div>
-              <div style="text-align:center;padding:20px;color:var(--text-light);">
+              <div style="text-align:center;padding:20px;color:var(--text-light);" data-i18n="doc.fetching_structure_from_gith">
                 <i class="fas fa-spinner fa-spin"></i> Fetching structure from GitHub...
               </div>
             </div>
@@ -643,68 +644,68 @@ var data = exportCompleteUserData(user.id);</code>
         <!-- SECTION 5: STORAGE SYSTEM -->
         <!-- ============================================ -->
         <div id="storage" class="doc-section">
-          <h3><i class="fas fa-database"></i> 5. Storage System (localStorage)</h3>
-          <p>All data is stored using localStorage with specific key patterns. Maximum storage is ~5-10MB per domain.</p>
+          <h3 data-i18n="doc.5_storage_system_localstorag"><i class="fas fa-database"></i> 5. Storage System (localStorage)</h3>
+          <p data-i18n="doc.all_data_is_stored">All data is stored using localStorage with specific key patterns. Maximum storage is ~5-10MB per domain.</p>
           <div class="api-grid">
             <div class="api-card">
-              <h4>Students</h4>
-              <p><code class="api-path">smartgrade_students</code></p>
-              <p>Array of all student objects</p>
+              <h4 data-i18n="doc.students">Students</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradestudents">smartgrade_students</code></p>
+              <p data-i18n="doc.array_of_all_student">Array of all student objects</p>
             </div>
             <div class="api-card">
-              <h4>Current User</h4>
-              <p><code class="api-path">smartgrade_current</code></p>
-              <p>Currently logged in user</p>
+              <h4 data-i18n="doc.current_user">Current User</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradecurrent">smartgrade_current</code></p>
+              <p data-i18n="doc.currently_logged_in_user">Currently logged in user</p>
             </div>
             <div class="api-card">
-              <h4>Grades</h4>
-              <p><code class="api-path">smartgrade_grades_{userId}</code></p>
-              <p>Array of grade objects</p>
+              <h4 data-i18n="common.grades">Grades</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradegradesuserid">smartgrade_grades_{userId}</code></p>
+              <p data-i18n="doc.array_of_grade_objects">Array of grade objects</p>
             </div>
             <div class="api-card">
-              <h4>Subjects</h4>
-              <p><code class="api-path">smartgrade_selected_{userId}_term{1-3}</code></p>
-              <p>Selected subjects per term</p>
+              <h4 data-i18n="common.subjects">Subjects</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradeselecteduseridterm">smartgrade_selected_{userId}_term{1-3}</code></p>
+              <p data-i18n="doc.selected_subjects_per_term">Selected subjects per term</p>
             </div>
             <div class="api-card">
-              <h4>Coefficients</h4>
-              <p><code class="api-path">smartgrade_coeffs_{userId}</code></p>
-              <p>Subject coefficients</p>
+              <h4 data-i18n="doc.coefficients">Coefficients</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradecoeffsuserid">smartgrade_coeffs_{userId}</code></p>
+              <p data-i18n="doc.subject_coefficients">Subject coefficients</p>
             </div>
             <div class="api-card">
-              <h4>Achievements</h4>
-              <p><code class="api-path">smartgrade_achievements_{userId}</code></p>
-              <p>Unlocked badges and streaks</p>
+              <h4 data-i18n="common.achievements">Achievements</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradeachievementsuserid">smartgrade_achievements_{userId}</code></p>
+              <p data-i18n="doc.unlocked_badges_and_streaks">Unlocked badges and streaks</p>
             </div>
             <div class="api-card">
-              <h4>Streak</h4>
-              <p><code class="api-path">smartgrade_streak_{userId}</code></p>
-              <p>Daily usage streak data</p>
+              <h4 data-i18n="dev_database.streak">Streak</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradestreakuserid">smartgrade_streak_{userId}</code></p>
+              <p data-i18n="doc.daily_usage_streak_data">Daily usage streak data</p>
             </div>
             <div class="api-card">
-              <h4>Profile</h4>
-              <p><code class="api-path">smartgrade_profile_{userId}</code></p>
-              <p>Avatar (Base64) and bio</p>
+              <h4 data-i18n="common.profile">Profile</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradeprofileuserid">smartgrade_profile_{userId}</code></p>
+              <p data-i18n="doc.avatar_base64_and_bio">Avatar (Base64) and bio</p>
             </div>
             <div class="api-card">
-              <h4>Flashcards</h4>
-              <p><code class="api-path">smartgrade_flashcards_{userId}</code></p>
-              <p>User-created flashcards</p>
+              <h4 data-i18n="common.flashcards">Flashcards</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradeflashcardsuserid">smartgrade_flashcards_{userId}</code></p>
+              <p data-i18n="doc.usercreated_flashcards">User-created flashcards</p>
             </div>
             <div class="api-card">
-              <h4>History</h4>
-              <p><code class="api-path">smartgrade_history_{userId}</code></p>
-              <p>Activity log</p>
+              <h4 data-i18n="common.history">History</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradehistoryuserid">smartgrade_history_{userId}</code></p>
+              <p data-i18n="doc.activity_log">Activity log</p>
             </div>
             <div class="api-card">
-              <h4>Notifications</h4>
-              <p><code class="api-path">smartgrade_notifications_{userId}</code></p>
-              <p>User notifications</p>
+              <h4 data-i18n="common.notifications">Notifications</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradenotificationsuseri">smartgrade_notifications_{userId}</code></p>
+              <p data-i18n="doc.user_notifications">User notifications</p>
             </div>
             <div class="api-card">
-              <h4>Goals</h4>
-              <p><code class="api-path">smartgrade_goal_{userId}</code></p>
-              <p>Target yearly average</p>
+              <h4 data-i18n="common.goals">Goals</h4>
+              <p><code class="api-path" data-i18n="doc.smartgradegoaluserid">smartgrade_goal_{userId}</code></p>
+              <p data-i18n="doc.target_yearly_average">Target yearly average</p>
             </div>
           </div>
         </div>
@@ -713,20 +714,20 @@ var data = exportCompleteUserData(user.id);</code>
         <!-- SECTION 6: API FUNCTIONS -->
         <!-- ============================================ -->
         <div id="api-functions" class="doc-section">
-          <h3><i class="fas fa-code"></i> 6. Core API Functions</h3>
+          <h3 data-i18n="doc.6_core_api_functions"><i class="fas fa-code"></i> 6. Core API Functions</h3>
           
-          <h4>Student Management</h4>
+          <h4 data-i18n="doc.student_management">Student Management</h4>
           <div class="code-block">
-<code>getCurrentStudent()        // Returns current logged in student object
+<code data-i18n="doc.getcurrentstudent_returns_cu">getCurrentStudent()        // Returns current logged in student object
 getAllStudents()           // Returns array of all students
 getStudentById(id)         // Returns student by ID
 createStudentAccount(name, number, className, pin)  // Creates new account
 deleteStudent(id)          // Deletes student and all associated data</code>
           </div>
           
-          <h4>Grade Management</h4>
+          <h4 data-i18n="doc.grade_management">Grade Management</h4>
           <div class="code-block">
-<code>getStudentGrades(id)                    // Returns all grades for a student
+<code data-i18n="doc.getstudentgradesid_returns_a">getStudentGrades(id)                    // Returns all grades for a student
 saveStudentGrades(id, grades)           // Saves grades array
 calculateStudentTermAverage(id, term)   // Returns term average (0-20)
 calculateYearlyAverage(id)              // Returns yearly average (0-20)
@@ -735,27 +736,27 @@ getGradeLetter(avg)                     // Returns A+, A, B+, B, C, D, F
 getStatusText(avg)                      // Excellent, Very Good, Good, etc.</code>
           </div>
           
-          <h4>Subject Management</h4>
+          <h4 data-i18n="doc.subject_management">Subject Management</h4>
           <div class="code-block">
-<code>getStudentSelectedSubjects(id, term)        // Returns selected subject IDs
+<code data-i18n="doc.getstudentselectedsubjectsid">getStudentSelectedSubjects(id, term)        // Returns selected subject IDs
 saveStudentSelectedSubjects(id, term, subjects)  // Saves subject selection
 getSubjectCoefficients(id)                  // Returns coefficients object
 getSubjectCoefficient(id, subjectId)        // Returns coefficient for subject
 getActiveSubjectsWithCoefficients(id, term) // Returns subjects with coeffs</code>
           </div>
           
-          <h4>Achievements & Streaks</h4>
+          <h4 data-i18n="doc.achievements_streaks">Achievements & Streaks</h4>
           <div class="code-block">
-<code>getStudentAchievements(id)     // Returns achievements array
+<code data-i18n="doc.getstudentachievementsid_ret">getStudentAchievements(id)     // Returns achievements array
 unlockBadgeById(id, badgeId)   // Unlocks specific badge
 updateStreakOnVisit(id)        // Updates daily streak
 getStudentStreak(id)           // Returns streak object {days, lastLogin}
 checkAndUnlockAllNewBadges(id) // Checks and unlocks all available badges</code>
           </div>
           
-          <h4>Profile & Settings</h4>
+          <h4 data-i18n="doc.profile_settings">Profile & Settings</h4>
           <div class="code-block">
-<code>getProfile(id)                 // Returns {avatarBase64, bio, favorites}
+<code data-i18n="doc.getprofileid_returns_avatarb">getProfile(id)                 // Returns {avatarBase64, bio, favorites}
 saveProfile(id, profile)       // Saves profile data
 getSavedTheme()                // Returns current theme name
 saveTheme(theme)               // Saves theme preference
@@ -767,11 +768,11 @@ getSavedFontSize()             // Returns 'small', 'medium', or 'large'</code>
         <!-- SECTION 7: AUTHENTICATION -->
         <!-- ============================================ -->
         <div id="authentication" class="doc-section">
-          <h3><i class="fas fa-fingerprint"></i> 7. Authentication System</h3>
-          <p>The authentication system supports both PIN (4-digit) and fingerprint (WebAuthn) login methods.</p>
+          <h3 data-i18n="doc.7_authentication_system"><i class="fas fa-fingerprint"></i> 7. Authentication System</h3>
+          <p data-i18n="doc.the_authentication_system_su">The authentication system supports both PIN (4-digit) and fingerprint (WebAuthn) login methods.</p>
           
           <div class="code-block">
-<code>// PIN Authentication
+<code data-i18n="doc.pin_authentication_var_resul">// PIN Authentication
 var result = authenticateWithPin(studentId, pin);
 if (result.success) {
   // User is logged in as result.student
@@ -800,7 +801,7 @@ removeFingerprint(studentId);
 logout();  // Redirects to index.html</code>
           </div>
           
-          <div class="info">
+          <div class="info" data-i18n="doc.fingerprint_uses_webauthn_ap">
             <i class="fas fa-info-circle"></i> Fingerprint uses WebAuthn API and requires HTTPS or localhost. Not all browsers support this feature.
           </div>
         </div>
@@ -809,10 +810,10 @@ logout();  // Redirects to index.html</code>
         <!-- SECTION 8: SUBJECTS & GRADES -->
         <!-- ============================================ -->
         <div id="subjects" class="doc-section">
-          <h3><i class="fas fa-book"></i> 8. Subjects & Grades Configuration</h3>
-          <p>The application supports 14 subjects, each with customizable coefficients (1-10).</p>
+          <h3 data-i18n="doc.8_subjects_grades_configurat"><i class="fas fa-book"></i> 8. Subjects & Grades Configuration</h3>
+          <p data-i18n="doc.the_application_supports_14">The application supports 14 subjects, each with customizable coefficients (1-10).</p>
           <div class="code-block">
-<code>var DEFAULT_SUBJECTS = [
+<code data-i18n="doc.var_defaultsubjects_id_1">var DEFAULT_SUBJECTS = [
   { id: 1, name: "COMPUTER SCIENCES", icon: "fa-laptop-code" },
   { id: 2, name: "MATHEMATICS", icon: "fa-square-root-variable" },
   { id: 3, name: "CHEMISTRY", icon: "fa-flask" },
@@ -829,15 +830,15 @@ logout();  // Redirects to index.html</code>
   { id: 14, name: "FOOD AND NUTRITION", icon: "fa-apple-whole" }
 ];</code>
           </div>
-          <p><strong>Grading System:</strong> 0-20 scale with letter grades:</p>
+          <p data-i18n="doc.020_scale_with_letter"><strong data-i18n="doc.grading_system">Grading System:</strong> 0-20 scale with letter grades:</p>
           <ul>
-            <li><strong>A+</strong> (18-20) - Excellent</li>
-            <li><strong>A</strong> (16-17.9) - Very Good</li>
-            <li><strong>B+</strong> (14-15.9) - Good</li>
-            <li><strong>B</strong> (12-13.9) - Above Average</li>
-            <li><strong>C</strong> (10-11.9) - Average</li>
-            <li><strong>D</strong> (8-9.9) - Below Average</li>
-            <li><strong>F</strong> (0-7.9) - Needs Work</li>
+            <li data-i18n="doc.1820_excellent"><strong data-i18n="doc.a">A+</strong> (18-20) - Excellent</li>
+            <li data-i18n="doc.16179_very_good"><strong>A</strong> (16-17.9) - Very Good</li>
+            <li data-i18n="doc.14159_good"><strong data-i18n="doc.b">B+</strong> (14-15.9) - Good</li>
+            <li data-i18n="doc.12139_above_average"><strong>B</strong> (12-13.9) - Above Average</li>
+            <li data-i18n="doc.10119_average"><strong>C</strong> (10-11.9) - Average</li>
+            <li data-i18n="doc.899_below_average"><strong>D</strong> (8-9.9) - Below Average</li>
+            <li data-i18n="doc.079_needs_work"><strong>F</strong> (0-7.9) - Needs Work</li>
           </ul>
         </div>
         
@@ -845,45 +846,45 @@ logout();  // Redirects to index.html</code>
         <!-- SECTION 9: ACHIEVEMENTS -->
         <!-- ============================================ -->
         <div id="achievements" class="doc-section">
-          <h3><i class="fas fa-medal"></i> 9. Achievements System</h3>
-          <p>The application has 23 badges (14 achievement badges + 4 streak badges + 5 special badges).</p>
+          <h3 data-i18n="doc.9_achievements_system"><i class="fas fa-medal"></i> 9. Achievements System</h3>
+          <p data-i18n="doc.the_application_has_23">The application has 23 badges (14 achievement badges + 4 streak badges + 5 special badges).</p>
           
-          <h4>Streak Badges (Auto-unlock)</h4>
+          <h4 data-i18n="doc.streak_badges_autounlock">Streak Badges (Auto-unlock)</h4>
           <ul>
-            <li><strong>Beginner Streak</strong> - Use the app for 3 consecutive days</li>
-            <li><strong>Regular Streak</strong> - Use the app for 7 consecutive days</li>
-            <li><strong>Dedicated Streak</strong> - Use the app for 15 consecutive days</li>
-            <li><strong>Legendary Streak</strong> - Use the app for 30 consecutive days</li>
+            <li data-i18n="doc.use_the_app_for"><strong data-i18n="doc.beginner_streak">Beginner Streak</strong> - Use the app for 3 consecutive days</li>
+            <li data-i18n="doc.use_the_app_for_2"><strong data-i18n="doc.regular_streak">Regular Streak</strong> - Use the app for 7 consecutive days</li>
+            <li data-i18n="doc.use_the_app_for_3"><strong data-i18n="doc.dedicated_streak">Dedicated Streak</strong> - Use the app for 15 consecutive days</li>
+            <li data-i18n="doc.use_the_app_for_4"><strong data-i18n="doc.legendary_streak">Legendary Streak</strong> - Use the app for 30 consecutive days</li>
           </ul>
           
-          <h4>Achievement Badges</h4>
+          <h4 data-i18n="achievements.achievement_badges">Achievement Badges</h4>
           <div class="badge-list">
-            <div class="badge-item"><i class="fas fa-pen"></i> First Grade</div>
-            <div class="badge-item"><i class="fas fa-star"></i> Perfect Score</div>
-            <div class="badge-item"><i class="fas fa-arrow-up"></i> High Average</div>
-            <div class="badge-item"><i class="fas fa-book-open"></i> Bookworm</div>
-            <div class="badge-item"><i class="fas fa-fire"></i> Dedication</div>
-            <div class="badge-item"><i class="fas fa-graduation-cap"></i> Scholar</div>
-            <div class="badge-item"><i class="fas fa-rocket"></i> Rising Star</div>
-            <div class="badge-item"><i class="fas fa-bolt"></i> Unstoppable</div>
-            <div class="badge-item"><i class="fas fa-check-double"></i> Subject Completion</div>
-            <div class="badge-item"><i class="fas fa-calendar-check"></i> Active Semester</div>
-            <div class="badge-item"><i class="fas fa-crown"></i> Discipline Mastery</div>
-            <div class="badge-item"><i class="fas fa-chart-bar"></i> Study Progress</div>
-            <div class="badge-item"><i class="fas fa-trophy"></i> Full Achievement</div>
-            <div class="badge-item"><i class="fas fa-medal"></i> Excellent Result</div>
-            <div class="badge-item"><i class="fas fa-arrow-trend-up"></i> Comeback King</div>
-            <div class="badge-item"><i class="fas fa-palette"></i> Theme Collector</div>
-            <div class="badge-item"><i class="fas fa-camera"></i> Photo Uploader</div>
-            <div class="badge-item"><i class="fas fa-door-open"></i> Welcome Aboard</div>
-            <div class="badge-item"><i class="fas fa-font"></i> Font Collector</div>
-            <div class="badge-item"><i class="fas fa-calendar-alt"></i> Timetable Viewer</div>
-            <div class="badge-item"><i class="fas fa-clone"></i> Flashcard Beginner</div>
-            <div class="badge-item"><i class="fas fa-layer-group"></i> Flashcard Master</div>
+            <div class="badge-item" data-i18n="doc.first_grade"><i class="fas fa-pen"></i> First Grade</div>
+            <div class="badge-item" data-i18n="doc.perfect_score"><i class="fas fa-star"></i> Perfect Score</div>
+            <div class="badge-item" data-i18n="doc.high_average"><i class="fas fa-arrow-up"></i> High Average</div>
+            <div class="badge-item" data-i18n="doc.bookworm"><i class="fas fa-book-open"></i> Bookworm</div>
+            <div class="badge-item" data-i18n="doc.dedication"><i class="fas fa-fire"></i> Dedication</div>
+            <div class="badge-item" data-i18n="doc.scholar"><i class="fas fa-graduation-cap"></i> Scholar</div>
+            <div class="badge-item" data-i18n="doc.rising_star"><i class="fas fa-rocket"></i> Rising Star</div>
+            <div class="badge-item" data-i18n="doc.unstoppable"><i class="fas fa-bolt"></i> Unstoppable</div>
+            <div class="badge-item" data-i18n="doc.subject_completion"><i class="fas fa-check-double"></i> Subject Completion</div>
+            <div class="badge-item" data-i18n="doc.active_semester"><i class="fas fa-calendar-check"></i> Active Semester</div>
+            <div class="badge-item" data-i18n="doc.discipline_mastery"><i class="fas fa-crown"></i> Discipline Mastery</div>
+            <div class="badge-item" data-i18n="doc.study_progress"><i class="fas fa-chart-bar"></i> Study Progress</div>
+            <div class="badge-item" data-i18n="doc.full_achievement"><i class="fas fa-trophy"></i> Full Achievement</div>
+            <div class="badge-item" data-i18n="doc.excellent_result"><i class="fas fa-medal"></i> Excellent Result</div>
+            <div class="badge-item" data-i18n="doc.comeback_king"><i class="fas fa-arrow-trend-up"></i> Comeback King</div>
+            <div class="badge-item" data-i18n="doc.theme_collector"><i class="fas fa-palette"></i> Theme Collector</div>
+            <div class="badge-item" data-i18n="doc.photo_uploader"><i class="fas fa-camera"></i> Photo Uploader</div>
+            <div class="badge-item" data-i18n="doc.welcome_aboard"><i class="fas fa-door-open"></i> Welcome Aboard</div>
+            <div class="badge-item" data-i18n="doc.font_collector"><i class="fas fa-font"></i> Font Collector</div>
+            <div class="badge-item" data-i18n="doc.timetable_viewer"><i class="fas fa-calendar-alt"></i> Timetable Viewer</div>
+            <div class="badge-item" data-i18n="doc.flashcard_beginner"><i class="fas fa-clone"></i> Flashcard Beginner</div>
+            <div class="badge-item" data-i18n="doc.flashcard_master"><i class="fas fa-layer-group"></i> Flashcard Master</div>
           </div>
           
           <div class="code-block">
-<code>// Unlock a badge programmatically
+<code data-i18n="doc.unlock_a_badge_programmatica">// Unlock a badge programmatically
 unlockBadgeById(studentId, 1);  // Unlocks "First Grade"
 
 // Check all badges for a student
@@ -898,49 +899,49 @@ var achievements = getStudentAchievements(studentId);</code>
         <!-- SECTION 10: THEMES & FONTS -->
         <!-- ============================================ -->
         <div id="themes" class="doc-section">
-          <h3><i class="fas fa-palette"></i> 10. Themes & Fonts Configuration</h3>
-          <p><strong>20 Color Themes available:</strong></p>
+          <h3 data-i18n="doc.10_themes_fonts_configuratio"><i class="fas fa-palette"></i> 10. Themes & Fonts Configuration</h3>
+          <p><strong data-i18n="doc.20_color_themes_available">20 Color Themes available:</strong></p>
           <div class="badge-list">
-            <div class="badge-item">default (Deep Teal)</div>
-            <div class="badge-item">crimson</div>
-            <div class="badge-item">forest</div>
-            <div class="badge-item">ocean</div>
-            <div class="badge-item">royal</div>
-            <div class="badge-item">sunset</div>
-            <div class="badge-item">rose</div>
-            <div class="badge-item">turquoise</div>
-            <div class="badge-item">amber</div>
-            <div class="badge-item">graphite</div>
-            <div class="badge-item">lavender</div>
-            <div class="badge-item">cherry</div>
-            <div class="badge-item">midnight</div>
-            <div class="badge-item">mint</div>
-            <div class="badge-item">coral</div>
-            <div class="badge-item">indigo</div>
-            <div class="badge-item">chocolate</div>
-            <div class="badge-item">electric</div>
-            <div class="badge-item">steel</div>
-            <div class="badge-item">lime</div>
+            <div class="badge-item" data-i18n="doc.default_deep_teal">default (Deep Teal)</div>
+            <div class="badge-item" data-i18n="doc.crimson">crimson</div>
+            <div class="badge-item" data-i18n="doc.forest">forest</div>
+            <div class="badge-item" data-i18n="doc.ocean">ocean</div>
+            <div class="badge-item" data-i18n="doc.royal">royal</div>
+            <div class="badge-item" data-i18n="doc.sunset">sunset</div>
+            <div class="badge-item" data-i18n="doc.rose">rose</div>
+            <div class="badge-item" data-i18n="doc.turquoise">turquoise</div>
+            <div class="badge-item" data-i18n="doc.amber">amber</div>
+            <div class="badge-item" data-i18n="doc.graphite">graphite</div>
+            <div class="badge-item" data-i18n="doc.lavender">lavender</div>
+            <div class="badge-item" data-i18n="doc.cherry">cherry</div>
+            <div class="badge-item" data-i18n="doc.midnight">midnight</div>
+            <div class="badge-item" data-i18n="doc.mint">mint</div>
+            <div class="badge-item" data-i18n="doc.coral">coral</div>
+            <div class="badge-item" data-i18n="doc.indigo">indigo</div>
+            <div class="badge-item" data-i18n="doc.chocolate">chocolate</div>
+            <div class="badge-item" data-i18n="doc.electric">electric</div>
+            <div class="badge-item" data-i18n="doc.steel">steel</div>
+            <div class="badge-item" data-i18n="doc.lime">lime</div>
           </div>
           
-          <p><strong>12 Font Families available:</strong></p>
+          <p><strong data-i18n="doc.12_font_families_available">12 Font Families available:</strong></p>
           <div class="badge-list">
-            <div class="badge-item">Inter</div>
-            <div class="badge-item">Roboto</div>
-            <div class="badge-item">Cinzel</div>
-            <div class="badge-item">Quicksand</div>
-            <div class="badge-item">Courier Prime</div>
-            <div class="badge-item">Fredoka</div>
-            <div class="badge-item">Pacifico</div>
-            <div class="badge-item">Bangers</div>
-            <div class="badge-item">Lobster</div>
-            <div class="badge-item">Permanent Marker</div>
-            <div class="badge-item">Comfortaa</div>
-            <div class="badge-item">Righteous</div>
+            <div class="badge-item" data-i18n="doc.inter">Inter</div>
+            <div class="badge-item" data-i18n="doc.roboto">Roboto</div>
+            <div class="badge-item" data-i18n="doc.cinzel">Cinzel</div>
+            <div class="badge-item" data-i18n="doc.quicksand">Quicksand</div>
+            <div class="badge-item" data-i18n="doc.courier_prime">Courier Prime</div>
+            <div class="badge-item" data-i18n="doc.fredoka">Fredoka</div>
+            <div class="badge-item" data-i18n="doc.pacifico">Pacifico</div>
+            <div class="badge-item" data-i18n="doc.bangers">Bangers</div>
+            <div class="badge-item" data-i18n="doc.lobster">Lobster</div>
+            <div class="badge-item" data-i18n="doc.permanent_marker">Permanent Marker</div>
+            <div class="badge-item" data-i18n="doc.comfortaa">Comfortaa</div>
+            <div class="badge-item" data-i18n="doc.righteous">Righteous</div>
           </div>
           
           <div class="code-block">
-<code>// Set theme programmatically
+<code data-i18n="doc.set_theme_programmatically_d">// Set theme programmatically
 document.body.classList.add('theme-crimson');
 localStorage.setItem('smartgrade_theme', 'crimson');
 
@@ -949,8 +950,8 @@ localStorage.setItem('smartgrade_font_family', 'roboto');
 initFontFamily();  // Apply the font</code>
           </div>
           
-          <div class="highlight">
-            <i class="fas fa-moon"></i> <strong>Night Mode:</strong> Activates automatically between 20:00 and 06:00. Manual override available via theme button.
+          <div class="highlight" data-i18n="doc.activates_automatically_betw">
+            <i class="fas fa-moon"></i> <strong data-i18n="doc.night_mode">Night Mode:</strong> Activates automatically between 20:00 and 06:00. Manual override available via theme button.
           </div>
         </div>
         
@@ -958,11 +959,11 @@ initFontFamily();  // Apply the font</code>
         <!-- SECTION 11: PWA CONFIGURATION -->
         <!-- ============================================ -->
         <div id="pwa" class="doc-section">
-          <h3><i class="fas fa-mobile-alt"></i> 11. Progressive Web App (PWA)</h3>
-          <p>The application is a fully functional PWA that works offline after first installation.</p>
+          <h3 data-i18n="doc.11_progressive_web_app"><i class="fas fa-mobile-alt"></i> 11. Progressive Web App (PWA)</h3>
+          <p data-i18n="doc.the_application_is_a">The application is a fully functional PWA that works offline after first installation.</p>
           
           <div class="code-block">
-<code>// Service Worker registration (in sw.js)
+<code data-i18n="doc.service_worker_registration">// Service Worker registration (in sw.js)
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
@@ -981,7 +982,7 @@ if (typeof InstallHandler !== 'undefined') {
 AutoUpdate.start();  // Checks GitHub every 10 minutes</code>
           </div>
           
-          <div class="info">
+          <div class="info" data-i18n="doc.the_service_worker_caches">
             <i class="fas fa-info-circle"></i> The Service Worker caches all HTML, CSS, JS, and assets. The app works 100% offline after the first successful load.
           </div>
         </div>
@@ -990,11 +991,11 @@ AutoUpdate.start();  // Checks GitHub every 10 minutes</code>
         <!-- SECTION 12: CLOUD TRANSFER -->
         <!-- ============================================ -->
         <div id="transfer" class="doc-section">
-          <h3><i class="fas fa-exchange-alt"></i> 12. Cloud Transfer System</h3>
-          <p>The cloud transfer system uses GitHub Gist API (free, unlimited) to store temporary transfer data.</p>
+          <h3 data-i18n="doc.12_cloud_transfer_system"><i class="fas fa-exchange-alt"></i> 12. Cloud Transfer System</h3>
+          <p data-i18n="doc.the_cloud_transfer_system">The cloud transfer system uses GitHub Gist API (free, unlimited) to store temporary transfer data.</p>
           
           <div class="code-block">
-<code>// Generate cloud transfer code
+<code data-i18n="doc.generate_cloud_transfer_code">// Generate cloud transfer code
 CloudTransfer.generateCode(userId, userName, function(result) {
   if (result.success) {
     var code = result.code;  // 6-character code
@@ -1017,8 +1018,8 @@ QRTransfer.generateQR(code, 'containerId');
 var localCode = generateLocalCode();</code>
           </div>
           
-          <div class="warning">
-            <i class="fas fa-exclamation-triangle"></i> <strong>Important:</strong> Transfer codes expire after 10 minutes for security. QR codes are also valid for 10 minutes.
+          <div class="warning" data-i18n="doc.transfer_codes_expire_after">
+            <i class="fas fa-exclamation-triangle"></i> <strong data-i18n="common.important">Important:</strong> Transfer codes expire after 10 minutes for security. QR codes are also valid for 10 minutes.
           </div>
         </div>
         
@@ -1026,11 +1027,11 @@ var localCode = generateLocalCode();</code>
         <!-- SECTION 13: EXPORT/IMPORT -->
         <!-- ============================================ -->
         <div id="export-import" class="doc-section">
-          <h3><i class="fas fa-file-export"></i> 13. Export & Import System</h3>
-          <p>The application supports multiple export formats: JSON (complete backup), CSV (spreadsheet), HTML (bulletin), PDF (report).</p>
+          <h3 data-i18n="doc.13_export_import_system"><i class="fas fa-file-export"></i> 13. Export & Import System</h3>
+          <p data-i18n="doc.the_application_supports_mul">The application supports multiple export formats: JSON (complete backup), CSV (spreadsheet), HTML (bulletin), PDF (report).</p>
           
           <div class="code-block">
-<code>// Export all user data as JSON
+<code data-i18n="doc.export_all_user_data">// Export all user data as JSON
 var jsonData = exportCompleteUserData(userId);
 // Download as file
 downloadJSON(jsonData, 'backup.json');
@@ -1046,7 +1047,7 @@ if (result.success) {
 // COMPUTER SCIENCES, CS, 1, 15.50, 2025-01-15, 1</code>
           </div>
           
-          <div class="info">
+          <div class="info" data-i18n="doc.the_json_backup_includes">
             <i class="fas fa-info-circle"></i> The JSON backup includes all user data: grades, subjects, coefficients, achievements, streak, profile, flashcards, and history.
           </div>
         </div>
@@ -1055,36 +1056,36 @@ if (result.success) {
         <!-- SECTION 14: BADGES -->
         <!-- ============================================ -->
         <div id="badges" class="doc-section">
-          <h3><i class="fas fa-trophy"></i> 14. Complete Badges Reference</h3>
+          <h3 data-i18n="doc.14_complete_badges_reference"><i class="fas fa-trophy"></i> 14. Complete Badges Reference</h3>
           
-          <h4>Unlock Conditions</h4>
+          <h4 data-i18n="doc.unlock_conditions">Unlock Conditions</h4>
           <ul>
-            <li><strong>First Grade (id:1)</strong> - Add your very first grade</li>
-            <li><strong>Perfect Score (id:2)</strong> - Get 20/20 in any subject</li>
-            <li><strong>High Average (id:3)</strong> - Overall average 12/20 and above</li>
-            <li><strong>Bookworm (id:4)</strong> - Record 10+ grades</li>
-            <li><strong>Dedication (id:5)</strong> - Record 30+ grades</li>
-            <li><strong>Scholar (id:6)</strong> - Unlock 8 achievements</li>
-            <li><strong>Rising Star (id:7)</strong> - Improve by 1+ point in a term</li>
-            <li><strong>Unstoppable (id:8)</strong> - All 3 terms have grades entered</li>
-            <li><strong>Subject Completion (id:9)</strong> - Add grades in all subjects of a term</li>
-            <li><strong>Active Semester (id:10)</strong> - Complete a full term (all sequences)</li>
-            <li><strong>Discipline Mastery (id:11)</strong> - Average above 15 in one subject</li>
-            <li><strong>Study Progress (id:12)</strong> - Record 25+ grades</li>
-            <li><strong>Full Achievement (id:13)</strong> - Unlock ALL 13 badges</li>
-            <li><strong>Excellent Result (id:14)</strong> - Get 20/20 in a subject (rounded up)</li>
-            <li><strong>Comeback King (id:25)</strong> - Go from &lt;10/20 to &gt;14/20 in any subject</li>
-            <li><strong>Theme Collector (id:34)</strong> - Try 10 different themes</li>
-            <li><strong>Photo Uploader (id:36)</strong> - Add a profile photo</li>
-            <li><strong>Welcome Aboard (id:38)</strong> - First login after installation</li>
-            <li><strong>Font Collector (id:50)</strong> - Try 6 different fonts</li>
-            <li><strong>Timetable Viewer (id:57)</strong> - View timetable 10 times</li>
-            <li><strong>Flashcard Beginner (id:58)</strong> - Create 5 custom flashcards</li>
-            <li><strong>Flashcard Master (id:59)</strong> - Create 10 custom flashcards</li>
+            <li data-i18n="doc.add_your_very_first"><strong data-i18n="doc.first_grade_id1">First Grade (id:1)</strong> - Add your very first grade</li>
+            <li data-i18n="doc.get_2020_in_any"><strong data-i18n="doc.perfect_score_id2">Perfect Score (id:2)</strong> - Get 20/20 in any subject</li>
+            <li data-i18n="doc.overall_average_1220_and"><strong data-i18n="doc.high_average_id3">High Average (id:3)</strong> - Overall average 12/20 and above</li>
+            <li data-i18n="doc.record_10_grades"><strong data-i18n="doc.bookworm_id4">Bookworm (id:4)</strong> - Record 10+ grades</li>
+            <li data-i18n="doc.record_30_grades"><strong data-i18n="doc.dedication_id5">Dedication (id:5)</strong> - Record 30+ grades</li>
+            <li data-i18n="doc.unlock_8_achievements"><strong data-i18n="doc.scholar_id6">Scholar (id:6)</strong> - Unlock 8 achievements</li>
+            <li data-i18n="doc.improve_by_1_point"><strong data-i18n="doc.rising_star_id7">Rising Star (id:7)</strong> - Improve by 1+ point in a term</li>
+            <li data-i18n="doc.all_3_terms_have"><strong data-i18n="doc.unstoppable_id8">Unstoppable (id:8)</strong> - All 3 terms have grades entered</li>
+            <li data-i18n="doc.add_grades_in_all"><strong data-i18n="doc.subject_completion_id9">Subject Completion (id:9)</strong> - Add grades in all subjects of a term</li>
+            <li data-i18n="doc.complete_a_full_term"><strong data-i18n="doc.active_semester_id10">Active Semester (id:10)</strong> - Complete a full term (all sequences)</li>
+            <li data-i18n="doc.average_above_15_in"><strong data-i18n="doc.discipline_mastery_id11">Discipline Mastery (id:11)</strong> - Average above 15 in one subject</li>
+            <li data-i18n="doc.record_25_grades"><strong data-i18n="doc.study_progress_id12">Study Progress (id:12)</strong> - Record 25+ grades</li>
+            <li data-i18n="doc.unlock_all_13_badges"><strong data-i18n="doc.full_achievement_id13">Full Achievement (id:13)</strong> - Unlock ALL 13 badges</li>
+            <li data-i18n="doc.get_2020_in_a"><strong data-i18n="doc.excellent_result_id14">Excellent Result (id:14)</strong> - Get 20/20 in a subject (rounded up)</li>
+            <li data-i18n="doc.go_from_1020_to"><strong data-i18n="doc.comeback_king_id25">Comeback King (id:25)</strong> - Go from &lt;10/20 to &gt;14/20 in any subject</li>
+            <li data-i18n="doc.try_10_different_themes"><strong data-i18n="doc.theme_collector_id34">Theme Collector (id:34)</strong> - Try 10 different themes</li>
+            <li data-i18n="doc.add_a_profile_photo"><strong data-i18n="doc.photo_uploader_id36">Photo Uploader (id:36)</strong> - Add a profile photo</li>
+            <li data-i18n="doc.first_login_after_installati"><strong data-i18n="doc.welcome_aboard_id38">Welcome Aboard (id:38)</strong> - First login after installation</li>
+            <li data-i18n="doc.try_6_different_fonts"><strong data-i18n="doc.font_collector_id50">Font Collector (id:50)</strong> - Try 6 different fonts</li>
+            <li data-i18n="doc.view_timetable_10_times"><strong data-i18n="doc.timetable_viewer_id57">Timetable Viewer (id:57)</strong> - View timetable 10 times</li>
+            <li data-i18n="doc.create_5_custom_flashcards"><strong data-i18n="doc.flashcard_beginner_id58">Flashcard Beginner (id:58)</strong> - Create 5 custom flashcards</li>
+            <li data-i18n="doc.create_10_custom_flashcards"><strong data-i18n="doc.flashcard_master_id59">Flashcard Master (id:59)</strong> - Create 10 custom flashcards</li>
           </ul>
           
           <div class="code-block">
-<code>// Force unlock a badge (for testing)
+<code data-i18n="doc.force_unlock_a_badge">// Force unlock a badge (for testing)
 unlockBadgeById(studentId, 1);
 
 // Get badge by ID
@@ -1097,34 +1098,34 @@ console.log(badge.name);  // "First Grade"</code>
         <!-- SECTION 15: AI ASSISTANT -->
         <!-- ============================================ -->
         <div id="ai-assistant" class="doc-section">
-          <h3><i class="fas fa-robot"></i> 15. AI Assistant</h3>
-          <p>SMART GRADE includes an AI Assistant powered by Groq and Mistral models to help students with homework, explanations, and problem-solving.</p>
+          <h3 data-i18n="doc.15_ai_assistant"><i class="fas fa-robot"></i> 15. AI Assistant</h3>
+          <p data-i18n="doc.smart_grade_includes_an">SMART GRADE includes an AI Assistant powered by Groq and Mistral models to help students with homework, explanations, and problem-solving.</p>
           
-          <div class="highlight">
-            <i class="fas fa-check-circle"></i> <strong>Available Models:</strong> Groq (ultra fast), Devstral (medium), Codestral (code-focused)
+          <div class="highlight" data-i18n="doc.groq_ultra_fast_devstral">
+            <i class="fas fa-check-circle"></i> <strong data-i18n="doc.available_models">Available Models:</strong> Groq (ultra fast), Devstral (medium), Codestral (code-focused)
           </div>
           
-          <h4>Features</h4>
+          <h4 data-i18n="common.features">Features</h4>
           <ul>
-            <li><i class="fas fa-square-root-variable"></i> <strong>LaTeX Support:</strong> Write mathematical equations using $...$ or $$...$$ syntax</li>
-            <li><i class="fas fa-code"></i> <strong>Code Highlighting:</strong> Supports JavaScript, Python, Bash, JSON, HTML, CSS, and more</li>
-            <li><i class="fas fa-chart-simple"></i> <strong>Mermaid Diagrams:</strong> Generate flowcharts, sequence diagrams, and more using ```mermaid syntax</li>
-            <li><i class="fas fa-history"></i> <strong>Conversation History:</strong> All conversations are saved locally</li>
-            <li><i class="fas fa-download"></i> <strong>Export:</strong> Export conversations as JSON files</li>
-            <li><i class="fas fa-sync-alt"></i> <strong>Auto-fallback:</strong> If one model fails, the system automatically switches to another</li>
+            <li data-i18n="doc.write_mathematical_equations"><i class="fas fa-square-root-variable"></i> <strong data-i18n="doc.latex_support">LaTeX Support:</strong> Write mathematical equations using $...$ or $$...$$ syntax</li>
+            <li data-i18n="doc.supports_javascript_python_b"><i class="fas fa-code"></i> <strong data-i18n="doc.code_highlighting">Code Highlighting:</strong> Supports JavaScript, Python, Bash, JSON, HTML, CSS, and more</li>
+            <li data-i18n="doc.generate_flowcharts_sequence"><i class="fas fa-chart-simple"></i> <strong data-i18n="doc.mermaid_diagrams">Mermaid Diagrams:</strong> Generate flowcharts, sequence diagrams, and more using ```mermaid syntax</li>
+            <li data-i18n="doc.all_conversations_are_saved"><i class="fas fa-history"></i> <strong data-i18n="doc.conversation_history">Conversation History:</strong> All conversations are saved locally</li>
+            <li data-i18n="doc.export_conversations_as_json"><i class="fas fa-download"></i> <strong data-i18n="doc.export">Export:</strong> Export conversations as JSON files</li>
+            <li data-i18n="doc.if_one_model_fails"><i class="fas fa-sync-alt"></i> <strong data-i18n="doc.autofallback">Auto-fallback:</strong> If one model fails, the system automatically switches to another</li>
           </ul>
           
-          <h4>How to Use</h4>
+          <h4 data-i18n="doc.how_to_use">How to Use</h4>
           <ul>
-            <li>Open the AI Assistant page from the sidebar</li>
-            <li>Choose a model (Groq, Devstral, or Codestral)</li>
-            <li>Type your question in the chat input</li>
-            <li>Press Ctrl+Enter or click the send button</li>
-            <li>The AI will respond with formatted text, code, or diagrams</li>
+            <li data-i18n="doc.open_the_ai_assistant">Open the AI Assistant page from the sidebar</li>
+            <li data-i18n="doc.choose_a_model_groq">Choose a model (Groq, Devstral, or Codestral)</li>
+            <li data-i18n="doc.type_your_question_in">Type your question in the chat input</li>
+            <li data-i18n="doc.press_ctrlenter_or_click">Press Ctrl+Enter or click the send button</li>
+            <li data-i18n="doc.the_ai_will_respond">The AI will respond with formatted text, code, or diagrams</li>
           </ul>
           
-          <div class="info">
-            <i class="fas fa-info-circle"></i> <strong>Tip:</strong> Use the AI Assistant for homework help, concept explanations, and problem-solving in any subject.
+          <div class="info" data-i18n="doc.use_the_ai_assistant">
+            <i class="fas fa-info-circle"></i> <strong data-i18n="common.tip">Tip:</strong> Use the AI Assistant for homework help, concept explanations, and problem-solving in any subject.
           </div>
         </div>
         
@@ -1132,39 +1133,39 @@ console.log(badge.name);  // "First Grade"</code>
         <!-- SECTION 16: TRANSFER SYSTEM -->
         <!-- ============================================ -->
         <div id="transfer-system" class="doc-section">
-          <h3><i class="fas fa-exchange-alt"></i> 16. Transfer System</h3>
-          <p>The transfer system allows users to move their data between devices using three different methods.</p>
+          <h3 data-i18n="doc.16_transfer_system"><i class="fas fa-exchange-alt"></i> 16. Transfer System</h3>
+          <p data-i18n="doc.the_transfer_system_allows">The transfer system allows users to move their data between devices using three different methods.</p>
           
-          <h4>Transfer Methods</h4>
+          <h4 data-i18n="doc.transfer_methods">Transfer Methods</h4>
           
           <div class="api-grid">
             <div class="api-card">
-              <h4><i class="fas fa-server"></i> Local Transfer</h4>
-              <p>Generate a 6-character code valid for 10 minutes. Data is stored locally on the device.</p>
-              <p><code class="api-path">smartgrade_local_transfers</code></p>
+              <h4 data-i18n="doc.local_transfer"><i class="fas fa-server"></i> Local Transfer</h4>
+              <p data-i18n="doc.generate_a_6character_code">Generate a 6-character code valid for 10 minutes. Data is stored locally on the device.</p>
+              <p><code class="api-path" data-i18n="doc.smartgradelocaltransfers">smartgrade_local_transfers</code></p>
             </div>
             <div class="api-card">
-              <h4><i class="fas fa-cloud-upload-alt"></i> Cloud Transfer</h4>
-              <p>Upload data to GitHub Gist. Generates a 6-character code valid for 10 minutes.</p>
-              <p><code class="api-path">transfer.json (GitHub Gist)</code></p>
+              <h4 data-i18n="doc.cloud_transfer"><i class="fas fa-cloud-upload-alt"></i> Cloud Transfer</h4>
+              <p data-i18n="doc.upload_data_to_github">Upload data to GitHub Gist. Generates a 6-character code valid for 10 minutes.</p>
+              <p><code class="api-path" data-i18n="doc.transferjson_github_gist">transfer.json (GitHub Gist)</code></p>
             </div>
             <div class="api-card">
-              <h4><i class="fas fa-qrcode"></i> QR Code Transfer</h4>
-              <p>Generate a QR code containing the transfer data. Scan with the destination device.</p>
-              <p><code class="api-path">QRCode.js + html5-qrcode</code></p>
+              <h4 data-i18n="common.qr_code_transfer"><i class="fas fa-qrcode"></i> QR Code Transfer</h4>
+              <p data-i18n="doc.generate_a_qr_code">Generate a QR code containing the transfer data. Scan with the destination device.</p>
+              <p><code class="api-path" data-i18n="doc.qrcodejs_html5qrcode">QRCode.js + html5-qrcode</code></p>
             </div>
           </div>
           
-          <h4>How to Use</h4>
+          <h4 data-i18n="doc.how_to_use">How to Use</h4>
           <ul>
-            <li><strong>Export:</strong> Go to Transfer page > Choose method > Generate code/QR</li>
-            <li><strong>Import:</strong> Go to Transfer page > Choose method > Enter code or scan QR</li>
-            <li>All codes expire after 10 minutes for security</li>
-            <li>Data is automatically deleted after import</li>
+            <li data-i18n="doc.go_to_transfer_page"><strong data-i18n="doc.export">Export:</strong> Go to Transfer page > Choose method > Generate code/QR</li>
+            <li data-i18n="doc.go_to_transfer_page_2"><strong data-i18n="doc.import">Import:</strong> Go to Transfer page > Choose method > Enter code or scan QR</li>
+            <li data-i18n="doc.all_codes_expire_after">All codes expire after 10 minutes for security</li>
+            <li data-i18n="doc.data_is_automatically_delete">Data is automatically deleted after import</li>
           </ul>
           
-          <div class="warning">
-            <i class="fas fa-exclamation-triangle"></i> <strong>Important:</strong> Transfer codes are valid for 10 minutes only. QR codes also expire after 10 minutes.
+          <div class="warning" data-i18n="doc.transfer_codes_are_valid">
+            <i class="fas fa-exclamation-triangle"></i> <strong data-i18n="common.important">Important:</strong> Transfer codes are valid for 10 minutes only. QR codes also expire after 10 minutes.
           </div>
         </div>
         
@@ -1172,34 +1173,34 @@ console.log(badge.name);  // "First Grade"</code>
         <!-- SECTION 17: HOMEWORK MANAGER -->
         <!-- ============================================ -->
         <div id="homework-manager" class="doc-section">
-          <h3><i class="fas fa-tasks"></i> 17. Homework Manager</h3>
-          <p>The Homework Manager allows teachers to create and manage assignments, and students to view them.</p>
+          <h3 data-i18n="doc.17_homework_manager"><i class="fas fa-tasks"></i> 17. Homework Manager</h3>
+          <p data-i18n="doc.the_homework_manager_allows">The Homework Manager allows teachers to create and manage assignments, and students to view them.</p>
           
-          <h4>Features</h4>
+          <h4 data-i18n="common.features">Features</h4>
           <ul>
-            <li><i class="fas fa-plus-circle"></i> <strong>Add Homework:</strong> Teachers can create assignments with title, subject, due date, and description</li>
-            <li><i class="fas fa-paperclip"></i> <strong>File Attachments:</strong> Support for images, videos, audio, PDFs, Word documents, and text files</li>
-            <li><i class="fas fa-cloud-upload-alt"></i> <strong>Cloud Sync:</strong> All homework data is stored and synced via GitHub Gist</li>
-            <li><i class="fas fa-filter"></i> <strong>Filter by Subject:</strong> Students can filter homework by subject</li>
-            <li><i class="fas fa-edit"></i> <strong>Edit/Delete:</strong> Teachers can edit or delete assignments</li>
+            <li data-i18n="doc.teachers_can_create_assignme"><i class="fas fa-plus-circle"></i> <strong data-i18n="doc.add_homework">Add Homework:</strong> Teachers can create assignments with title, subject, due date, and description</li>
+            <li data-i18n="doc.support_for_images_videos"><i class="fas fa-paperclip"></i> <strong data-i18n="doc.file_attachments">File Attachments:</strong> Support for images, videos, audio, PDFs, Word documents, and text files</li>
+            <li data-i18n="doc.all_homework_data_is"><i class="fas fa-cloud-upload-alt"></i> <strong data-i18n="doc.cloud_sync">Cloud Sync:</strong> All homework data is stored and synced via GitHub Gist</li>
+            <li data-i18n="doc.students_can_filter_homework"><i class="fas fa-filter"></i> <strong data-i18n="doc.filter_by_subject">Filter by Subject:</strong> Students can filter homework by subject</li>
+            <li data-i18n="doc.teachers_can_edit_or"><i class="fas fa-edit"></i> <strong data-i18n="doc.editdelete">Edit/Delete:</strong> Teachers can edit or delete assignments</li>
           </ul>
           
-          <h4>Admin Access</h4>
+          <h4 data-i18n="common.admin_access">Admin Access</h4>
           <ul>
-            <li>Teachers access the admin panel via <code>admin-homework.html</code></li>
-            <li>Admin password is required for security</li>
-            <li>Homework is stored in <code>homeworks.json</code> on GitHub Gist</li>
+            <li data-i18n="doc.teachers_access_the_admin">Teachers access the admin panel via <code data-i18n="doc.adminhomeworkhtml">admin-homework.html</code></li>
+            <li data-i18n="doc.admin_password_is_required">Admin password is required for security</li>
+            <li data-i18n="doc.homework_is_stored_in">Homework is stored in <code data-i18n="doc.homeworksjson">homeworks.json</code> on GitHub Gist</li>
           </ul>
           
-          <h4>Student View</h4>
+          <h4 data-i18n="doc.student_view">Student View</h4>
           <ul>
-            <li>Students view homework on the <code>homeworks.html</code> page</li>
-            <li>Click on any homework card to see full details</li>
-            <li>Attachments can be downloaded directly</li>
+            <li data-i18n="doc.students_view_homework_on">Students view homework on the <code data-i18n="doc.homeworkshtml">homeworks.html</code> page</li>
+            <li data-i18n="doc.click_on_any_homework">Click on any homework card to see full details</li>
+            <li data-i18n="doc.attachments_can_be_downloade">Attachments can be downloaded directly</li>
           </ul>
           
-          <div class="info">
-            <i class="fas fa-info-circle"></i> <strong>Note:</strong> The Homework Manager uses GitHub Gist for cloud storage. All data is synced automatically.
+          <div class="info" data-i18n="doc.the_homework_manager_uses">
+            <i class="fas fa-info-circle"></i> <strong data-i18n="doc.note">Note:</strong> The Homework Manager uses GitHub Gist for cloud storage. All data is synced automatically.
           </div>
         </div>
         
@@ -1207,19 +1208,19 @@ console.log(badge.name);  // "First Grade"</code>
         <!-- SECTION 18: CONTACT -->
         <!-- ============================================ -->
         <div id="contact" class="doc-section">
-          <h3><i class="fas fa-envelope"></i> 18. Developer Contact</h3>
-          <p>If you have any questions about this documentation or the software, please contact the developer:</p>
+          <h3 data-i18n="doc.18_developer_contact"><i class="fas fa-envelope"></i> 18. Developer Contact</h3>
+          <p data-i18n="doc.if_you_have_any">If you have any questions about this documentation or the software, please contact the developer:</p>
           <ul>
-            <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
-            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
-            <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
-            <li><i class="fab fa-github"></i> <strong>GitHub:</strong> hanskepper</li>
-            <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
-            <li><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Foumban, West Region, Cameroon</li>
+            <li data-i18n="common.hans_kepper"><i class="fas fa-user"></i> <strong data-i18n="common.developer">Developer:</strong> HANS KEPPER</li>
+            <li data-i18n="common.hanskepper52gmailcom"><i class="fas fa-envelope"></i> <strong data-i18n="common.email">Email:</strong> hanskepper52@gmail.com</li>
+            <li><i class="fab fa-whatsapp"></i> <strong data-i18n="common.whatsapp">WhatsApp:</strong> +237 698 640 885</li>
+            <li data-i18n="common.hanskepper"><i class="fab fa-github"></i> <strong data-i18n="common.github">GitHub:</strong> hanskepper</li>
+            <li data-i18n="common.sin_gbhs_foumban_form_2"><i class="fas fa-school"></i> <strong data-i18n="common.school">School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
+            <li data-i18n="common.foumban_west_region_cameroon"><i class="fas fa-map-marker-alt"></i> <strong data-i18n="common.location">Location:</strong> Foumban, West Region, Cameroon</li>
           </ul>
         </div>
         
-        <div class="legal-date">
+        <div class="legal-date" data-i18n="doc.documentation_updated_july_0">
           <i class="fas fa-calendar-alt"></i> Documentation updated: July 08, 2026<br>
           <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
           <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>

@@ -427,26 +427,27 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <!-- HEADER -->
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-3"></i><span>TERM 3</span></div>
+      <div class="header-logo"><i class="fas fa-3"></i><span data-i18n="dashboard.term_3">TERM 3</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html">
           <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
             <i class="fas fa-user-graduate"></i>
           </div>
         </a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -454,14 +455,14 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="term1.html" class="nav-item"><i class="fas fa-1"></i> Term 1</a>
-        <a href="term2.html" class="nav-item"><i class="fas fa-2"></i> Term 2</a>
-        <a href="term3.html" class="nav-item active"><i class="fas fa-3"></i> Term 3</a>
-        <a href="yearly.html" class="nav-item"><i class="fas fa-chart-line"></i> Yearly</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="term1.html" class="nav-item" data-i18n="common.term_1"><i class="fas fa-1"></i> Term 1</a>
+        <a href="term2.html" class="nav-item" data-i18n="common.term_2"><i class="fas fa-2"></i> Term 2</a>
+        <a href="term3.html" class="nav-item active" data-i18n="common.term_3"><i class="fas fa-3"></i> Term 3</a>
+        <a href="yearly.html" class="nav-item" data-i18n="common.yearly"><i class="fas fa-chart-line"></i> Yearly</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -470,16 +471,16 @@
       
       <!-- EN-TÊTE -->
       <div class="term-header-card">
-        <div class="term-label">Term 3</div>
+        <div class="term-label" data-i18n="common.term_3">Term 3</div>
         <div class="term-big-number" id="overallTerm3">0.00</div>
-        <div class="subjects-count-badge" id="subjectsCount3">0 subjects</div>
+        <div class="subjects-count-badge" id="subjectsCount3" data-i18n="common.0_subjects">0 subjects</div>
       </div>
       
       <!-- ONGLETS -->
       <div class="tab-nav" id="tabNav">
-        <button class="tab-btn active" data-tab="0">Overview</button>
-        <button class="tab-btn" data-tab="1">Charts</button>
-        <button class="tab-btn" data-tab="2">Subjects</button>
+        <button class="tab-btn active" data-tab="0" data-i18n="common.overview">Overview</button>
+        <button class="tab-btn" data-tab="1" data-i18n="common.charts">Charts</button>
+        <button class="tab-btn" data-tab="2" data-i18n="common.subjects">Subjects</button>
       </div>
       
       <!-- SLIDES -->
@@ -492,29 +493,29 @@
               <div class="stat-card">
                 <span class="stat-icon best"><i class="fas fa-star"></i></span>
                 <div class="stat-value" id="statBest">--</div>
-                <div class="stat-label">Best Subject</div>
+                <div class="stat-label" data-i18n="common.best_subject">Best Subject</div>
               </div>
               <div class="stat-card">
                 <span class="stat-icon worst"><i class="fas fa-exclamation-triangle"></i></span>
                 <div class="stat-value" id="statWorst">--</div>
-                <div class="stat-label">Needs Work</div>
+                <div class="stat-label" data-i18n="common.needs_work">Needs Work</div>
               </div>
               <div class="stat-card">
                 <span class="stat-icon grades"><i class="fas fa-pen"></i></span>
                 <div class="stat-value" id="statTotalGrades">0</div>
-                <div class="stat-label">Total Grades</div>
+                <div class="stat-label" data-i18n="common.total_grades">Total Grades</div>
               </div>
               <div class="stat-card">
                 <span class="stat-icon passing"><i class="fas fa-check-circle"></i></span>
                 <div class="stat-value" id="statPassing">0%</div>
-                <div class="stat-label">Passing Rate</div>
+                <div class="stat-label" data-i18n="common.passing_rate">Passing Rate</div>
               </div>
             </div>
             
             <div class="bw-container">
               <div class="bw-card">
                 <div class="bw-header">
-                  <span class="bw-label"><i class="fas fa-star" style="color:#f39c12;"></i> Best</span>
+                  <span class="bw-label" data-i18n="common.best"><i class="fas fa-star" style="color:#f39c12;"></i> Best</span>
                   <span class="bw-grade best" id="bestGrade">--</span>
                 </div>
                 <div class="bw-subject" id="bestSubject">--</div>
@@ -522,7 +523,7 @@
               </div>
               <div class="bw-card">
                 <div class="bw-header">
-                  <span class="bw-label"><i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i> Needs Work</span>
+                  <span class="bw-label" data-i18n="common.needs_work"><i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i> Needs Work</span>
                   <span class="bw-grade worst" id="worstGrade">--</span>
                 </div>
                 <div class="bw-subject" id="worstSubject">--</div>
@@ -532,7 +533,7 @@
             
             <div class="goal-card">
               <div class="goal-header">
-                <span class="label"><i class="fas fa-bullseye"></i> Goal Progress</span>
+                <span class="label" data-i18n="common.goal_progress"><i class="fas fa-bullseye"></i> Goal Progress</span>
                 <span class="value" id="goalProgressText">0%</span>
               </div>
               <div class="goal-bar">
@@ -541,15 +542,15 @@
             </div>
             
             <div class="improve-section" id="improveSection">
-              <div class="improve-title"><i class="fas fa-arrow-up" style="color:#e74c3c;"></i> Subjects to Improve</div>
+              <div class="improve-title" data-i18n="common.subjects_to_improve"><i class="fas fa-arrow-up" style="color:#e74c3c;"></i> Subjects to Improve</div>
               <div id="improveList">
-                <div style="text-align:center;padding:8px;color:var(--text-light);font-size:0.65rem;">No subjects below 10</div>
+                <div style="text-align:center;padding:8px;color:var(--text-light);font-size:0.65rem;" data-i18n="common.no_subjects_below_10">No subjects below 10</div>
               </div>
             </div>
             
             <div class="tip-card" id="tipCard">
               <i class="fas fa-lightbulb"></i>
-              <div class="tip-text"><strong>Tip:</strong> <span id="tipText">Keep going, you are doing great!</span></div>
+              <div class="tip-text"><strong data-i18n="common.tip">Tip:</strong> <span id="tipText" data-i18n="common.keep_going_you_are">Keep going, you are doing great!</span></div>
             </div>
             
             <div class="comp-alert" id="compMsg" style="display:none;"></div>
@@ -559,19 +560,19 @@
           <div class="slide" id="slide1">
             <div class="charts-grid">
               <div class="chart-box">
-                <h4><i class="fas fa-chart-bar"></i> Subject Averages</h4>
+                <h4 data-i18n="common.subject_averages"><i class="fas fa-chart-bar"></i> Subject Averages</h4>
                 <canvas id="barChart"></canvas>
                 <div class="chart-stats">
-                  <span><span class="dot" style="background:var(--primary);"></span> Avg: <strong id="chartAvg">0.00</strong></span>
-                  <span><i class="fas fa-arrow-up" style="color:#2ecc71;"></i> Best: <strong id="chartBest">--</strong></span>
+                  <span data-i18n="common.avg"><span class="dot" style="background:var(--primary);"></span> Avg: <strong id="chartAvg">0.00</strong></span>
+                  <span data-i18n="common.best_2"><i class="fas fa-arrow-up" style="color:#2ecc71;"></i> Best: <strong id="chartBest">--</strong></span>
                 </div>
               </div>
               <div class="chart-box">
-                <h4><i class="fas fa-chart-pie"></i> Grade Distribution</h4>
+                <h4 data-i18n="common.grade_distribution"><i class="fas fa-chart-pie"></i> Grade Distribution</h4>
                 <canvas id="distChart"></canvas>
                 <div class="chart-stats">
-                  <span><span class="dot" style="background:#2ecc71;"></span> Pass: <strong id="distPass">0</strong></span>
-                  <span><span class="dot" style="background:#e74c3c;"></span> Fail: <strong id="distFail">0</strong></span>
+                  <span data-i18n="common.pass"><span class="dot" style="background:#2ecc71;"></span> Pass: <strong id="distPass">0</strong></span>
+                  <span data-i18n="common.fail"><span class="dot" style="background:#e74c3c;"></span> Fail: <strong id="distFail">0</strong></span>
                 </div>
               </div>
             </div>

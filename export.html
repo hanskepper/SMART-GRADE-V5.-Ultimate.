@@ -214,27 +214,28 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <!-- HEADER -->
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-file-export"></i><span>EXPORT</span></div>
+      <div class="header-logo"><i class="fas fa-file-export"></i><span data-i18n="export.export">EXPORT</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html">
           <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
             <i class="fas fa-user-graduate"></i>
           </div>
         </a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <!-- BOTTOM SHEET THEME -->
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -243,12 +244,12 @@
     
     <!-- SIDEBAR MENU -->
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="export.html" class="nav-item active"><i class="fas fa-file-export"></i> Export</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="export.html" class="nav-item active" data-i18n="common.export"><i class="fas fa-file-export"></i> Export</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -258,35 +259,35 @@
       <!-- EN-TÊTE -->
       <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
         <i class="fas fa-file-export" style="font-size:40px;opacity:0.5;"></i>
-        <h2 style="color:white;margin:6px 0;">Export Center</h2>
-        <p style="opacity:0.8;font-size:0.65rem;">Download your data</p>
+        <h2 style="color:white;margin:6px 0;" data-i18n="export.export_center">Export Center</h2>
+        <p style="opacity:0.8;font-size:0.65rem;" data-i18n="export.download_your_data">Download your data</p>
       </div>
       
       <!-- JSON Backup -->
       <div class="export-card" onclick="exportJSON()">
         <div class="export-icon-circle ec-json"><i class="fas fa-database"></i></div>
-        <div class="export-info"><strong>JSON Backup</strong><small>Complete data backup</small></div>
+        <div class="export-info"><strong data-i18n="export.json_backup">JSON Backup</strong><small data-i18n="export.complete_data_backup">Complete data backup</small></div>
         <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
       </div>
       
       <!-- CSV Bulletin -->
       <div class="export-card" onclick="chooseTerm('csv')">
         <div class="export-icon-circle ec-csv"><i class="fas fa-file-csv"></i></div>
-        <div class="export-info"><strong>CSV Bulletin</strong><small>Spreadsheet format with grades</small></div>
+        <div class="export-info"><strong data-i18n="export.csv_bulletin">CSV Bulletin</strong><small data-i18n="export.spreadsheet_format_with_grad">Spreadsheet format with grades</small></div>
         <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
       </div>
       
       <!-- HTML Bulletin -->
       <div class="export-card" onclick="chooseTerm('html')">
         <div class="export-icon-circle ec-html"><i class="fas fa-globe"></i></div>
-        <div class="export-info"><strong>HTML Bulletin</strong><small>View or Download</small></div>
+        <div class="export-info"><strong data-i18n="export.html_bulletin">HTML Bulletin</strong><small data-i18n="export.view_or_download">View or Download</small></div>
         <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
       </div>
       
       <!-- PDF Bulletin -->
       <div class="export-card" onclick="chooseTerm('pdf')">
         <div class="export-icon-circle ec-pdf"><i class="fas fa-file-pdf"></i></div>
-        <div class="export-info"><strong>PDF Bulletin (A4)</strong><small>Download PDF file</small></div>
+        <div class="export-info"><strong data-i18n="export.pdf_bulletin_a4">PDF Bulletin (A4)</strong><small data-i18n="export.download_pdf_file">Download PDF file</small></div>
         <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
       </div>
       
@@ -296,7 +297,7 @@
       ========================================== -->
       <div class="export-card" onclick="document.getElementById('importFile').click()" style="cursor:pointer;">
         <div class="export-icon-circle" style="background:rgba(46,204,113,0.12);color:#27ae60;"><i class="fas fa-upload"></i></div>
-        <div class="export-info"><strong>Import JSON Backup</strong><small>Restore your data from a backup file</small></div>
+        <div class="export-info"><strong data-i18n="export.import_json_backup">Import JSON Backup</strong><small data-i18n="export.restore_your_data_from">Restore your data from a backup file</small></div>
         <i class="fas fa-chevron-right" style="color:var(--text-light);"></i>
       </div>
       <input type="file" id="importFile" accept=".json" style="display:none;" onchange="handleImport(event)">
@@ -307,51 +308,51 @@
   <!-- MODAL - CHOISIR LA PÉRIODE (ANCIEN STYLE) -->
   <div class="modal-overlay" id="termOverlay">
     <div class="modal-box">
-      <h3><i class="fas fa-calendar-alt"></i> Choose Period</h3>
-      <p style="font-size:0.65rem;color:var(--text-light);">Select period</p>
+      <h3 data-i18n="export.choose_period"><i class="fas fa-calendar-alt"></i> Choose Period</h3>
+      <p style="font-size:0.65rem;color:var(--text-light);" data-i18n="export.select_period">Select period</p>
       
       <div class="term-opt selected" data-term="yearly" onclick="selectTerm(this)">
         <div class="to-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="to-info"><div class="to-title">Yearly</div><div class="to-desc">All sequences</div></div>
+        <div class="to-info"><div class="to-title" data-i18n="common.yearly">Yearly</div><div class="to-desc" data-i18n="export.all_sequences">All sequences</div></div>
       </div>
       <div class="term-opt" data-term="1" onclick="selectTerm(this)">
         <div class="to-icon"><i class="fas fa-1"></i></div>
-        <div class="to-info"><div class="to-title">Term 1</div><div class="to-desc">Seq 1+2</div></div>
+        <div class="to-info"><div class="to-title" data-i18n="common.term_1">Term 1</div><div class="to-desc" data-i18n="export.seq_12">Seq 1+2</div></div>
       </div>
       <div class="term-opt" data-term="2" onclick="selectTerm(this)">
         <div class="to-icon"><i class="fas fa-2"></i></div>
-        <div class="to-info"><div class="to-title">Term 2</div><div class="to-desc">Seq 3+4</div></div>
+        <div class="to-info"><div class="to-title" data-i18n="common.term_2">Term 2</div><div class="to-desc" data-i18n="export.seq_34">Seq 3+4</div></div>
       </div>
       <div class="term-opt" data-term="3" onclick="selectTerm(this)">
         <div class="to-icon"><i class="fas fa-3"></i></div>
-        <div class="to-info"><div class="to-title">Term 3</div><div class="to-desc">Seq 5+6</div></div>
+        <div class="to-info"><div class="to-title" data-i18n="common.term_3">Term 3</div><div class="to-desc" data-i18n="export.seq_56">Seq 5+6</div></div>
       </div>
       
       <div id="htmlActionButtons" style="display:none;">
         <div class="action-buttons">
-          <button class="btn-view" onclick="viewHTML()"><i class="fas fa-eye"></i> View</button>
-          <button class="btn-download" onclick="downloadHTML()"><i class="fas fa-download"></i> Download HTML</button>
+          <button class="btn-view" onclick="viewHTML()" data-i18n="export.view"><i class="fas fa-eye"></i> View</button>
+          <button class="btn-download" onclick="downloadHTML()" data-i18n="export.download_html"><i class="fas fa-download"></i> Download HTML</button>
         </div>
       </div>
       <div id="pdfActionButtons" style="display:none;">
         <div class="action-buttons">
-          <button class="btn-pdf-download" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+          <button class="btn-pdf-download" onclick="downloadPDF()" data-i18n="export.download_pdf"><i class="fas fa-file-pdf"></i> Download PDF</button>
         </div>
       </div>
       <div id="csvActionButtons" style="display:none;">
         <div class="action-buttons">
-          <button class="btn-csv-download" onclick="downloadCSV()"><i class="fas fa-file-csv"></i> Download CSV</button>
+          <button class="btn-csv-download" onclick="downloadCSV()" data-i18n="export.download_csv"><i class="fas fa-file-csv"></i> Download CSV</button>
         </div>
       </div>
       
-      <button class="cancel-btn" onclick="closeTermModal()">Cancel</button>
+      <button class="cancel-btn" onclick="closeTermModal()" data-i18n="common.cancel">Cancel</button>
     </div>
   </div>
   
-  <div class="pdf-loading" id="pdfLoading">
+  <div class="pdf-loading" id="pdfLoading" data-i18n="export.generating_pdf">
     <i class="fas fa-spinner fa-spin"></i><br>
     Generating PDF...<br>
-    <span style="font-size:0.7rem;">Please wait</span>
+    <span style="font-size:0.7rem;" data-i18n="export.please_wait">Please wait</span>
   </div>
   
   <div id="toastContainer" class="toast-container"></div>

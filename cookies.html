@@ -84,7 +84,7 @@
       line-height: 1.6;
       margin-bottom: 16px;
     }
-    .legal-section ul {
+    .legal-section ul, .legal-section ol {
       margin-left: 24px;
       margin-bottom: 16px;
     }
@@ -230,21 +230,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-cookie-bite"></i><span>COOKIES</span></div>
+      <div class="header-logo"><i class="fas fa-cookie-bite"></i><span data-i18n="cookies.cookies">COOKIES</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -252,20 +253,20 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="cookies.html" class="nav-item active"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
-        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
-        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
-        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
-        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
-        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="cookies.html" class="nav-item active" data-i18n="common.cookies_policy"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="privacy.html" class="nav-item" data-i18n="common.privacy_policy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="terms.html" class="nav-item" data-i18n="common.terms_of_use"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="license.html" class="nav-item" data-i18n="common.license"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="eula.html" class="nav-item" data-i18n="common.eula"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="doc.html" class="nav-item" data-i18n="common.documentation"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="guide-user.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="support.html" class="nav-item" data-i18n="common.support"><i class="fas fa-headset"></i> Support</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -273,221 +274,221 @@
     <main class="main-content">
       <div class="legal-hero">
         <i class="fas fa-cookie-bite" style="font-size:55px;opacity:0.5;"></i>
-        <h1>Cookies Policy</h1>
-        <p>SIN GBHS FOUMBAN - Form 5B Science</p>
-        <div class="last-updated">
+        <h1 data-i18n="common.cookies_policy">Cookies Policy</h1>
+        <p data-i18n="common.sin_gbhs_foumban_form">SIN GBHS FOUMBAN - Form 5B Science</p>
+        <div class="last-updated" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
         </div>
       </div>
       
       <div class="legal-content">
         <div class="toc">
-          <h4><i class="fas fa-list"></i> Table of Contents</h4>
+          <h4 data-i18n="common.table_of_contents"><i class="fas fa-list"></i> Table of Contents</h4>
           <div class="toc-grid">
-            <a href="#section1"><i class="fas fa-chevron-right"></i> 1. What Are Cookies?</a>
-            <a href="#section2"><i class="fas fa-chevron-right"></i> 2. How We Use Cookies</a>
-            <a href="#section3"><i class="fas fa-chevron-right"></i> 3. Types of Cookies We Use</a>
-            <a href="#section4"><i class="fas fa-chevron-right"></i> 4. LocalStorage vs Cookies</a>
-            <a href="#section5"><i class="fas fa-chevron-right"></i> 5. Third-Party Cookies</a>
-            <a href="#section6"><i class="fas fa-chevron-right"></i> 6. Managing Cookies</a>
-            <a href="#section7"><i class="fas fa-chevron-right"></i> 7. Cookie Duration</a>
-            <a href="#section8"><i class="fas fa-chevron-right"></i> 8. Changes to This Policy</a>
-            <a href="#section9"><i class="fas fa-chevron-right"></i> 9. Contact Information</a>
+            <a href="#section1" data-i18n="cookies.1_what_are_cookies"><i class="fas fa-chevron-right"></i> 1. What Are Cookies?</a>
+            <a href="#section2" data-i18n="cookies.2_how_we_use"><i class="fas fa-chevron-right"></i> 2. How We Use Cookies</a>
+            <a href="#section3" data-i18n="cookies.3_types_of_cookies"><i class="fas fa-chevron-right"></i> 3. Types of Cookies We Use</a>
+            <a href="#section4" data-i18n="cookies.4_localstorage_vs_cookies"><i class="fas fa-chevron-right"></i> 4. LocalStorage vs Cookies</a>
+            <a href="#section5" data-i18n="cookies.5_thirdparty_cookies"><i class="fas fa-chevron-right"></i> 5. Third-Party Cookies</a>
+            <a href="#section6" data-i18n="cookies.6_managing_cookies"><i class="fas fa-chevron-right"></i> 6. Managing Cookies</a>
+            <a href="#section7" data-i18n="cookies.7_cookie_duration"><i class="fas fa-chevron-right"></i> 7. Cookie Duration</a>
+            <a href="#section8" data-i18n="cookies.8_changes_to_this"><i class="fas fa-chevron-right"></i> 8. Changes to This Policy</a>
+            <a href="#section9" data-i18n="cookies.9_contact_information"><i class="fas fa-chevron-right"></i> 9. Contact Information</a>
           </div>
         </div>
         
         <div id="section1" class="legal-section">
-          <h3><i class="fas fa-question-circle"></i> 1. What Are Cookies?</h3>
-          <p>Cookies are small text files that are placed on your device (computer, smartphone, tablet) when you visit a website. They are widely used to make websites work more efficiently and provide information to the website owners.</p>
-          <p>However, <strong>SMART GRADE does NOT use traditional browser cookies</strong>. Instead, we use the browser's localStorage API for storing your data. This is a more modern and secure approach.</p>
-          <div class="highlight">
-            <i class="fas fa-info-circle"></i> <strong>Important:</strong> SMART GRADE does not use tracking cookies, advertising cookies, or any third-party cookies that follow you across websites.
+          <h3 data-i18n="cookies.1_what_are_cookies"><i class="fas fa-question-circle"></i> 1. What Are Cookies?</h3>
+          <p data-i18n="cookies.cookies_are_small_text">Cookies are small text files that are placed on your device (computer, smartphone, tablet) when you visit a website. They are widely used to make websites work more efficiently and provide information to the website owners.</p>
+          <p data-i18n="cookies.however">However, <strong data-i18n="cookies.smart_grade_does_not">SMART GRADE does NOT use traditional browser cookies</strong>. Instead, we use the browser's localStorage API for storing your data. This is a more modern and secure approach.</p>
+          <div class="highlight" data-i18n="cookies.smart_grade_does_not_2">
+            <i class="fas fa-info-circle"></i> <strong data-i18n="common.important">Important:</strong> SMART GRADE does not use tracking cookies, advertising cookies, or any third-party cookies that follow you across websites.
           </div>
         </div>
         
         <div id="section2" class="legal-section">
-          <h3><i class="fas fa-database"></i> 2. How We Use localStorage</h3>
-          <p>SMART GRADE uses localStorage instead of traditional cookies. localStorage is a web storage mechanism that allows websites to store data directly in your browser. Here's what we store:</p>
+          <h3 data-i18n="cookies.2_how_we_use_2"><i class="fas fa-database"></i> 2. How We Use localStorage</h3>
+          <p data-i18n="cookies.smart_grade_uses_localstorag">SMART GRADE uses localStorage instead of traditional cookies. localStorage is a web storage mechanism that allows websites to store data directly in your browser. Here's what we store:</p>
           <div class="badge-grid">
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-user"></i></div>
               <div class="badge-info">
-                <h4>User Authentication</h4>
-                <p>Your login session and preferences</p>
+                <h4 data-i18n="cookies.user_authentication">User Authentication</h4>
+                <p data-i18n="cookies.your_login_session_and">Your login session and preferences</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-chart-line"></i></div>
               <div class="badge-info">
-                <h4>Academic Data</h4>
-                <p>Grades, subjects, coefficients, goals</p>
+                <h4 data-i18n="cookies.academic_data">Academic Data</h4>
+                <p data-i18n="cookies.grades_subjects_coefficients">Grades, subjects, coefficients, goals</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-palette"></i></div>
               <div class="badge-info">
-                <h4>App Preferences</h4>
-                <p>Theme, font, language settings</p>
+                <h4 data-i18n="cookies.app_preferences">App Preferences</h4>
+                <p data-i18n="cookies.theme_font_language_settings">Theme, font, language settings</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-history"></i></div>
               <div class="badge-info">
-                <h4>Activity Data</h4>
-                <p>History, notifications, achievements</p>
+                <h4 data-i18n="cookies.activity_data">Activity Data</h4>
+                <p data-i18n="cookies.history_notifications_achiev">History, notifications, achievements</p>
               </div>
             </div>
           </div>
         </div>
         
         <div id="section3" class="legal-section">
-          <h3><i class="fas fa-tag"></i> 3. Types of Storage We Use</h3>
-          <p><strong>SMART GRADE uses the following storage mechanisms:</strong></p>
+          <h3 data-i18n="cookies.3_types_of_storage"><i class="fas fa-tag"></i> 3. Types of Storage We Use</h3>
+          <p><strong data-i18n="cookies.smart_grade_uses_the">SMART GRADE uses the following storage mechanisms:</strong></p>
           <ul>
-            <li><i class="fas fa-database"></i> <strong>localStorage:</strong> Stores all your application data permanently until you delete it or clear your browser data.</li>
-            <li><i class="fas fa-sync-alt"></i> <strong>sessionStorage:</strong> Temporarily stores transfer codes (expire after 10 minutes).</li>
-            <li><i class="fas fa-cookie-bite"></i> <strong>No traditional cookies:</strong> We do not use HTTP cookies for tracking or advertising.</li>
+            <li data-i18n="cookies.stores_all_your_application"><i class="fas fa-database"></i> <strong data-i18n="cookies.localstorage">localStorage:</strong> Stores all your application data permanently until you delete it or clear your browser data.</li>
+            <li data-i18n="cookies.temporarily_stores_transfer"><i class="fas fa-sync-alt"></i> <strong data-i18n="cookies.sessionstorage">sessionStorage:</strong> Temporarily stores transfer codes (expire after 10 minutes).</li>
+            <li data-i18n="cookies.we_do_not_use"><i class="fas fa-cookie-bite"></i> <strong data-i18n="cookies.no_traditional_cookies">No traditional cookies:</strong> We do not use HTTP cookies for tracking or advertising.</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-check-circle"></i> <strong>No Tracking:</strong> We do not use analytics cookies, marketing cookies, or any form of cross-site tracking.
+          <div class="highlight" data-i18n="cookies.we_do_not_use_2">
+            <i class="fas fa-check-circle"></i> <strong data-i18n="cookies.no_tracking">No Tracking:</strong> We do not use analytics cookies, marketing cookies, or any form of cross-site tracking.
           </div>
         </div>
         
         <div id="section4" class="legal-section">
-          <h3><i class="fas fa-exchange-alt"></i> 4. LocalStorage vs Cookies</h3>
+          <h3 data-i18n="cookies.4_localstorage_vs_cookies"><i class="fas fa-exchange-alt"></i> 4. LocalStorage vs Cookies</h3>
           <div class="badge-grid">
             <div class="badge-item">
               <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-check"></i></div>
               <div class="badge-info">
-                <h4>More Secure</h4>
-                <p>localStorage is not sent to servers with every request</p>
+                <h4 data-i18n="cookies.more_secure">More Secure</h4>
+                <p data-i18n="cookies.localstorage_is_not_sent">localStorage is not sent to servers with every request</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-check"></i></div>
               <div class="badge-info">
-                <h4>Larger Storage</h4>
-                <p>Up to 10MB per domain (vs 4KB for cookies)</p>
+                <h4 data-i18n="cookies.larger_storage">Larger Storage</h4>
+                <p data-i18n="cookies.up_to_10mb_per">Up to 10MB per domain (vs 4KB for cookies)</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-check"></i></div>
               <div class="badge-info">
-                <h4>No Expiry</h4>
-                <p>Data persists until manually cleared</p>
+                <h4 data-i18n="cookies.no_expiry">No Expiry</h4>
+                <p data-i18n="cookies.data_persists_until_manually">Data persists until manually cleared</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-check"></i></div>
               <div class="badge-info">
-                <h4>No Tracking</h4>
-                <p>Cannot be read by third parties</p>
+                <h4 data-i18n="cookies.no_tracking_2">No Tracking</h4>
+                <p data-i18n="cookies.cannot_be_read_by">Cannot be read by third parties</p>
               </div>
             </div>
           </div>
         </div>
         
         <div id="section5" class="legal-section">
-          <h3><i class="fas fa-plug"></i> 5. Third-Party Services</h3>
-          <p>SMART GRADE uses the following third-party services that may set their own storage:</p>
+          <h3 data-i18n="cookies.5_thirdparty_services"><i class="fas fa-plug"></i> 5. Third-Party Services</h3>
+          <p data-i18n="cookies.smart_grade_uses_the_2">SMART GRADE uses the following third-party services that may set their own storage:</p>
           <div class="badge-grid">
             <div class="badge-item">
               <div class="badge-icon" style="background:#24292e;"><i class="fab fa-github"></i></div>
               <div class="badge-info">
-                <h4>GitHub Gist</h4>
-                <p>Used for cloud transfer (optional). May set its own authentication cookies.</p>
+                <h4 data-i18n="cookies.github_gist">GitHub Gist</h4>
+                <p data-i18n="cookies.used_for_cloud_transfer">Used for cloud transfer (optional). May set its own authentication cookies.</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#f1c40f;"><i class="fab fa-google"></i></div>
               <div class="badge-info">
-                <h4>Google Fonts</h4>
-                <p>Used for displaying custom fonts. May collect IP addresses.</p>
+                <h4 data-i18n="common.google_fonts">Google Fonts</h4>
+                <p data-i18n="cookies.used_for_displaying_custom">Used for displaying custom fonts. May collect IP addresses.</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#9b59b6;"><i class="fab fa-font-awesome"></i></div>
               <div class="badge-info">
-                <h4>Font Awesome</h4>
-                <p>Used for icons. May set cookies for CDN optimization.</p>
+                <h4 data-i18n="common.font_awesome">Font Awesome</h4>
+                <p data-i18n="cookies.used_for_icons_may">Used for icons. May set cookies for CDN optimization.</p>
               </div>
             </div>
           </div>
-          <p>These services are used only when you explicitly use the corresponding features (cloud transfer, etc.).</p>
+          <p data-i18n="cookies.these_services_are_used">These services are used only when you explicitly use the corresponding features (cloud transfer, etc.).</p>
         </div>
         
         <div id="section6" class="legal-section">
-          <h3><i class="fas fa-cog"></i> 6. Managing Your Storage</h3>
-          <p>You have full control over your data stored by SMART GRADE:</p>
+          <h3 data-i18n="cookies.6_managing_your_storage"><i class="fas fa-cog"></i> 6. Managing Your Storage</h3>
+          <p data-i18n="cookies.you_have_full_control">You have full control over your data stored by SMART GRADE:</p>
           <ul>
-            <li><i class="fas fa-trash-alt"></i> <strong>Clear localStorage:</strong> You can delete all your data by deleting your account or clearing browser storage.</li>
-            <li><i class="fas fa-download"></i> <strong>Export Data:</strong> Use the Export feature to save a backup before clearing.</li>
-            <li><i class="fas fa-ban"></i> <strong>Disable Cloud Features:</strong> You can choose not to use cloud transfer/backup features.</li>
-            <li><i class="fas fa-database"></i> <strong>Browser Settings:</strong> Most browsers allow you to clear localStorage through privacy settings.</li>
+            <li data-i18n="cookies.you_can_delete_all"><i class="fas fa-trash-alt"></i> <strong data-i18n="cookies.clear_localstorage">Clear localStorage:</strong> You can delete all your data by deleting your account or clearing browser storage.</li>
+            <li data-i18n="cookies.use_the_export_feature"><i class="fas fa-download"></i> <strong data-i18n="cookies.export_data">Export Data:</strong> Use the Export feature to save a backup before clearing.</li>
+            <li data-i18n="cookies.you_can_choose_not"><i class="fas fa-ban"></i> <strong data-i18n="cookies.disable_cloud_features">Disable Cloud Features:</strong> You can choose not to use cloud transfer/backup features.</li>
+            <li data-i18n="cookies.most_browsers_allow_you"><i class="fas fa-database"></i> <strong data-i18n="cookies.browser_settings">Browser Settings:</strong> Most browsers allow you to clear localStorage through privacy settings.</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-download"></i> <strong>Recommendation:</strong> Before clearing your browser data, use the Export feature to save a backup of your grades and achievements.
+          <div class="highlight" data-i18n="cookies.before_clearing_your_browser">
+            <i class="fas fa-download"></i> <strong data-i18n="common.recommendation">Recommendation:</strong> Before clearing your browser data, use the Export feature to save a backup of your grades and achievements.
           </div>
         </div>
         
         <div id="section7" class="legal-section">
-          <h3><i class="fas fa-clock"></i> 7. Storage Duration</h3>
-          <p>Different types of data have different retention periods:</p>
+          <h3 data-i18n="cookies.7_storage_duration"><i class="fas fa-clock"></i> 7. Storage Duration</h3>
+          <p data-i18n="cookies.different_types_of_data">Different types of data have different retention periods:</p>
           <div class="badge-grid">
             <div class="badge-item">
               <div class="badge-icon" style="background:#3498db;"><i class="fas fa-user"></i></div>
               <div class="badge-info">
-                <h4>Account Data</h4>
-                <p>Until account deletion or manual clearing</p>
+                <h4 data-i18n="cookies.account_data">Account Data</h4>
+                <p data-i18n="cookies.until_account_deletion_or">Until account deletion or manual clearing</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#e74c3c;"><i class="fas fa-key"></i></div>
               <div class="badge-info">
-                <h4>Transfer Codes</h4>
-                <p>10 minutes (automatically deleted)</p>
+                <h4 data-i18n="cookies.transfer_codes">Transfer Codes</h4>
+                <p data-i18n="cookies.10_minutes_automatically_del">10 minutes (automatically deleted)</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#f39c12;"><i class="fas fa-cloud-upload-alt"></i></div>
               <div class="badge-info">
-                <h4>Cloud Backups</h4>
-                <p>24 hours (optional feature)</p>
+                <h4 data-i18n="cookies.cloud_backups">Cloud Backups</h4>
+                <p data-i18n="cookies.24_hours_optional_feature">24 hours (optional feature)</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon" style="background:#2ecc71;"><i class="fas fa-palette"></i></div>
               <div class="badge-info">
-                <h4>Preferences</h4>
-                <p>Until manually changed</p>
+                <h4 data-i18n="cookies.preferences">Preferences</h4>
+                <p data-i18n="cookies.until_manually_changed">Until manually changed</p>
               </div>
             </div>
           </div>
         </div>
         
         <div id="section8" class="legal-section">
-          <h3><i class="fas fa-edit"></i> 8. Changes to This Policy</h3>
-          <p>We may update this Cookies Policy from time to time. When we make changes:</p>
+          <h3 data-i18n="cookies.8_changes_to_this"><i class="fas fa-edit"></i> 8. Changes to This Policy</h3>
+          <p data-i18n="cookies.we_may_update_this">We may update this Cookies Policy from time to time. When we make changes:</p>
           <ul>
-            <li>The "Last updated" date at the top of this document will be modified</li>
-            <li>Users will be notified via in-app notification of significant changes</li>
-            <li>Continued use of SMART GRADE after changes constitutes acceptance of the new policy</li>
+            <li data-i18n="cookies.the_last_updated_date">The "Last updated" date at the top of this document will be modified</li>
+            <li data-i18n="cookies.users_will_be_notified">Users will be notified via in-app notification of significant changes</li>
+            <li data-i18n="cookies.continued_use_of_smart">Continued use of SMART GRADE after changes constitutes acceptance of the new policy</li>
           </ul>
         </div>
         
         <div id="section9" class="legal-section">
-          <h3><i class="fas fa-envelope"></i> 9. Contact Information</h3>
-          <p>If you have any questions about this Cookies Policy, please contact the developer:</p>
+          <h3 data-i18n="cookies.9_contact_information"><i class="fas fa-envelope"></i> 9. Contact Information</h3>
+          <p data-i18n="cookies.if_you_have_any">If you have any questions about this Cookies Policy, please contact the developer:</p>
           <ul>
-            <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
-            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
-            <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
-            <li><i class="fab fa-github"></i> <strong>GitHub:</strong> hanskepper</li>
-            <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
+            <li data-i18n="common.hans_kepper"><i class="fas fa-user"></i> <strong data-i18n="common.developer">Developer:</strong> HANS KEPPER</li>
+            <li data-i18n="common.hanskepper52gmailcom"><i class="fas fa-envelope"></i> <strong data-i18n="common.email">Email:</strong> hanskepper52@gmail.com</li>
+            <li><i class="fab fa-whatsapp"></i> <strong data-i18n="common.whatsapp">WhatsApp:</strong> +237 698 640 885</li>
+            <li data-i18n="common.hanskepper"><i class="fab fa-github"></i> <strong data-i18n="common.github">GitHub:</strong> hanskepper</li>
+            <li data-i18n="common.sin_gbhs_foumban_form_2"><i class="fas fa-school"></i> <strong data-i18n="common.school">School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
           </ul>
         </div>
         
-        <div class="legal-date">
+        <div class="legal-date" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026<br>
           <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
           <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>
@@ -501,10 +502,10 @@
   
   <!-- Cookie consent banner -->
   <div id="cookieBanner" class="cookie-banner">
-    <p><i class="fas fa-cookie-bite"></i> SMART GRADE uses localStorage to store your grades and preferences. No tracking cookies are used. By using this application, you consent to this local storage.</p>
+    <p data-i18n="cookies.smart_grade_uses_localstorag_2"><i class="fas fa-cookie-bite"></i> SMART GRADE uses localStorage to store your grades and preferences. No tracking cookies are used. By using this application, you consent to this local storage.</p>
     <div class="cookie-buttons">
-      <button class="cookie-decline" onclick="declineCookies()">Decline (Use anonymously)</button>
-      <button class="cookie-accept" onclick="acceptCookies()">Accept & Continue</button>
+      <button class="cookie-decline" onclick="declineCookies()" data-i18n="cookies.decline_use_anonymously">Decline (Use anonymously)</button>
+      <button class="cookie-accept" onclick="acceptCookies()" data-i18n="cookies.accept_continue">Accept & Continue</button>
     </div>
   </div>
   

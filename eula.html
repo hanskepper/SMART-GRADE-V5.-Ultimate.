@@ -184,21 +184,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-file-signature"></i><span>EULA</span></div>
+      <div class="header-logo"><i class="fas fa-file-signature"></i><span data-i18n="common.eula">EULA</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -206,20 +207,20 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="eula.html" class="nav-item active"><i class="fas fa-file-signature"></i> EULA</a>
-        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
-        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
-        <a href="license.html" class="nav-item"><i class="fas fa-balance-scale"></i> License</a>
-        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
-        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="eula.html" class="nav-item active" data-i18n="common.eula"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="terms.html" class="nav-item" data-i18n="common.terms_of_use"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="privacy.html" class="nav-item" data-i18n="common.privacy_policy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="cookies.html" class="nav-item" data-i18n="common.cookies_policy"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="license.html" class="nav-item" data-i18n="common.license"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="doc.html" class="nav-item" data-i18n="common.documentation"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="guide-user.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="support.html" class="nav-item" data-i18n="common.support"><i class="fas fa-headset"></i> Support</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -227,174 +228,174 @@
     <main class="main-content">
       <div class="legal-hero">
         <i class="fas fa-file-signature" style="font-size:55px;opacity:0.5;"></i>
-        <h1>End User License Agreement</h1>
-        <p>SIN GBHS FOUMBAN - Form 5B Science</p>
-        <div class="last-updated">
+        <h1 data-i18n="eula.end_user_license_agreement">End User License Agreement</h1>
+        <p data-i18n="common.sin_gbhs_foumban_form">SIN GBHS FOUMBAN - Form 5B Science</p>
+        <div class="last-updated" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
         </div>
       </div>
       
       <div class="legal-content">
         <div class="toc">
-          <h4><i class="fas fa-list"></i> Table of Contents</h4>
+          <h4 data-i18n="common.table_of_contents"><i class="fas fa-list"></i> Table of Contents</h4>
           <div class="toc-grid">
-            <a href="#section1"><i class="fas fa-chevron-right"></i> 1. Agreement Overview</a>
-            <a href="#section2"><i class="fas fa-chevron-right"></i> 2. License Grant</a>
-            <a href="#section3"><i class="fas fa-chevron-right"></i> 3. Permitted Uses</a>
-            <a href="#section4"><i class="fas fa-chevron-right"></i> 4. Restrictions</a>
-            <a href="#section5"><i class="fas fa-chevron-right"></i> 5. Data Ownership</a>
-            <a href="#section6"><i class="fas fa-chevron-right"></i> 6. Disclaimer of Warranty</a>
-            <a href="#section7"><i class="fas fa-chevron-right"></i> 7. Limitation of Liability</a>
-            <a href="#section8"><i class="fas fa-chevron-right"></i> 8. Termination</a>
-            <a href="#section9"><i class="fas fa-chevron-right"></i> 9. Governing Law</a>
-            <a href="#section10"><i class="fas fa-chevron-right"></i> 10. Contact Information</a>
+            <a href="#section1" data-i18n="eula.1_agreement_overview"><i class="fas fa-chevron-right"></i> 1. Agreement Overview</a>
+            <a href="#section2" data-i18n="eula.2_license_grant"><i class="fas fa-chevron-right"></i> 2. License Grant</a>
+            <a href="#section3" data-i18n="eula.3_permitted_uses"><i class="fas fa-chevron-right"></i> 3. Permitted Uses</a>
+            <a href="#section4" data-i18n="eula.4_restrictions"><i class="fas fa-chevron-right"></i> 4. Restrictions</a>
+            <a href="#section5" data-i18n="eula.5_data_ownership"><i class="fas fa-chevron-right"></i> 5. Data Ownership</a>
+            <a href="#section6" data-i18n="eula.6_disclaimer_of_warranty"><i class="fas fa-chevron-right"></i> 6. Disclaimer of Warranty</a>
+            <a href="#section7" data-i18n="eula.7_limitation_of_liability"><i class="fas fa-chevron-right"></i> 7. Limitation of Liability</a>
+            <a href="#section8" data-i18n="eula.8_termination"><i class="fas fa-chevron-right"></i> 8. Termination</a>
+            <a href="#section9" data-i18n="eula.9_governing_law"><i class="fas fa-chevron-right"></i> 9. Governing Law</a>
+            <a href="#section10" data-i18n="eula.10_contact_information"><i class="fas fa-chevron-right"></i> 10. Contact Information</a>
           </div>
         </div>
         
         <div id="section1" class="legal-section">
-          <h3><i class="fas fa-gavel"></i> 1. Agreement Overview</h3>
-          <p>This End User License Agreement ("EULA") is a legal agreement between you ("User", "Student") and HANS KEPPER ("Developer") for the use of SMART GRADE software application ("Software"). By installing, accessing, or using SMART GRADE, you agree to be bound by the terms of this EULA. If you do not agree to these terms, do not use the Software.</p>
-          <div class="highlight">
-            <i class="fas fa-info-circle"></i> <strong>Important:</strong> This EULA applies exclusively to students of SIN GBHS FOUMBAN, Form 5B Science, academic year 2026-2027.
+          <h3 data-i18n="eula.1_agreement_overview"><i class="fas fa-gavel"></i> 1. Agreement Overview</h3>
+          <p data-i18n="eula.this_end_user_license">This End User License Agreement ("EULA") is a legal agreement between you ("User", "Student") and HANS KEPPER ("Developer") for the use of SMART GRADE software application ("Software"). By installing, accessing, or using SMART GRADE, you agree to be bound by the terms of this EULA. If you do not agree to these terms, do not use the Software.</p>
+          <div class="highlight" data-i18n="eula.this_eula_applies_exclusivel">
+            <i class="fas fa-info-circle"></i> <strong data-i18n="common.important">Important:</strong> This EULA applies exclusively to students of SIN GBHS FOUMBAN, Form 5B Science, academic year 2026-2027.
           </div>
         </div>
         
         <div id="section2" class="legal-section">
-          <h3><i class="fas fa-check-circle"></i> 2. License Grant</h3>
-          <p>The Developer grants you a non-exclusive, non-transferable, revocable license to use SMART GRADE for personal, educational purposes at SIN GBHS FOUMBAN. This license is valid for the academic year 2026-2027.</p>
+          <h3 data-i18n="eula.2_license_grant"><i class="fas fa-check-circle"></i> 2. License Grant</h3>
+          <p data-i18n="eula.the_developer_grants_you">The Developer grants you a non-exclusive, non-transferable, revocable license to use SMART GRADE for personal, educational purposes at SIN GBHS FOUMBAN. This license is valid for the academic year 2026-2027.</p>
           <div class="badge-grid">
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-check"></i></div>
               <div class="badge-info">
-                <h4>Personal Use</h4>
-                <p>Use the Software on your personal devices</p>
+                <h4 data-i18n="eula.personal_use">Personal Use</h4>
+                <p data-i18n="eula.use_the_software_on">Use the Software on your personal devices</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-check"></i></div>
               <div class="badge-info">
-                <h4>Educational Use</h4>
-                <p>Track grades and academic performance</p>
+                <h4 data-i18n="eula.educational_use">Educational Use</h4>
+                <p data-i18n="eula.track_grades_and_academic">Track grades and academic performance</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-check"></i></div>
               <div class="badge-info">
-                <h4>Study Tools</h4>
-                <p>Use flashcards and study features</p>
+                <h4 data-i18n="eula.study_tools">Study Tools</h4>
+                <p data-i18n="eula.use_flashcards_and_study">Use flashcards and study features</p>
               </div>
             </div>
             <div class="badge-item">
               <div class="badge-icon"><i class="fas fa-check"></i></div>
               <div class="badge-info">
-                <h4>Data Export</h4>
-                <p>Export your data in various formats</p>
+                <h4 data-i18n="eula.data_export">Data Export</h4>
+                <p data-i18n="eula.export_your_data_in">Export your data in various formats</p>
               </div>
             </div>
           </div>
         </div>
         
         <div id="section3" class="legal-section">
-          <h3><i class="fas fa-list-alt"></i> 3. Permitted Uses</h3>
+          <h3 data-i18n="eula.3_permitted_uses"><i class="fas fa-list-alt"></i> 3. Permitted Uses</h3>
           <ul>
-            <li><i class="fas fa-chart-line"></i> Entering and tracking your academic grades</li>
-            <li><i class="fas fa-chart-bar"></i> Viewing statistics and performance reports</li>
-            <li><i class="fas fa-clone"></i> Creating and using flashcards for studying</li>
-            <li><i class="fas fa-bullseye"></i> Setting and tracking academic goals</li>
-            <li><i class="fas fa-calendar-alt"></i> Viewing the class timetable</li>
-            <li><i class="fas fa-exchange-alt"></i> Transferring data between your own devices</li>
-            <li><i class="fas fa-database"></i> Creating backups of your data</li>
-            <li><i class="fas fa-file-export"></i> Exporting your data in JSON, CSV, HTML, or PDF format</li>
+            <li data-i18n="eula.entering_and_tracking_your"><i class="fas fa-chart-line"></i> Entering and tracking your academic grades</li>
+            <li data-i18n="eula.viewing_statistics_and_perfo"><i class="fas fa-chart-bar"></i> Viewing statistics and performance reports</li>
+            <li data-i18n="eula.creating_and_using_flashcard"><i class="fas fa-clone"></i> Creating and using flashcards for studying</li>
+            <li data-i18n="eula.setting_and_tracking_academi"><i class="fas fa-bullseye"></i> Setting and tracking academic goals</li>
+            <li data-i18n="eula.viewing_the_class_timetable"><i class="fas fa-calendar-alt"></i> Viewing the class timetable</li>
+            <li data-i18n="eula.transferring_data_between_yo"><i class="fas fa-exchange-alt"></i> Transferring data between your own devices</li>
+            <li data-i18n="eula.creating_backups_of_your"><i class="fas fa-database"></i> Creating backups of your data</li>
+            <li data-i18n="eula.exporting_your_data_in"><i class="fas fa-file-export"></i> Exporting your data in JSON, CSV, HTML, or PDF format</li>
           </ul>
         </div>
         
         <div id="section4" class="legal-section">
-          <h3><i class="fas fa-ban"></i> 4. Restrictions</h3>
-          <p>You agree NOT to:</p>
+          <h3 data-i18n="eula.4_restrictions"><i class="fas fa-ban"></i> 4. Restrictions</h3>
+          <p data-i18n="eula.you_agree_not_to">You agree NOT to:</p>
           <ul>
-            <li><i class="fas fa-code"></i> Modify, reverse engineer, decompile, or disassemble the Software</li>
-            <li><i class="fas fa-share-alt"></i> Distribute, sublicense, rent, or lease the Software to third parties</li>
-            <li><i class="fas fa-user-secret"></i> Use the Software for any illegal purpose under Cameroonian law</li>
-            <li><i class="fas fa-bug"></i> Introduce malware, viruses, or harmful code</li>
-            <li><i class="fas fa-copy"></i> Remove or alter any copyright notices</li>
-            <li><i class="fas fa-fingerprint"></i> Attempt to bypass security features (PIN, fingerprint)</li>
-            <li><i class="fas fa-pen"></i> Falsify or manipulate grade data entered by teachers</li>
+            <li data-i18n="eula.modify_reverse_engineer_deco"><i class="fas fa-code"></i> Modify, reverse engineer, decompile, or disassemble the Software</li>
+            <li data-i18n="eula.distribute_sublicense_rent_o"><i class="fas fa-share-alt"></i> Distribute, sublicense, rent, or lease the Software to third parties</li>
+            <li data-i18n="eula.use_the_software_for"><i class="fas fa-user-secret"></i> Use the Software for any illegal purpose under Cameroonian law</li>
+            <li data-i18n="eula.introduce_malware_viruses_or"><i class="fas fa-bug"></i> Introduce malware, viruses, or harmful code</li>
+            <li data-i18n="eula.remove_or_alter_any"><i class="fas fa-copy"></i> Remove or alter any copyright notices</li>
+            <li data-i18n="eula.attempt_to_bypass_security"><i class="fas fa-fingerprint"></i> Attempt to bypass security features (PIN, fingerprint)</li>
+            <li data-i18n="eula.falsify_or_manipulate_grade"><i class="fas fa-pen"></i> Falsify or manipulate grade data entered by teachers</li>
           </ul>
         </div>
         
         <div id="section5" class="legal-section">
-          <h3><i class="fas fa-database"></i> 5. Data Ownership</h3>
-          <p>All data you enter into SMART GRADE (grades, notes, flashcards, profile information) remains your property. The Developer does not claim ownership over your data. You are solely responsible for:</p>
+          <h3 data-i18n="eula.5_data_ownership"><i class="fas fa-database"></i> 5. Data Ownership</h3>
+          <p data-i18n="eula.all_data_you_enter">All data you enter into SMART GRADE (grades, notes, flashcards, profile information) remains your property. The Developer does not claim ownership over your data. You are solely responsible for:</p>
           <ul>
-            <li><i class="fas fa-database"></i> Backing up your data regularly</li>
-            <li><i class="fas fa-file-export"></i> Exporting your data before account deletion</li>
-            <li><i class="fas fa-key"></i> Maintaining the confidentiality of your PIN</li>
-            <li><i class="fas fa-history"></i> Understanding that the Developer is not responsible for data loss</li>
+            <li data-i18n="eula.backing_up_your_data"><i class="fas fa-database"></i> Backing up your data regularly</li>
+            <li data-i18n="eula.exporting_your_data_before"><i class="fas fa-file-export"></i> Exporting your data before account deletion</li>
+            <li data-i18n="eula.maintaining_the_confidential"><i class="fas fa-key"></i> Maintaining the confidentiality of your PIN</li>
+            <li data-i18n="eula.understanding_that_the_devel"><i class="fas fa-history"></i> Understanding that the Developer is not responsible for data loss</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-download"></i> <strong>Recommendation:</strong> Use the Export feature regularly to save backups of your data.
+          <div class="highlight" data-i18n="eula.use_the_export_feature">
+            <i class="fas fa-download"></i> <strong data-i18n="common.recommendation">Recommendation:</strong> Use the Export feature regularly to save backups of your data.
           </div>
         </div>
         
         <div id="section6" class="legal-section">
-          <h3><i class="fas fa-scale-balanced"></i> 6. Disclaimer of Warranty</h3>
-          <p>THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. THE DEVELOPER DOES NOT WARRANT THAT:</p>
+          <h3 data-i18n="eula.6_disclaimer_of_warranty"><i class="fas fa-scale-balanced"></i> 6. Disclaimer of Warranty</h3>
+          <p data-i18n="eula.the_software_is_provided">THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. THE DEVELOPER DOES NOT WARRANT THAT:</p>
           <ul>
-            <li><i class="fas fa-sync-alt"></i> The Software will be error-free or uninterrupted</li>
-            <li><i class="fas fa-calculator"></i> Grade calculations are 100% accurate (always verify with official school records)</li>
-            <li><i class="fas fa-check-circle"></i> The Software will meet your specific requirements</li>
-            <li><i class="fas fa-wrench"></i> Any errors will be corrected</li>
-            <li><i class="fas fa-cloud-upload-alt"></i> Cloud services (GitHub Gist) will always be available</li>
+            <li data-i18n="eula.the_software_will_be"><i class="fas fa-sync-alt"></i> The Software will be error-free or uninterrupted</li>
+            <li data-i18n="eula.grade_calculations_are_100"><i class="fas fa-calculator"></i> Grade calculations are 100% accurate (always verify with official school records)</li>
+            <li data-i18n="eula.the_software_will_meet"><i class="fas fa-check-circle"></i> The Software will meet your specific requirements</li>
+            <li data-i18n="eula.any_errors_will_be"><i class="fas fa-wrench"></i> Any errors will be corrected</li>
+            <li data-i18n="eula.cloud_services_github_gist"><i class="fas fa-cloud-upload-alt"></i> Cloud services (GitHub Gist) will always be available</li>
           </ul>
-          <p>Grade calculations are for informational purposes only. The official grades from SIN GBHS FOUMBAN take precedence over any calculations in this Software.</p>
+          <p data-i18n="eula.grade_calculations_are_for">Grade calculations are for informational purposes only. The official grades from SIN GBHS FOUMBAN take precedence over any calculations in this Software.</p>
         </div>
         
         <div id="section7" class="legal-section">
-          <h3><i class="fas fa-shield"></i> 7. Limitation of Liability</h3>
-          <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL THE DEVELOPER (HANS KEPPER) BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATING TO:</p>
+          <h3 data-i18n="eula.7_limitation_of_liability"><i class="fas fa-shield"></i> 7. Limitation of Liability</h3>
+          <p data-i18n="eula.to_the_maximum_extent">TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL THE DEVELOPER (HANS KEPPER) BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATING TO:</p>
           <ul>
-            <li><i class="fas fa-laptop"></i> Your use or inability to use the Software</li>
-            <li><i class="fas fa-calculator"></i> Any errors or inaccuracies in grade calculations</li>
-            <li><i class="fas fa-database"></i> Loss of data (always maintain backups)</li>
-            <li><i class="fas fa-key"></i> Unauthorized access to your account due to weak PIN</li>
-            <li><i class="fas fa-cloud"></i> Third-party services (GitHub, JSONBin.io, etc.)</li>
-            <li><i class="fas fa-graduation-cap"></i> Academic consequences resulting from use of the Software</li>
+            <li data-i18n="eula.your_use_or_inability"><i class="fas fa-laptop"></i> Your use or inability to use the Software</li>
+            <li data-i18n="eula.any_errors_or_inaccuracies"><i class="fas fa-calculator"></i> Any errors or inaccuracies in grade calculations</li>
+            <li data-i18n="eula.loss_of_data_always"><i class="fas fa-database"></i> Loss of data (always maintain backups)</li>
+            <li data-i18n="eula.unauthorized_access_to_your"><i class="fas fa-key"></i> Unauthorized access to your account due to weak PIN</li>
+            <li data-i18n="eula.thirdparty_services_github_j"><i class="fas fa-cloud"></i> Third-party services (GitHub, JSONBin.io, etc.)</li>
+            <li data-i18n="eula.academic_consequences_result"><i class="fas fa-graduation-cap"></i> Academic consequences resulting from use of the Software</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-exclamation-triangle"></i> <strong>Important:</strong> The Developer's total liability shall not exceed the amount paid for the Software (if any). As the Software is provided free of charge, liability is limited to zero.
+          <div class="highlight" data-i18n="eula.the_developers_total_liabili">
+            <i class="fas fa-exclamation-triangle"></i> <strong data-i18n="common.important">Important:</strong> The Developer's total liability shall not exceed the amount paid for the Software (if any). As the Software is provided free of charge, liability is limited to zero.
           </div>
         </div>
         
         <div id="section8" class="legal-section">
-          <h3><i class="fas fa-trash-alt"></i> 8. Termination</h3>
-          <p>This EULA is effective until terminated. Your rights under this EULA will terminate automatically without notice if you fail to comply with any term of this agreement. Upon termination, you must:</p>
+          <h3 data-i18n="eula.8_termination"><i class="fas fa-trash-alt"></i> 8. Termination</h3>
+          <p data-i18n="eula.this_eula_is_effective">This EULA is effective until terminated. Your rights under this EULA will terminate automatically without notice if you fail to comply with any term of this agreement. Upon termination, you must:</p>
           <ul>
-            <li><i class="fas fa-stop"></i> Cease all use of the Software</li>
-            <li><i class="fas fa-trash"></i> Delete all copies of the Software from your devices</li>
-            <li><i class="fas fa-user-slash"></i> Delete your account and associated data (or export it first)</li>
+            <li data-i18n="eula.cease_all_use_of"><i class="fas fa-stop"></i> Cease all use of the Software</li>
+            <li data-i18n="eula.delete_all_copies_of"><i class="fas fa-trash"></i> Delete all copies of the Software from your devices</li>
+            <li data-i18n="eula.delete_your_account_and"><i class="fas fa-user-slash"></i> Delete your account and associated data (or export it first)</li>
           </ul>
-          <p>The Developer also reserves the right to terminate your access to the Software for conduct that violates these terms or is harmful to other users.</p>
+          <p data-i18n="eula.the_developer_also_reserves">The Developer also reserves the right to terminate your access to the Software for conduct that violates these terms or is harmful to other users.</p>
         </div>
         
         <div id="section9" class="legal-section">
-          <h3><i class="fas fa-flag-checkered"></i> 9. Governing Law</h3>
-          <p>This EULA shall be governed by and construed in accordance with the laws of the Republic of Cameroon, without regard to its conflict of law provisions. Any disputes arising from this agreement shall be resolved in the courts of Foumban, West Region, Cameroon.</p>
+          <h3 data-i18n="eula.9_governing_law"><i class="fas fa-flag-checkered"></i> 9. Governing Law</h3>
+          <p data-i18n="eula.this_eula_shall_be">This EULA shall be governed by and construed in accordance with the laws of the Republic of Cameroon, without regard to its conflict of law provisions. Any disputes arising from this agreement shall be resolved in the courts of Foumban, West Region, Cameroon.</p>
         </div>
         
         <div id="section10" class="legal-section">
-          <h3><i class="fas fa-envelope"></i> 10. Contact Information</h3>
-          <p>If you have any questions about this EULA, please contact the developer:</p>
+          <h3 data-i18n="eula.10_contact_information"><i class="fas fa-envelope"></i> 10. Contact Information</h3>
+          <p data-i18n="eula.if_you_have_any">If you have any questions about this EULA, please contact the developer:</p>
           <ul>
-            <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
-            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
-            <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
-            <li><i class="fab fa-github"></i> <strong>GitHub:</strong> hanskepper</li>
-            <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
-            <li><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Foumban, West Region, Cameroon</li>
+            <li data-i18n="common.hans_kepper"><i class="fas fa-user"></i> <strong data-i18n="common.developer">Developer:</strong> HANS KEPPER</li>
+            <li data-i18n="common.hanskepper52gmailcom"><i class="fas fa-envelope"></i> <strong data-i18n="common.email">Email:</strong> hanskepper52@gmail.com</li>
+            <li><i class="fab fa-whatsapp"></i> <strong data-i18n="common.whatsapp">WhatsApp:</strong> +237 698 640 885</li>
+            <li data-i18n="common.hanskepper"><i class="fab fa-github"></i> <strong data-i18n="common.github">GitHub:</strong> hanskepper</li>
+            <li data-i18n="common.sin_gbhs_foumban_form_2"><i class="fas fa-school"></i> <strong data-i18n="common.school">School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
+            <li data-i18n="common.foumban_west_region_cameroon"><i class="fas fa-map-marker-alt"></i> <strong data-i18n="common.location">Location:</strong> Foumban, West Region, Cameroon</li>
           </ul>
         </div>
         
-        <div class="legal-date">
+        <div class="legal-date" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026<br>
           <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
           <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>

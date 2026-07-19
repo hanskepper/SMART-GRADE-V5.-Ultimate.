@@ -479,20 +479,21 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-exchange-alt"></i><span>TRANSFER</span></div>
+      <div class="header-logo"><i class="fas fa-exchange-alt"></i><span data-i18n="transfer.transfer">TRANSFER</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -500,13 +501,13 @@
     </div>
        
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="transfer.html" class="nav-item active"><i class="fas fa-exchange-alt"></i> Transfer</a>
-        <a href="backup.html" class="nav-item"><i class="fas fa-database"></i> Backup</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="transfer.html" class="nav-item active" data-i18n="common.transfer"><i class="fas fa-exchange-alt"></i> Transfer</a>
+        <a href="backup.html" class="nav-item" data-i18n="common.backup"><i class="fas fa-database"></i> Backup</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -515,46 +516,46 @@
       
       <div class="glass-card text-center" style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;">
         <i class="fas fa-exchange-alt" style="font-size:40px;opacity:0.5;"></i>
-        <h2 style="color:white;margin:8px 0;">Data Transfer</h2>
-        <p style="opacity:0.8;font-size:0.7rem;">Transfer your data between devices</p>
+        <h2 style="color:white;margin:8px 0;" data-i18n="common.data_transfer">Data Transfer</h2>
+        <p style="opacity:0.8;font-size:0.7rem;" data-i18n="terms.transfer_your_data_between">Transfer your data between devices</p>
       </div>
       
       <div class="tab-bar">
-        <div class="tab-btn active" data-tab="export" onclick="switchTab('export')"><i class="fas fa-upload"></i> Export</div>
-        <div class="tab-btn" data-tab="import" onclick="switchTab('import')"><i class="fas fa-download"></i> Import</div>
+        <div class="tab-btn active" data-tab="export" onclick="switchTab('export')" data-i18n="common.export"><i class="fas fa-upload"></i> Export</div>
+        <div class="tab-btn" data-tab="import" onclick="switchTab('import')" data-i18n="common.import"><i class="fas fa-download"></i> Import</div>
       </div>
       
       <!-- EXPORT TAB -->
       <div id="exportTab">
         <div class="glass-card">
           <div class="method-tab">
-            <div class="method-btn active" data-method="local" onclick="switchExportMethod('local')">
+            <div class="method-btn active" data-method="local" onclick="switchExportMethod('local')" data-i18n="doc.local_transfer">
               <i class="fas fa-server"></i> Local Transfer
             </div>
-            <div class="method-btn" data-method="cloud" onclick="switchExportMethod('cloud')">
+            <div class="method-btn" data-method="cloud" onclick="switchExportMethod('cloud')" data-i18n="doc.cloud_transfer">
               <i class="fas fa-cloud-upload-alt"></i> Cloud Transfer
             </div>
-            <div class="method-btn" data-method="qr" onclick="switchExportMethod('qr')">
+            <div class="method-btn" data-method="qr" onclick="switchExportMethod('qr')" data-i18n="transfer.qr_code">
               <i class="fas fa-qrcode"></i> QR Code
             </div>
           </div>
           
           <!-- METHODE LOCALE -->
           <div id="exportLocalMethod">
-            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
-              <i class="fas fa-server"></i> <strong>Local Transfer</strong><br>
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;" data-i18n="transfer.generate_a_local_transfer">
+              <i class="fas fa-server"></i> <strong data-i18n="doc.local_transfer">Local Transfer</strong><br>
               Generate a local transfer code. Valid for 10 minutes.
             </p>
-            <button id="generateLocalBtn" class="btn-local">
+            <button id="generateLocalBtn" class="btn-local" data-i18n="transfer.generate_local_code">
               <i class="fas fa-code"></i> Generate Local Code
             </button>
             <div id="localDisplayArea" style="display:none;">
               <div class="transfer-code-box">
                 <i class="fas fa-key" style="font-size:1.2rem;color:var(--primary);"></i>
-                <p>Your local transfer code is:</p>
-                <div class="transfer-code" id="localTransferCode">XXXXXXXX</div>
-                <div class="expiry-timer">Expires in <span id="localCountdown">10:00</span></div>
-                <button id="copyLocalCodeBtn" class="btn-secondary" style="margin-top:12px;width:auto;padding:8px 20px;">
+                <p data-i18n="transfer.your_local_transfer_code">Your local transfer code is:</p>
+                <div class="transfer-code" id="localTransferCode" data-i18n="transfer.xxxxxxxx">XXXXXXXX</div>
+                <div class="expiry-timer" data-i18n="transfer.expires_in">Expires in <span id="localCountdown">10:00</span></div>
+                <button id="copyLocalCodeBtn" class="btn-secondary" style="margin-top:12px;width:auto;padding:8px 20px;" data-i18n="transfer.copy_code">
                   <i class="fas fa-copy"></i> Copy Code
                 </button>
               </div>
@@ -563,20 +564,20 @@
           
           <!-- METHODE CLOUD (GitHub Gist) -->
           <div id="exportCloudMethod" class="hidden">
-            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
-              <i class="fas fa-cloud-upload-alt"></i> <strong>Cloud Transfer (GitHub Gist)</strong><br>
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;" data-i18n="transfer.upload_data_to_github">
+              <i class="fas fa-cloud-upload-alt"></i> <strong data-i18n="transfer.cloud_transfer_github_gist">Cloud Transfer (GitHub Gist)</strong><br>
               Upload data to GitHub. Valid for 10 minutes.
             </p>
-            <button id="generateCloudBtn" class="btn-cloud">
+            <button id="generateCloudBtn" class="btn-cloud" data-i18n="transfer.generate_cloud_code">
               <i class="fas fa-cloud-upload-alt"></i> Generate Cloud Code
             </button>
             <div id="cloudDisplayArea" style="display:none;">
               <div class="transfer-code-box">
                 <i class="fas fa-cloud" style="font-size:1.2rem;color:#2ecc71;"></i>
-                <p>Your cloud transfer code is:</p>
-                <div class="transfer-code" id="cloudTransferCode">XXXXXXXX</div>
-                <div class="expiry-timer">Expires in <span id="cloudCountdown">10:00</span></div>
-                <button id="copyCloudCodeBtn" class="btn-secondary" style="margin-top:12px;width:auto;padding:8px 20px;">
+                <p data-i18n="transfer.your_cloud_transfer_code">Your cloud transfer code is:</p>
+                <div class="transfer-code" id="cloudTransferCode" data-i18n="transfer.xxxxxxxx">XXXXXXXX</div>
+                <div class="expiry-timer" data-i18n="transfer.expires_in">Expires in <span id="cloudCountdown">10:00</span></div>
+                <button id="copyCloudCodeBtn" class="btn-secondary" style="margin-top:12px;width:auto;padding:8px 20px;" data-i18n="transfer.copy_code">
                   <i class="fas fa-copy"></i> Copy Code
                 </button>
               </div>
@@ -585,11 +586,11 @@
           
           <!-- METHODE QR CODE -->
           <div id="exportQRMethod" class="hidden">
-            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
-              <i class="fas fa-qrcode"></i> <strong>QR Code Transfer</strong><br>
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;" data-i18n="transfer.generate_a_qr_code">
+              <i class="fas fa-qrcode"></i> <strong data-i18n="common.qr_code_transfer">QR Code Transfer</strong><br>
               Generate a QR code linked to cloud data.
             </p>
-            <button id="generateQRBtn" class="btn-camera"><i class="fas fa-qrcode"></i> Generate QR Code</button>
+            <button id="generateQRBtn" class="btn-camera" data-i18n="transfer.generate_qr_code"><i class="fas fa-qrcode"></i> Generate QR Code</button>
             <div id="qrDisplayArea" style="display:none;">
               <div id="qrCodeContainer"></div>
             </div>
@@ -603,25 +604,25 @@
       <div id="importTab" class="hidden">
         <div class="glass-card">
           <div class="method-tab">
-            <div class="method-btn active" data-method="local" onclick="switchImportMethod('local')">
+            <div class="method-btn active" data-method="local" onclick="switchImportMethod('local')" data-i18n="doc.local_transfer">
               <i class="fas fa-server"></i> Local Transfer
             </div>
-            <div class="method-btn" data-method="cloud" onclick="switchImportMethod('cloud')">
+            <div class="method-btn" data-method="cloud" onclick="switchImportMethod('cloud')" data-i18n="doc.cloud_transfer">
               <i class="fas fa-cloud-download-alt"></i> Cloud Transfer
             </div>
-            <div class="method-btn" data-method="qr" onclick="switchImportMethod('qr')">
+            <div class="method-btn" data-method="qr" onclick="switchImportMethod('qr')" data-i18n="transfer.scan_qr_code">
               <i class="fas fa-camera"></i> Scan QR Code
             </div>
           </div>
           
           <!-- IMPORT LOCAL -->
           <div id="importLocalMethod">
-            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;" data-i18n="transfer.enter_local_transfer_code">
               <i class="fas fa-server"></i> Enter local transfer code:
             </p>
             <div class="code-input-group">
-              <input type="text" id="importLocalInput" class="code-input" maxlength="8" placeholder="XXXXXXXX" autocomplete="off">
-              <button id="importLocalBtn" class="btn-local" style="width:auto;padding:12px 24px;">
+              <input type="text" id="importLocalInput" class="code-input" maxlength="8" placeholder="XXXXXXXX" autocomplete="off" data-i18n-placeholder="transfer.xxxxxxxx">
+              <button id="importLocalBtn" class="btn-local" style="width:auto;padding:12px 24px;" data-i18n="common.import">
                 <i class="fas fa-download"></i> Import
               </button>
             </div>
@@ -629,12 +630,12 @@
           
           <!-- IMPORT CLOUD -->
           <div id="importCloudMethod" class="hidden">
-            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;" data-i18n="transfer.enter_cloud_transfer_code">
               <i class="fas fa-cloud-download-alt"></i> Enter cloud transfer code:
             </p>
             <div class="code-input-group">
-              <input type="text" id="importCloudInput" class="code-input" maxlength="8" placeholder="XXXXXXXX" autocomplete="off">
-              <button id="importCloudBtn" class="btn-cloud" style="width:auto;padding:12px 24px;">
+              <input type="text" id="importCloudInput" class="code-input" maxlength="8" placeholder="XXXXXXXX" autocomplete="off" data-i18n-placeholder="transfer.xxxxxxxx">
+              <button id="importCloudBtn" class="btn-cloud" style="width:auto;padding:12px 24px;" data-i18n="common.import">
                 <i class="fas fa-cloud-download-alt"></i> Import
               </button>
             </div>
@@ -642,14 +643,14 @@
           
           <!-- IMPORT QR CODE -->
           <div id="importQRMethod" class="hidden">
-            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;">
+            <p style="font-size:0.65rem;color:var(--text-light);margin-bottom:16px;" data-i18n="transfer.scan_qr_code_2">
               <i class="fas fa-camera"></i> Scan QR code:
             </p>
-            <button id="startScannerBtn" class="btn-camera">
+            <button id="startScannerBtn" class="btn-camera" data-i18n="transfer.start_camera">
               <i class="fas fa-camera"></i> Start Camera
             </button>
             <div id="scannerContainer" class="scanner-area" style="display:none;"></div>
-            <button id="stopScannerBtn" class="btn-stop-camera" style="display:none;">
+            <button id="stopScannerBtn" class="btn-stop-camera" style="display:none;" data-i18n="transfer.stop_camera">
               <i class="fas fa-stop"></i> Stop Camera
             </button>
           </div>

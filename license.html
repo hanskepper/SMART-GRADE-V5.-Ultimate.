@@ -50,7 +50,7 @@
       font-size: 0.7rem;
       margin-top: 16px;
     }
-
+    
     .legal-content {
       background: var(--card-bg);
       border-radius: 24px;
@@ -149,7 +149,10 @@
     .toc a:hover {
       color: var(--primary);
     }
-    
+
+    /* ============================================
+       LIEN GITHUB - NE DÉBORDE PAS
+       ============================================ */
     .github-link {
       display: inline-block;
       max-width: 100%;
@@ -162,6 +165,7 @@
       font-size: 0.75rem;
       font-family: monospace;
     }
+
     .github-link a {
       color: var(--primary);
       text-decoration: none;
@@ -171,9 +175,11 @@
       text-overflow: ellipsis;
       word-break: break-all;
     }
+
     .github-link a:hover {
       text-decoration: underline;
     }
+
     @media (max-width: 550px) {
       .github-link {
         white-space: normal;
@@ -186,6 +192,9 @@
       }
     }
 
+    /* ============================================
+       CONSENTEMENT BANNER
+       ============================================ */
     #licenseConsentBanner {
       position: fixed;
       bottom: 20px;
@@ -201,10 +210,12 @@
       box-shadow: 0 8px 32px rgba(0,0,0,0.25);
       animation: slideUpBanner 0.4s ease;
     }
+
     @keyframes slideUpBanner {
       from { transform: translateX(-50%) translateY(100px); opacity: 0; }
       to { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
+
     #licenseConsentBanner h4 {
       margin: 0 0 8px 0;
       color: var(--primary);
@@ -213,16 +224,19 @@
       align-items: center;
       gap: 8px;
     }
+
     #licenseConsentBanner p {
       font-size: 0.75rem;
       color: var(--text-light);
       margin-bottom: 16px;
       line-height: 1.5;
     }
+
     #licenseConsentBanner .banner-buttons {
       display: flex;
       gap: 12px;
     }
+
     #licenseConsentBanner .btn-decline {
       flex: 1;
       padding: 10px;
@@ -235,9 +249,11 @@
       font-size: 0.8rem;
       transition: all 0.2s;
     }
+
     #licenseConsentBanner .btn-decline:hover {
       background: rgba(0,0,0,0.05);
     }
+
     #licenseConsentBanner .btn-accept {
       flex: 1;
       padding: 10px;
@@ -250,14 +266,17 @@
       font-size: 0.8rem;
       transition: all 0.2s;
     }
+
     #licenseConsentBanner .btn-accept:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 12px rgba(15,59,72,0.3);
     }
+
     body.night-mode #licenseConsentBanner {
       background: #1a1a2e;
       border-color: var(--secondary);
     }
+
     @media (max-width: 550px) {
       .legal-hero h1 { font-size: 1.5rem; }
       .legal-content { padding: 20px; }
@@ -270,21 +289,22 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-balance-scale"></i><span>LICENSE</span></div>
+      <div class="header-logo"><i class="fas fa-balance-scale"></i><span data-i18n="license.license">LICENSE</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -292,20 +312,20 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="license.html" class="nav-item active"><i class="fas fa-balance-scale"></i> License</a>
-        <a href="terms.html" class="nav-item"><i class="fas fa-file-contract"></i> Terms of Use</a>
-        <a href="privacy.html" class="nav-item"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="cookies.html" class="nav-item"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
-        <a href="eula.html" class="nav-item"><i class="fas fa-file-signature"></i> EULA</a>
-        <a href="doc.html" class="nav-item"><i class="fas fa-file-alt"></i> Documentation</a>
-        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i> Support</a>
-        <a href="settings.html" class="nav-item"><i class="fas fa-sliders-h"></i> Settings</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="license.html" class="nav-item active" data-i18n="common.license"><i class="fas fa-balance-scale"></i> License</a>
+        <a href="terms.html" class="nav-item" data-i18n="common.terms_of_use"><i class="fas fa-file-contract"></i> Terms of Use</a>
+        <a href="privacy.html" class="nav-item" data-i18n="common.privacy_policy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        <a href="cookies.html" class="nav-item" data-i18n="common.cookies_policy"><i class="fas fa-cookie-bite"></i> Cookies Policy</a>
+        <a href="eula.html" class="nav-item" data-i18n="common.eula"><i class="fas fa-file-signature"></i> EULA</a>
+        <a href="doc.html" class="nav-item" data-i18n="common.documentation"><i class="fas fa-file-alt"></i> Documentation</a>
+        <a href="guide-user.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="support.html" class="nav-item" data-i18n="common.support"><i class="fas fa-headset"></i> Support</a>
+        <a href="settings.html" class="nav-item" data-i18n="common.settings"><i class="fas fa-sliders-h"></i> Settings</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -313,33 +333,34 @@
     <main class="main-content">
       <div class="legal-hero">
         <i class="fas fa-balance-scale" style="font-size:55px;opacity:0.5;"></i>
-        <h1>MIT License</h1>
-        <p>Open Source Software License for SMART GRADE</p>
-        <div class="version-badge">
+        <h1 data-i18n="license.mit_license">MIT License</h1>
+        <p data-i18n="license.open_source_software_license">Open Source Software License for SMART GRADE</p>
+        <div class="version-badge" data-i18n="common.last_updated_july_08">
           <i class="fas fa-calendar-alt"></i> Last updated: July 08, 2026
         </div>
       </div>
       
       <div class="legal-content">
         <div class="toc">
-          <h4><i class="fas fa-list"></i> Table of Contents</h4>
+          <h4 data-i18n="common.table_of_contents"><i class="fas fa-list"></i> Table of Contents</h4>
           <div class="toc-grid">
-            <a href="#license-text"><i class="fas fa-chevron-right"></i> MIT License Text</a>
-            <a href="#what-it-means"><i class="fas fa-chevron-right"></i> What This Means For You</a>
-            <a href="#permissions"><i class="fas fa-chevron-right"></i> Permissions</a>
-            <a href="#limitations"><i class="fas fa-chevron-right"></i> Limitations</a>
-            <a href="#conditions"><i class="fas fa-chevron-right"></i> Conditions</a>
-            <a href="#disclaimer"><i class="fas fa-chevron-right"></i> Disclaimer of Warranty</a>
-            <a href="#liability"><i class="fas fa-chevron-right"></i> Limitation of Liability</a>
-            <a href="#third-party"><i class="fas fa-chevron-right"></i> Third-Party Libraries</a>
-            <a href="#open-source"><i class="fas fa-chevron-right"></i> Open Source Contributions</a>
-            <a href="#contact"><i class="fas fa-chevron-right"></i> Contact Information</a>
+            <a href="#license-text" data-i18n="license.mit_license_text"><i class="fas fa-chevron-right"></i> MIT License Text</a>
+            <a href="#what-it-means" data-i18n="license.what_this_means_for"><i class="fas fa-chevron-right"></i> What This Means For You</a>
+            <a href="#permissions" data-i18n="license.permissions"><i class="fas fa-chevron-right"></i> Permissions</a>
+            <a href="#limitations" data-i18n="license.limitations"><i class="fas fa-chevron-right"></i> Limitations</a>
+            <a href="#conditions" data-i18n="license.conditions"><i class="fas fa-chevron-right"></i> Conditions</a>
+            <a href="#disclaimer" data-i18n="license.disclaimer_of_warranty"><i class="fas fa-chevron-right"></i> Disclaimer of Warranty</a>
+            <a href="#liability" data-i18n="license.limitation_of_liability"><i class="fas fa-chevron-right"></i> Limitation of Liability</a>
+            <a href="#third-party" data-i18n="license.thirdparty_libraries"><i class="fas fa-chevron-right"></i> Third-Party Libraries</a>
+            <a href="#open-source" data-i18n="license.open_source_contributions"><i class="fas fa-chevron-right"></i> Open Source Contributions</a>
+            <a href="#contact" data-i18n="license.contact_information"><i class="fas fa-chevron-right"></i> Contact Information</a>
           </div>
         </div>
         
+        <!-- MIT LICENSE TEXT -->
         <div id="license-text" class="legal-section">
-          <h3><i class="fas fa-file-code"></i> MIT License Text</h3>
-          <div class="license-box">
+          <h3 data-i18n="license.mit_license_text"><i class="fas fa-file-code"></i> MIT License Text</h3>
+          <div class="license-box" data-i18n="license.mit_license_copyright_c">
 MIT License
 
 Copyright (c) 2026-2027 HANS KEPPER
@@ -367,119 +388,128 @@ SOFTWARE.
           </div>
         </div>
         
+        <!-- WHAT THIS MEANS FOR YOU -->
         <div id="what-it-means" class="legal-section">
-          <h3><i class="fas fa-info-circle"></i> What This Means For You</h3>
+          <h3 data-i18n="license.what_this_means_for"><i class="fas fa-info-circle"></i> What This Means For You</h3>
           <ul>
-            <li><i class="fas fa-check-circle"></i> <strong>Use:</strong> You can use SMART GRADE for any purpose, personal or educational</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Study:</strong> You can study how the application works and learn from the code</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Modify:</strong> You can adapt and modify the code to suit your needs</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Share:</strong> You can distribute copies of the application to others</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Sublicense:</strong> You can distribute modified versions under the same license</li>
-            <li><i class="fas fa-check-circle"></i> <strong>Commercial Use:</strong> You can use the software for commercial purposes (with attribution)</li>
+            <li data-i18n="license.you_can_use_smart"><i class="fas fa-check-circle"></i> <strong data-i18n="license.use">Use:</strong> You can use SMART GRADE for any purpose, personal or educational</li>
+            <li data-i18n="license.you_can_study_how"><i class="fas fa-check-circle"></i> <strong data-i18n="license.study">Study:</strong> You can study how the application works and learn from the code</li>
+            <li data-i18n="license.you_can_adapt_and"><i class="fas fa-check-circle"></i> <strong data-i18n="license.modify">Modify:</strong> You can adapt and modify the code to suit your needs</li>
+            <li data-i18n="license.you_can_distribute_copies"><i class="fas fa-check-circle"></i> <strong data-i18n="license.share">Share:</strong> You can distribute copies of the application to others</li>
+            <li data-i18n="license.you_can_distribute_modified"><i class="fas fa-check-circle"></i> <strong data-i18n="license.sublicense">Sublicense:</strong> You can distribute modified versions under the same license</li>
+            <li data-i18n="license.you_can_use_the"><i class="fas fa-check-circle"></i> <strong data-i18n="license.commercial_use">Commercial Use:</strong> You can use the software for commercial purposes (with attribution)</li>
           </ul>
-          <div class="highlight">
-            <i class="fas fa-check-circle" style="color:#2ecc71;"></i> <strong>Attribution required:</strong> You must include the original copyright notice and license text in all copies or substantial portions of the Software.
+          <div class="highlight" data-i18n="license.you_must_include_the">
+            <i class="fas fa-check-circle" style="color:#2ecc71;"></i> <strong data-i18n="license.attribution_required">Attribution required:</strong> You must include the original copyright notice and license text in all copies or substantial portions of the Software.
           </div>
         </div>
         
+        <!-- PERMISSIONS -->
         <div id="permissions" class="legal-section">
-          <h3><i class="fas fa-check-circle"></i> Permissions</h3>
+          <h3 data-i18n="license.permissions"><i class="fas fa-check-circle"></i> Permissions</h3>
           <ul>
-            <li><i class="fas fa-check"></i> <strong>Commercial Use:</strong> The software can be used commercially</li>
-            <li><i class="fas fa-check"></i> <strong>Modification:</strong> The software can be modified</li>
-            <li><i class="fas fa-check"></i> <strong>Distribution:</strong> The software can be distributed</li>
-            <li><i class="fas fa-check"></i> <strong>Private Use:</strong> The software can be used privately</li>
-            <li><i class="fas fa-check"></i> <strong>Sublicensing:</strong> Modified versions can be sublicensed under the same terms</li>
-            <li><i class="fas fa-check"></i> <strong>Patent Grant:</strong> Contributors grant patent rights for contributions</li>
+            <li data-i18n="license.the_software_can_be"><i class="fas fa-check"></i> <strong data-i18n="license.commercial_use">Commercial Use:</strong> The software can be used commercially</li>
+            <li data-i18n="license.the_software_can_be_2"><i class="fas fa-check"></i> <strong data-i18n="license.modification">Modification:</strong> The software can be modified</li>
+            <li data-i18n="license.the_software_can_be_3"><i class="fas fa-check"></i> <strong data-i18n="license.distribution">Distribution:</strong> The software can be distributed</li>
+            <li data-i18n="license.the_software_can_be_4"><i class="fas fa-check"></i> <strong data-i18n="license.private_use">Private Use:</strong> The software can be used privately</li>
+            <li data-i18n="license.modified_versions_can_be"><i class="fas fa-check"></i> <strong data-i18n="license.sublicensing">Sublicensing:</strong> Modified versions can be sublicensed under the same terms</li>
+            <li data-i18n="license.contributors_grant_patent_ri"><i class="fas fa-check"></i> <strong data-i18n="license.patent_grant">Patent Grant:</strong> Contributors grant patent rights for contributions</li>
           </ul>
         </div>
         
+        <!-- LIMITATIONS -->
         <div id="limitations" class="legal-section">
-          <h3><i class="fas fa-exclamation-triangle"></i> Limitations</h3>
+          <h3 data-i18n="license.limitations"><i class="fas fa-exclamation-triangle"></i> Limitations</h3>
           <ul>
-            <li><i class="fas fa-ban"></i> <strong>No Warranty:</strong> The software is provided "AS IS" without any warranty of any kind</li>
-            <li><i class="fas fa-ban"></i> <strong>No Liability:</strong> The authors are not liable for any damages arising from use</li>
-            <li><i class="fas fa-ban"></i> <strong>No Trademark Rights:</strong> The license does not grant trademark rights</li>
-            <li><i class="fas fa-ban"></i> <strong>No Support Obligation:</strong> The authors are not obligated to provide support</li>
+            <li data-i18n="license.the_software_is_provided"><i class="fas fa-ban"></i> <strong data-i18n="license.no_warranty">No Warranty:</strong> The software is provided "AS IS" without any warranty of any kind</li>
+            <li data-i18n="license.the_authors_are_not"><i class="fas fa-ban"></i> <strong data-i18n="license.no_liability">No Liability:</strong> The authors are not liable for any damages arising from use</li>
+            <li data-i18n="license.the_license_does_not"><i class="fas fa-ban"></i> <strong data-i18n="license.no_trademark_rights">No Trademark Rights:</strong> The license does not grant trademark rights</li>
+            <li data-i18n="license.the_authors_are_not_2"><i class="fas fa-ban"></i> <strong data-i18n="license.no_support_obligation">No Support Obligation:</strong> The authors are not obligated to provide support</li>
           </ul>
         </div>
         
+        <!-- CONDITIONS -->
         <div id="conditions" class="legal-section">
-          <h3><i class="fas fa-clipboard-list"></i> Conditions</h3>
+          <h3 data-i18n="license.conditions"><i class="fas fa-clipboard-list"></i> Conditions</h3>
           <ul>
-            <li><i class="fas fa-copyright"></i> <strong>Copyright Notice:</strong> Must be retained in all copies</li>
-            <li><i class="fas fa-file-signature"></i> <strong>License Text:</strong> Must be included in all copies or substantial portions</li>
-            <li><i class="fas fa-user-check"></i> <strong>Attribution:</strong> Original authors must be credited</li>
+            <li data-i18n="license.must_be_retained_in"><i class="fas fa-copyright"></i> <strong data-i18n="license.copyright_notice">Copyright Notice:</strong> Must be retained in all copies</li>
+            <li data-i18n="license.must_be_included_in"><i class="fas fa-file-signature"></i> <strong data-i18n="license.license_text">License Text:</strong> Must be included in all copies or substantial portions</li>
+            <li data-i18n="license.original_authors_must_be"><i class="fas fa-user-check"></i> <strong data-i18n="license.attribution">Attribution:</strong> Original authors must be credited</li>
           </ul>
         </div>
         
+        <!-- DISCLAIMER OF WARRANTY -->
         <div id="disclaimer" class="legal-section">
-          <h3><i class="fas fa-scale-balanced"></i> Disclaimer of Warranty</h3>
-          <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH YOU.</p>
-          <p>Grade calculations are for informational purposes only. The official grades from SIN GBHS FOUMBAN take precedence over any calculations in this software.</p>
+          <h3 data-i18n="license.disclaimer_of_warranty"><i class="fas fa-scale-balanced"></i> Disclaimer of Warranty</h3>
+          <p data-i18n="license.the_software_is_provided_2">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH YOU.</p>
+          <p data-i18n="license.grade_calculations_are_for">Grade calculations are for informational purposes only. The official grades from SIN GBHS FOUMBAN take precedence over any calculations in this software.</p>
         </div>
         
+        <!-- LIMITATION OF LIABILITY -->
         <div id="liability" class="legal-section">
-          <h3><i class="fas fa-shield"></i> Limitation of Liability</h3>
-          <p>IN NO EVENT SHALL THE DEVELOPER (HANS KEPPER) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-          <p>This includes, but is not limited to:</p>
+          <h3 data-i18n="license.limitation_of_liability"><i class="fas fa-shield"></i> Limitation of Liability</h3>
+          <p data-i18n="license.in_no_event_shall">IN NO EVENT SHALL THE DEVELOPER (HANS KEPPER) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+          <p data-i18n="license.this_includes_but_is">This includes, but is not limited to:</p>
           <ul>
-            <li>Loss of data or grades</li>
-            <li>Academic consequences resulting from use</li>
-            <li>Errors or inaccuracies in calculations</li>
-            <li>Unauthorized access to your account</li>
-            <li>Third-party services (GitHub, JSONBin.io, etc.)</li>
+            <li data-i18n="license.loss_of_data_or">Loss of data or grades</li>
+            <li data-i18n="license.academic_consequences_result">Academic consequences resulting from use</li>
+            <li data-i18n="license.errors_or_inaccuracies_in">Errors or inaccuracies in calculations</li>
+            <li data-i18n="license.unauthorized_access_to_your">Unauthorized access to your account</li>
+            <li data-i18n="eula.thirdparty_services_github_j">Third-party services (GitHub, JSONBin.io, etc.)</li>
           </ul>
         </div>
         
+        <!-- THIRD-PARTY LIBRARIES -->
         <div id="third-party" class="legal-section">
-          <h3><i class="fas fa-code"></i> Third-Party Libraries</h3>
-          <p>SMART GRADE uses the following open source libraries and resources. Each library is distributed under its own license:</p>
+          <h3 data-i18n="license.thirdparty_libraries"><i class="fas fa-code"></i> Third-Party Libraries</h3>
+          <p data-i18n="license.smart_grade_uses_the">SMART GRADE uses the following open source libraries and resources. Each library is distributed under its own license:</p>
           <ul>
-            <li><i class="fas fa-chart-line"></i> <strong>Chart.js</strong> - MIT License - Interactive charts and graphs</li>
-            <li><i class="fas fa-qrcode"></i> <strong>QRCode.js</strong> - MIT License - QR code generation</li>
-            <li><i class="fas fa-camera"></i> <strong>html5-qrcode</strong> - Apache License 2.0 - QR code scanning</li>
-            <li><i class="fab fa-font-awesome"></i> <strong>Font Awesome</strong> - CC BY 4.0 / SIL OFL 1.1 - Icons</li>
-            <li><i class="fab fa-google"></i> <strong>Google Fonts</strong> - Open Font License - Web fonts</li>
-            <li><i class="fas fa-file-pdf"></i> <strong>html2pdf.js</strong> - MIT License - PDF generation</li>
+            <li data-i18n="license.mit_license_interactive_char"><i class="fas fa-chart-line"></i> <strong data-i18n="common.chartjs">Chart.js</strong> - MIT License - Interactive charts and graphs</li>
+            <li data-i18n="license.mit_license_qr_code"><i class="fas fa-qrcode"></i> <strong data-i18n="license.qrcodejs">QRCode.js</strong> - MIT License - QR code generation</li>
+            <li data-i18n="license.apache_license_20_qr"><i class="fas fa-camera"></i> <strong data-i18n="license.html5qrcode">html5-qrcode</strong> - Apache License 2.0 - QR code scanning</li>
+            <li data-i18n="license.cc_by_40_sil"><i class="fab fa-font-awesome"></i> <strong data-i18n="common.font_awesome">Font Awesome</strong> - CC BY 4.0 / SIL OFL 1.1 - Icons</li>
+            <li data-i18n="license.open_font_license_web"><i class="fab fa-google"></i> <strong data-i18n="common.google_fonts">Google Fonts</strong> - Open Font License - Web fonts</li>
+            <li data-i18n="license.mit_license_pdf_generation"><i class="fas fa-file-pdf"></i> <strong data-i18n="license.html2pdfjs">html2pdf.js</strong> - MIT License - PDF generation</li>
           </ul>
         </div>
         
+        <!-- OPEN SOURCE CONTRIBUTIONS -->
         <div id="open-source" class="legal-section">
-          <h3><i class="fab fa-github"></i> Open Source Contributions</h3>
-          <p>SMART GRADE is an open source project. You can contribute by:</p>
+          <h3 data-i18n="license.open_source_contributions"><i class="fab fa-github"></i> Open Source Contributions</h3>
+          <p data-i18n="license.smart_grade_is_an">SMART GRADE is an open source project. You can contribute by:</p>
           <ul>
-            <li><i class="fab fa-github"></i> Reporting bugs on GitHub</li>
-            <li><i class="fas fa-code-branch"></i> Submitting pull requests with improvements</li>
-            <li><i class="fas fa-lightbulb"></i> Suggesting new features</li>
-            <li><i class="fas fa-language"></i> Helping with documentation</li>
-            <li><i class="fas fa-globe"></i> Translating the application</li>
+            <li data-i18n="license.reporting_bugs_on_github"><i class="fab fa-github"></i> Reporting bugs on GitHub</li>
+            <li data-i18n="license.submitting_pull_requests_wit"><i class="fas fa-code-branch"></i> Submitting pull requests with improvements</li>
+            <li data-i18n="license.suggesting_new_features"><i class="fas fa-lightbulb"></i> Suggesting new features</li>
+            <li data-i18n="license.helping_with_documentation"><i class="fas fa-language"></i> Helping with documentation</li>
+            <li data-i18n="license.translating_the_application"><i class="fas fa-globe"></i> Translating the application</li>
           </ul>
           <div class="highlight" style="background: rgba(52,152,219,0.1); border-left-color: #3498db; margin-top: 16px;">
             <i class="fab fa-github"></i> 
-            <strong>Repository:</strong> 
+            <strong data-i18n="license.repository">Repository:</strong> 
             <span class="github-link">
-              <a href="https://github.com/hanskepper/SMART-GRADE" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/hanskepper/SMART-GRADE" target="_blank" rel="noopener noreferrer" data-i18n="license.httpsgithubcomhanskeppersmar">
                 https://github.com/hanskepper/SMART-GRADE
               </a>
             </span>
           </div>
         </div>
         
+        <!-- CONTACT INFORMATION -->
         <div id="contact" class="legal-section">
-          <h3><i class="fas fa-envelope"></i> Contact Information</h3>
-          <p>If you have any questions about this license or the software, please contact the developer:</p>
+          <h3 data-i18n="license.contact_information"><i class="fas fa-envelope"></i> Contact Information</h3>
+          <p data-i18n="license.if_you_have_any">If you have any questions about this license or the software, please contact the developer:</p>
           <ul>
-            <li><i class="fas fa-user"></i> <strong>Developer:</strong> HANS KEPPER</li>
-            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> hanskepper52@gmail.com</li>
-            <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +237 698 640 885</li>
-            <li><i class="fab fa-github"></i> <strong>GitHub:</strong> <span class="github-link"><a href="https://github.com/hanskepper" target="_blank" rel="noopener noreferrer">hanskepper</a></span></li>
-            <li><i class="fas fa-school"></i> <strong>School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
-            <li><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Foumban, West Region, Cameroon</li>
+            <li data-i18n="common.hans_kepper"><i class="fas fa-user"></i> <strong data-i18n="common.developer">Developer:</strong> HANS KEPPER</li>
+            <li data-i18n="common.hanskepper52gmailcom"><i class="fas fa-envelope"></i> <strong data-i18n="common.email">Email:</strong> hanskepper52@gmail.com</li>
+            <li><i class="fab fa-whatsapp"></i> <strong data-i18n="common.whatsapp">WhatsApp:</strong> +237 698 640 885</li>
+            <li data-i18n="common.hanskepper"><i class="fab fa-github"></i> <strong data-i18n="common.github">GitHub:</strong> hanskepper</li>
+            <li data-i18n="common.sin_gbhs_foumban_form_2"><i class="fas fa-school"></i> <strong data-i18n="common.school">School:</strong> SIN GBHS FOUMBAN, Form 5B Science</li>
+            <li data-i18n="common.foumban_west_region_cameroon"><i class="fas fa-map-marker-alt"></i> <strong data-i18n="common.location">Location:</strong> Foumban, West Region, Cameroon</li>
           </ul>
         </div>
         
-        <div class="legal-date">
+        <div class="legal-date" data-i18n="license.license_effective_july_08">
           <i class="fas fa-calendar-alt"></i> License effective: July 08, 2026<br>
           <i class="fas fa-code-branch"></i> Version: 5.0 "Ultimate"<br>
           <i class="fas fa-school"></i> SIN GBHS FOUMBAN - Form 5B Science<br>
@@ -499,11 +529,17 @@ SOFTWARE.
   <script src="js/app.js"></script>
   
   <script>
+    // ============================================
+    // CONSENTEMENT INDIVIDUEL PAR COMPTE
+    // ============================================
+
     function checkLicenseConsent() {
       var user = getCurrentStudent();
       if (!user) return;
+
       var consentKey = 'smartgrade_license_consent_' + user.id;
       var hasConsented = localStorage.getItem(consentKey);
+
       if (!hasConsented) {
         showConsentBanner(user);
       }
@@ -539,11 +575,15 @@ SOFTWARE.
     function acceptLicense() {
       var user = getCurrentStudent();
       if (!user) return;
+
       var consentKey = 'smartgrade_license_consent_' + user.id;
       localStorage.setItem(consentKey, 'true');
+
       var banner = document.getElementById('licenseConsentBanner');
       if (banner) banner.remove();
+
       showToast('License accepted!');
+      
       if (typeof addNotification === 'function') {
         addNotification('account', 'License Accepted', 'You have accepted the MIT License for SMART GRADE.');
       }
@@ -552,11 +592,17 @@ SOFTWARE.
     function declineLicense() {
       var banner = document.getElementById('licenseConsentBanner');
       if (banner) banner.remove();
+
       showToast('You must accept the license to use SMART GRADE.');
+      
       setTimeout(function() {
         window.location.href = 'index.html';
       }, 2000);
     }
+
+    // ============================================
+    // AVATAR, FONT, MENU
+    // ============================================
 
     function updateHeaderAvatar() {
       try {
@@ -596,11 +642,16 @@ SOFTWARE.
       }, 3000);
     }
 
+    // ============================================
+    // INIT
+    // ============================================
+
     document.addEventListener('DOMContentLoaded', function() {
       updateHeaderAvatar();
       initMobileMenu();
       initThemeSelector();
       applyGlobalFont();
+      
       setTimeout(checkLicenseConsent, 500);
     });
 

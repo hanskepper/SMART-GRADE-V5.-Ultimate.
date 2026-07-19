@@ -98,6 +98,11 @@ const FILES_TO_CACHE = [
   './js/avatars-data.js',
   './js/transfer-local.js',
   './js/transfer-manager.js',
+  './js/translator.js',
+
+  // TRADUCTIONS (i18n)
+  './locales/en/translation.json',
+  './locales/fr/translation.json',
 
   // ICÔNES PWA
   './icons/icon-48x48.png',

@@ -427,31 +427,32 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     <div class="splash-container">
       <div class="glass-card splash-card">
 
-        <img src="./icons/icon.png" alt="SMART GRADE" class="splash-logo">
+        <img src="./icons/icon.png" alt="SMART GRADE" class="splash-logo" data-i18n-alt="common.smart_grade">
 
-        <div class="splash-title">SMART GRADE</div>
-        <div class="splash-subtitle">GRADE MANAGEMENT SYSTEM</div>
+        <div class="splash-title" data-i18n="common.smart_grade">SMART GRADE</div>
+        <div class="splash-subtitle" data-i18n="splash.grade_management_system">GRADE MANAGEMENT SYSTEM</div>
 
         <div class="splash-info">
-          <div class="splash-info-item"><i class="fas fa-school"></i><span>GBHS FOUMBAN</span></div>
-          <div class="splash-info-item"><i class="fas fa-users"></i><span>Form 5B Science</span></div>
+          <div class="splash-info-item"><i class="fas fa-school"></i><span data-i18n="splash.gbhs_foumban">GBHS FOUMBAN</span></div>
+          <div class="splash-info-item"><i class="fas fa-users"></i><span data-i18n="common.form_5b_science">Form 5B Science</span></div>
           <div class="splash-info-item"><i class="fas fa-calendar-alt"></i><span>2026-2027</span></div>
         </div>
 
         <div id="loaderContainer" class="loader-wrapper"></div>
 
-        <div class="splash-progress-text" id="progressText">
+        <div class="splash-progress-text" id="progressText" data-i18n="splash.initializing_system">
           Initializing system<span class="splash-dots"><span></span><span></span><span></span></span>
         </div>
       </div>
     </div>
 
-    <div class="splash-version">
+    <div class="splash-version" data-i18n="common.v50_ultimate">
       <i class="fas fa-code-branch"></i> v5.0 Ultimate
     </div>
   </div>

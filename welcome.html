@@ -248,25 +248,26 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <div class="particles" id="particles"></div>
   <div class="app-container">
     
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-graduation-cap"></i><span>WELCOME</span></div>
+      <div class="header-logo"><i class="fas fa-graduation-cap"></i><span data-i18n="welcome.welcome">WELCOME</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html">
           <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;" id="headerAvatar">
             <i class="fas fa-user-graduate"></i>
           </div>
         </a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -274,13 +275,13 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="welcome.html" class="nav-item active"><i class="fas fa-graduation-cap"></i> Welcome</a>
-        <a href="guide-user.html" class="nav-item"><i class="fas fa-question-circle"></i> Guide</a>
-        <a href="about-user.html" class="nav-item"><i class="fas fa-info-circle"></i> About</a>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="welcome.html" class="nav-item active" data-i18n="welcome.welcome_2"><i class="fas fa-graduation-cap"></i> Welcome</a>
+        <a href="guide-user.html" class="nav-item" data-i18n="common.guide"><i class="fas fa-question-circle"></i> Guide</a>
+        <a href="about-user.html" class="nav-item" data-i18n="common.about"><i class="fas fa-info-circle"></i> About</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -292,9 +293,9 @@
           <div class="ripple-ring"></div>
           <i class="fas fa-user-graduate"></i>
         </div>
-        <div class="welcome-name" id="welcomeName">Welcome!</div>
+        <div class="welcome-name" id="welcomeName" data-i18n="welcome.welcome_3">Welcome!</div>
         <div class="welcome-class" id="welcomeInfo"></div>
-        <div class="welcome-badge">
+        <div class="welcome-badge" data-i18n="common.smart_grade_v50_ultimate">
           <i class="fas fa-star"></i> SMART GRADE v5.0 Ultimate
         </div>
       </div>
@@ -303,22 +304,22 @@
         <div class="stat-card-welcome" onclick="location='dashboard.html'">
           <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
           <div class="stat-number" id="wOverall">0.00</div>
-          <div class="stat-text">Overall Average</div>
+          <div class="stat-text" data-i18n="welcome.overall_average">Overall Average</div>
         </div>
         <div class="stat-card-welcome" onclick="location='add-grade.html'">
           <div class="stat-icon"><i class="fas fa-pen-fancy"></i></div>
           <div class="stat-number" id="wGrades">0</div>
-          <div class="stat-text">Total Grades</div>
+          <div class="stat-text" data-i18n="common.total_grades">Total Grades</div>
         </div>
         <div class="stat-card-welcome" onclick="location='achievements.html'">
           <div class="stat-icon"><i class="fas fa-medal"></i></div>
           <div class="stat-number" id="wBadges">0</div>
-          <div class="stat-text">Badges Earned</div>
+          <div class="stat-text" data-i18n="welcome.badges_earned">Badges Earned</div>
         </div>
         <div class="stat-card-welcome" onclick="location='achievements.html'">
           <div class="stat-icon"><i class="fas fa-fire"></i></div>
           <div class="stat-number" id="wStreak">0</div>
-          <div class="stat-text">Day Streak</div>
+          <div class="stat-text" data-i18n="welcome.day_streak">Day Streak</div>
         </div>
       </div>
       
@@ -329,8 +330,8 @@
       </div>
       
       <div class="welcome-buttons">
-        <a href="dashboard.html" class="btn btn-primary"><i class="fas fa-chalkboard-user"></i> Go to Dashboard</a>
-        <a href="notifications.html" class="btn btn-secondary"><i class="fas fa-bell"></i> Notifications</a>
+        <a href="dashboard.html" class="btn btn-primary" data-i18n="welcome.go_to_dashboard"><i class="fas fa-chalkboard-user"></i> Go to Dashboard</a>
+        <a href="notifications.html" class="btn btn-secondary" data-i18n="common.notifications"><i class="fas fa-bell"></i> Notifications</a>
       </div>
       
     </main>

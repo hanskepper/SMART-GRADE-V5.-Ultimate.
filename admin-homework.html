@@ -585,14 +585,15 @@
   </style>
 </head>
 <body>
+  <script src="js/translator.js"></script>
   <!-- Login Overlay -->
   <div class="login-overlay" id="loginOverlay">
     <div class="login-card">
       <i class="fas fa-lock" style="font-size: 50px; color: var(--primary);"></i>
-      <h2>Admin Access</h2>
-      <input type="password" id="adminPassword" placeholder="Enter password">
-      <button onclick="checkAdminLogin()">Login</button>
-      <div id="loginError" style="color: #e74c3c; margin-top: 12px; display: none;">Wrong password</div>
+      <h2 data-i18n="common.admin_access">Admin Access</h2>
+      <input type="password" id="adminPassword" placeholder="Enter password" data-i18n-placeholder="admin_homework.enter_password">
+      <button onclick="checkAdminLogin()" data-i18n="common.login">Login</button>
+      <div id="loginError" style="color: #e74c3c; margin-top: 12px; display: none;" data-i18n="admin_homework.wrong_password">Wrong password</div>
     </div>
   </div>
 
@@ -600,16 +601,16 @@
   <div class="app-container" id="appContainer" style="display: none;">
     <div class="mobile-header">
       <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
-      <div class="header-logo"><i class="fas fa-tasks"></i><span>HOMEWORK ADMIN</span></div>
+      <div class="header-logo"><i class="fas fa-tasks"></i><span data-i18n="admin_homework.homework_admin">HOMEWORK ADMIN</span></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <a href="profile.html"><div id="headerAvatar" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:white;"><i class="fas fa-user-graduate"></i></div></a>
-        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span>Theme</span></div>
+        <div class="theme-btn-header" id="themeBtn"><i class="fas fa-palette"></i><span data-i18n="common.theme">Theme</span></div>
       </div>
     </div>
     
     <div class="sheet-overlay" id="sheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
-      <div class="bottom-sheet-header"><h3><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
+      <div class="bottom-sheet-header"><h3 data-i18n="common.theme"><i class="fas fa-brush"></i> Theme</h3><button class="close-sheet" id="closeSheet"><i class="fas fa-times"></i></button></div>
       <div class="bottom-sheet-content">
         <div class="theme-grid-rect" id="themeGrid"></div>
         <div class="font-row-sheet"><div class="font-sheet" data-font="small">A<sup>-</sup></div><div class="font-sheet" data-font="medium">A</div><div class="font-sheet" data-font="large">A<sup>+</sup></div></div>
@@ -617,20 +618,20 @@
     </div>
     
     <div class="sidebar-menu" id="sidebarMenu">
-      <div class="sidebar-header"><h3><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
+      <div class="sidebar-header"><h3 data-i18n="common.smart_grade"><i class="fas fa-graduation-cap"></i> SMART GRADE</h3><button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button></div>
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-item"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
-        <a href="admin-homework.html" class="nav-item active"><i class="fas fa-tasks"></i> Homework Admin</a>
+        <a href="dashboard.html" class="nav-item" data-i18n="common.dashboard"><i class="fas fa-chalkboard-user"></i> Dashboard</a>
+        <a href="admin-homework.html" class="nav-item active" data-i18n="admin_homework.homework_admin_2"><i class="fas fa-tasks"></i> Homework Admin</a>
         <div id="devSidebarContainer" style="margin-top:16px; padding-top:16px; border-top:2px solid var(--primary);">
-          <div style="font-size:0.7rem; font-weight:700; color:var(--primary); margin-bottom:8px;"><i class="fas fa-code"></i> Developer Tools</div>
-          <a href="dev-calculator.html" class="nav-item"><i class="fas fa-calculator"></i> Calculator</a>
-          <a href="dev-database.html" class="nav-item"><i class="fas fa-database"></i> Database</a>
-          <a href="dev-stats.html" class="nav-item"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
-          <a href="dev-logs.html" class="nav-item"><i class="fas fa-history"></i> System Logs</a>
-          <a href="dev-backup.html" class="nav-item"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
-          <a href="dev-config.html" class="nav-item"><i class="fas fa-cog"></i> System Config</a>
+          <div style="font-size:0.7rem; font-weight:700; color:var(--primary); margin-bottom:8px;" data-i18n="common.developer_tools"><i class="fas fa-code"></i> Developer Tools</div>
+          <a href="dev-calculator.html" class="nav-item" data-i18n="common.calculator"><i class="fas fa-calculator"></i> Calculator</a>
+          <a href="dev-database.html" class="nav-item" data-i18n="common.database"><i class="fas fa-database"></i> Database</a>
+          <a href="dev-stats.html" class="nav-item" data-i18n="common.advanced_stats"><i class="fas fa-chart-pie"></i> Advanced Stats</a>
+          <a href="dev-logs.html" class="nav-item" data-i18n="common.system_logs"><i class="fas fa-history"></i> System Logs</a>
+          <a href="dev-backup.html" class="nav-item" data-i18n="common.cloud_backup"><i class="fas fa-cloud-upload-alt"></i> Cloud Backup</a>
+          <a href="dev-config.html" class="nav-item" data-i18n="common.system_config"><i class="fas fa-cog"></i> System Config</a>
         </div>
-        <a href="#" class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="#" class="nav-item" onclick="logout()" data-i18n="common.logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </nav>
     </div>
     <div class="overlay" id="overlay"></div>
@@ -638,10 +639,10 @@
     <main class="main-content">
       <div class="glass-card">
         <div class="admin-header">
-          <h3><i class="fas fa-tasks"></i> Homework Manager</h3>
+          <h3 data-i18n="common.homework_manager"><i class="fas fa-tasks"></i> Homework Manager</h3>
           <div style="display: flex; gap: 10px;">
-            <button class="btn btn-secondary" onclick="loadHomeworks()"><i class="fas fa-sync-alt"></i> Refresh</button>
-            <button class="btn btn-primary" onclick="openAddModal()"><i class="fas fa-plus"></i> Add Homework</button>
+            <button class="btn btn-secondary" onclick="loadHomeworks()" data-i18n="common.refresh"><i class="fas fa-sync-alt"></i> Refresh</button>
+            <button class="btn btn-primary" onclick="openAddModal()" data-i18n="admin_homework.add_homework"><i class="fas fa-plus"></i> Add Homework</button>
           </div>
         </div>
         <div id="homeworksList"></div>
@@ -652,76 +653,76 @@
   <!-- Modal Add/Edit -->
   <div class="modal" id="homeworkModal">
     <div class="modal-content">
-      <h3 id="modalTitle">Add Homework</h3>
+      <h3 id="modalTitle" data-i18n="admin_homework.add_homework">Add Homework</h3>
       
       <!-- Titre -->
-      <input type="text" id="hwTitle" placeholder="Title...">
+      <input type="text" id="hwTitle" placeholder="Title..." data-i18n-placeholder="admin_homework.title">
       
       <!-- SÉLECTEUR PERSONNALISÉ POUR LES MATIÈRES -->
       <div class="custom-select-subject" id="subjectSelect">
         <div class="select-trigger" onclick="toggleSubjectDropdown()">
-          <span class="selected-text" id="selectedSubjectText">COMPUTER SCIENCES</span>
+          <span class="selected-text" id="selectedSubjectText" data-i18n="admin_homework.computer_sciences">COMPUTER SCIENCES</span>
           <span class="arrow"><i class="fas fa-chevron-down"></i></span>
         </div>
         <div class="options-list" id="subjectOptions">
-          <div class="option" data-value="COMPUTER SCIENCES" onclick="selectSubject('COMPUTER SCIENCES')">COMPUTER SCIENCES</div>
-          <div class="option" data-value="MATHEMATICS" onclick="selectSubject('MATHEMATICS')">MATHEMATICS</div>
-          <div class="option" data-value="CHEMISTRY" onclick="selectSubject('CHEMISTRY')">CHEMISTRY</div>
-          <div class="option" data-value="PHYSICS" onclick="selectSubject('PHYSICS')">PHYSICS</div>
-          <div class="option" data-value="BIOLOGY" onclick="selectSubject('BIOLOGY')">BIOLOGY</div>
-          <div class="option" data-value="ENGLISH LANGUAGE" onclick="selectSubject('ENGLISH LANGUAGE')">ENGLISH LANGUAGE</div>
-          <div class="option" data-value="FRENCH" onclick="selectSubject('FRENCH')">FRENCH</div>
-          <div class="option" data-value="GEOGRAPHY" onclick="selectSubject('GEOGRAPHY')">GEOGRAPHY</div>
-          <div class="option" data-value="ECONOMICS" onclick="selectSubject('ECONOMICS')">ECONOMICS</div>
-          <div class="option" data-value="HUMAN BIOLOGY" onclick="selectSubject('HUMAN BIOLOGY')">HUMAN BIOLOGY</div>
-          <div class="option" data-value="GEOLOGY" onclick="selectSubject('GEOLOGY')">GEOLOGY</div>
-          <div class="option" data-value="ADDITIONAL MATHEMATICS" onclick="selectSubject('ADDITIONAL MATHEMATICS')">ADDITIONAL MATHEMATICS</div>
-          <div class="option" data-value="CITIZENSHIP" onclick="selectSubject('CITIZENSHIP')">CITIZENSHIP</div>
-          <div class="option" data-value="FOOD AND NUTRITION" onclick="selectSubject('FOOD AND NUTRITION')">FOOD AND NUTRITION</div>
+          <div class="option" data-value="COMPUTER SCIENCES" onclick="selectSubject('COMPUTER SCIENCES')" data-i18n="admin_homework.computer_sciences">COMPUTER SCIENCES</div>
+          <div class="option" data-value="MATHEMATICS" onclick="selectSubject('MATHEMATICS')" data-i18n="admin_homework.mathematics">MATHEMATICS</div>
+          <div class="option" data-value="CHEMISTRY" onclick="selectSubject('CHEMISTRY')" data-i18n="admin_homework.chemistry">CHEMISTRY</div>
+          <div class="option" data-value="PHYSICS" onclick="selectSubject('PHYSICS')" data-i18n="admin_homework.physics">PHYSICS</div>
+          <div class="option" data-value="BIOLOGY" onclick="selectSubject('BIOLOGY')" data-i18n="admin_homework.biology">BIOLOGY</div>
+          <div class="option" data-value="ENGLISH LANGUAGE" onclick="selectSubject('ENGLISH LANGUAGE')" data-i18n="admin_homework.english_language">ENGLISH LANGUAGE</div>
+          <div class="option" data-value="FRENCH" onclick="selectSubject('FRENCH')" data-i18n="admin_homework.french">FRENCH</div>
+          <div class="option" data-value="GEOGRAPHY" onclick="selectSubject('GEOGRAPHY')" data-i18n="admin_homework.geography">GEOGRAPHY</div>
+          <div class="option" data-value="ECONOMICS" onclick="selectSubject('ECONOMICS')" data-i18n="admin_homework.economics">ECONOMICS</div>
+          <div class="option" data-value="HUMAN BIOLOGY" onclick="selectSubject('HUMAN BIOLOGY')" data-i18n="admin_homework.human_biology">HUMAN BIOLOGY</div>
+          <div class="option" data-value="GEOLOGY" onclick="selectSubject('GEOLOGY')" data-i18n="admin_homework.geology">GEOLOGY</div>
+          <div class="option" data-value="ADDITIONAL MATHEMATICS" onclick="selectSubject('ADDITIONAL MATHEMATICS')" data-i18n="admin_homework.additional_mathematics">ADDITIONAL MATHEMATICS</div>
+          <div class="option" data-value="CITIZENSHIP" onclick="selectSubject('CITIZENSHIP')" data-i18n="admin_homework.citizenship">CITIZENSHIP</div>
+          <div class="option" data-value="FOOD AND NUTRITION" onclick="selectSubject('FOOD AND NUTRITION')" data-i18n="admin_homework.food_and_nutrition">FOOD AND NUTRITION</div>
         </div>
       </div>
       
       <!-- CALENDRIER PERSONNALISÉ CORRIGÉ -->
       <div class="custom-date-picker" id="datePicker">
         <div class="date-input-trigger" onclick="toggleCalendar()">
-          <span class="date-placeholder" id="dateDisplayText">Select a date...</span>
+          <span class="date-placeholder" id="dateDisplayText" data-i18n="admin_homework.select_a_date">Select a date...</span>
           <span class="date-icon"><i class="fas fa-calendar-alt"></i></span>
         </div>
         
         <div class="calendar-popup" id="calendarPopup">
           <div class="calendar-header">
             <button class="nav-btn" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
-            <span class="month-year" id="calendarMonthYear">June 2026</span>
+            <span class="month-year" id="calendarMonthYear" data-i18n="admin_homework.june_2026">June 2026</span>
             <button class="nav-btn" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
           </div>
           
           <div class="calendar-weekdays" id="calendarWeekdays">
-            <span class="wd">Mo</span>
-            <span class="wd">Tu</span>
-            <span class="wd">We</span>
-            <span class="wd">Th</span>
-            <span class="wd">Fr</span>
-            <span class="wd weekend">Sa</span>
-            <span class="wd weekend">Su</span>
+            <span class="wd" data-i18n="admin_homework.mo">Mo</span>
+            <span class="wd" data-i18n="admin_homework.tu">Tu</span>
+            <span class="wd" data-i18n="admin_homework.we">We</span>
+            <span class="wd" data-i18n="admin_homework.th">Th</span>
+            <span class="wd" data-i18n="admin_homework.fr">Fr</span>
+            <span class="wd weekend" data-i18n="admin_homework.sa">Sa</span>
+            <span class="wd weekend" data-i18n="admin_homework.su">Su</span>
           </div>
           
           <div class="calendar-days" id="calendarDays"></div>
           
           <div class="calendar-actions">
-            <button class="btn-clear-date" onclick="clearDate()"><i class="fas fa-times"></i> Clear</button>
-            <button class="btn-close-calendar" onclick="closeCalendar()"><i class="fas fa-check"></i> OK</button>
+            <button class="btn-clear-date" onclick="clearDate()" data-i18n="admin_homework.clear"><i class="fas fa-times"></i> Clear</button>
+            <button class="btn-close-calendar" onclick="closeCalendar()" data-i18n="admin_homework.ok"><i class="fas fa-check"></i> OK</button>
           </div>
         </div>
       </div>
       
       <!-- Description -->
-      <textarea id="hwDescription" placeholder="Description..."></textarea>
+      <textarea id="hwDescription" placeholder="Description..." data-i18n-placeholder="admin_homework.description"></textarea>
       
       <!-- Zone de dépôt de fichiers -->
       <div class="file-input-area" id="fileDropZone" onclick="document.getElementById('fileInput').click()">
         <i class="fas fa-cloud-upload-alt" style="font-size: 1.5rem; display: block; margin-bottom: 8px;"></i>
-        <span>Click to add files (no limit)</span>
-        <div style="font-size: 0.65rem; color: var(--text-light); margin-top: 4px;">
+        <span data-i18n="admin_homework.click_to_add_files">Click to add files (no limit)</span>
+        <div style="font-size: 0.65rem; color: var(--text-light); margin-top: 4px;" data-i18n="admin_homework.images_videos_audio_pdf">
           <i class="fas fa-info-circle"></i> Images, videos, audio, PDF, DOC, TXT
         </div>
       </div>
@@ -731,8 +732,8 @@
       <input type="hidden" id="editId">
       <input type="hidden" id="selectedDate" value="">
       <div class="modal-buttons">
-        <button class="btn-cancel-modal" onclick="closeModal()">Cancel</button>
-        <button class="btn-save-modal" onclick="saveHomework()">Save</button>
+        <button class="btn-cancel-modal" onclick="closeModal()" data-i18n="common.cancel">Cancel</button>
+        <button class="btn-save-modal" onclick="saveHomework()" data-i18n="common.save">Save</button>
       </div>
     </div>
   </div>
