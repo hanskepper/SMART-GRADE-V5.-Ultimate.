@@ -1,67 +1,49 @@
 <!-- ============================================ -->
-<!-- HEADER AVEC BADGES ET LOGO -->
+<!-- LICENSE - SMART GRADE v5.0 Ultimate -->
 <!-- ============================================ -->
 
 <p align="center">
-  <img src="https://img.shields.io/badge/MIT_License-Open_Source-2ecc71?style=for-the-badge&logo=opensourceinitiative&logoColor=white" width="300">
+  <img src="./icons/icon.png" width="80" height="80" alt="SMART GRADE Logo">
+</p>
+
+<h1 align="center">📄 MIT License</h1>
+
+<p align="center">
+  <strong>SMART GRADE v5.0 Ultimate</strong><br>
+  <span style="color:#4a627a;">SIN GBHS FOUMBAN - Form 5B Science</span><br>
+  <span style="color:#4a627a;">Academic Year 2026-2027</span>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/SMART_GRADE-v5.0_Ultimate-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="380">
-</p>
-
-<p align="center">
-  <strong style="font-size:1.1rem;color:#0f3b48;">SIN GBHS FOUMBAN - Form 5B Science</strong><br>
-  <span style="font-size:0.9rem;color:#4a627a;">Academic Year 2026-2027</span>
-</p>
-
-<!-- BADGES -->
-<p align="center">
-  <img src="https://img.shields.io/badge/📄-MIT_License-2ecc71?style=for-the-badge&logo=opensourceinitiative&logoColor=white" width="200">
-  <img src="https://img.shields.io/badge/📦-Open_Source-3498db?style=for-the-badge&logo=github&logoColor=white" width="200"><br>
-  <img src="https://img.shields.io/badge/👨‍💻-Developer_HANS_KEPPER-9b59b6?style=for-the-badge&logo=github&logoColor=white" width="250">
-  <img src="https://img.shields.io/badge/🏫-GBHS_FOUMBAN-0f3b48?style=for-the-badge&logo=school&logoColor=white" width="250">
-</p>
-
-<!-- SÉPARATEUR -->
-<p align="center">
-  <img src="https://img.shields.io/badge/──────────────────────────────────────-0f3b48?style=for-the-badge" width="500">
+  <img src="https://img.shields.io/badge/📄-MIT_License-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white">
+  <img src="https://img.shields.io/badge/📦-Open_Source-3498db?style=for-the-badge&logo=github&logoColor=white">
+  <img src="https://img.shields.io/badge/👨‍💻-HANS_KEPPER-9b59b6?style=for-the-badge&logo=github&logoColor=white">
 </p>
 
 ---
 
-<!-- ============================================ -->
-<!-- TABLE OF CONTENTS -->
-<!-- ============================================ -->
+## 📋 Table of Contents
 
-## Table of Contents
-
-|  | Section |
-|---|---------|
-| 1 | [MIT License Text](#1-mit-license-text) |
-| 2 | [What This Means For You](#2-what-this-means-for-you) |
-| 3 | [Permissions](#3-permissions) |
-| 4 | [Limitations](#4-limitations) |
-| 5 | [Conditions](#5-conditions) |
-| 6 | [Disclaimer of Warranty](#6-disclaimer-of-warranty) |
-| 7 | [Limitation of Liability](#7-limitation-of-liability) |
-| 8 | [Third-Party Libraries](#8-third-party-libraries) |
-| 9 | [Open Source Contributions](#9-open-source-contributions) |
-| 10 | [Developer Contact](#10-developer-contact) |
+- [License Text](#-license-text)
+- [What This Means For You](#-what-this-means-for-you)
+- [Permissions](#-permissions)
+- [Limitations](#-limitations)
+- [Conditions](#-conditions)
+- [Disclaimer of Warranty](#-disclaimer-of-warranty)
+- [Limitation of Liability](#-limitation-of-liability)
+- [Third-Party Libraries](#-third-party-libraries)
+- [Contact](#-contact)
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 1: MIT LICENSE TEXT -->
-<!-- ============================================ -->
+## 📄 License Text
 
-## 1. MIT License Text
-
-**MIT License**
+<pre>
+MIT License
 
 Copyright (c) 2026-2027 HANS KEPPER
 
-SIN GBHS FOUMBAN - Form 5B Science  
+SIN GBHS FOUMBAN - Form 5B Science
 Academic Year 2026-2027
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -81,14 +63,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+</pre>
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 2: WHAT THIS MEANS FOR YOU -->
-<!-- ============================================ -->
-
-## 2. What This Means For You
+## 📖 What This Means For You
 
 | Right | Description |
 |-------|-------------|
@@ -103,11 +82,7 @@ SOFTWARE.
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 3: PERMISSIONS -->
-<!-- ============================================ -->
-
-## 3. Permissions
+## ✅ Permissions
 
 | Permission | Status |
 |------------|--------|
@@ -120,11 +95,7 @@ SOFTWARE.
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 4: LIMITATIONS -->
-<!-- ============================================ -->
-
-## 4. Limitations
+## ❌ Limitations
 
 | Limitation | Description |
 |------------|-------------|
@@ -135,11 +106,7 @@ SOFTWARE.
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 5: CONDITIONS -->
-<!-- ============================================ -->
-
-## 5. Conditions
+## 📋 Conditions
 
 | Condition | Description |
 |-----------|-------------|
@@ -149,11 +116,7 @@ SOFTWARE.
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 6: DISCLAIMER OF WARRANTY -->
-<!-- ============================================ -->
-
-## 6. Disclaimer of Warranty
+## ⚖️ Disclaimer of Warranty
 
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH YOU.
 
@@ -161,11 +124,7 @@ SOFTWARE.
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 7: LIMITATION OF LIABILITY -->
-<!-- ============================================ -->
-
-## 7. Limitation of Liability
+## 🛡️ Limitation of Liability
 
 > IN NO EVENT SHALL THE DEVELOPER (HANS KEPPER) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
@@ -181,11 +140,7 @@ SOFTWARE.
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 8: THIRD-PARTY LIBRARIES -->
-<!-- ============================================ -->
-
-## 8. Third-Party Libraries
+## 📚 Third-Party Libraries
 
 SMART GRADE uses the following open source libraries:
 
@@ -200,31 +155,7 @@ SMART GRADE uses the following open source libraries:
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 9: OPEN SOURCE CONTRIBUTIONS -->
-<!-- ============================================ -->
-
-## 9. Open Source Contributions
-
-SMART GRADE is an open source project. You can contribute by:
-
-| Contribution | How |
-|--------------|-----|
-| 🐛 **Report Bugs** | Open an issue on GitHub |
-| 💻 **Code** | Submit pull requests with improvements |
-| 💡 **Suggestions** | Propose new features |
-| 📚 **Documentation** | Help improve the docs |
-| 🌍 **Translation** | Translate the application |
-
-🔗 **Repository:** [https://github.com/hanskepper/SMART-GRADE](https://github.com/hanskepper/SMART-GRADE)
-
----
-
-<!-- ============================================ -->
-<!-- SECTION 10: DEVELOPER CONTACT -->
-<!-- ============================================ -->
-
-## 10. Developer Contact
+## 👨‍💻 Contact
 
 | Field | Value |
 |-------|-------|
@@ -237,26 +168,24 @@ SMART GRADE is an open source project. You can contribute by:
 
 ---
 
-<!-- ============================================ -->
-<!-- FOOTER -->
-<!-- ============================================ -->
+## 🔗 Quick Links
+
+| Link | URL |
+|------|-----|
+| **Repository** | https://github.com/hanskepper/SMART-GRADE |
+| **Live Demo** | https://hanskepper.github.io/SMART-GRADE/ |
+| **Issues** | https://github.com/hanskepper/SMART-GRADE/issues |
+
+---
 
 <p align="center">
-  <img src="https://img.shields.io/badge/📅-License_Effective_May_28_2026-0f3b48?style=for-the-badge&logo=calendar&logoColor=white" width="300">
-  <img src="https://img.shields.io/badge/📦-Version_5.0_Ultimate-2ecc71?style=for-the-badge&logo=github&logoColor=white" width="300"><br>
-  <img src="https://img.shields.io/badge/🏫-SIN_GBHS_FOUMBAN-3498db?style=for-the-badge&logo=school&logoColor=white" width="250">
-  <img src="https://img.shields.io/badge/✅-OSI_Approved_MIT_License-9b59b6?style=for-the-badge&logo=opensourceinitiative&logoColor=white" width="300">
+  <img src="https://img.shields.io/badge/📅-License_Effective_2026-0f3b48?style=for-the-badge">
+  <img src="https://img.shields.io/badge/📦-Version_5.0_Ultimate-2ecc71?style=for-the-badge"><br>
+  <img src="https://img.shields.io/badge/🏫-SIN_GBHS_FOUMBAN-3498db?style=for-the-badge">
+  <img src="https://img.shields.io/badge/✅-OSI_Approved_MIT_License-9b59b6?style=for-the-badge">
 </p>
 
 <p align="center">
-  <a href="https://github.com/hanskepper/SMART-GRADE/stargazers">
-    <img src="https://img.shields.io/badge/⭐-Star_this_Repository-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="250">
-  </a>
-  <a href="https://github.com/hanskepper/SMART-GRADE/issues">
-    <img src="https://img.shields.io/badge/🐛-Report_Issues-0f3b48?style=for-the-badge&logo=github&logoColor=white" width="250">
-  </a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/©-2025_2026_HANS_KEPPER-0f3b48?style=for-the-badge" width="300">
+  <strong>© 2026-2027 HANS KEPPER</strong><br>
+  <span style="font-size:0.8rem;color:#4a627a;">Open Source Software - MIT License</span>
 </p>
