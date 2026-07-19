@@ -4,7 +4,7 @@
 
 <!-- Bannière -->
 <p align="center">
-  <img src="./icons/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
+  <img src="./images/header_bg.png" alt="SMART GRADE Header" width="100%" style="max-width:100%;">
 </p>
 
 <div align="center">
@@ -32,7 +32,7 @@
     <img src="https://img.shields.io/badge/Stars-2-0f3b48?style=flat-square&logo=github&logoColor=white">
   </a>
 <p align="center">
-  <img src="./icons/banner.png" alt="SMART GRADE Banner" width="100%">
+  <img src="./images/banner.png" alt="SMART GRADE Banner" width="100%">
 </p>
 
 
