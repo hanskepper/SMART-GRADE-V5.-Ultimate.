@@ -1,0 +1,196 @@
+---
+---
+@import "{{ site.theme }}";
+
+/* ============================================
+   SMART GRADE - THÈME ORANGE
+   ============================================ */
+
+/* ============================================
+   COULEURS PRINCIPALES
+   ============================================ */
+
+:root {
+  --primary: #e67e22;
+  --primary-dark: #d35400;
+  --primary-light: #f39c12;
+  --secondary: #f5cba7;
+  --accent: #e67e22;
+  --text: #2c3e50;
+  --text-light: #5d6d7e;
+  --bg: #fef9f0;
+  --border: #f5cba7;
+}
+
+/* ============================================
+   EN-TÊTE (HEADER)
+   ============================================ */
+
+.page-header {
+  background: linear-gradient(135deg, #d35400, #f39c12) !important;
+  border-bottom: 4px solid #e67e22 !important;
+  padding: 2rem 1rem !important;
+}
+
+.page-header .project-name {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+.page-header .project-tagline {
+  color: #fdebd0 !important;
+  opacity: 0.9 !important;
+}
+
+/* ============================================
+   LIENS
+   ============================================ */
+
+a {
+  color: #e67e22 !important;
+  transition: color 0.3s ease !important;
+}
+
+a:hover {
+  color: #d35400 !important;
+  text-decoration: underline !important;
+}
+
+/* ============================================
+   BOUTONS
+   ============================================ */
+
+.btn {
+  background: linear-gradient(135deg, #e67e22, #f39c12) !important;
+  border-color: #d35400 !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #d35400, #e67e22) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(211, 84, 0, 0.3) !important;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #e67e22, #d35400) !important;
+  border-color: #d35400 !important;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #d35400, #a04000) !important;
+}
+
+/* ============================================
+   PIED DE PAGE (FOOTER)
+   ============================================ */
+
+.site-footer {
+  border-top: 2px solid #f5cba7 !important;
+  background: #fef9f0 !important;
+}
+
+.site-footer .site-footer-credits {
+  color: #5d6d7e !important;
+}
+
+/* ============================================
+   BARRES DE NAVIGATION
+   ============================================ */
+
+.main-content nav {
+  border-bottom: 2px solid #f5cba7 !important;
+}
+
+.main-content nav a {
+  color: #e67e22 !important;
+}
+
+.main-content nav a:hover {
+  color: #d35400 !important;
+  border-bottom: 2px solid #e67e22 !important;
+}
+
+/* ============================================
+   TABLEAUX
+   ============================================ */
+
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
+
+table th {
+  background: linear-gradient(135deg, #e67e22, #f39c12) !important;
+  color: #ffffff !important;
+  padding: 10px !important;
+}
+
+table td {
+  border: 1px solid #f5cba7 !important;
+  padding: 8px !important;
+}
+
+table tr:nth-child(even) {
+  background: #fef9f0 !important;
+}
+
+/* ============================================
+   CODE BLOCKS
+   ============================================ */
+
+.highlight {
+  background: #fef9f0 !important;
+  border-left: 4px solid #e67e22 !important;
+}
+
+code {
+  background: #fdebd0 !important;
+  color: #d35400 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+}
+
+/* ============================================
+   BADGES ET ÉTIQUETTES
+   ============================================ */
+
+.badge {
+  background: linear-gradient(135deg, #e67e22, #f39c12) !important;
+  color: #ffffff !important;
+}
+
+/* ============================================
+   ALERTES
+   ============================================ */
+
+.alert-success {
+  border-left: 4px solid #2ecc71 !important;
+}
+
+.alert-warning {
+  border-left: 4px solid #f39c12 !important;
+}
+
+.alert-danger {
+  border-left: 4px solid #e74c3c !important;
+}
+
+.alert-info {
+  border-left: 4px solid #3498db !important;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 600px) {
+  .page-header {
+    padding: 1.5rem 0.5rem !important;
+  }
+  
+  .page-header .project-name {
+    font-size: 1.5rem !important;
+  }
+}
